@@ -1,6 +1,6 @@
 ## How to start the Node Server:
 
-1. You need to download all the dependencies using `npm i
+1. You need to download all the dependencies using `npm i`
 
 2. Make sure you have the `.env` file
 
