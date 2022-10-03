@@ -1,4 +1,4 @@
-##How to start the Node Server:###
+## How to start the Node Server:
 
 1. You need to download all the dependencies
 
@@ -10,4 +10,4 @@
 
 `npm start`
 
-###You will get a `Enjoyagoals DB Connected` message on your console###
+### You will get a `Enjoyagoals DB Connected` message on your console
