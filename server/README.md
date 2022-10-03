@@ -4,4 +4,4 @@
 
 2. Make sure you have the `.env` file
 
-3. Start the server with `npm start`, and you will get a `Enjoyagoals DB Connected` message on your console if you are connected to the DB
+3. Start the server with `npm start`, and you will get a "Enjoyagoals DB Connected message" on your console if you are successfully connected to the DB
