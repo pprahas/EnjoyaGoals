@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const User = require('./user.js');
 
 //app
 const app = express();
@@ -25,6 +26,9 @@ app.use(cors({ origin: true, credentials: true }));
 // routes
 // const testRoutes = require("./routes/test");
 // app.use("/", testRoutes);
+app.get('/', function (req, res) {
+  res.send("hello " + testUser.getUsername());
+})
 
 // port
 const port = process.env.PORT || 8080;
@@ -33,3 +37,6 @@ const port = process.env.PORT || 8080;
 const server = app.listen(port, () =>
   console.log(`Server is running on ${port}`)
 );
+
+// function to test creating a user object
+let testUser = new User("nortonn", "nortonn@purdue.edu", "Nick");
