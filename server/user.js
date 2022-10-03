@@ -1,8 +1,9 @@
 class User {
-    constructor(username, email, name) {
+    constructor(username, email, name, password) {
         this.username = username;
         this.email = email;
         this.name = name;
+        this.password = password;
     }
 
     getUsername() {
@@ -15,6 +16,12 @@ class User {
 
     getName() {
         return this.name;
+    }
+    
+    // obviously this will be changed, need to implement a hashing function
+    // and *NEVER SEND A PASSWORD AS PLAINTEXT
+    getPassword() {
+        return this.password;
     }
 }
 
