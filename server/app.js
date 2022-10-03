@@ -15,8 +15,8 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("DB Connected"))
-  .catch((err) => console.log("DB Not Connected"));
+  .then(() => console.log("Enjoyagoals DB Connected"))
+  .catch((err) => console.log("Enjoyagoals DB Not Connected"));
 
 // middleware
 app.use(morgan("dev"));
