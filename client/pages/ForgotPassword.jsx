@@ -1,7 +1,7 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Input from "../components/Input";
 
-export default function Login() {
+export default function ForgotPassword() {
   return (
     <>
       {/* <div className="flex h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-grey-50 mt-10"> */}
@@ -12,7 +12,7 @@ export default function Login() {
           <div>
             <img className="mx-auto h-30 w-auto" src="logo.png" />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
+              Forgot Password
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{" "}
