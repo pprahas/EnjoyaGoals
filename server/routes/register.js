@@ -1,8 +1,14 @@
 const User = require('../models/UserModel');
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
+const express = require('express');
 
-var router = require('express').Router();
+const router = express.Router();
 
+router.get('/', function(req, res) {
+    res.send("register get works, idk about post though");
+});
+
+/*
 router.post("/register", async (req, res) => {
     const user = req.body;
 
@@ -23,6 +29,16 @@ router.post("/register", async (req, res) => {
         dbUser.save();
         res.json({message: "Success"});
     }
-})
+
+    const dbUser = new User({
+        username: user.username.toLowerCase(),
+            email: user.email.toLowerCase(),
+            password: user.password
+        })
+
+        dbUser.save();
+        res.json({message: "Success"});
+    })
+*/
 
 module.exports = router;

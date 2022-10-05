@@ -28,11 +28,15 @@ app.use(cors({ origin: true, credentials: true }));
 // routes
 // const testRoutes = require("./routes/test");
 // app.use("/", testRoutes);
-app.use('/register', require('./routes/register'));
+const registerRoutes = require("./routes/register");
+app.use("/", registerRoutes);
+//app.use('/register', require('./routes/register'));
 
+/*
 app.get('/', function (req, res) {
-  res.send("hello " + testUser.getUsername());
+  res.send("hello");
 })
+*/
 
 // port
 const port = process.env.PORT || 8080;
@@ -43,4 +47,4 @@ const server = app.listen(port, () =>
 );
 
 // function to test creating a user object
-let testUser = new User("nortonn", "nortonn@purdue.edu", "Nick");
+// let testUser = new User("nortonn", "nortonn@purdue.edu", "Nick");
