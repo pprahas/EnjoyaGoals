@@ -29,7 +29,7 @@ app.use(cors({ origin: true, credentials: true }));
 // const testRoutes = require("./routes/test");
 // app.use("/", testRoutes);
 const registerRoutes = require("./routes/register");
-app.use("/", registerRoutes);
+app.use("/register", registerRoutes);
 //app.use('/register', require('./routes/register'));
 
 /*
