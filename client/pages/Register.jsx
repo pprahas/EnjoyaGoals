@@ -18,6 +18,15 @@ export default function Register() {
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Register
             </h2>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              {/* Enter your Email to recover your password{" "} */}
+              <a
+                href="/login"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Already have an account?
+              </a>
+            </p>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />

@@ -15,12 +15,12 @@ export default function ForgotPassword() {
               Forgot Password
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Or{" "}
+              Enter your Email to recover your password{" "}
               <a
                 href="#"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
-                Create Account
+                {/* Create Account */}
               </a>
             </p>
           </div>
@@ -33,16 +33,19 @@ export default function ForgotPassword() {
                 htmlFor="email-address"
                 placeholder="Email address"
               />
-              <Input
-                label="password"
-                htmlFor="password"
-                placeholder="Password"
-              />
             </div>
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <input
+                <div className="text-sm">
+                  <a
+                    href="/login"
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Login
+                  </a>
+                </div>
+                {/* <input
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
@@ -53,15 +56,14 @@ export default function ForgotPassword() {
                   className="ml-2 block text-sm text-gray-900"
                 >
                   Remember me
-                </label>
+                </label> */}
               </div>
-
               <div className="text-sm">
                 <a
-                  href="#"
+                  href="/register"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Forgot your password?
+                  Create Account
                 </a>
               </div>
             </div>
@@ -77,9 +79,9 @@ export default function ForgotPassword() {
                     aria-hidden="true"
                   />
                 </span>
-                Log in
+                Forgot Password
               </button>
-              <button
+              {/* <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-5"
               >
@@ -90,7 +92,7 @@ export default function ForgotPassword() {
                   />
                 </span>
                 Log in with Google
-              </button>
+              </button> */}
               {/* <div
                 className="group relative flex w-full justify-center rounded-md
                 border border-transparent py-2 px-4 text-sm  bg-indigo-600

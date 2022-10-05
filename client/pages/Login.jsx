@@ -11,13 +11,13 @@ export default function Login() {
         <div class="px-8 py-6 mt-4 rounded-lg text-left bg-white shadow-lg">
           <div>
             <img className="mx-auto h-30 w-auto" src="logo.png" />
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Sign in to your account
-            </h2>
+            </h1>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{" "}
               <a
-                href="#"
+                href="/register"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 Create Account
@@ -58,7 +58,7 @@ export default function Login() {
 
               <div className="text-sm">
                 <a
-                  href="#"
+                  href="/forgot_password"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Forgot your password?
