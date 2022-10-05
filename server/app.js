@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
-const User = require('./user.js');
+const User = require('./models/UserModel.js');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 //app
 const app = express();
@@ -26,6 +28,8 @@ app.use(cors({ origin: true, credentials: true }));
 // routes
 // const testRoutes = require("./routes/test");
 // app.use("/", testRoutes);
+app.use('/register', require('./routes/register'));
+
 app.get('/', function (req, res) {
   res.send("hello " + testUser.getUsername());
 })
