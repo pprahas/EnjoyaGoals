@@ -4,12 +4,6 @@ const express = require('express');
 
 const router = express.Router();
 
-/*
-router.get('/register', function(req, res) {
-    res.send("register get works, idk about post though");
-});
-*/
-
 router.use(express.json());
 
 router.post("/", async (req, res) => {
