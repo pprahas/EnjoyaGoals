@@ -1,10 +1,12 @@
 // import modules
-
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const User = require('./models/UserModel.js');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 //app
 const app = express();
@@ -23,8 +25,8 @@ app.use(morgan("dev"));
 app.use(cors({ origin: true, credentials: true }));
 
 // routes
-// const testRoutes = require("./routes/test");
-// app.use("/", testRoutes);
+const registerRoutes = require("./routes/register");
+app.use("/register", registerRoutes);
 
 // port
 const port = process.env.PORT || 8080;
