@@ -26,17 +26,8 @@ app.use(morgan("dev"));
 app.use(cors({ origin: true, credentials: true }));
 
 // routes
-// const testRoutes = require("./routes/test");
-// app.use("/", testRoutes);
 const registerRoutes = require("./routes/register");
-app.use("/", registerRoutes);
-//app.use('/register', require('./routes/register'));
-
-/*
-app.get('/', function (req, res) {
-  res.send("hello");
-})
-*/
+app.use("/register", registerRoutes);
 
 // port
 const port = process.env.PORT || 8080;
@@ -45,6 +36,3 @@ const port = process.env.PORT || 8080;
 const server = app.listen(port, () =>
   console.log(`Server is running on ${port}`)
 );
-
-// function to test creating a user object
-// let testUser = new User("nortonn", "nortonn@purdue.edu", "Nick");
