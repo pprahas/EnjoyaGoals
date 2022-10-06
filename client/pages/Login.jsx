@@ -3,12 +3,12 @@ import Input from "../components/Input";
 
 export default function Login() {
   return (
+    <>
     <div>
       <script src="https://apis.google.com/js/platform.js" async defer></script>
       {/* <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com"> */}
     </div>
-    <>
-    
+        
       <div class="flex items-center justify-center min-h-screen bg-gray-100">
         <div class="px-8 py-6 mt-4 rounded-lg text-left bg-white shadow-lg">
           <div>
