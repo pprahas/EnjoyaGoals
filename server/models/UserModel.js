@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    tokenString: {
+        type: String,
+        required: false,
     }
 }, {timestamps: true})
 
