@@ -19,6 +19,8 @@ router.post("/", async (req, res) => {
 
         const dbUser = new User({
             username: user.username.toLowerCase(),
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email.toLowerCase(),
             password: user.password
         })
