@@ -36,6 +36,9 @@ app.use("/login", loginRoutes);
 const forgotPasswordRoutes = require("./routes/forgot_password");
 app.use("/forgot_password", forgotPasswordRoutes);
 
+const resetPasswordRoutes = require("./routes/reset_password");
+app.use("/reset_password", resetPasswordRoutes);
+
 // port
 const port = process.env.PORT || 8080;
 
