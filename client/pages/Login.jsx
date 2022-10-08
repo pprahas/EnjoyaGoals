@@ -6,24 +6,19 @@ export default function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
+  const [message, setMessage] = useState("");
+
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     console.log(email, password);
-    // axios
-    //   .post("http://localhost:8080/login", {
-    //     email: email,
-    //     password: password,
-    //   })
-    //   .then((res) => console.log("User Login", res))
-    //   .catch((err) => console.log(err));
     axios
       .post("http://localhost:8080/login", {
         email,
         password,
       })
-      .then((res) => console.log("User Login", res))
-      .catch((err) => console.log(err));
+      .then((res) => setMessage(res.data.message))
+      .catch((err) => setMessage(err.response.data.message));
   };
 
   return (
@@ -36,7 +31,7 @@ export default function Login() {
           <div>
             <img className="mx-auto h-30 w-auto" src="logo.png" />
             <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              in to your account
+              Log in to your account
             </h1>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{" "}
@@ -49,11 +44,7 @@ export default function Login() {
             </p>
           </div>
           {/* <form className="mt-8 space-y-6" action="#" method="POST"> */}
-          <form
-            className="mt-8 space-y-6"
-            onSubmit={handleSubmit}
-            href="https://medium.com/gist-for-js/use-of-res-json-vs-res-send-vs-res-end-in-express-b50688c0cddf"
-          >
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             {/* <input
               onChange={(e) => handle(e)}
               id="username"
@@ -121,6 +112,7 @@ export default function Login() {
                 </a>
               </div>
             </div>
+            <p className="mt-2 text-center text-sm text-gray-600">{message} </p>
 
             <div>
               <button
