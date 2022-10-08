@@ -1,8 +1,10 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
@@ -17,8 +19,13 @@ export default function Login() {
         email,
         password,
       })
-      .then((res) => setMessage(res.data.message))
-      .catch((err) => setMessage(err.response.data.message));
+      .then((res) => {
+        setMessage(res.data.message);
+        navigate("/homepage");
+      })
+      .catch((err) => {
+        setMessage(err.response.data.message);
+      });
   };
 
   return (
@@ -112,12 +119,17 @@ export default function Login() {
                 </a>
               </div>
             </div>
-            <p className="mt-2 text-center text-sm text-gray-600">{message} </p>
+            <p className="mt-2 text-center text-sm text-red-600">{message} </p>
 
             <div>
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                // onClick={() => {
+                //   if (login_attempt == true) {
+                //     history.push("/profile_information");
+                //   }
+                // }}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockClosedIcon
