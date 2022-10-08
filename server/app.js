@@ -22,7 +22,9 @@ mongoose
 
 // middleware
 app.use(morgan("dev"));
+app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
+express.urlencoded({ extended: true });
 
 // routes
 const registerRoutes = require("./routes/register");
@@ -30,6 +32,9 @@ app.use("/register", registerRoutes);
 
 const loginRoutes = require("./routes/login");
 app.use("/login", loginRoutes);
+
+const forgotPasswordRoutes = require("./routes/forgot_password");
+app.use("/forgot_password", forgotPasswordRoutes);
 
 // port
 const port = process.env.PORT || 8080;
