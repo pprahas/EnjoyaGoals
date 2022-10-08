@@ -1,7 +1,33 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import Input from "../components/Input";
+import axios from "axios";
+import React, { useState } from "react";
 
 export default function Login() {
+  const url = "http://localhost:8080/register";
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  function submit(e) {
+    e.preventDefault();
+    axios
+      .post(url, {
+        email: data.email,
+        password: data.password,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  }
+
+  function handle(e) {
+    const newdata = { ...data };
+    newdata[e.target.id] = e.target.value;
+    setData(newdata);
+    console.log(newdata);
+  }
+
   return (
     <>
       {/* <div className="flex h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-grey-50 mt-10"> */}
@@ -12,7 +38,7 @@ export default function Login() {
           <div>
             <img className="mx-auto h-30 w-auto" src="logo.png" />
             <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
+              Log in to your account
             </h1>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{" "}
@@ -24,18 +50,46 @@ export default function Login() {
               </a>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
-            <input type="hidden" name="remember" defaultValue="true" />
+          {/* <form className="mt-8 space-y-6" action="#" method="POST"> */}
+          <form className="mt-8 space-y-6" onSubmit={(e) => submit(e)}>
+            {/* <input
+              onChange={(e) => handle(e)}
+              id="username"
+              value={data.username}
+              type="hidden"
+              name="remember"
+              defaultValue="true"
+            /> */}
 
             <div className="-space-y-px rounded-md shadow-sm">
-              <Input
+              {/* <Input
                 label="email"
                 htmlFor="email-address"
                 placeholder="Email address"
-              />
-              <Input
+              /> */}
+              {/* <Input
                 label="password"
                 htmlFor="password"
+                placeholder="Password"
+              /> */}
+              <input
+                onChange={(e) => handle(e)}
+                id="email"
+                value={data.email}
+                name="email"
+                type="email"
+                autoComplete="email"
+                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                placeholder="Email Address"
+              />
+              <input
+                onChange={(e) => handle(e)}
+                id="password"
+                value={data.password}
+                name="password"
+                type="password"
+                autoComplete="password"
+                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="Password"
               />
             </div>
@@ -79,7 +133,7 @@ export default function Login() {
                 </span>
                 Log in
               </button>
-              <button
+              {/* <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-5"
               >
@@ -90,7 +144,7 @@ export default function Login() {
                   />
                 </span>
                 Log in with Google
-              </button>
+              </button> */}
               {/* <div
                 className="group relative flex w-full justify-center rounded-md
                 border border-transparent py-2 px-4 text-sm  bg-indigo-600
