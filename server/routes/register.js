@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     const takenEmail = await User.findOne({ email: user.email });
 
     if (takenUsername || takenEmail) {
-      res.json({ message: "Username or email has already been taken" });
+      res.json({ message: "Username or email has already been taken." });
     } else {
       user.password = await bcrypt.hash(req.body.password, 10);
 
