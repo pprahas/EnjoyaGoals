@@ -7,40 +7,28 @@ const router = express.Router();
 router.use(express.json());
 
 router.post("/", async (req, res) => {
-  const { email, password } = req.body;
-  // Check if username and password is provided
-  if (!email || !password) {
-    return res.status(400).json({
-      message: "Email or Password not present.",
-    });
-  }
+  const user = req.body;
   try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      res.status(400).json({
-        //if username is not found
-        message: "Username or Password is incorrect.",
-        // error: "User not found",
-      });
+    const takenEmail = await User.findOne({ email: user.email });
+
+    if (!takenEmail) {
+      res.status(403).send({ message: "Login Unsuccessful." });
+      // res.json({ message: "Email does not exist." });
     } else {
-      // comparing given password with hashed password
-      bcrypt.compare(password, user.password).then(function (result) {
-        result
-          ? res.status(200).json({
-              message: "Login successful.",
-              user,
-            })
-          : res
-              .status(400)
-              //if password is incorrect but username exists
-              .json({ message: "Username or Password is incorrect." });
+      const password = user.password;
+      if (!password) {
+        return res.json({ message: "password ella boss" });
+      }
+      bcrypt.compare(password, takenEmail.password).then((match) => {
+        if (match) {
+          res.status(200).send({ message: "Login Successful." });
+        } else {
+          res.status(403).send({ message: "Login Unsuccessful." });
+        }
       });
     }
   } catch (error) {
-    res.status(400).json({
-      message: "An error occurred.",
-      error: error.message,
-    });
+    res.send({ status: "error" });
   }
 });
 
