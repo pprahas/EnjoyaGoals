@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
-const User = require('./models/UserModel.js');
+const User = require("./models/UserModel.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -27,6 +27,9 @@ app.use(cors({ origin: true, credentials: true }));
 // routes
 const registerRoutes = require("./routes/register");
 app.use("/register", registerRoutes);
+
+const loginRoutes = require("./routes/login");
+app.use("/login", loginRoutes);
 
 // port
 const port = process.env.PORT || 8080;

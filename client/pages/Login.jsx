@@ -5,10 +5,10 @@ export default function Login() {
   return (
     <>
       {/* <div className="flex h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-grey-50 mt-10"> */}
-      <div class="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
         {/* <div className="w-full max-w-md space-y-8 h-full items-center"> */}
         {/* <div className="w-full max-w-md space-y-8 h-full items-center"> */}
-        <div class="px-8 py-6 mt-4 rounded-lg text-left bg-white shadow-lg">
+        <div className="px-8 py-6 mt-4 rounded-lg text-left bg-white shadow-lg">
           <div>
             <img className="mx-auto h-30 w-auto" src="logo.png" />
             <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
