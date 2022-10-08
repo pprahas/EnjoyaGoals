@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
     // res.status(200).json({ msg: activation_token });
     const { email } = req.body;
     const user = await User.findOne({ email });
-    if (!user) return res.status(200).json({ msg: "Email does not exist." });
+    if (!user) return res.status(403).json({ msg: "Incorrect Email address." });
     const ac_token = createToken.activation({ email: user.email });
 
     sendEmail.sendEmailReset(email, ac_token, "", user.firstName);
@@ -26,9 +26,11 @@ router.post("/", async (req, res) => {
     user.tokenString = ac_token;
     await user.save();
 
-    res.status(200).json({ msg: "sent the fucking email" });
+    return res
+      .status(200)
+      .json({ msg: "A token has been sent to your email." });
   } catch (error) {
-    res.status(200).json({ msg: "erroe" });
+    return res.status(403).json({ msg: "Incorrect Email address." });
   }
 });
 
