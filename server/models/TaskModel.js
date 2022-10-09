@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const User = require("./models/UserModel.js");
 
 const taskSchema = mongoose.Schema({
     name: {
@@ -15,15 +14,15 @@ const taskSchema = mongoose.Schema({
         required: false,
     },
     points: {
-        type: int,
+        type: Number,
         required: false,
     },
     completed: {
-        type: boolean,
+        type: Boolean,
         required: true,
     },
     assignedUser: {
-        type: User,
+        type: String,
         required: true,
     }
 }, {timestamps: true})

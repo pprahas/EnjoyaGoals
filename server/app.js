@@ -42,6 +42,9 @@ app.use("/reset_password", resetPasswordRoutes);
 const queryDBRoutes = require("./routes/query_database");
 app.use("/query_database", queryDBRoutes);
 
+const taskRoutes = require("./routes/task");
+app.use("/task", taskRoutes);
+
 // port
 const port = process.env.PORT || 8080;
 
