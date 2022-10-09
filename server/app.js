@@ -36,6 +36,9 @@ app.use("/login", loginRoutes);
 const forgotPasswordRoutes = require("./routes/forgot_password");
 app.use("/forgot_password", forgotPasswordRoutes);
 
+const resetPasswordRoutes = require("./routes/reset_password");
+app.use("/reset_password", resetPasswordRoutes);
+
 const queryDBRoutes = require("./routes/query_database");
 app.use("/query_database", queryDBRoutes);
 
