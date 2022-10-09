@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
 
     if (takenUsername || takenEmail) {
       return res
-        .status(403)
+        .status(400)
         .json({ msg: "Username or email has already been taken." });
     } else {
       user.password = await bcrypt.hash(req.body.password, 10);
@@ -29,15 +29,15 @@ router.post("/", async (req, res) => {
         password: user.password,
       });
 
-      sendEmail.sendEmailRegister(user.email, user.firstName);
       await dbUser.save();
+      sendEmail.sendEmailRegister(user.email, user.firstName);
 
       // sendEmail.sendEmailRegister(takenEmail, user.firstName);
 
-      return res.status(200).json({ msg: "Your account has been created." });
+      return res.status(201).json({ msg: "Your account has been created successfully." });
     }
   } catch (error) {
-    return res.status(403).json({ msg: "Registration Failed" });
+    return res.status(500).json({ msg: "Registration Failed." });
   }
 });
 
