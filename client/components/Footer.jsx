@@ -3,7 +3,7 @@ import React from "react";
 const Footer = (props) => {
   return (
     <>
-      <footer className="absolute inset-x-0 bottom-0 pb-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between min-h-fit dark:bg-gray-800">
+      <footer className="fixed inset-x-0 bottom-0 pb-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between min-h-fit dark:bg-gray-800">
         <span className="pt-4 pl-4 text-sm text-gray-500 sm:text-center dark:text-gray-400 min-h-min">
           © 2022{" "}
           <a href="https://flowbite.com/" className="hover:underline">
