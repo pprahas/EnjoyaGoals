@@ -8,7 +8,7 @@ const User = require("./models/UserModel.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-//app
+// app
 const app = express();
 
 // mongodb
@@ -39,10 +39,13 @@ app.use("/forgot_password", forgotPasswordRoutes);
 const resetPasswordRoutes = require("./routes/reset_password");
 app.use("/reset_password", resetPasswordRoutes);
 
+const queryDBRoutes = require("./routes/query_database");
+app.use("/query_database", queryDBRoutes);
+
 // port
 const port = process.env.PORT || 8080;
 
-//listener
+// listener
 const server = app.listen(port, () =>
   console.log(`Server is running on ${port}`)
 );
