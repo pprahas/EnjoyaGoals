@@ -1,6 +1,7 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const express = require("express");
+const sendEmail = require("../helpers/SendEmail");
 
 const router = express.Router();
 
@@ -14,7 +15,9 @@ router.post("/", async (req, res) => {
     const takenEmail = await User.findOne({ email: user.email });
 
     if (takenUsername || takenEmail) {
-      res.json({ message: "Username or email has already been taken." });
+      return res
+        .status(403)
+        .json({ msg: "Username or email has already been taken." });
     } else {
       user.password = await bcrypt.hash(req.body.password, 10);
 
@@ -26,11 +29,15 @@ router.post("/", async (req, res) => {
         password: user.password,
       });
 
-      dbUser.save();
-      res.json({ message: "Success" });
+      sendEmail.sendEmailRegister(user.email, user.firstName);
+      await dbUser.save();
+
+      // sendEmail.sendEmailRegister(takenEmail, user.firstName);
+
+      return res.status(200).json({ msg: "Your account has been created." });
     }
   } catch (error) {
-    res.send({ status: "error" });
+    return res.status(403).json({ msg: "Registration Failed" });
   }
 });
 
