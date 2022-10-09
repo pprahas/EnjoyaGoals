@@ -7,21 +7,22 @@ export default function Login() {
   const navigate = useNavigate();
   const [token, settoken] = useState("");
   const [password, setpassword] = useState("");
+  const [username, setusername] = useState("");
 
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(email);
     axios
-      .post("http://localhost:8080/forgot_password", {
-        email,
+      .post("http://localhost:8080/reset_password", {
+        username,
+        password,
+        token,
       })
       .then((res) => {
         console.log(res);
         setMessage(res.data.message);
-        // navigate("/homepage");
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -67,6 +68,16 @@ export default function Login() {
                 htmlFor="password"
                 placeholder="Password"
               /> */}
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
+                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                placeholder="Username"
+                onChange={(e) => setusername(e.target.value)}
+                value={username}
+              />
               <input
                 id="token"
                 name="token"

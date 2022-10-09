@@ -12,12 +12,12 @@ router.use(express.json());
 router.post("/", async (req, res) => {
   const data = req.body;
   try {
-    const tokenString = data.tokenString;
+    const tokenString = data.token;
     const user = await User.findOne({ username: data.username });
 
     if (user.tokenString == tokenString) {
       //reset password
-      let new_hashed_password = await bcrypt.hash(data.new_password, 10);
+      let new_hashed_password = await bcrypt.hash(data.password, 10);
       user.password = new_hashed_password;
       await user.save();
     } else {
