@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Task = require("../models/TaskModel");
+const mongoose = require("mongoose");
 
 router.use(express.json());
 
@@ -9,6 +10,7 @@ router.post("/create", async (req, res) => {
 
     try {
         const dbTask = new Task({
+            _id: new mongoose.Types.ObjectId(),
             name: task.name,
             description: task.description,
             difficulty: task.difficulty,
