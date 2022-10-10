@@ -17,6 +17,10 @@ const taskSchema = mongoose.Schema({
         type: String,
         required: false,
     },
+    deadline: {
+        type: Date,
+        required: false,
+    },
     points: {
         type: Number,
         required: false,

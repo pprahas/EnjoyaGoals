@@ -14,6 +14,7 @@ router.post("/create", async (req, res) => {
             name: task.name,
             description: task.description,
             difficulty: task.difficulty,
+            deadline: task.deadline,
             points: task.points,
             completed: task.completed,
             assignedUser: task.assignedUser
