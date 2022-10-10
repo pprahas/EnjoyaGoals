@@ -70,7 +70,22 @@ router.get("/user", async (req, res) => {
         res.send(findRes);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: "Query failed." });
+        res.status(500).json({ msg: "User query failed." });
+    }
+});
+
+// query all the data from the database for a User specified by username
+router.get("/task", async (req, res) => {
+    // this request should contain:
+    // "id":        the `_id` of the task,
+    const taskToFind = req.body;
+
+    try {
+        const findRes = await User.findById(taskToFind.id);
+        res.send(findRes);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: "Task query failed." });
     }
 });
 
