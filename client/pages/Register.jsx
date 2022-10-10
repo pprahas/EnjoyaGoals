@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [firstName, setfirstName] = useState("");
@@ -7,6 +8,9 @@ export default function Register() {
   const [username, setusername] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,8 +24,15 @@ export default function Register() {
         email,
         password,
       })
-      .then((res) => console.log("Posting data", res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        console.log("Posting data", res);
+        navigate("/login");
+      })
+      .catch((err) => {
+        // console.log(err);
+        setMessage(err.response.data.msg);
+        console.log(err.response.data.msg);
+      });
     // fetch("https://localhost:8080/register", {
     //   method: "POST",
     //   crossDomain: true,
@@ -166,6 +177,8 @@ export default function Register() {
               /> */}
               <div className="border-t border-gray-200 pt-4"></div>
             </div>
+
+            <p className="mt-2 text-center text-sm text-red-600">{message} </p>
             <div>
               <button
                 type="submit"
