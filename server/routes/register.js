@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email.toLowerCase(),
+        phoneNum: user.phoneNum,
         password: user.password,
       });
 
