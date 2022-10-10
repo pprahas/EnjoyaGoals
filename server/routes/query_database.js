@@ -61,4 +61,17 @@ router.get("/lastNames", async (req, res) => {
     }
 });
 
+// query all the data from the database for a User specified by username
+router.get("/user", async (req, res) => {
+    const userToFind = req.body;
+
+    try {
+        const findRes = await User.find( { username: userToFind.username } ).select("-password");
+        res.send(findRes);
+    } catch (error) {
+        console.log(error);
+        res.send({ status: "error" });
+    }
+});
+
 module.exports = router;
