@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
         res.send(findRes);
     } catch (error) {
         console.log(error);
-        res.send({ status: "error" });
+        res.status(500).json({ msg: "Query failed." });
     }
 });
 
@@ -24,7 +24,7 @@ router.get("/usernames", async (req, res) => {
         res.send(findRes);
     } catch (error) {
         console.log(error);
-        res.send({ status: "error" });
+        res.status(500).json({ msg: "Query failed." });
     }
 });
 
@@ -35,7 +35,7 @@ router.get("/emails", async (req, res) => {
         res.send(findRes);
     } catch (error) {
         console.log(error);
-        res.send({ status: "error" });
+        res.status(500).json({ msg: "Query failed." });
     }
 });
 
@@ -46,7 +46,7 @@ router.get("/firstNames", async (req, res) => {
         res.send(findRes);
     } catch (error) {
         console.log(error);
-        res.send({ status: "error" });
+        res.status(500).json({ msg: "Query failed." });
     }
 });
 
@@ -57,7 +57,7 @@ router.get("/lastNames", async (req, res) => {
         res.send(findRes);
     } catch (error) {
         console.log(error);
-        res.send({ status: "error" });
+        res.status(500).json({ msg: "Query failed." });
     }
 });
 
@@ -70,7 +70,7 @@ router.get("/user", async (req, res) => {
         res.send(findRes);
     } catch (error) {
         console.log(error);
-        res.send({ status: "error" });
+        res.status(500).json({ msg: "Query failed." });
     }
 });
 
