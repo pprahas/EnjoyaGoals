@@ -45,6 +45,9 @@ app.use("/query_database", queryDBRoutes);
 const taskRoutes = require("./routes/task");
 app.use("/task", taskRoutes);
 
+const roomRoutes = require("./routes/room");
+app.use("/room", roomRoutes);
+
 // port
 const port = process.env.PORT || 8080;
 

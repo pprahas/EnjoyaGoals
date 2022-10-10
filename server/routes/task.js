@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 router.use(express.json());
 
-// route for creating a new post
+// route for creating a new task
 router.post("/create", async (req, res) => {
     const task = req.body;
 
@@ -30,7 +30,7 @@ router.post("/create", async (req, res) => {
     }
 });
 
-// route for deleteing an existing task
+// route for deleting an existing task
 router.post("/delete", async (req, res) => {
     // this request should contain the `_id` of the task to be deleted
     const taskToDelete = req.body;
