@@ -22,8 +22,12 @@ const roomSchema = mongoose.Schema({
 		required: true,
 	},
 	users: {
-		type: String,
+		type: Array,
 		required: true,
+	},
+	tasks: {
+		type: Array,
+		required: false,
 	}
 }, {timestamps: true})
 
