@@ -9,20 +9,23 @@ router.use(express.json());
 router.post("/create", async (req, res) => {
 	// this request should contain:
 	// "name":		the name of the new room
-	// "password":	the password of the new room (if applicable)
 	// "owner":		the username of the owner of the new room (whoever requested to create the new room)
-	// "type":		either "democracy" or "monoarchy" (? this may change depending on what we decide to name the types)
+	// "type":		either "democracy" or "monarchy" (? this may change depending on what we decide to name the types)
 	// "users":		an array of `_id`s of the users part of the room, i think it'll just be ["owner_id"] at creation
 	const room = req.body;
 
 	try {
+		// hashing the password of the room
+		room.password = await bcrypt.hash(req.body.password, 10);
+
 		const dbRoom = new Room({
-			_id:        new mongoose.Types.ObjectId(),
-			name:       room.name,
-			password:   room.password,
-			owner:      room.owner,
-			type:       room.type,
-			users:      room.users
+			_id:        new mongoose.Types.ObjectId(),	// not part of request
+			name:       room.name,						// required; String
+			password:   room.password,					// optional; String
+			owner:      room.owner,						// required; String
+			type:       room.type,						// required; String
+			users:      room.users,						// required; Array of Strings (ex: ["user1", "user2"])
+			tasks:		room.tasks						// optional; Array of Strings (ex: ["task1", "task2"])
 		}, { timestamps: true });
 
 		await dbRoom.save();
@@ -37,10 +40,8 @@ router.post("/create", async (req, res) => {
 // route for deleting an existing room
 router.post("/delete", async (req, res) => {
 	// this request should contain the `_id` of the room to be deleted
-	const roomToDelete = req.body;
-
 	try {
-		const findRes = await Room.findByIdAndDelete(roomToDelete.id);
+		await Room.findByIdAndDelete(req.body.id);
 		
 		return res.status(200).json({ msg: "Room deleted successfully." });
 	} catch (error) {
@@ -55,21 +56,40 @@ router.post("/update", async (req, res) => {
 	// "id":        the `_id` of the room,
 	// "fieldName": the name of the field to be changed,
 	// "value":     and the new value
-	const roomToUpdate = req.body;
-
-	var findRes;
+	const roomToUpdate = await Room.findById(req.body.id);
 	
 	try {
 		// I'm sorry this looks awful - Nick
-		switch (roomToUpdate.fieldName) {
-			case "name":		findRes = await Room.findByIdAndUpdate(roomToUpdate.id, {"name": roomToUpdate.value});			break;
-			case "password":	findRes = await Room.findByIdAndUpdate(roomToUpdate.id, {"password": roomToUpdate.value});		break;
-			case "owner":		findRes = await Room.findByIdAndUpdate(roomToUpdate.id, {"owner": roomToUpdate.value});			break;
-			case "type":		findRes = await Room.findByIdAndUpdate(roomToUpdate.id, {"type": roomToUpdate.value});			break;
-			case "users":		findRes = await Room.findByIdAndUpdate(roomToUpdate.id, {"users": roomToUpdate.value});			break;
-			case "tasks":		findRes = await Room.findByIdAndUpdate(roomToUpdate.id, {"tasks": roomToUpdate.value});			break;
+		switch (req.body.fieldName) {
+			case "name":		roomToUpdate.update({name: req.body.value});		break;
+			case "password":	roomToUpdate.update({password: req.body.value});	break;
+			case "owner":		roomToUpdate.update({owner: req.body.value});		break;
+			case "type":		roomToUpdate.update({type: req.body.value});		break;
+			case "users":
+				// to add or remove a user, request should also contain ONE of the following:
+				// "add":		true
+				// "remove":	true
+				if (req.body.add) { roomToUpdate.users.push(req.body.value); }
+				else if (req.body.remove) { roomToUpdate.users.pull(req.body.value); }
+				else {
+					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING users");
+					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
+				}
+				break;
+			case "tasks":
+				// to add or remove a task, request should also contain ONE of the following:
+				// "add":		true
+				// "remove":	true
+				if (req.body.add) { roomToUpdate.tasks.push(req.body.value); }
+				else if (req.body.remove) { roomToUpdate.tasks.pull(req.body.value); }
+				else {
+					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING tasks");
+					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
+				}
+				break;
 		}
-		
+
+		await roomToUpdate.save();
 		return res.status(200).json({ msg: "Room updated successfully." });
 	} catch (error) {
 		console.log(error);
