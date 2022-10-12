@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 router.use(express.json());
 
@@ -16,7 +17,9 @@ router.post("/create", async (req, res) => {
 
 	try {
 		// hashing the password of the room
-		room.password = await bcrypt.hash(req.body.password, 10);
+		if (room.password) {
+			room.password = await bcrypt.hash(req.body.password, 10);
+		}
 
 		const dbRoom = new Room({
 			_id:        new mongoose.Types.ObjectId(),	// not part of request
