@@ -7,18 +7,21 @@ router.use(express.json());
 
 // route for creating a new task
 router.post("/create", async (req, res) => {
+    // this request MUST contain:
+	// "name":		    the name of the new task
+	// "completed":		a boolean indicating whether this task has been completed or not
     const task = req.body;
 
     try {
         const dbTask = new Task({
-            _id: new mongoose.Types.ObjectId(),
-            name: task.name,
-            description: task.description,
-            difficulty: task.difficulty,
-            deadline: task.deadline,
-            points: task.points,
-            completed: task.completed,
-            assignedUser: task.assignedUser
+            _id: new mongoose.Types.ObjectId(), // not part of request
+            name: task.name,                    // required; String
+            description: task.description,      // optional; String
+            difficulty: task.difficulty,        // optional; String
+            deadline: task.deadline,            // optional; Date
+            points: task.points,                // optional; Number
+            completed: task.completed,          // required; Boolean
+            assignedUser: task.assignedUser     // optional; id (as a String)
         }, { timestamps: true });
 
         await dbTask.save();
