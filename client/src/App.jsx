@@ -10,31 +10,20 @@ import ResetPassword from "../pages/ResetPassword";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
+  const loggedIn = window.localStorage.getItem("isLoggedIn");
+  console.log(loggedIn, "login");
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/" element={<Login />}></Route>
+        <Route
+          path="/login"
+          element={loggedIn ? <Homepage /> : <Login />}
+        ></Route>
+        <Route path="/" element={loggedIn ? <Homepage /> : <Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/forgot_password" element={<ForgotPassword />}></Route>
-        <Route
-          path="/profile"
-          element={
-            <>
-              <Header />
-              <Profile />
-            </>
-          }
-        ></Route>
-        <Route
-          path="/homepage"
-          element={
-            <>
-              <Header />
-              <Homepage />
-            </>
-          }
-        ></Route>
+        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/homepage" element={<Homepage />}></Route>
         <Route path="/reset_password" element={<ResetPassword />}></Route>
         <Route
           path="/profile_information"

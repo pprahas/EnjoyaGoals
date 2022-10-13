@@ -15,6 +15,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+// import { useNavigate } from "react-router-dom";
 
 const solutions = [
   {
@@ -95,6 +96,12 @@ const recentPosts = [
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
+}
+
+function logOut() {
+  //   const navigate = useNavigate();
+  window.localStorage.removeItem("isLoggedIn");
+  //   navigate("/login");
 }
 
 export default function Header() {
@@ -305,8 +312,9 @@ export default function Header() {
               Invite Users
             </a>
             <a
-              href="#"
+              href="/login"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+              onClick={logOut}
             >
               Log Out
             </a>
