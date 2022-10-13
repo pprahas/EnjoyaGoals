@@ -1,3 +1,4 @@
+const colors = require("tailwindcss/colors");
 module.exports = {
   content: ["./src/**/*.{js,jsx}"],
   darkMode: "class",
@@ -16,6 +17,17 @@ module.exports = {
             700: "#0369a1",
             800: "#075985",
             900: "#0c4a6e",
+          },
+          gray: colors.trueGray,
+          gray: {
+            900: "#202225",
+            800: "#2f3136",
+            700: "#36393f",
+            600: "#4f545c",
+            400: "#d4d7dc",
+            300: "#e3e5e8",
+            200: "#ebedef",
+            100: "#f2f3f5",
           },
         },
       },
