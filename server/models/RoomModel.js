@@ -14,7 +14,8 @@ const roomSchema = mongoose.Schema({
 		required: false,
 	},
 	owner: {
-		type: String,
+		type: mongoose.Schema.ObjectId,
+		ref: 'User',
 		required: true,
 	},
 	type: {
@@ -22,14 +23,14 @@ const roomSchema = mongoose.Schema({
 		required: true,
 	},
 	users: {
-		type: Array,
+		type: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 		required: true,
 	},
 	tasks: {
-		type: Array,
+		type: [{ type: mongoose.Schema.ObjectId, ref: 'Task' }],
 		required: false,
 	}
-}, {timestamps: true})
+}, {timestamps: true});
 
 const Room = mongoose.model("Room", roomSchema);
 
