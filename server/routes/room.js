@@ -8,7 +8,7 @@ router.use(express.json());
 
 // route for creating a new room
 router.post("/create", async (req, res) => {
-	// this request should contain:
+	// this request MUST contain:
 	// "name":		the name of the new room
 	// "owner":		the username of the owner of the new room (whoever requested to create the new room)
 	// "type":		either "democracy" or "monarchy" (? this may change depending on what we decide to name the types)

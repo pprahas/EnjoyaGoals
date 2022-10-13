@@ -30,8 +30,9 @@ const taskSchema = mongoose.Schema({
         required: true,
     },
     assignedUser: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.ObjectId,
+		ref: 'User',
+		required: false,
     }
 }, {timestamps: true})
 
