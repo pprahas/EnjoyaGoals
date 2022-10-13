@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
       // res.json({ message: "Email does not exist." });
     } else {
       // const fullUser = await User.findOne({ email: takenEmail });
-      const prado = await User.find({ username: "prado156" });
+      const full_user_data = await User.find({ username: "prado156" });
       const password = user.password;
       if (!password) {
         return res.json({
@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
           // res.send({ message: "User deets" });
           // res.send(prado);
           // res.status(200).send({ message: "Login Successful." });
-          res.status(200).send(prado);
+          res.status(200).send(full_user_data);
         } else {
           res
             .status(403)
