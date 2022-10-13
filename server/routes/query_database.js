@@ -1,4 +1,6 @@
 const User = require("../models/UserModel");
+const Task = require("../models/TaskModel");
+const Room = require("../models/RoomModel");
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -74,18 +76,33 @@ router.get("/user", async (req, res) => {
     }
 });
 
-// query all the data from the database for a User specified by username
+// query all the data from the database for a Task specified by username
 router.get("/task", async (req, res) => {
     // this request should contain:
     // "id":        the `_id` of the task,
     const taskToFind = req.body;
 
     try {
-        const findRes = await User.findById(taskToFind.id);
+        const findRes = await Task.findById(taskToFind.id);
         res.send(findRes);
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: "Task query failed." });
+    }
+});
+
+// query all the data from the database for a Room specified by username
+router.get("/room", async (req, res) => {
+    // this request should contain:
+    // "id":        the `_id` of the room,
+    const roomToFind = req.body;
+
+    try {
+        const findRes = await Room.findById(roomToFind.id).select("-password");
+        res.send(findRes);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: "Room query failed." });
     }
 });
 
