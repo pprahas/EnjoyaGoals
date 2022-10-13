@@ -8,6 +8,7 @@ router.use(express.json());
 // route for creating a new task
 router.post("/create", async (req, res) => {
     // this request MUST contain:
+    // "creatorId":     the id of the user sending the request to create a new task
 	// "name":		    the name of the new task
 	// "completed":		a boolean indicating whether this task has been completed or not
     const task = req.body;
@@ -15,6 +16,7 @@ router.post("/create", async (req, res) => {
     try {
         const dbTask = new Task({
             _id: new mongoose.Types.ObjectId(), // not part of request
+            creatorId: task.creatorId,          // required, id (as a String)
             name: task.name,                    // required; String
             description: task.description,      // optional; String
             difficulty: task.difficulty,        // optional; String
