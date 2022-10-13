@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import ProfileInformation from "../pages/ProfileInformation";
 import Profile from "../pages/Profile";
 import Homepage from "../pages/Homepage";
-import Header from "../components/Header";
+import CreateTask from "../pages/CreateTask";
 import ResetPassword from "../pages/ResetPassword";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -25,6 +25,7 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/homepage" element={<Homepage />}></Route>
         <Route path="/reset_password" element={<ResetPassword />}></Route>
+        <Route path="/homepage/create_task" element={<CreateTask />}></Route>
         <Route
           path="/profile_information"
           element={<ProfileInformation />}

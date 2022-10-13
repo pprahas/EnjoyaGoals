@@ -100,6 +100,11 @@ function classNames(...classes) {
 
 function logOut() {
   //   const navigate = useNavigate();
+  window.localStorage.removeItem("username");
+  window.localStorage.removeItem("email");
+  window.localStorage.removeItem("firstName");
+  window.localStorage.removeItem("lastName");
+  window.localStorage.removeItem("userId");
   window.localStorage.removeItem("isLoggedIn");
   //   navigate("/login");
 }
