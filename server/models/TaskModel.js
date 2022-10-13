@@ -5,6 +5,11 @@ const taskSchema = mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         required: true
     },
+    creatorId: {
+        type: mongoose.Schema.ObjectId,
+		ref: 'User',
+		required: true,
+    },
     name: {
         type: String,
         required: true,
