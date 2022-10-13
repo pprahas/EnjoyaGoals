@@ -51,22 +51,24 @@ router.post("/update", async (req, res) => {
     // "id":        the `_id` of the task,
     // "fieldName": the name of the field to be changed,
     // "value":     and the new value
-    const taskToUpdate = req.body;
-
-    var findRes;
+    const taskToUpdate = await Task.findById(req.body.id);
     
     try {
         // I'm sorry this looks awful - Nick
-        switch (taskToUpdate.fieldName) {
-            case "name":			findRes = await Task.findByIdAndUpdate(taskToUpdate.id, {"name": taskToUpdate.value} );			break;
-            case "description":		findRes = await Task.findByIdAndUpdate(taskToUpdate.id, {"description": taskToUpdate.value} );	break;
-            case "difficulty":		findRes = await Task.findByIdAndUpdate(taskToUpdate.id, {"difficulty": taskToUpdate.value} );	break;
-            case "deadline":		findRes = await Task.findByIdAndUpdate(taskToUpdate.id, {"deadline": taskToUpdate.value} );		break;
-            case "points":			findRes = await Task.findByIdAndUpdate(taskToUpdate.id, {"points": taskToUpdate.value} );		break;
-            case "completed":		findRes = await Task.findByIdAndUpdate(taskToUpdate.id, {"completed": taskToUpdate.value} );	break;
-            case "assignedUser":	findRes = await Task.findByIdAndUpdate(taskToUpdate.id, {"assignedUser": taskToUpdate.value} );	break;
+        switch (req.body.fieldName) {
+            case "name":			taskToUpdate.update({name: req.body.value});			break;
+            case "description":		taskToUpdate.update({description: req.body.value}); 	break;
+            case "difficulty":		taskToUpdate.update({difficulty: req.body.value});	    break;
+            case "deadline":		taskToUpdate.update({deadline: req.body.value});		break;
+            case "points":			taskToUpdate.update({points: req.body.value});		    break;
+            case "completed":
+                taskToUpdate.update({completed: req.body.value});
+
+                break;
+            case "assignedUser":	taskToUpdate.update({assignedUser: req.body.value});	break;
         }
         
+        await taskToUpdate.save();
         return res.status(200).json({ msg: "Task updated successfully." });
     } catch (error) {
         console.log(error);
