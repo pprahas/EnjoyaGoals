@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import ProfileInformation from "../pages/ProfileInformation";
 import Profile from "../pages/Profile";
 import Homepage from "../pages/Homepage";
+import Header from "../components/Header";
 import ResetPassword from "../pages/ResetPassword";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -16,8 +17,24 @@ function App() {
         <Route path="/" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/forgot_password" element={<ForgotPassword />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/homepage" element={<Homepage />}></Route>
+        <Route
+          path="/profile"
+          element={
+            <>
+              <Header />
+              <Profile />
+            </>
+          }
+        ></Route>
+        <Route
+          path="/homepage"
+          element={
+            <>
+              <Header />
+              <Homepage />
+            </>
+          }
+        ></Route>
         <Route path="/reset_password" element={<ResetPassword />}></Route>
         <Route
           path="/profile_information"

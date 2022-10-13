@@ -22,6 +22,8 @@ export default function Login() {
       .then((res) => {
         setMessage(res.data.message);
         navigate("/homepage");
+        console.log(res);
+        window.localStorage.setItem("isLoggedIn", true);
       })
       .catch((err) => {
         setMessage(err.response.data.message);
