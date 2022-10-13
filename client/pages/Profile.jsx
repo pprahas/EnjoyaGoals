@@ -1,9 +1,11 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Input from "../components/Input";
+import Header from "../components/Header";
 
 export default function Login() {
   return (
     <>
+      <Header />
       {/* component */}
       <link
         rel="stylesheet"
