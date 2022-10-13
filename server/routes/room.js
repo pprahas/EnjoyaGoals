@@ -22,13 +22,14 @@ router.post("/create", async (req, res) => {
 		}
 
 		const dbRoom = new Room({
-			_id:        new mongoose.Types.ObjectId(),	// not part of request
-			name:       room.name,						// required; String
-			password:   room.password,					// optional; String
-			owner:      room.owner,						// required; String
-			type:       room.type,						// required; String
-			users:      room.users,						// required; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e7ed", "6341946d6dab0e743279e7eg"])
-			tasks:		room.tasks						// optional; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e32a", "6341946d6dab0e7432acd82e"])
+			_id:		new mongoose.Types.ObjectId(),	// not part of request
+			name:       	room.name,					// required; String
+			password:   	room.password,				// optional; String
+			owner:      	room.owner,					// required; String
+			type:       	room.type,					// required; String
+			users:      	room.users,					// required; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e7ed", "6341946d6dab0e743279e7eg"])
+			todoTasks:		room.todoTasks,				// optional; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e32a", "6341946d6dab0e7432acd82e"])
+			completedTasks:	room.compeletedTasks		// optional; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e32a", "6341946d6dab0e7432acd82e"])
 		}, { timestamps: true });
 
 		await dbRoom.save();
@@ -79,14 +80,25 @@ router.post("/update", async (req, res) => {
 					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
 				}
 				break;
-			case "tasks":
+			case "todoTasks":
 				// to add or remove a task, request should also contain ONE of the following:
 				// "add":		true
 				// "remove":	true
-				if (req.body.add) { roomToUpdate.tasks.push(req.body.value); }
-				else if (req.body.remove) { roomToUpdate.tasks.pull(req.body.value); }
+				if (req.body.add) { roomToUpdate.todoTasks.push(req.body.value); }
+				else if (req.body.remove) { roomToUpdate.todoTasks.pull(req.body.value); }
 				else {
-					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING tasks");
+					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING todoTasks");
+					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
+				}
+				break;
+			case "completedTasks":
+				// to add or remove a task, request should also contain ONE of the following:
+				// "add":		true
+				// "remove":	true
+				if (req.body.add) { roomToUpdate.completedTasks.push(req.body.value); }
+				else if (req.body.remove) { roomToUpdate.completedTasks.pull(req.body.value); }
+				else {
+					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING completedTasks");
 					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
 				}
 				break;

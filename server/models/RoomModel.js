@@ -26,7 +26,11 @@ const roomSchema = mongoose.Schema({
 		type: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 		required: true,
 	},
-	tasks: {
+	todoTasks: {
+		type: [{ type: mongoose.Schema.ObjectId, ref: 'Task' }],
+		required: false,
+	},
+	completedTasks: {
 		type: [{ type: mongoose.Schema.ObjectId, ref: 'Task' }],
 		required: false,
 	}
