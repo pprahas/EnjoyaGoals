@@ -27,7 +27,7 @@ export default function Homepage() {
     //   assigned_user
     // );
     axios
-      .post("http://localhost:8080/create/task", {
+      .post("http://localhost:8080/task/create", {
         // creatorId: user_id,
         name: task_name,
         description: task_description,
