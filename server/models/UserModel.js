@@ -32,6 +32,10 @@ const userSchema = mongoose.Schema({
     tokenString: {
         type: String,
         required: false,
+    },
+    rooms: {
+        type: [{ type: mongoose.Schema.ObjectId, ref: 'Room' }],
+		required: false,
     }
 }, {timestamps: true})
 

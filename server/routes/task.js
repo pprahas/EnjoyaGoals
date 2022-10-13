@@ -63,6 +63,10 @@ router.post("/update", async (req, res) => {
             case "points":			taskToUpdate.update({points: req.body.value});		    break;
             case "completed":
                 taskToUpdate.update({completed: req.body.value});
+                // TODO: Make it so that when a task has its "completed" status changed, it gets
+                // moved to the array corresponding to its new value.
+                // If a Task is in a Room's "todoTasks" list and its "completed" status gets changed
+                // to true, then it should get moved to the "completedTasks" list.
 
                 break;
             case "assignedUser":	taskToUpdate.update({assignedUser: req.body.value});	break;
