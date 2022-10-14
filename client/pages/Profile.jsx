@@ -1,6 +1,6 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Input from "../components/Input";
-import './Profile.css'
+import Header from "../components/Header";
 
 export default function Profile() {
   var bg = window.localStorage.getItem("banner");
@@ -9,8 +9,9 @@ export default function Profile() {
   return (
 
     <>
-      {/* component */
-      }
+
+      <Header />
+      {/* component */}
       <link
         rel="stylesheet"
         href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"

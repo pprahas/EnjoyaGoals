@@ -1,0 +1,828 @@
+{
+	"info": {
+		"_postman_id": "f2547790-a3e4-466c-bccc-ff0d4a4766de",
+		"name": "query database",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7929767"
+	},
+	"item": [
+		{
+			"name": "query all data (except passwords)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response contains {_id, username, firstName, lastName, email}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"_id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"username\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/query_database",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query_database"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "query all data (except passwords)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/query_database",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query_database"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3728"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"e90-Q4K48dPL28A/HkYbDTGbyz6YeYA\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Oct 2022 01:58:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6341946d6dab0e743279e7ed\",\n        \"username\": \"p'\",\n        \"firstName\": \"g545g\",\n        \"lastName\": \"egeg\",\n        \"email\": \"erg@g.comjh\",\n        \"createdAt\": \"2022-10-08T15:17:01.374Z\",\n        \"updatedAt\": \"2022-10-08T15:17:01.374Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6341948a6dab0e743279e7f7\",\n        \"username\": \"p'g\",\n        \"firstName\": \"g545g\",\n        \"lastName\": \"egeg\",\n        \"email\": \"erg@g.comjhg\",\n        \"createdAt\": \"2022-10-08T15:17:30.094Z\",\n        \"updatedAt\": \"2022-10-08T15:17:30.094Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"63419cdcd37c3b4be4ca6e7b\",\n        \"username\": \"prado15\",\n        \"firstName\": \"wefwef\",\n        \"lastName\": \"ewf\",\n        \"email\": \"p.prahas@gmail.co\",\n        \"createdAt\": \"2022-10-08T15:53:00.858Z\",\n        \"updatedAt\": \"2022-10-08T15:53:00.858Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6341f3ff585fdec8dbef2852\",\n        \"username\": \"kimkim\",\n        \"firstName\": \"Karim\",\n        \"lastName\": \"Mammadli\",\n        \"email\": \"karimus449@gmail.com\",\n        \"createdAt\": \"2022-10-08T22:04:47.534Z\",\n        \"updatedAt\": \"2022-10-08T22:05:01.393Z\",\n        \"__v\": 0,\n        \"tokenString\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcmltdXM0NDlAZ21haWwuY29tIiwiaWF0IjoxNjY1MjY2NzAxLCJleHAiOjE2NjUyNjcwMDF9.NdkKRNWtqlbGL6tLtK8EQHJFc2skg2E0C3i7qgpDUtc\"\n    },\n    {\n        \"_id\": \"6342147e24c96c999447c1b4\",\n        \"username\": \"fweccc\",\n        \"firstName\": \"Karim\",\n        \"lastName\": \"Mammadlifc\",\n        \"email\": \"ala_auye@tutanota.cocccwem\",\n        \"createdAt\": \"2022-10-09T00:23:26.389Z\",\n        \"updatedAt\": \"2022-10-09T00:23:26.389Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6342149bf42557ff5c2d7c2c\",\n        \"username\": \"fwecccf\",\n        \"firstName\": \"Karim\",\n        \"lastName\": \"Mammadlifc\",\n        \"email\": \"ala_auye@tutanota.cocccwemf\",\n        \"createdAt\": \"2022-10-09T00:23:55.675Z\",\n        \"updatedAt\": \"2022-10-09T00:23:55.675Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"634214a6c7e5e46022557b02\",\n        \"username\": \"fweccccf\",\n        \"firstName\": \"Karim\",\n        \"lastName\": \"Mammadlifc\",\n        \"email\": \"ala_auye@tutanota.coccccwemf\",\n        \"createdAt\": \"2022-10-09T00:24:06.191Z\",\n        \"updatedAt\": \"2022-10-09T00:24:06.191Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"634214f987152b54d8b78239\",\n        \"username\": \"fweccccff\",\n        \"firstName\": \"Karim\",\n        \"lastName\": \"Mammadlifc\",\n        \"email\": \"ala_auye@tutanffffota.coccccwemf\",\n        \"createdAt\": \"2022-10-09T00:25:29.180Z\",\n        \"updatedAt\": \"2022-10-09T00:25:29.180Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"63421673991dbc056c1170b9\",\n        \"username\": \"wewf\",\n        \"firstName\": \"wefwef\",\n        \"lastName\": \"wef\",\n        \"email\": \"wef@df.com\",\n        \"createdAt\": \"2022-10-09T00:31:47.505Z\",\n        \"updatedAt\": \"2022-10-09T00:31:47.505Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"63421820196140ce3be072b1\",\n        \"username\": \"zxc\",\n        \"firstName\": \"cz\",\n        \"lastName\": \"zx\",\n        \"email\": \"fefef2fecf@gao.com\",\n        \"createdAt\": \"2022-10-09T00:38:56.804Z\",\n        \"updatedAt\": \"2022-10-09T00:38:56.804Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6342183e7ba42053f9267f0f\",\n        \"username\": \"zxcccc\",\n        \"firstName\": \"cz\",\n        \"lastName\": \"zx\",\n        \"email\": \"fefef2fecf@gao.comc\",\n        \"createdAt\": \"2022-10-09T00:39:26.371Z\",\n        \"updatedAt\": \"2022-10-09T00:39:26.371Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"63421b93c4a73ad60f86a461\",\n        \"username\": \"prado156\",\n        \"firstName\": \"Prahas\",\n        \"lastName\": \"Pattem\",\n        \"email\": \"p.prahas@gmail.com\",\n        \"createdAt\": \"2022-10-09T00:53:39.587Z\",\n        \"updatedAt\": \"2022-10-09T00:56:31.713Z\",\n        \"__v\": 0,\n        \"tokenString\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InAucHJhaGFzQGdtYWlsLmNvbSIsImlhdCI6MTY2NTI3Njk3MiwiZXhwIjoxNjY3MDA0OTcyfQ.8ueAZMsLz6Hf8p1RYRJSfvQtAtZ-ZAL2xntPEp48doE\"\n    },\n    {\n        \"_id\": \"63421bfec4a73ad60f86a467\",\n        \"username\": \"fef\",\n        \"firstName\": \"ferd\",\n        \"lastName\": \"ef\",\n        \"email\": \"fefef2fef@gao.comf\",\n        \"createdAt\": \"2022-10-09T00:55:26.685Z\",\n        \"updatedAt\": \"2022-10-09T00:55:26.685Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"63421c15c4a73ad60f86a46f\",\n        \"username\": \"prado156x\",\n        \"firstName\": \"wfe\",\n        \"lastName\": \"ewf\",\n        \"email\": \"p.prahas@gmail.comcc\",\n        \"createdAt\": \"2022-10-09T00:55:49.517Z\",\n        \"updatedAt\": \"2022-10-09T00:55:49.517Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6342256c1097664df09ab0a3\",\n        \"username\": \"nerd123\",\n        \"firstName\": \"Nick\",\n        \"lastName\": \"Nordvpn\",\n        \"email\": \"karimmammadli1@gmail.com\",\n        \"createdAt\": \"2022-10-09T01:35:40.698Z\",\n        \"updatedAt\": \"2022-10-09T01:37:37.547Z\",\n        \"__v\": 0,\n        \"tokenString\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcmltbWFtbWFkbGkxQGdtYWlsLmNvbSIsImlhdCI6MTY2NTI3OTQyMSwiZXhwIjoxNjY3MDA3NDIxfQ.ScGNhfqzgnDzvb-QLikWzvjRyeQaDAmQWDSk5a4GHy0\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "query all usernames",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response contains {_id, username}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"_id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"username\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response does not contain {firstName, lastName, email}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"firstName\");\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"lastName\");\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"email\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/query_database/usernames",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query_database",
+						"usernames"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "query all usernames",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/query_database/usernames",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query_database",
+								"usernames"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "824"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"338-l6taV7xVHt90y8QW3vqf0Zt7MJs\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Oct 2022 01:59:59 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6341946d6dab0e743279e7ed\",\n        \"username\": \"p'\"\n    },\n    {\n        \"_id\": \"6341948a6dab0e743279e7f7\",\n        \"username\": \"p'g\"\n    },\n    {\n        \"_id\": \"63419cdcd37c3b4be4ca6e7b\",\n        \"username\": \"prado15\"\n    },\n    {\n        \"_id\": \"6341f3ff585fdec8dbef2852\",\n        \"username\": \"kimkim\"\n    },\n    {\n        \"_id\": \"6342147e24c96c999447c1b4\",\n        \"username\": \"fweccc\"\n    },\n    {\n        \"_id\": \"6342149bf42557ff5c2d7c2c\",\n        \"username\": \"fwecccf\"\n    },\n    {\n        \"_id\": \"634214a6c7e5e46022557b02\",\n        \"username\": \"fweccccf\"\n    },\n    {\n        \"_id\": \"634214f987152b54d8b78239\",\n        \"username\": \"fweccccff\"\n    },\n    {\n        \"_id\": \"63421673991dbc056c1170b9\",\n        \"username\": \"wewf\"\n    },\n    {\n        \"_id\": \"63421820196140ce3be072b1\",\n        \"username\": \"zxc\"\n    },\n    {\n        \"_id\": \"6342183e7ba42053f9267f0f\",\n        \"username\": \"zxcccc\"\n    },\n    {\n        \"_id\": \"63421b93c4a73ad60f86a461\",\n        \"username\": \"prado156\"\n    },\n    {\n        \"_id\": \"63421bfec4a73ad60f86a467\",\n        \"username\": \"fef\"\n    },\n    {\n        \"_id\": \"63421c15c4a73ad60f86a46f\",\n        \"username\": \"prado156x\"\n    },\n    {\n        \"_id\": \"6342256c1097664df09ab0a3\",\n        \"username\": \"nerd123\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "query all emails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response contains {_id, email}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"_id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response does not contain {username, firstName, lastName}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"firstName\");\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"lastName\");\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"username\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/query_database/emails",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query_database",
+						"emails"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "query all emails",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/query_database/emails",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query_database",
+								"emails"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "991"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3df-g8HkKBrHlzxTqAvNuA8QP0KXkmo\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Oct 2022 02:00:05 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6341946d6dab0e743279e7ed\",\n        \"email\": \"erg@g.comjh\"\n    },\n    {\n        \"_id\": \"6341948a6dab0e743279e7f7\",\n        \"email\": \"erg@g.comjhg\"\n    },\n    {\n        \"_id\": \"63419cdcd37c3b4be4ca6e7b\",\n        \"email\": \"p.prahas@gmail.co\"\n    },\n    {\n        \"_id\": \"6341f3ff585fdec8dbef2852\",\n        \"email\": \"karimus449@gmail.com\"\n    },\n    {\n        \"_id\": \"6342147e24c96c999447c1b4\",\n        \"email\": \"ala_auye@tutanota.cocccwem\"\n    },\n    {\n        \"_id\": \"6342149bf42557ff5c2d7c2c\",\n        \"email\": \"ala_auye@tutanota.cocccwemf\"\n    },\n    {\n        \"_id\": \"634214a6c7e5e46022557b02\",\n        \"email\": \"ala_auye@tutanota.coccccwemf\"\n    },\n    {\n        \"_id\": \"634214f987152b54d8b78239\",\n        \"email\": \"ala_auye@tutanffffota.coccccwemf\"\n    },\n    {\n        \"_id\": \"63421673991dbc056c1170b9\",\n        \"email\": \"wef@df.com\"\n    },\n    {\n        \"_id\": \"63421820196140ce3be072b1\",\n        \"email\": \"fefef2fecf@gao.com\"\n    },\n    {\n        \"_id\": \"6342183e7ba42053f9267f0f\",\n        \"email\": \"fefef2fecf@gao.comc\"\n    },\n    {\n        \"_id\": \"63421b93c4a73ad60f86a461\",\n        \"email\": \"p.prahas@gmail.com\"\n    },\n    {\n        \"_id\": \"63421bfec4a73ad60f86a467\",\n        \"email\": \"fefef2fef@gao.comf\"\n    },\n    {\n        \"_id\": \"63421c15c4a73ad60f86a46f\",\n        \"email\": \"p.prahas@gmail.comcc\"\n    },\n    {\n        \"_id\": \"6342256c1097664df09ab0a3\",\n        \"email\": \"karimmammadli1@gmail.com\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "query all firstNames",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response contains {_id, firstName}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"_id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response does not contain {username, lastName, email}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"username\");\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"lastName\");\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"email\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/query_database/firstNames",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query_database",
+						"firstNames"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "query all firstNames",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/query_database/firstNames",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query_database",
+								"firstNames"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "819"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"333-KkeHqYHuH46ve3d6CqjaQSXHty8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Oct 2022 02:00:09 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6341946d6dab0e743279e7ed\",\n        \"firstName\": \"g545g\"\n    },\n    {\n        \"_id\": \"6341948a6dab0e743279e7f7\",\n        \"firstName\": \"g545g\"\n    },\n    {\n        \"_id\": \"63419cdcd37c3b4be4ca6e7b\",\n        \"firstName\": \"wefwef\"\n    },\n    {\n        \"_id\": \"6341f3ff585fdec8dbef2852\",\n        \"firstName\": \"Karim\"\n    },\n    {\n        \"_id\": \"6342147e24c96c999447c1b4\",\n        \"firstName\": \"Karim\"\n    },\n    {\n        \"_id\": \"6342149bf42557ff5c2d7c2c\",\n        \"firstName\": \"Karim\"\n    },\n    {\n        \"_id\": \"634214a6c7e5e46022557b02\",\n        \"firstName\": \"Karim\"\n    },\n    {\n        \"_id\": \"634214f987152b54d8b78239\",\n        \"firstName\": \"Karim\"\n    },\n    {\n        \"_id\": \"63421673991dbc056c1170b9\",\n        \"firstName\": \"wefwef\"\n    },\n    {\n        \"_id\": \"63421820196140ce3be072b1\",\n        \"firstName\": \"cz\"\n    },\n    {\n        \"_id\": \"6342183e7ba42053f9267f0f\",\n        \"firstName\": \"cz\"\n    },\n    {\n        \"_id\": \"63421b93c4a73ad60f86a461\",\n        \"firstName\": \"Prahas\"\n    },\n    {\n        \"_id\": \"63421bfec4a73ad60f86a467\",\n        \"firstName\": \"ferd\"\n    },\n    {\n        \"_id\": \"63421c15c4a73ad60f86a46f\",\n        \"firstName\": \"wfe\"\n    },\n    {\n        \"_id\": \"6342256c1097664df09ab0a3\",\n        \"firstName\": \"Nick\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "query all lastNames",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response contains {_id, lastName}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"_id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response does not contain {username, firstName, email}\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"firstName\");\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"username\");\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"email\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/query_database/lastNames",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query_database",
+						"lastNames"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "query all lastNames",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/query_database/lastNames",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query_database",
+								"lastNames"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "820"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"334-JoskiiPnwxHVU4Vqj10N9qYYN64\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Oct 2022 02:00:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6341946d6dab0e743279e7ed\",\n        \"lastName\": \"egeg\"\n    },\n    {\n        \"_id\": \"6341948a6dab0e743279e7f7\",\n        \"lastName\": \"egeg\"\n    },\n    {\n        \"_id\": \"63419cdcd37c3b4be4ca6e7b\",\n        \"lastName\": \"ewf\"\n    },\n    {\n        \"_id\": \"6341f3ff585fdec8dbef2852\",\n        \"lastName\": \"Mammadli\"\n    },\n    {\n        \"_id\": \"6342147e24c96c999447c1b4\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"6342149bf42557ff5c2d7c2c\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"634214a6c7e5e46022557b02\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"634214f987152b54d8b78239\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"63421673991dbc056c1170b9\",\n        \"lastName\": \"wef\"\n    },\n    {\n        \"_id\": \"63421820196140ce3be072b1\",\n        \"lastName\": \"zx\"\n    },\n    {\n        \"_id\": \"6342183e7ba42053f9267f0f\",\n        \"lastName\": \"zx\"\n    },\n    {\n        \"_id\": \"63421b93c4a73ad60f86a461\",\n        \"lastName\": \"Pattem\"\n    },\n    {\n        \"_id\": \"63421bfec4a73ad60f86a467\",\n        \"lastName\": \"ef\"\n    },\n    {\n        \"_id\": \"63421c15c4a73ad60f86a46f\",\n        \"lastName\": \"ewf\"\n    },\n    {\n        \"_id\": \"6342256c1097664df09ab0a3\",\n        \"lastName\": \"Nordvpn\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "query a specific User's data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"prado15\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/query_database/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query_database",
+						"user"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "query all lastNames",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/query_database/lastNames",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query_database",
+								"lastNames"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "820"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"334-JoskiiPnwxHVU4Vqj10N9qYYN64\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Oct 2022 02:00:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6341946d6dab0e743279e7ed\",\n        \"lastName\": \"egeg\"\n    },\n    {\n        \"_id\": \"6341948a6dab0e743279e7f7\",\n        \"lastName\": \"egeg\"\n    },\n    {\n        \"_id\": \"63419cdcd37c3b4be4ca6e7b\",\n        \"lastName\": \"ewf\"\n    },\n    {\n        \"_id\": \"6341f3ff585fdec8dbef2852\",\n        \"lastName\": \"Mammadli\"\n    },\n    {\n        \"_id\": \"6342147e24c96c999447c1b4\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"6342149bf42557ff5c2d7c2c\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"634214a6c7e5e46022557b02\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"634214f987152b54d8b78239\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"63421673991dbc056c1170b9\",\n        \"lastName\": \"wef\"\n    },\n    {\n        \"_id\": \"63421820196140ce3be072b1\",\n        \"lastName\": \"zx\"\n    },\n    {\n        \"_id\": \"6342183e7ba42053f9267f0f\",\n        \"lastName\": \"zx\"\n    },\n    {\n        \"_id\": \"63421b93c4a73ad60f86a461\",\n        \"lastName\": \"Pattem\"\n    },\n    {\n        \"_id\": \"63421bfec4a73ad60f86a467\",\n        \"lastName\": \"ef\"\n    },\n    {\n        \"_id\": \"63421c15c4a73ad60f86a46f\",\n        \"lastName\": \"ewf\"\n    },\n    {\n        \"_id\": \"6342256c1097664df09ab0a3\",\n        \"lastName\": \"Nordvpn\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "query a specific Task's data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"634336abc061853cf7c77b2a\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/query_database/task",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query_database",
+						"task"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "query all lastNames",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/query_database/lastNames",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query_database",
+								"lastNames"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "820"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"334-JoskiiPnwxHVU4Vqj10N9qYYN64\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Oct 2022 02:00:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6341946d6dab0e743279e7ed\",\n        \"lastName\": \"egeg\"\n    },\n    {\n        \"_id\": \"6341948a6dab0e743279e7f7\",\n        \"lastName\": \"egeg\"\n    },\n    {\n        \"_id\": \"63419cdcd37c3b4be4ca6e7b\",\n        \"lastName\": \"ewf\"\n    },\n    {\n        \"_id\": \"6341f3ff585fdec8dbef2852\",\n        \"lastName\": \"Mammadli\"\n    },\n    {\n        \"_id\": \"6342147e24c96c999447c1b4\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"6342149bf42557ff5c2d7c2c\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"634214a6c7e5e46022557b02\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"634214f987152b54d8b78239\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"63421673991dbc056c1170b9\",\n        \"lastName\": \"wef\"\n    },\n    {\n        \"_id\": \"63421820196140ce3be072b1\",\n        \"lastName\": \"zx\"\n    },\n    {\n        \"_id\": \"6342183e7ba42053f9267f0f\",\n        \"lastName\": \"zx\"\n    },\n    {\n        \"_id\": \"63421b93c4a73ad60f86a461\",\n        \"lastName\": \"Pattem\"\n    },\n    {\n        \"_id\": \"63421bfec4a73ad60f86a467\",\n        \"lastName\": \"ef\"\n    },\n    {\n        \"_id\": \"63421c15c4a73ad60f86a46f\",\n        \"lastName\": \"ewf\"\n    },\n    {\n        \"_id\": \"6342256c1097664df09ab0a3\",\n        \"lastName\": \"Nordvpn\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "query a specific Room's data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"63448a4753c343c938135e5c\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/query_database/room",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query_database",
+						"room"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "query all lastNames",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/query_database/lastNames",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"query_database",
+								"lastNames"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "820"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"334-JoskiiPnwxHVU4Vqj10N9qYYN64\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 09 Oct 2022 02:00:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6341946d6dab0e743279e7ed\",\n        \"lastName\": \"egeg\"\n    },\n    {\n        \"_id\": \"6341948a6dab0e743279e7f7\",\n        \"lastName\": \"egeg\"\n    },\n    {\n        \"_id\": \"63419cdcd37c3b4be4ca6e7b\",\n        \"lastName\": \"ewf\"\n    },\n    {\n        \"_id\": \"6341f3ff585fdec8dbef2852\",\n        \"lastName\": \"Mammadli\"\n    },\n    {\n        \"_id\": \"6342147e24c96c999447c1b4\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"6342149bf42557ff5c2d7c2c\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"634214a6c7e5e46022557b02\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"634214f987152b54d8b78239\",\n        \"lastName\": \"Mammadlifc\"\n    },\n    {\n        \"_id\": \"63421673991dbc056c1170b9\",\n        \"lastName\": \"wef\"\n    },\n    {\n        \"_id\": \"63421820196140ce3be072b1\",\n        \"lastName\": \"zx\"\n    },\n    {\n        \"_id\": \"6342183e7ba42053f9267f0f\",\n        \"lastName\": \"zx\"\n    },\n    {\n        \"_id\": \"63421b93c4a73ad60f86a461\",\n        \"lastName\": \"Pattem\"\n    },\n    {\n        \"_id\": \"63421bfec4a73ad60f86a467\",\n        \"lastName\": \"ef\"\n    },\n    {\n        \"_id\": \"63421c15c4a73ad60f86a46f\",\n        \"lastName\": \"ewf\"\n    },\n    {\n        \"_id\": \"6342256c1097664df09ab0a3\",\n        \"lastName\": \"Nordvpn\"\n    }\n]"
+				}
+			]
+		}
+	]
+}

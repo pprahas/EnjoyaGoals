@@ -17,6 +17,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    phoneNum: {
+        type: String,
+        required: false,
+    },
+    aboutMe: {
+        type: String,
+        required: false,
+    },
     password: {
         type: String,
         required: true,
@@ -24,6 +32,10 @@ const userSchema = mongoose.Schema({
     tokenString: {
         type: String,
         required: false,
+    },
+    rooms: {
+        type: [{ type: mongoose.Schema.ObjectId, ref: 'Room' }],
+		required: false,
     }
 }, {timestamps: true})
 

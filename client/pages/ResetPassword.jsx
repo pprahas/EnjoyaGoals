@@ -5,34 +5,28 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setemail] = useState("");
+  const [token, settoken] = useState("");
   const [password, setpassword] = useState("");
+  const [username, setusername] = useState("");
 
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(email, password);
     axios
-      .post("http://localhost:8080/login", {
-        email,
+      .post("http://localhost:8080/reset_password", {
+        username,
         password,
+        token,
       })
       .then((res) => {
+        console.log(res);
         setMessage(res.data.message);
-        navigate("/homepage");
-        console.log(res.data[0]);
-        console.log(res.data.email);
-        window.localStorage.setItem("username", res.data[0].username);
-        window.localStorage.setItem("email", res.data[0].email);
-        window.localStorage.setItem("firstName", res.data[0].firstName);
-        window.localStorage.setItem("lastName", res.data[0].lastName);
-        window.localStorage.setItem("userId", res.data[0]._id);
-        window.localStorage.setItem("isLoggedIn", true);
+        navigate("/login");
       })
       .catch((err) => {
-        setMessage(err.response.data.message);
+        console.log(err);
+        setMessage(err.response.data.msg);
       });
   };
 
@@ -46,16 +40,10 @@ export default function Login() {
           <div>
             <img className="mx-auto h-30 w-auto" src="logo.png" />
             <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Log in to your account
+              Reset Password
             </h1>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Or{" "}
-              <a
-                href="/register"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Create Account
-              </a>
+              Enter the token from the email and your new password{" "}
             </p>
           </div>
           {/* <form className="mt-8 space-y-6" action="#" method="POST"> */}
@@ -81,14 +69,24 @@ export default function Login() {
                 placeholder="Password"
               /> */}
               <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
                 className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                placeholder="Email Address"
-                onChange={(e) => setemail(e.target.value)}
-                value={email}
+                placeholder="Username"
+                onChange={(e) => setusername(e.target.value)}
+                value={username}
+              />
+              <input
+                id="token"
+                name="token"
+                type="text"
+                autoComplete="token"
+                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                placeholder="Token"
+                onChange={(e) => settoken(e.target.value)}
+                value={token}
               />
               <input
                 id="password"
@@ -96,34 +94,27 @@ export default function Login() {
                 type="password"
                 autoComplete="password"
                 className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                placeholder="Password"
+                placeholder="New Password"
                 onChange={(e) => setpassword(e.target.value)}
                 value={password}
               />
             </div>
 
             <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div>
-
               <div className="text-sm">
                 <a
-                  href="/forgot_password"
+                  href="/register"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Forgot your password?
+                  Create Account
+                </a>
+              </div>
+              <div className="text-sm">
+                <a
+                  href="/login"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Login
                 </a>
               </div>
             </div>
@@ -145,7 +136,7 @@ export default function Login() {
                     aria-hidden="true"
                   />
                 </span>
-                Log in
+                Change Password
               </button>
               {/* <button
                 type="submit"

@@ -1,6 +1,7 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const express = require("express");
+require("dotenv").config();
 
 const router = express.Router();
 
@@ -17,6 +18,8 @@ router.post("/", async (req, res) => {
         .send({ message: "Incorrect Email or Password. Try again." });
       // res.json({ message: "Email does not exist." });
     } else {
+      // const fullUser = await User.findOne({ email: takenEmail });
+      const full_user_data = await User.find({ username: "prado156" });
       const password = user.password;
       if (!password) {
         return res.json({
@@ -25,7 +28,11 @@ router.post("/", async (req, res) => {
       }
       bcrypt.compare(password, takenEmail.password).then((match) => {
         if (match) {
-          res.status(200).send({ message: "Login Successful." });
+          // console.log("USER DEETS");
+          // res.send({ message: "User deets" });
+          // res.send(prado);
+          // res.status(200).send({ message: "Login Successful." });
+          res.status(200).send(full_user_data);
         } else {
           res
             .status(403)
@@ -34,7 +41,7 @@ router.post("/", async (req, res) => {
       });
     }
   } catch (error) {
-    res.send({ status: "error" });
+    res.send({ status: "Something went wrong" });
   }
 });
 
