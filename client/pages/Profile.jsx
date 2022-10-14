@@ -2,9 +2,14 @@ import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Input from "../components/Input";
 import Header from "../components/Header";
 
-export default function Login() {
+export default function Profile() {
+  var bg = window.localStorage.getItem("banner");
+  var img = new Image();
+  img.src = bg;
   return (
+
     <>
+
       <Header />
       {/* component */}
       <link
@@ -15,13 +20,15 @@ export default function Login() {
         rel="stylesheet"
         href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
       />
+
       <main className="profile-page">
         <section className="relative block h-500-px">
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage:
-                'url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80")',
+              /*backgroundImage:
+            'url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80")',*/
+              backgroundImage: "url('" + img.src + "')"
             }}
           >
             <span
@@ -49,38 +56,52 @@ export default function Login() {
             </svg>
           </div>
         </section>
-        <section className="relative py-16 bg-blueGray-200">
+        {/** Color change here */}
+
+        <section className="relative py-16" style={{
+          backgroundColor: window.localStorage.getItem("Color")
+        }}>
           <div className="container mx-auto px-4">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
-                  <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+                  <div className="w-3/12 px-4 lg:order-2 flex justify-center z-0">
                     <div className="relative">
                       <img
                         alt="..."
-                        src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
+                        src={window.localStorage.getItem("ProfilePic")}
+                        className="bg-white rounded-full  justify-center align-middle border-none absolute -mb-32 -m-14 mr-0 lg:-m-16 lg:-ml-16 max-w-150-px ring-4 ring-indigo-300"
+                        style={{
+                          width: "150px",
+                          height: "150px"
+                        }}
                       />
                     </div>
+                    <span class="mt-16 lg:mt-14 leading-none items-center justify-center text-center flex inset-x-0 w-12 h-12 lg:-ml-3  bg-white 
+                    border-4 border-indigo-300 dark:border-gray-800 rounded-full z-10 text-blueGray-500 font-bold uppercase">
+                      Lv.<br></br>34</span>
+
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
+
                       <button
                         className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
                       >
                         {"{"}Room Name{"}"}
                       </button>
+
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          22
+                          3
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Completed
+                          Easy
                         </span>
                       </div>
                       <div className="mr-4 p-3 text-center">
@@ -88,7 +109,7 @@ export default function Login() {
                           10
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Pending
+                          Medium
                         </span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
@@ -96,76 +117,100 @@ export default function Login() {
                           89
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Remaining
+                          Hard
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Jenna Stones
-                  </h3>
-                  <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400" />
-                    Level 34
+                  {/**    
+                   * <a class="flex justify-center items-center w-10 h-10 text-xs font-medium text-white bg-gray-700 rounded-full border-2 border-white hover:bg-gray-600 dark:border-gray-800" href="#">+99</a> */}
+                  <div class="text-center justify-center items-center flex flex-row">
+                    <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
+                      Firstname Lastname
+                    </h3>
+                    <a class="ml-3 w-8 h-8 rounded-md border border-gray-300 bg-white text-sm font-medium leading-4 text-gray-700 
+                      shadow-sm hover:bg-gray-50 focus:outline-none" href="/Profile_Information">
+
+                      <img
+                        src="Gear-icon.png"
+                        alt="Settings"
+                        style={{
+                          width: "2rem",
+                          height: "2rem",
+                        }}
+                      />
+                    </a>
                   </div>
-                  <div className="mb-2 text-blueGray-600 mt-10">
-                    <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400" />
-                    Solution Manager - Creative Tim Officer
+                  <div>
+                    <span className="mb-2 text-center text-blueGray-500">
+                      FirstLast@email.com
+                    </span>
                   </div>
-                  <div className="mb-2 text-blueGray-600">
-                    <i className="fas fa-university mr-2 text-lg text-blueGray-400" />
-                    University of Computer Science
+                  <div>
+                    <span className="mb-2 text-center text-blueGray-500"
+                    >
+                      XXX-XXX-XXXX
+                    </span>
                   </div>
-                </div>
-                <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
-                    <div className="w-full lg:w-9/12 px-4">
-                      <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                        An artist of considerable range, Jenna the name taken by
-                        Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                        performs and records all of his own music, giving it a
-                        warm, intimate feel with a solid groove structure. An
-                        artist of considerable range.
-                      </p>
-                      <a href="#pablo" className="font-normal text-pink-500">
-                        Show more
-                      </a>
+                    <div className="mr-4 p-3 text-center">
+                      <span className="text-xl font-bold block uppercase tracking-wide text-green-600">
+                        Completed:
+                      </span>
+                      <span className="text-lg font-bold text-green-600">
+                        102
+                      </span>
                     </div>
+                    <div className="mr-4 p-3 text-center">
+                      <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                        Total Points:
+                      </span>
+                      <span className="text-lg font-bold text-blueGray-400">
+                        34985
+                      </span>
+                    </div>
+                    <div className="lg:mr-4 p-3 text-center">
+                      <span className="text-xl font-bold block uppercase tracking-wide text-red-600">
+                        Pending:
+                      </span>
+                      <span className="text-lg font-bold text-red-600">
+                        98
+                      </span>
+                    </div>
+                    {/*
+                    <div className="w-full lg:w-9/12 px-4">
+
+                    
+                      <ul className="mt-1 text-lg leading-relaxed text-blueGray-700">
+                        {list.map((item) => (
+                          <li key={item.id}>{item.name}</li>
+                        ))}
+                      </ul>
+                     
+                    </div>
+                     */}
+                  </div>
+                  <div className="mt-10 py-4 border-t border-blueGray-200 text-center">
+
+                  </div>
+                  <div className="mt-1">
+                    <textarea
+                      id="about"
+                      name="about"
+                      rows={3}
+                      className="mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      placeholder="About me..."
+                      defaultValue={""}
+                    />
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
-          <footer className="relative bg-blueGray-200 pt-8 pb-6 mt-8">
-            <div className="container mx-auto px-4">
-              <div className="flex flex-wrap items-center md:justify-between justify-center">
-                <div className="w-full md:w-6/12 px-4 mx-auto text-center">
-                  <div className="text-sm text-blueGray-500 font-semibold py-1">
-                    Made with{" "}
-                    <a
-                      href="https://www.creative-tim.com/product/notus-js"
-                      className="text-blueGray-500 hover:text-gray-800"
-                      target="_blank"
-                    >
-                      Notus JS
-                    </a>{" "}
-                    by{" "}
-                    <a
-                      href="https://www.creative-tim.com"
-                      className="text-blueGray-500 hover:text-blueGray-800"
-                      target="_blank"
-                    >
-                      {" "}
-                      Creative Tim
-                    </a>
-                    .
-                  </div>
-                </div>
-              </div>
-            </div>
-          </footer>
+
         </section>
       </main>
     </>
