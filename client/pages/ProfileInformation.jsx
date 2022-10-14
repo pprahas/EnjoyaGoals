@@ -12,12 +12,34 @@
   }
   ```
 */
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from '../components/Modal'
 
 export default function Example() {
-  
+
+  var colors = [
+    {
+      value: 1,
+      label: "Red"
+    },
+    {
+      value: 2,
+      label: "Green"
+    },
+    {
+      value: 3,
+      label: "White"
+    }
+  ];
+  var [inputValue, setInputValue] = useState(colors[0].label);
+
+  var buttonHandle = () => {
+    window.localStorage.setItem("Color", inputValue);    
+    
+  };
+
+
   const [show, setShow] = useState(false);
 
   const uploadedImage = React.useRef(null);
@@ -30,10 +52,26 @@ export default function Example() {
       current.file = file;
       reader.onload = (e) => {
         current.src = e.target.result;
+        window.localStorage.setItem("ProfilePic", e.target.result);
       }
       reader.readAsDataURL(file);
     }
   };
+
+  const handleBannerUpload = e => {
+    const [file] = e.target.files;
+    if (file) {
+      console.log("Wow");
+      const reader2 = new FileReader();
+      reader2.onload = (e) => {
+        window.localStorage.setItem("banner", reader2.result);
+      }
+      reader2.readAsDataURL(file);
+    }
+  };
+
+
+
   return (
     <>
       <div>
@@ -53,9 +91,37 @@ export default function Example() {
             <form action="#" method="POST">
               <div className="mt-10 mr-10 shadow sm:overflow-hidden sm:rounded-md">
                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                  <div className="grid grid-cols-3 gap-6">
-                  <div className="col-span-3 sm:col-span-2">
-                    <label
+                  <div className="grid grid-cols-6 gap-6">
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                        First name
+                      </label>
+                      <input
+                        type="text"
+                        name="first-name"
+                        id="first-name"
+                        autoComplete="given-name"
+                        placeholder="First"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                    </div>
+
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                        Last name
+                      </label>
+                      <input
+                        type="text"
+                        name="last-name"
+                        id="last-name"
+                        autoComplete="family-name"
+                        placeholder="Last"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                    </div>
+
+                    <div className="col-span-3 sm:col-span-2">
+                      <label
                         htmlFor="email-address"
                         className="block text-sm font-medium text-gray-700"
                       >
@@ -67,7 +133,7 @@ export default function Example() {
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="Firstname Lastname"
+                        placeholder="User_name22"
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
@@ -123,7 +189,7 @@ export default function Example() {
                       />
                     </div>
                     <p className="mt-2 text-sm text-gray-500">
-                      Brief description for your profile. URLs are hyperlinked.
+                      Brief description for your profile.
                     </p>
                   </div>
 
@@ -139,32 +205,32 @@ export default function Example() {
                       }}
                     >
                       <img
-                        src='https://freesvg.org/img/abstract-user-flat-3.png'
+                        src={window.localStorage.getItem("ProfilePic")}
                         ref={uploadedImage}
                         style={{
                           width: "50px",
                           height: "50px",
                           position: "absolute",
                           borderRadius: "25px",
-
                         }}
+                        alt={"AAAAA"}
                       />
                     </div>
 
-                    <button type="button" 
-                      onClick={()=>setShow(true)}
+                    <button type="button"
+                      onClick={() => setShow(true)}
                       class="ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
                       shadow-sm hover:bg-gray-50 focus:outline-none">
                       Preset
                     </button>
-                    <Modal onClose={()=>setShow(false)} show={show}/>
+                    <Modal onClose={() => setShow(false)} show={show} />
 
 
                     <label htmlFor="custom"
                       className="relative cursor-pointer 
                       ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 
                       shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                      Custom
+                      Upload
                     </label>
                     <input type="file" id="custom" style={{ visibility: "hidden" }} accept="image/*" onChange={handleImageUpload} />
                   </div>
@@ -218,21 +284,40 @@ export default function Example() {
                             htmlFor="file-upload"
                             className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
+
+
+                            {/** BANNER */}
                             <span>Upload a file</span>
                             <input
                               id="file-upload"
                               name="file-upload"
                               type="file"
                               className="sr-only"
+                              accept="image/*"
+                              onChange={handleBannerUpload}
                             />
                           </label>
-                          <p className="pl-1">or drag and drop</p>
                         </div>
                         <p className="text-xs text-gray-500">
                           PNG, JPG, GIF up to 10MB
                         </p>
                       </div>
+
                     </div>
+                  </div>
+                  <div>
+                    <button type="button" onClick={buttonHandle}
+                      className="ml-2 mb-3 mr-2 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
+                        shadow-sm hover:bg-gray-50 focus:outline-none">
+                      Change color
+                    </button>
+                    <select id="select1" onChange={(e) => setInputValue(e.target.value)}
+                      className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
+                        shadow-sm hover:bg-gray-50 focus:outline-none">
+                      {colors.map((color) => (
+                        <option value={color.label}>{color.label}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">

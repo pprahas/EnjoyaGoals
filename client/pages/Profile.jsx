@@ -1,11 +1,16 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Input from "../components/Input";
+import './Profile.css'
 
 export default function Profile() {
-
+  var bg = window.localStorage.getItem("banner");
+  var img = new Image();
+  img.src = bg;
   return (
+
     <>
-      {/* component */}
+      {/* component */
+      }
       <link
         rel="stylesheet"
         href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
@@ -14,13 +19,15 @@ export default function Profile() {
         rel="stylesheet"
         href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
       />
+
       <main className="profile-page">
         <section className="relative block h-500-px">
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage:
-                'url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80")',
+              /*backgroundImage:
+            'url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80")',*/
+              backgroundImage: "url('" + img.src + "')"
             }}
           >
             <span
@@ -48,32 +55,42 @@ export default function Profile() {
             </svg>
           </div>
         </section>
-        <section className="relative py-16 bg-blueGray-200">
+        {/** Color change here */}
+
+        <section className="relative py-16" style={{
+          backgroundColor: window.localStorage.getItem("Color")
+        }}>
           <div className="container mx-auto px-4">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
-                  <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center z-0">
+                  <div className="w-3/12 px-4 lg:order-2 flex justify-center z-0">
                     <div className="relative">
                       <img
                         alt="..."
-                        src="pfp.png"
-                        className="bg-indigo-300 rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px ring-4 ring-white dark:ring-black"
+                        src={window.localStorage.getItem("ProfilePic")}
+                        className="bg-white rounded-full  justify-center align-middle border-none absolute -mb-32 -m-14 mr-0 lg:-m-16 lg:-ml-16 max-w-150-px ring-4 ring-indigo-300"
+                        style={{
+                          width: "150px",
+                          height: "150px"
+                        }}
                       />
                     </div>
-                    <span class="mt-14 leading-none items-center justify-center text-center flex inset-x-0 w-12 h-12 lg:-ml-3  bg-white 
+                    <span class="mt-16 lg:mt-14 leading-none items-center justify-center text-center flex inset-x-0 w-12 h-12 lg:-ml-3  bg-white 
                     border-4 border-indigo-300 dark:border-gray-800 rounded-full z-10 text-blueGray-500 font-bold uppercase">
                       Lv.<br></br>34</span>
 
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
+
                       <button
                         className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
                       >
                         {"{"}Room Name{"}"}
                       </button>
+
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
@@ -108,18 +125,33 @@ export default function Profile() {
                 <div className="text-center mt-12">
                   {/**    
                    * <a class="flex justify-center items-center w-10 h-10 text-xs font-medium text-white bg-gray-700 rounded-full border-2 border-white hover:bg-gray-600 dark:border-gray-800" href="#">+99</a> */}
-                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Firstname Lastname
-                  </h3>
-                  <div>
-                    <input className="mb-2 text-center text-blueGray-300"
-                      placeholder="FirstLast@email.com">
-                    </input>
+                  <div class="text-center justify-center items-center flex flex-row">
+                    <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
+                      Firstname Lastname
+                    </h3>
+                    <a class="ml-3 w-8 h-8 rounded-md border border-gray-300 bg-white text-sm font-medium leading-4 text-gray-700 
+                      shadow-sm hover:bg-gray-50 focus:outline-none" href="/Profile_Information">
+
+                      <img
+                        src="Gear-icon.png"
+                        alt="Settings"
+                        style={{
+                          width: "2rem",
+                          height: "2rem",
+                        }}
+                      />
+                    </a>
                   </div>
                   <div>
-                    <input className="mb-2 text-center text-blueGray-300"
-                      placeholder="XXX-XXX-XXXX">
-                    </input>
+                    <span className="mb-2 text-center text-blueGray-500">
+                      FirstLast@email.com
+                    </span>
+                  </div>
+                  <div>
+                    <span className="mb-2 text-center text-blueGray-500"
+                    >
+                      XXX-XXX-XXXX
+                    </span>
                   </div>
                   <div className="flex flex-wrap justify-center">
                     <div className="mr-4 p-3 text-center">
@@ -146,7 +178,7 @@ export default function Profile() {
                         98
                       </span>
                     </div>
-                      {/*
+                    {/*
                     <div className="w-full lg:w-9/12 px-4">
 
                     
@@ -177,7 +209,7 @@ export default function Profile() {
               </div>
             </div>
           </div>
-         
+
         </section>
       </main>
     </>
