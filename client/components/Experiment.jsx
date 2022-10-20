@@ -1,10 +1,11 @@
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+
 import React, { useState } from "react";
 import axios from "axios";
-import Leaderboard from "../components/Leaderboard";
 
-export default function Homepage() {
+
+const Experiment = props => {
+
+
   const [task_name, settask_name] = useState("");
   const [task_description, settask_description] = useState("");
   const [task_difficulty, settask_difficulty] = useState("");
@@ -16,17 +17,6 @@ export default function Homepage() {
     e.preventDefault();
     const user_id = window.localStorage.getItem("userId");
     const completed = false;
-
-    // console.log(
-    //   user_id,
-    //   task_name,
-    //   task_description,
-    //   task_difficulty,
-    //   task_deadline,
-    //   points,
-    //   completed,
-    //   assigned_user
-    // );
     axios
       .post("http://localhost:8080/task/create", {
         // creatorId: user_id,
@@ -50,16 +40,15 @@ export default function Homepage() {
   };
 
   return (
-    <div className="content-center">
-      <Header />
+    <div className="modal" class="content-center">
+      <div></div>
       <h1 className="text-center text-8xl text-red-400	">Create Task</h1>;
       {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
       {/* <a href="/forgot_password" className="content-center text-8xl bg-red-400">
         Create Task
       </a> */}
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
-      <Sidebar />
-      <Leaderboard />
+
 
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
         <input type="hidden" name="remember" defaultValue="true" />
@@ -201,3 +190,4 @@ export default function Homepage() {
     </div>
   );
 }
+export default Experiment
