@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import Leaderboard from "../components/Leaderboard";
 
 function CreateTask() {
   console.log("here and there and there too man");
@@ -22,6 +23,7 @@ export default function Homepage() {
       </a>
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
       <Sidebar />
+      <Leaderboard />
     </div>
   );
 }
