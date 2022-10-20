@@ -117,11 +117,12 @@ export default function Header() {
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="#">
               <span className="sr-only">Your Company</span>
-              <img
+              {/* <img
                 className="h-8 w-auto sm:h-10"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt=""
-              />
+              /> */}
+              <img className="h-8 w-auto sm:h-10" src="/logo.png" alt="" />
             </a>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
