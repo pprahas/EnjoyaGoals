@@ -52,6 +52,8 @@ export default function Example() {
       current.file = file;
       reader.onload = (e) => {
         current.src = e.target.result;
+
+        //change this to mongodb later
         window.localStorage.setItem("ProfilePic", e.target.result);
       }
       reader.readAsDataURL(file);
@@ -64,6 +66,8 @@ export default function Example() {
       console.log("Wow");
       const reader2 = new FileReader();
       reader2.onload = (e) => {
+
+        //change this to mongodb later
         window.localStorage.setItem("banner", reader2.result);
       }
       reader2.readAsDataURL(file);
@@ -322,7 +326,7 @@ export default function Example() {
                 </div>
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                   <button
-                    type="submit"
+                    type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     Save
