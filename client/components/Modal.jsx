@@ -2,8 +2,26 @@ import React from 'react'
 import './Modal.css'
 import Imgs from './Imgs'
 
-const Modal = props => {
+export const toBase64 = (image) => {
+    fetch(image.src)
+    .then((res) => res.blob())
+    .then((blob) => {
+        // Read the Blob as DataURL using the FileReader API
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            console.log(reader.result);
+            // Logs data:image/jpeg;base64,wL2dvYWwgbW9yZ...
 
+            // Convert to Base64 string
+            window.localStorage.setItem("ProfilePic", reader.result);
+
+            // Logs wL2dvYWwgbW9yZ...
+        };
+        reader.readAsDataURL(blob);
+    });
+};
+
+const Modal = props => {
     if (!props.show) {
         return null
     }
@@ -16,7 +34,21 @@ const Modal = props => {
                     </div>
                     <div className='modal-body'>
                         {Imgs.map((imgSrc, index) =>
-                            (<img src={imgSrc.src} key={index} width={60} height={60} alt="alttag" />))}
+                        (
+                            <div onClick={() => {
+                                toBase64(imgSrc)
+                            }}>
+                                <img src={imgSrc.src}
+                                    key={index}
+                                    width={60}
+                                    height={60}
+                                    alt="alttag"
+                                    className="mr-2 rounded-full outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                />
+                            </div>
+
+                        )
+                        )}
                     </div>
                     <div className='modal-footer'>
                         <button className="button"
