@@ -6,15 +6,18 @@ const Sidebar = () => {
       <p className="text-center text-yellow-500 mt-8 text-lg font-serif font-semibold">
         Leaderboard
       </p>
+      <SideBarIcon />
     </div>
   );
 };
 
 const SideBarIcon = ({ icon, text = "room" }) => (
-  <div className="sidebar-icon group">
-    {icon}
+  <div className="h-8 w-16 right-0 ">
+    <div className="flex flex-row">
+      <p className="ml-3">Name</p>
 
-    {/* <span class="sidebar-tooltip group-hover:scale-100">{text}</span> */}
+      <img src="/pfp.png" alt="" />
+    </div>
   </div>
 );
 
