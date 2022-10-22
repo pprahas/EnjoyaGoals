@@ -14,37 +14,34 @@
 */
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Modal from '../components/Modal'
+import Modal from "../components/Modal";
 
 export default function Example() {
-
   var colors = [
     {
       value: 1,
-      label: "Red"
+      label: "Red",
     },
     {
       value: 2,
-      label: "Green"
+      label: "Green",
     },
     {
       value: 3,
-      label: "White"
-    }
+      label: "White",
+    },
   ];
   var [inputValue, setInputValue] = useState(colors[0].label);
 
   var buttonHandle = () => {
-    window.localStorage.setItem("Color", inputValue);    
-    
+    window.localStorage.setItem("Color", inputValue);
   };
-
 
   const [show, setShow] = useState(false);
 
   const uploadedImage = React.useRef(null);
 
-  const handleImageUpload = e => {
+  const handleImageUpload = (e) => {
     const [file] = e.target.files;
     if (file) {
       const reader = new FileReader();
@@ -55,26 +52,23 @@ export default function Example() {
 
         //change this to mongodb later
         window.localStorage.setItem("ProfilePic", e.target.result);
-      }
+      };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleBannerUpload = e => {
+  const handleBannerUpload = (e) => {
     const [file] = e.target.files;
     if (file) {
       console.log("Wow");
       const reader2 = new FileReader();
       reader2.onload = (e) => {
-
         //change this to mongodb later
         window.localStorage.setItem("banner", reader2.result);
-      }
+      };
       reader2.readAsDataURL(file);
     }
   };
-
-
 
   return (
     <>
@@ -97,7 +91,10 @@ export default function Example() {
                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="first-name"
+                        className="block text-sm font-medium text-gray-700"
+                      >
                         First name
                       </label>
                       <input
@@ -111,7 +108,10 @@ export default function Example() {
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="last-name"
+                        className="block text-sm font-medium text-gray-700"
+                      >
                         Last name
                       </label>
                       <input
@@ -199,13 +199,12 @@ export default function Example() {
 
                   {/* Code for custom profile pic */}
                   <div className="mt-1 flex items-center">
-
                     <div
                       style={{
                         height: "62px",
                         width: "62px",
                         border: "5px black",
-                        borderRadius: "31px"
+                        borderRadius: "31px",
                       }}
                     >
                       <img
@@ -221,22 +220,31 @@ export default function Example() {
                       />
                     </div>
 
-                    <button type="button"
+                    <button
+                      type="button"
                       onClick={() => setShow(true)}
                       class="ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
-                      shadow-sm hover:bg-gray-50 focus:outline-none">
+                      shadow-sm hover:bg-gray-50 focus:outline-none"
+                    >
                       Preset
                     </button>
                     <Modal onClose={() => setShow(false)} show={show} />
 
-
-                    <label htmlFor="custom"
+                    <label
+                      htmlFor="custom"
                       className="relative cursor-pointer 
                       ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 
-                      shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
                       Upload
                     </label>
-                    <input type="file" id="custom" style={{ visibility: "hidden" }} accept="image/*" onChange={handleImageUpload} />
+                    <input
+                      type="file"
+                      id="custom"
+                      style={{ visibility: "hidden" }}
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                    />
                   </div>
 
                   {/** 
@@ -288,8 +296,6 @@ export default function Example() {
                             htmlFor="file-upload"
                             className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-
-
                             {/** BANNER */}
                             <span>Upload a file</span>
                             <input
@@ -306,18 +312,23 @@ export default function Example() {
                           PNG, JPG, GIF up to 10MB
                         </p>
                       </div>
-
                     </div>
                   </div>
                   <div>
-                    <button type="button" onClick={buttonHandle}
+                    <button
+                      type="button"
+                      onClick={buttonHandle}
                       className="ml-2 mb-3 mr-2 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
-                        shadow-sm hover:bg-gray-50 focus:outline-none">
+                        shadow-sm hover:bg-gray-50 focus:outline-none"
+                    >
                       Change color
                     </button>
-                    <select id="select1" onChange={(e) => setInputValue(e.target.value)}
+                    <select
+                      id="select1"
+                      onChange={(e) => setInputValue(e.target.value)}
                       className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
-                        shadow-sm hover:bg-gray-50 focus:outline-none">
+                        shadow-sm hover:bg-gray-50 focus:outline-none"
+                    >
                       {colors.map((color) => (
                         <option value={color.label}>{color.label}</option>
                       ))}

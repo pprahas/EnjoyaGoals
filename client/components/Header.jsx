@@ -1,3 +1,8 @@
+import { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import CalendarView from "./CalendarView";
+import TaskModal from "../components/TaskModal";
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
@@ -110,6 +115,8 @@ function logOut() {
 }
 
 export default function Header() {
+  const [calIsShown, setCalIsShown] = useState(false);
+
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -359,6 +366,22 @@ export default function Header() {
             </Popover> */}
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+            <div>
+              <button
+                // href="#"
+                onClick={() => setCalIsShown(true)}
+                className="whitespace-nowrap font-semibold text-xl text-gray-500 hover:text-gray-900 mr-12"
+              >
+                11/09/2022
+              </button>
+              <CalendarView
+                onClose={() => setCalIsShown(false)}
+                show={calIsShown}
+              />
+              {/* {calIsShown && <Calendar />} */}
+              {/* {<Calendar onClose={() => setCalIsShown(false)} />} */}
+            </div>
+
             <a
               href="#"
               className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
