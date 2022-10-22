@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import CalendarView from "./CalendarView";
 import TaskModal from "../components/TaskModal";
+import Progressbar from "./Progressbar";
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
@@ -261,12 +262,16 @@ export default function Header() {
               </div>
             </div> */}
 
-            <a
-              href="/homepage"
-              className="text-2xl font-semibold text-gray-500 hover:text-gray-900"
-            >
-              Room Name
-            </a>
+            <div>
+              {/* <Progressbar /> */}
+              <a
+                href="/homepage"
+                className="text-2xl font-semibold text-gray-500 hover:text-gray-900"
+              >
+                Room Name
+              </a>
+              <Progressbar />
+            </div>
 
             {/* <a
               href="#"
