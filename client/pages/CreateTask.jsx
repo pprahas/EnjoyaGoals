@@ -2,6 +2,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import React, { useState } from "react";
 import axios from "axios";
+import Leaderboard from "../components/Leaderboard";
 
 export default function Homepage() {
   const [task_name, settask_name] = useState("");
@@ -58,6 +59,8 @@ export default function Homepage() {
       </a> */}
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
       <Sidebar />
+      <Leaderboard />
+
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
         <input type="hidden" name="remember" defaultValue="true" />
         <div className="-space-y-px rounded-md shadow-sm">

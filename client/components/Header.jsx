@@ -1,3 +1,9 @@
+import { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import CalendarView from "./CalendarView";
+import TaskModal from "../components/TaskModal";
+import Progressbar from "./Progressbar";
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
@@ -110,11 +116,13 @@ function logOut() {
 }
 
 export default function Header() {
+  const [calIsShown, setCalIsShown] = useState(false);
+
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
+          <div className="flex justify-start lg:w-0 lg:flex-1 md:space-x-16">
             <a href="#">
               <span className="sr-only">Your Company</span>
               {/* <img
@@ -122,7 +130,26 @@ export default function Header() {
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt=""
               /> */}
+              <div></div>
               <img className="h-8 w-auto sm:h-10" src="/logo.png" alt="" />
+            </a>
+            <a
+              // href="/homepage"
+              className="text-2xl font-semibold text-green-500"
+            >
+              32
+            </a>
+            <a
+              // href="/homepage"
+              className="text-2xl font-semibold text-red-500"
+            >
+              32
+            </a>
+            <a
+              // href="/homepage"
+              className="text-2xl font-semibold text-blue-500"
+            >
+              32
             </a>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
@@ -130,9 +157,15 @@ export default function Header() {
               <span className="sr-only">Open menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
+            <a
+              // href="/homepage"
+              className="text-2xl font-semibold text-green-500"
+            >
+              32
+            </a>
           </div>
           <Popover.Group as="nav" className="hidden space-x-10 md:flex">
-            <Popover className="relative">
+            {/* <Popover className="relative">
               {({ open }) => (
                 <>
                   <Popover.Button
@@ -205,22 +238,49 @@ export default function Header() {
                   </Transition>
                 </>
               )}
-            </Popover>
+            </Popover> */}
+            {/* <div className="flex place-content-center">
+              <div className="flex items-center justify-between px-6 md:space-x-6">
+                <a
+                  // href="/homepage"
+                  className="text-2xl font-semibold text-green-500"
+                >
+                  32
+                </a>
+                <a
+                  // href="/homepage"
+                  className="text-2xl font-semibold text-red-500"
+                >
+                  12
+                </a>
+                <a
+                  // href="/homepage"
+                  className="text-2xl font-semibold text-blue-500"
+                >
+                  64
+                </a>
+              </div>
+            </div> */}
 
-            <a
-              href="#"
-              className="text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Or that
-            </a>
-            <a
+            <div>
+              {/* <Progressbar /> */}
+              <a
+                href="/homepage"
+                className="text-2xl font-semibold text-gray-500 hover:text-gray-900"
+              >
+                Room Name
+              </a>
+              <Progressbar />
+            </div>
+
+            {/* <a
               href="#"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
               OR that or this
-            </a>
+            </a> */}
 
-            <Popover className="relative">
+            {/* <Popover className="relative">
               {({ open }) => (
                 <>
                   <Popover.Button
@@ -308,9 +368,25 @@ export default function Header() {
                   </Transition>
                 </>
               )}
-            </Popover>
+            </Popover> */}
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+            <div>
+              <button
+                // href="#"
+                onClick={() => setCalIsShown(true)}
+                className="whitespace-nowrap font-semibold text-xl text-gray-500 hover:text-gray-900 mr-12"
+              >
+                11/09/2022
+              </button>
+              <CalendarView
+                onClose={() => setCalIsShown(false)}
+                show={calIsShown}
+              />
+              {/* {calIsShown && <Calendar />} */}
+              {/* {<Calendar onClose={() => setCalIsShown(false)} />} */}
+            </div>
+
             <a
               href="#"
               className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
