@@ -8,38 +8,6 @@ const CalendarView = (props) => {
   if (!props.show) {
     return null;
   }
-  const [task_name, settask_name] = useState("");
-  const [task_description, settask_description] = useState("");
-  const [task_difficulty, settask_difficulty] = useState("");
-  const [task_deadline, settask_deadline] = useState("");
-  const [points, setpoints] = useState("");
-  const [assigned_user, setassigned_user] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const user_id = window.localStorage.getItem("userId");
-    const completed = false;
-    axios
-      .post("http://localhost:8080/task/create", {
-        // creatorId: user_id,
-        name: task_name,
-        description: task_description,
-        difficulty: task_difficulty,
-        deadline: task_deadline,
-        points: points,
-        completed: completed,
-        assignedUser: assigned_user,
-      })
-      .then((res) => {
-        console.log("Posting data", res);
-        // navigate("/login");
-      })
-      .catch((err) => {
-        // console.log(err);
-        // setMessage(err.response.data.msg);
-        console.log(err.response.data.msg);
-      });
-  };
 
   return (
     <div className="overlay" class="fixed pin z-50 overflow-auto flex">
@@ -48,7 +16,9 @@ const CalendarView = (props) => {
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">
             Calendar
           </h1>
-          <Calendar />
+          <div className="grid justify-items-center">
+            <Calendar className="items-center" />
+          </div>
           {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
           {/* <a href="/forgot_password" className="content-center text-8xl bg-red-400">
         Create Task
