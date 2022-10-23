@@ -6,14 +6,14 @@ const Tasks = (props) => {
   return (
     <div className="bg-indigo-900 text-center py-4 lg:px-4">
       <button
-        className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+        className="p-2 w-96 justify-center bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
         role="alert"
         onClick={() => setShow(true)}
       >
-        <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+        <span className="w-24 text-center rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
           {props.date}
         </span>
-        <span className="font-semibold mr-2 text-left flex-auto">
+        <span className="text-center font-semibold mr-2 text-left flex-auto">
           {props.name}
         </span>
         {/* <svg

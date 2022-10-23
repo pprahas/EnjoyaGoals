@@ -12,11 +12,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 .modal-content{
     width: 500px;
     background-color: #fff;
+
 }
 
 .modal-header, .modal-footer{
@@ -26,11 +28,33 @@
 .modal-title {
     margin: 0;
 }
+
 .modal-body {
     padding: 10px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     display:flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: wrap;   
+}
+
+.task-content{
+    border-radius: 5px 5px 0 0;
+    width: 500px;
+    background-color: #fff;
+    height: 543px;
+    overflow-y: auto;
+}
+
+.taskHeader {
+    position: fixed;
+    width: 500px;
+    background-color: white;
+    border-radius: 5px 5px 0 0;
+}
+.taskFoot {
+    position:fixed;
+    margin-top: 543px;
+    width: 500px;
+    border-radius: 5px 5px 5px 5px;
 }
