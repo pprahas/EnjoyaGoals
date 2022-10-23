@@ -1,9 +1,14 @@
+import { useState } from "react";
+import TaskInformation from "./TaskInformation";
+
 const Tasks = (props) => {
+  const [show, setShow] = useState(false);
   return (
     <div className="bg-indigo-900 text-center py-4 lg:px-4">
       <button
         className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
         role="alert"
+        onClick={() => setShow(true)}
       >
         <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
           {props.date}
@@ -22,6 +27,14 @@ const Tasks = (props) => {
           {props.points}
         </span>
       </button>
+
+      <TaskInformation
+        onClose={() => setShow(false)}
+        show={show}
+        name={props.name}
+        date={props.date}
+        points={props.points}
+      />
     </div>
   );
 };
