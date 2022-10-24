@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const roomSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.ObjectId,
-		required: true
+		required: true,
 	},
 	name: {
 		type: String,
@@ -34,6 +34,7 @@ const roomSchema = mongoose.Schema({
 		type: [{ type: mongoose.Schema.ObjectId, ref: 'Task' }],
 		required: false,
 	}
+
 }, {timestamps: true});
 
 const Room = mongoose.model("Room", roomSchema);
