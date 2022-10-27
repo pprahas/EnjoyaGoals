@@ -27,17 +27,14 @@ const roomSchema = mongoose.Schema(
       type: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
       required: true,
     },
-    // completed + incomplete for TEAM
     teamTasks: {
-      type: [{ typ: mongoose.Schema.ObjectId, ref: "Task" }],
+      type: [{ type: mongoose.Schema.ObjectId, ref: "Task" }],
       required: false,
     },
-    // completed for TEAM
     completedTasks: {
       type: [{ type: mongoose.Schema.ObjectId, ref: "Task" }],
       required: false,
     },
-    // all pending tasks for a USER
     assignedTasks: {
       type: [{ type: mongoose.Schema.ObjectId, ref: "Task" }],
       required: false,
