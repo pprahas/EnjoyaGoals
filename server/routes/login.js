@@ -19,7 +19,8 @@ router.post("/", async (req, res) => {
       // res.json({ message: "Email does not exist." });
     } else {
       // const fullUser = await User.findOne({ email: takenEmail });
-      const full_user_data = await User.find({ username: "prado156" });
+      // const full_user_data = await User.find({ username: "prado156" });
+      const full_user_data = await User.find({ email: user.email });
       const password = user.password;
       if (!password) {
         return res.json({
