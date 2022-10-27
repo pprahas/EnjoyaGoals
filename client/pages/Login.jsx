@@ -24,12 +24,16 @@ export default function Login() {
         navigate("/homepage");
         console.log(res.data[0]);
         console.log(res.data.email);
-        window.localStorage.setItem("username", res.data[0].username);
-        window.localStorage.setItem("email", res.data[0].email);
-        window.localStorage.setItem("firstName", res.data[0].firstName);
-        window.localStorage.setItem("lastName", res.data[0].lastName);
-        window.localStorage.setItem("userId", res.data[0]._id);
-        window.localStorage.setItem("isLoggedIn", true);
+        window.localStorage.setItem("user_data", JSON.stringify(res.data[0]));
+        let user_object = window.localStorage.getItem("user_data");
+        user_object = JSON.parse(user_object);
+        console.log("My name is " + user_object.firstName);
+        // window.localStorage.setItem("username", res.data[0].username);
+        // window.localStorage.setItem("email", res.data[0].email);
+        // window.localStorage.setItem("firstName", res.data[0].firstName);
+        // window.localStorage.setItem("lastName", res.data[0].lastName);
+        // window.localStorage.setItem("userId", res.data[0]._id);
+        // window.localStorage.setItem("isLoggedIn", true);
       })
       .catch((err) => {
         setMessage(err.response.data.message);
