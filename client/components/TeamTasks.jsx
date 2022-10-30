@@ -1,17 +1,21 @@
 import React, { useState } from "react";
+import Pending from "./Pending";
 import Tasks from "./Task";
 import "./TaskModal.css";
+import Unaccepted from "./Unaccepted";
 
-const CompletedTasks = (props) => {
+const PendingTasks = (props) => {
   const AllTasks = [
     <Tasks date="10/22/2022" name="Fixing Frontend" points="30" />,
-    <Tasks date="2/22/2022" name="Fixing Backend" points="10" />,
+    <Unaccepted date="2/22/2022" name="Fixing Backend" points="10" />,
+    <Unaccepted date="110/22/2022" name="Frontend" points="90" />,
+    <Pending date="110/22/2022" name="Frontend" points="90" />,
     <Tasks date="110/22/2022" name="Frontend" points="90" />,
-    <Tasks date="110/22/2022" name="Frontend" points="90" />,
-    <Tasks date="110/22/2022" name="Frontend" points="90" />,
-    <Tasks date="110/22/2022" name="Frontend" points="90" />,
+    <Pending date="110/22/2022" name="Frontend" points="90" />,
     <Tasks date="10/29/2022" name="Fixing Homepage" points="20" />,
-    <Tasks date="10/29/2022" name="Fixing Homepage" points="20" />,
+    <Unaccepted date="10/29/2022" name="Fixing Homepage" points="20" />,
+    <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
+
   ];
 
   if (!props.show) {
@@ -24,7 +28,7 @@ const CompletedTasks = (props) => {
         <div className="task-content">
           <div className="taskHeader">
             <h1 className="text-center text-6xl font-semibold pt-4 mb-3 text-indigo-500">
-              Completed Tasks
+              All Tasks
             </h1>
           </div>
           <div className="rounded-md pt-24 pb-10 bg-indigo-900">{AllTasks}</div>
@@ -43,4 +47,4 @@ const CompletedTasks = (props) => {
   );
 };
 
-export default CompletedTasks;
+export default PendingTasks;
