@@ -21,6 +21,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 
 const solutions = [
@@ -116,9 +117,62 @@ function logOut() {
   //   navigate("/login");
 }
 
+
+
+
 export default function Header() {
   const [calIsShown, setCalIsShown] = useState(false);
+  const id = '635dd0253dcbd06ca4291053';
+  const [message, setMessage] = useState("");
+  
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //console.log(id) 
+    axios.post("http://localhost:8080/progress_bar",{
+      id,
+    })
+    .then((res) => {
+      console.log(res.data.percent);
+      window.localStorage.setItem("percentageComp", res.data.percent);
+      window.location.reload();
+    })
+    .catch((err) => {
+      setMessage(err.response.data.message);
+      console.log(message);
+    });
+    /*
+    e.preventDefault();
+    
+    
+    axios
+      .post("http://localhost:8080/progress_bar", {
+        roomId
+      })
+      .then((res) => {
 
+        //setMessage(res.data.message);
+        //navigate("/homepage");
+        //console.log(res.data[0]);
+        //console.log(res.data.email);
+        //window.localStorage.setItem("user_data", JSON.stringify(res.data[0]));
+        //let user_object = window.localStorage.getItem("user_data");
+        //user_object = JSON.parse(user_object);
+        //console.log("My name is " + user_object.firstName);
+        // window.localStorage.setItem("username", res.data[0].username);
+        // window.localStorage.setItem("email", res.data[0].email);
+        // window.localStorage.setItem("firstName", res.data[0].firstName);
+        // window.localStorage.setItem("lastName", res.data[0].lastName);
+        // window.localStorage.setItem("userId", res.data[0]._id);
+        // window.localStorage.setItem("isLoggedIn", true);
+      })
+      .catch((err) => {
+        setMessage(err.response.data.message);
+      });
+      */
+  };
+  
+  
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -271,7 +325,18 @@ export default function Header() {
               >
                 Room Name
               </a>
-              <Progressbar />
+              <div class="flex-row min-h-fit">
+                <button type="button"
+                  onClick={handleSubmit}
+                  class="flex-row flex float-right ml-1 mb-1 rounded-md border border-gray-300 bg-white px-1  text-xs font-medium leading-4 text-gray-700 
+                      shadow-sm hover:bg-gray-50 focus:outline-none">
+
+                  Re
+
+                </button>
+                <Progressbar />
+
+              </div>
             </div>
 
             {/* <a
