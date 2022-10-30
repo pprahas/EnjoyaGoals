@@ -4,10 +4,14 @@ import Leaderboard from "../components/Leaderboard";
 import TaskModal from "../components/TaskModal";
 import { useState } from "react";
 import CompletedTasks from "../components/CompletedTasks";
+import PendingTasks from "../components/PendingTasks";
+import TeamTasks from "../components/TeamTasks"
 
 export default function Homepage() {
   const [showCreate, setShowCreate] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
+  const [showPending, setShowPending] = useState(false);
+  const [showAll, setShowAll] = useState(false);
 
   return (
     <div className="content-center">
@@ -48,21 +52,29 @@ export default function Homepage() {
           </div> */}
 
           <div className="col-span-6">
-            <a
-              href="/homepage/create_task"
-              className=" absolute right-0 text-center content-center text-4xl bg-red-400 text-white w-56 mr-36 p-3 rounded-md"
+          <button
+              className="absolute right-0 content-center text-4xl bg-red-400 mr-36 p-3 w-56 text-white rounded-md"
+              onClick={() => setShowPending(true)}
             >
               Pending
-            </a>
+            </button>
+            <PendingTasks
+              onClose={() => setShowPending(false)}
+              show={showPending}
+            />
           </div>
 
           <div className="col-span-6">
-            <a
-              href="/homepage/create_task"
-              className=" absolute right-0 text-center content-center text-4xl bg-purple-400 mr-36 p-3 w-56 text-white rounded-md"
+          <button
+              className="absolute right-0 content-center text-4xl bg-purple-400 mr-36 p-3 w-56 text-white rounded-md"
+              onClick={() => setShowAll(true)}
             >
               Team
-            </a>
+            </button>
+            <TeamTasks
+              onClose={() => setShowAll(false)}
+              show={showAll}
+            />
           </div>
         </div>
       </div>
