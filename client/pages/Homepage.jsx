@@ -5,13 +5,6 @@ import TaskModal from "../components/TaskModal";
 import { useState } from "react";
 import CompletedTasks from "../components/CompletedTasks";
 
-function CreateTask() {
-  console.log("here and there and there too man");
-  return (
-    <h1 className="text-center text-8xl text-red-400">Yeah sure hahaha</h1>
-  );
-}
-
 export default function Homepage() {
   const [showCreate, setShowCreate] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
