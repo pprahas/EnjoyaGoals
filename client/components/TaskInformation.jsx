@@ -14,11 +14,11 @@ const TaskInformation = (props) => {
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">
             {props.name}
           </h1>
-          <p>Description:</p>
-          <p>Difficulty:</p>
+          <p>Description: {props.desc} </p>
+          <p>Difficulty: {props.difficulty}</p>
           <p>Deadline: {props.date}</p>
           <p>Points: {props.points}</p>
-          <p>Assigned:</p>
+          <p>Assigned: {props.assigned} </p>
           <button
             type="button"
             className="mt-4 group relative flex w-full justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
