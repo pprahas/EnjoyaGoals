@@ -48,6 +48,9 @@ app.use("/task", taskRoutes);
 const roomRoutes = require("./routes/room");
 app.use("/room", roomRoutes);
 
+const userRoutes = require("./routes/user");
+app.use("/user", userRoutes);
+
 const progressBarRoutes = require("./routes/progress_bar");
 app.use("/progress_bar", progressBarRoutes);
 
