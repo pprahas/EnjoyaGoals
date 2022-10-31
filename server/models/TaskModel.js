@@ -31,8 +31,8 @@ const taskSchema = mongoose.Schema(
       type: Number,
       required: false,
     },
-    completed: {
-      type: Boolean,
+    status: {
+      type: String,
       required: true,
     },
     assignedUser: {
