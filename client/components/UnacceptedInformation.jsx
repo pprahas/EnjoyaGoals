@@ -14,8 +14,8 @@ const UnacceptedInformation = (props) => {
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">
             {props.name}
           </h1>
-          <p>Description:</p>
-          <p>Difficulty:</p>
+          <p>Description: {props.description} </p>
+          <p>Difficulty:{props.difficulty}</p>
           <p>Deadline: {props.date}</p>
           <p>Points: {props.points}</p>
     

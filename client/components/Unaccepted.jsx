@@ -32,6 +32,8 @@ const Unaccepted = (props) => {
         onClose={() => setShow(false)}
         show={show}
         name={props.name}
+        description={props.description}
+        difficulty={props.difficulty}
         date={props.date}
         points={props.points}
       />
