@@ -1,9 +1,12 @@
 import { BsPlus, BsGearFill } from "react-icons/bs";
+import { BiCaretRight } from "react-icons/bi";
 import { useState } from "react";
 import { FaFire } from "react-icons/fa";
 import CreateRoom from "./CreateRoom";
+import JoinRoom from "./JoinRoom";
 const Sidebar = () => {
   const [showCreateRoom, setShowCreateRoom] = useState(false);
+  const [showJoinRoom, setShowJoinRoom] = useState(false);
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
   let userRooms = user_object.rooms;
@@ -31,6 +34,18 @@ const Sidebar = () => {
           show={showCreateRoom}
         ></CreateRoom>
       </div>
+
+      <div>
+        <div onClick={() => setShowJoinRoom(true)}>
+          <SideBarIcon icon={<BiCaretRight size="60" />} text="Join Room"/>
+        </div>
+
+        <JoinRoom 
+          onClose={() => setShowJoinRoom(false)}
+          show={showJoinRoom}
+          ></JoinRoom>
+      </div>
+
       {eachRoom}
       {/* <SideBarIcon icon={<FaFire size="60" />} /> */}
       <a href="/profile">
