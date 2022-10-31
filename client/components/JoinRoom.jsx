@@ -38,6 +38,21 @@ const JoinRoom = (props) => {
 			})
 			.then((res) => {
 				console.log("Posting data", res);
+
+        console.log("user_object._id = " + JSON.stringify(user_object._id));
+        axios
+        .get("http://localhost:8080/query_database/user", {
+          id: JSON.stringify(user_object._id),
+        })
+        .then(function (res) {
+          console.log("res = " + res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+//        user_object.rooms.push(roomId);
+//        window.localStorage.setItem("user_data", JSON.stringify(user_object));
 			})
 			.catch((err) => {
 				console.log(err.response.data.msg);

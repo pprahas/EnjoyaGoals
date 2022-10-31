@@ -65,10 +65,15 @@ router.get("/lastNames", async (req, res) => {
 
 // query all the data from the database for a User specified by username
 router.get("/user", async (req, res) => {
-    const userToFind = req.body;
+    // this request should contain:
+    // "id":        the `_id` of the User,
+
+    console.log("req = " + req.body);
 
     try {
-        const findRes = await User.find( { username: userToFind.username } ).select("-password");
+        const findRes = await User.findById(req.body.id).select("-password");
+        console.log("user id = " + req.body.id);
+        console.log("findRes = " + findRes);
         res.send(findRes);
     } catch (error) {
         console.log(error);
