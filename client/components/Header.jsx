@@ -112,7 +112,7 @@ function logOut() {
   // window.localStorage.removeItem("firstName");
   // window.localStorage.removeItem("lastName");
   // window.localStorage.removeItem("userId");
-  // window.localStorage.removeItem("isLoggedIn");
+  window.localStorage.removeItem("isLoggedIn");
   //   navigate("/login");
 }
 
@@ -390,7 +390,9 @@ export default function Header() {
 
             <button
               onClick={() => {
-                navigator.clipboard.writeText("this will eventually be a room code");
+                navigator.clipboard.writeText(
+                  "this will eventually be a room code"
+                );
               }}
               className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
             >
