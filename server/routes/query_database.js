@@ -64,11 +64,11 @@ router.get("/lastNames", async (req, res) => {
 });
 
 // query all the data from the database for a User specified by username
-router.get("/user", async (req, res) => {
+router.post("/user", async (req, res) => {
     // this request should contain:
     // "id":        the `_id` of the User,
 
-    console.log("req = " + req.body);
+    console.log("req = ", req.body);
 
     try {
         const findRes = await User.findById(req.body.id).select("-password");
