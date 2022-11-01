@@ -17,6 +17,7 @@ export default function Homepage() {
   const [message, setMessage] = useState("");
   let list = [];
   const [teamList, setteamList] = useState(list);
+  const [pendingList, setpendingList] = useState([]);
 
   useEffect(() => {
     console.log(teamList);
@@ -43,7 +44,24 @@ export default function Homepage() {
       .catch((err) => {
         // setMessage(err.response.data.message);
 
-        console.log("error", message);
+        console.log("error", err);
+      });
+  };
+  const submitPending = async (e) => {
+    setShowPending(true);
+    e.preventDefault();
+    let pending_list = [];
+    axios
+      .post("http://localhost:8080/task/pending_tasks", {
+        id,
+      })
+      .then((res) => {
+        pending_list = res.data;
+        setpendingList(pending_list);
+        console.log("working", res.data);
+      })
+      .catch((err) => {
+        console.log("error", err);
       });
   };
   return (
@@ -87,13 +105,14 @@ export default function Homepage() {
           <div className="col-span-6">
             <button
               className="absolute right-0 content-center text-4xl bg-red-400 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={() => setShowPending(true)}
+              onClick={submitPending}
             >
               Pending
             </button>
             <PendingTasks
               onClose={() => setShowPending(false)}
               show={showPending}
+              data={pendingList}
             />
           </div>
 

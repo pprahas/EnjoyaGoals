@@ -3,7 +3,7 @@ import Pending from "./Pending";
 import "./TaskModal.css";
 
 const PendingTasks = (props) => {
-  let pendingTasks = [];
+  let pendingTasks = props.data;
 
   var obj = new Object();
   obj.name = "task-name";
@@ -12,7 +12,7 @@ const PendingTasks = (props) => {
   obj.deadline = "10/22/1111";
   obj.points = 34;
   obj.assigned = "prado156";
-  pendingTasks.push(obj);
+  // pendingTasks.push(obj);
 
   const AllTasks = [
     <Pending date="10/22/2022" name="Fixing Frontend" points="30" />,
@@ -23,14 +23,14 @@ const PendingTasks = (props) => {
     <Pending date="110/22/2022" name="Frontend" points="90" />,
     <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
     <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
-  ]; 
+  ];
 
   const eachTask = pendingTasks.map((d) => {
-    const name = Object.values(d)[0];
-    const desc = Object.values(d)[1];
-    const difficulty = Object.values(d)[2];
-    const date = Object.values(d)[3];
-    const points = Object.values(d)[4];
+    const name = Object.values(d)[1];
+    const desc = Object.values(d)[2];
+    const difficulty = Object.values(d)[3];
+    const date = Object.values(d)[4].slice(0, 10);
+    const points = Object.values(d)[5];
     const assigned = Object.values(d)[5];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
     return (
