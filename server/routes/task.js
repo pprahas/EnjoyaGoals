@@ -35,23 +35,8 @@ router.post("/create", async (req, res) => {
 
     // save db task in the particular room
     const room = await Room.findById("63477176250a07c21330fbe1");
-    const newTask = Task(
-      {
-        _id: new mongoose.Types.ObjectId(), // not part of request
-        creatorId: task.creatorId, // required, id (as a String)
-        name: task.name, // required; String
-        description: task.description, // optional; String
-        difficulty: task.difficulty, // optional; String
-        deadline: task.deadline, // optional; Date
-        points: task.points, // optional; Number
-        status: task.status, // required; Boolean
-        assignedUser: task.assignedUser, // optional; id (as a String)
-        roomId: "63477176250a07c21330fbe1",
-      },
-      { timestamps: true }
-    );
 
-    room.teamTasks.push(newTask);
+    room.teamTasks.push(dbTask);
     await room.save();
     console.log(room);
 
@@ -121,6 +106,26 @@ router.post("/update", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Updating task failed." });
+  }
+});
+
+router.post("/team_tasks", async (req, res) => {
+  const body = req.body;
+  let completed_tasks = [];
+
+  try {
+    const room_id = body.id;
+    const room = await Room.findById("63477176250a07c21330fbe1");
+    let completed_tasks_id = room.teamTasks;
+
+    for (let i = 0; i < completed_tasks_id.length; i++) {
+      const task = await Task.findById(completed_tasks_id[i]);
+      completed_tasks.push(task);
+    }
+
+    return res.status(200).json(completed_tasks);
+  } catch (error) {
+    return res.status(400).json({ msg: "List not sent." });
   }
 });
 
