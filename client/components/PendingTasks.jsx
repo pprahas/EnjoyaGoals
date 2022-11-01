@@ -23,7 +23,7 @@ const PendingTasks = (props) => {
     <Pending date="110/22/2022" name="Frontend" points="90" />,
     <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
     <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
-  ];
+  ]; 
 
   const eachTask = pendingTasks.map((d) => {
     const name = Object.values(d)[0];
