@@ -7,6 +7,29 @@ const UnacceptedInformation = (props) => {
     return null;
   }
 
+  const submitTask = async (e) => {
+    e.preventDefault();
+    const id = "63477176250a07c21330fbe1";
+    axios
+      .post("http://localhost:8080/task/team_tasks/assign", {
+        room_id: id,
+        task_id: props.id,
+      })
+      .then((res) => {
+        // console.log("printing task data", res.data[0]);
+        // console.log("frontend sends:", res.data);
+        list_2 = res.data;
+        setteamList(list_2);
+        // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
+        // console.log("its here", teamList);
+      })
+      .catch((err) => {
+        // setMessage(err.response.data.message);
+
+        console.log("error", message);
+      });
+  };
+
   return (
     <div className="overlay" class="fixed pin z-50 overflow-auto flex w-36">
       <div className="modal">

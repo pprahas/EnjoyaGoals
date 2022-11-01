@@ -45,6 +45,7 @@ const TeamTasks = (props) => {
   const eachTask = teamTasksFinal.map((d) => {
     // console.log(Object.values(d));
     console.log("here we are", d);
+    const id = Object.values(d)[0];
     const name = Object.values(d)[1];
     const desc = Object.values(d)[2];
     const difficulty = Object.values(d)[3];
@@ -56,6 +57,7 @@ const TeamTasks = (props) => {
     if (status === "unassigned") {
       return (
         <Unaccepted
+          id={id}
           date={date}
           desc={desc}
           difficulty={difficulty}
