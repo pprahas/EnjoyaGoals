@@ -9,6 +9,7 @@ const UnacceptedInformation = (props) => {
 
   const submitTask = async (e) => {
     e.preventDefault();
+    props.onClose;
     const id = "63477176250a07c21330fbe1";
     axios
       .post("http://localhost:8080/task/team_tasks/assign", {
@@ -18,15 +19,14 @@ const UnacceptedInformation = (props) => {
       .then((res) => {
         // console.log("printing task data", res.data[0]);
         // console.log("frontend sends:", res.data);
-        list_2 = res.data;
-        setteamList(list_2);
         // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
         // console.log("its here", teamList);
+        console.log("worked", res);
       })
       .catch((err) => {
         // setMessage(err.response.data.message);
 
-        console.log("error", message);
+        console.log("error", err);
       });
   };
 
@@ -45,7 +45,8 @@ const UnacceptedInformation = (props) => {
           <button
             type="button"
             className="mt-4 group relative flex w-full justify-center rounded-md border border-transparent bg-blue-500 py-2 px-4 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            onClick={props.onClose}
+            // onClick={props.onClose}
+            onClick={submitTask}
           >
             Accept
           </button>

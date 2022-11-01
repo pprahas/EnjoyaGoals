@@ -3,6 +3,7 @@ const router = express.Router();
 const Task = require("../models/TaskModel");
 const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
+const rooms = require("../models/RoomModel");
 
 router.use(express.json());
 
@@ -126,6 +127,45 @@ router.post("/team_tasks", async (req, res) => {
     return res.status(200).json(completed_tasks);
   } catch (error) {
     return res.status(400).json({ msg: "List not sent." });
+  }
+});
+
+router.post("/team_tasks/assign", async (req, res) => {
+  const body = req.body;
+  const room_id = body.room_id;
+  const task_id = body.task_id;
+
+  try {
+    const task = await Task.findById(task_id);
+    const room = await Room.findById(room_id);
+
+    // let remove_id = [task_id];
+    // rooms.updateOne(
+    //   { _id: room_id },
+    //   {
+    //     $pull: {
+    //       teamTasks: {
+    //         _id: { $in: remove_id },
+    //       },
+    //     },
+    //   }
+    // );
+    // room.updateOne({
+    //   $pull: {
+    //     teamTasks: {
+    //       _id: { $in: remove_id },
+    //     },
+    //   },
+    // });
+
+    task.status = "pending";
+
+    // await room.save();
+    await task.save();
+
+    return res.status(200).json({ msg: "worked" });
+  } catch (error) {
+    return res.status(400).json(error);
   }
 });
 

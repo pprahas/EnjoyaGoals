@@ -27,6 +27,7 @@ export default function Homepage() {
   const submitTeam = async (e) => {
     setShowAll(true);
     let list_2 = [];
+    e.preventDefault();
     axios
       .post("http://localhost:8080/task/team_tasks", {
         id,
