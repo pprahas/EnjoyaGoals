@@ -36,8 +36,8 @@ const JoinRoom = (props) => {
 				add: true,
 				value: roomId,
 			})
-			.then((res) => {
-				console.log("Posting data", res);
+			.then((res2) => {
+				console.log("Posting data", res2);
 //        user_object.rooms.push(roomId);
 //        window.localStorage.setItem("user_data", JSON.stringify(user_object));
 			})
@@ -48,8 +48,8 @@ const JoinRoom = (props) => {
       axios.post("http://localhost:8080/query_database/user", {
           id: user_object._id,
       })
-      .then((res) => {
-        console.log("res = ", res);
+      .then((res3) => {
+        window.localStorage.setItem("user_data", JSON.stringify(res3.data));
       })
       .catch((err) => {
         console.log(err);
@@ -93,7 +93,7 @@ return (
                 className="mt-4 group relative flex w-full justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 onClick={props.onClose}
               >
-                Cancel
+                Close
               </button>
               <div></div>
               &nbsp;
