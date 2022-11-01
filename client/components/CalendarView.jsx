@@ -60,7 +60,6 @@ const CalendarView = (props) => {
             />
         );
     }
-    //probably not needed
     else if (status === "complete") {
         return (
             <Tasks
