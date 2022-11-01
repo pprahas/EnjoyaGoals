@@ -5,14 +5,46 @@ import TaskModal from "../components/TaskModal";
 import { useState } from "react";
 import CompletedTasks from "../components/CompletedTasks";
 import PendingTasks from "../components/PendingTasks";
-import TeamTasks from "../components/TeamTasks"
+import TeamTasks from "../components/TeamTasks";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Homepage() {
   const [showCreate, setShowCreate] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [message, setMessage] = useState("");
+  let list = [];
+  const [teamList, setteamList] = useState(list);
 
+  useEffect(() => {
+    console.log(teamList);
+  }, [teamList]);
+
+  const id = "63477176250a07c21330fbe1";
+
+  const submitTeam = async (e) => {
+    setShowAll(true);
+    let list_2 = [];
+    axios
+      .post("http://localhost:8080/task/team_tasks", {
+        id,
+      })
+      .then((res) => {
+        // console.log("printing task data", res.data[0]);
+        // console.log("frontend sends:", res.data);
+        list_2 = res.data;
+        setteamList(list_2);
+        // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
+        // console.log("its here", teamList);
+      })
+      .catch((err) => {
+        // setMessage(err.response.data.message);
+
+        console.log("error", message);
+      });
+  };
   return (
     <div className="content-center">
       <Header />
@@ -52,7 +84,7 @@ export default function Homepage() {
           </div> */}
 
           <div className="col-span-6">
-          <button
+            <button
               className="absolute right-0 content-center text-4xl bg-red-400 mr-36 p-3 w-56 text-white rounded-md"
               onClick={() => setShowPending(true)}
             >
@@ -65,15 +97,16 @@ export default function Homepage() {
           </div>
 
           <div className="col-span-6">
-          <button
+            <button
               className="absolute right-0 content-center text-4xl bg-purple-400 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={() => setShowAll(true)}
+              onClick={submitTeam}
             >
               Team
             </button>
             <TeamTasks
               onClose={() => setShowAll(false)}
               show={showAll}
+              data={teamList}
             />
           </div>
         </div>
