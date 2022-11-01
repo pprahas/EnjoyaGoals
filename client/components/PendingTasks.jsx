@@ -3,6 +3,17 @@ import Pending from "./Pending";
 import "./TaskModal.css";
 
 const PendingTasks = (props) => {
+  let pendingTasks = [];
+
+  var obj = new Object();
+  obj.name = "task-name";
+  obj.description = "task-desc";
+  obj.difficulty = "easy";
+  obj.deadline = "10/22/1111";
+  obj.points = 34;
+  obj.assigned = "prado156";
+  pendingTasks.push(obj);
+
   const AllTasks = [
     <Pending date="10/22/2022" name="Fixing Frontend" points="30" />,
     <Pending date="2/22/2022" name="Fixing Backend" points="10" />,
@@ -13,6 +24,26 @@ const PendingTasks = (props) => {
     <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
     <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
   ];
+
+  const eachTask = pendingTasks.map((d) => {
+    const name = Object.values(d)[0];
+    const desc = Object.values(d)[1];
+    const difficulty = Object.values(d)[2];
+    const date = Object.values(d)[3];
+    const points = Object.values(d)[4];
+    const assigned = Object.values(d)[5];
+    // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
+    return (
+      <Pending
+        date={date}
+        desc={desc}
+        difficulty={difficulty}
+        assigned={assigned}
+        name={name}
+        points={points}
+      />
+    );
+  });
 
   if (!props.show) {
     return null;
@@ -27,17 +58,17 @@ const PendingTasks = (props) => {
               Pending Tasks
             </h1>
           </div>
-          <div className="rounded-md pt-24 pb-10 bg-indigo-900">{AllTasks}</div>
+          <div className="rounded-md pt-24 pb-10 bg-indigo-900">{eachTask}</div>
         </div>
         <div className="taskFoot">
-            <button
-              type="button"
-              className="flex w-full justify-center rounded-md border font-semibold border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={props.onClose}
-            >
-              Close
-            </button>{" "}
-          </div>
+          <button
+            type="button"
+            className="flex w-full justify-center rounded-md border font-semibold border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            onClick={props.onClose}
+          >
+            Close
+          </button>{" "}
+        </div>
       </div>
     </div>
   );
