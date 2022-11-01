@@ -13,7 +13,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(email, password);
+//    console.log(email, password);
     axios
       .post("http://localhost:8080/login", {
         email,
@@ -21,21 +21,22 @@ export default function Login() {
       })
       .then((res) => {
         setMessage(res.data.message);
-        navigate("/homepage");
-        console.log(res.data[0]);
-        console.log(res.data.email);
-        window.localStorage.setItem("user_data", JSON.stringify(res.data[0]));
+//        console.log(res.data);
+        window.localStorage.setItem("user_data", JSON.stringify(res.data));
         let user_object = window.localStorage.getItem("user_data");
         user_object = JSON.parse(user_object);
-        console.log("My name is " + user_object.firstName);
+//        console.log("My name is " + user_object.firstName);
         // window.localStorage.setItem("username", res.data[0].username);
         // window.localStorage.setItem("email", res.data[0].email);
         // window.localStorage.setItem("firstName", res.data[0].firstName);
         // window.localStorage.setItem("lastName", res.data[0].lastName);
         // window.localStorage.setItem("userId", res.data[0]._id);
         window.localStorage.setItem("isLoggedIn", true);
+
+        navigate("/homepage");
       })
       .catch((err) => {
+        console.log(err);
         setMessage(err.response.data.message);
       });
   };
