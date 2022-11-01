@@ -16,7 +16,8 @@ const TaskModal = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user_id = window.localStorage.getItem("userId");
-    const completed = false;
+    //complete, pending, unassigned
+    const status = "unassigned";
     axios
       .post("http://localhost:8080/task/create", {
         // creatorId: user_id,
@@ -25,7 +26,7 @@ const TaskModal = (props) => {
         difficulty: task_difficulty,
         deadline: task_deadline,
         points: points,
-        completed: completed,
+        status: status,
         assignedUser: assigned_user,
       })
       .then((res) => {
