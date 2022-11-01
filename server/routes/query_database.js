@@ -3,6 +3,7 @@ const Task = require("../models/TaskModel");
 const Room = require("../models/RoomModel");
 const express = require("express");
 const mongoose = require("mongoose");
+const convertID = require("../helpers/ConvertIDs");
 
 const router = express.Router();
 router.use(express.json());
@@ -66,14 +67,19 @@ router.get("/lastNames", async (req, res) => {
 // query all the data from the database for a User specified by username
 router.post("/user", async (req, res) => {
     // this request should contain:
-    // "id":        the `_id` of the User,
-
-    console.log("req = ", req.body);
-
+    // "id":        the `_id` of the User
     try {
         const findRes = await User.findById(req.body.id).select("-password");
-        console.log("user id = " + req.body.id);
-        console.log("findRes = " + findRes);
+
+        // converting each Room _id in the User's rooms[] to a room object
+        const newRoomPromises = findRes.rooms.map(convertID.convertRoomID);
+        const newRooms = await Promise.all(newRoomPromises);
+        // replace the rooms[] array with the array of Room Objects
+        findRes.rooms = newRooms;
+        // *NOTE, DO NOT DO findRes.save() !!!!! WE DO NOT WANT TO
+        // REWRITE THE OBJECT IN THE DATABASE, WE WANT rooms[]
+        // TO STORE IDs IN THE DATABASE
+        
         res.send(findRes);
     } catch (error) {
         console.log(error);
