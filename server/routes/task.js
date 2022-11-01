@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Task = require("../models/TaskModel");
+const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
 
 router.use(express.json());
@@ -25,11 +26,34 @@ router.post("/create", async (req, res) => {
         points: task.points, // optional; Number
         status: task.status, // required; Boolean
         assignedUser: task.assignedUser, // optional; id (as a String)
+        roomId: "63477176250a07c21330fbe1",
       },
       { timestamps: true }
     );
 
     await dbTask.save();
+
+    // save db task in the particular room
+    const room = await Room.findById("63477176250a07c21330fbe1");
+    const newTask = Task(
+      {
+        _id: new mongoose.Types.ObjectId(), // not part of request
+        creatorId: task.creatorId, // required, id (as a String)
+        name: task.name, // required; String
+        description: task.description, // optional; String
+        difficulty: task.difficulty, // optional; String
+        deadline: task.deadline, // optional; Date
+        points: task.points, // optional; Number
+        status: task.status, // required; Boolean
+        assignedUser: task.assignedUser, // optional; id (as a String)
+        roomId: "63477176250a07c21330fbe1",
+      },
+      { timestamps: true }
+    );
+
+    room.teamTasks.push(newTask);
+    await room.save();
+    console.log(room);
 
     return res.status(200).json({ msg: "Task created successfully." });
   } catch (error) {

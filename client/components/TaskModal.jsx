@@ -27,7 +27,7 @@ const TaskModal = (props) => {
         deadline: task_deadline,
         points: points,
         status: status,
-        assignedUser: assigned_user,
+        // assignedUser: assigned_user,
       })
       .then((res) => {
         console.log("Posting data", res);
@@ -131,7 +131,7 @@ const TaskModal = (props) => {
                 htmlFor="password"
                 placeholder="Password"
               /> */}
-              <input
+              {/* <input
                 id="assigned_user"
                 name="assigned_user"
                 type="text"
@@ -140,7 +140,7 @@ const TaskModal = (props) => {
                 placeholder="Assigned User"
                 onChange={(e) => setassigned_user(e.target.value)}
                 value={assigned_user}
-              />
+              /> */}
               <input
                 id="deadline"
                 name="deadline"
