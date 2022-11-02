@@ -5,14 +5,84 @@ import TaskModal from "../components/TaskModal";
 import { useState } from "react";
 import CompletedTasks from "../components/CompletedTasks";
 import PendingTasks from "../components/PendingTasks";
-import TeamTasks from "../components/TeamTasks"
+import TeamTasks from "../components/TeamTasks";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Homepage() {
   const [showCreate, setShowCreate] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [message, setMessage] = useState("");
+  let list = [];
+  const [teamList, setteamList] = useState(list);
+  const [pendingList, setpendingList] = useState([]);
+  const [completedList, setcompletedList] = useState([]);
 
+  useEffect(() => {
+    console.log(teamList);
+  }, [teamList]);
+
+  const id = "63477176250a07c21330fbe1";
+
+  const submitTeam = async (e) => {
+    setShowAll(true);
+    let list_2 = [];
+    e.preventDefault();
+    axios
+      .post("http://localhost:8080/task/team_tasks", {
+        id,
+      })
+      .then((res) => {
+        // console.log("printing task data", res.data[0]);
+        // console.log("frontend sends:", res.data);
+        list_2 = res.data;
+        setteamList(list_2);
+        // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
+        // console.log("its here", teamList);
+      })
+      .catch((err) => {
+        // setMessage(err.response.data.message);
+
+        console.log("error", err);
+      });
+  };
+  const submitPending = async (e) => {
+    setShowPending(true);
+    e.preventDefault();
+    let pending_list = [];
+    axios
+      .post("http://localhost:8080/task/pending_tasks", {
+        id,
+      })
+      .then((res) => {
+        pending_list = res.data;
+        setpendingList(pending_list);
+        console.log("working", res.data);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
+
+  const submitCompleted = async (e) => {
+    setShowCompleted(true);
+    e.preventDefault();
+    let completed_list = [];
+    axios
+      .post("http://localhost:8080/task/completed_tasks", {
+        id,
+      })
+      .then((res) => {
+        completed_list = res.data;
+        setcompletedList(completed_list);
+        console.log("working", res.data);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
   return (
     <div className="content-center">
       <Header />
@@ -32,7 +102,7 @@ export default function Homepage() {
           <div className="col-span-6">
             <button
               className="absolute right-0 content-center text-4xl bg-green-500 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={() => setShowCompleted(true)}
+              onClick={submitCompleted}
             >
               Completed
             </button>
@@ -40,6 +110,7 @@ export default function Homepage() {
             <CompletedTasks
               onClose={() => setShowCompleted(false)}
               show={showCompleted}
+              data={completedList}
             />
           </div>
           {/* <div className="col-span-6">
@@ -52,28 +123,30 @@ export default function Homepage() {
           </div> */}
 
           <div className="col-span-6">
-          <button
+            <button
               className="absolute right-0 content-center text-4xl bg-red-400 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={() => setShowPending(true)}
+              onClick={submitPending}
             >
               Pending
             </button>
             <PendingTasks
               onClose={() => setShowPending(false)}
               show={showPending}
+              data={pendingList}
             />
           </div>
 
           <div className="col-span-6">
-          <button
+            <button
               className="absolute right-0 content-center text-4xl bg-purple-400 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={() => setShowAll(true)}
+              onClick={submitTeam}
             >
               Team
             </button>
             <TeamTasks
               onClose={() => setShowAll(false)}
               show={showAll}
+              data={teamList}
             />
           </div>
         </div>

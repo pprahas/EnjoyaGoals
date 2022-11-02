@@ -6,9 +6,7 @@ import "./Calendar.css";
 import Tasks from "./Task";
 import Pending from "./Pending";
 
-import TempTasks from "./TempTasks"
-
-//import "react-calendar/dist/Calendar.css";
+import TempTasks from "./TempTasks";
 
 const CalendarView = (props) => {
   if (!props.show) {
@@ -37,7 +35,6 @@ const CalendarView = (props) => {
   obj2.status = "pending";
   completedTasks.push(obj2);
 
-
   const eachTask = completedTasks.map((d) => {
     const name = Object.values(d)[0];
     const desc = Object.values(d)[1];
@@ -49,47 +46,43 @@ const CalendarView = (props) => {
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
 
     if (status === "pending") {
-        return (
-            <Pending
-                date={date.slice(0,10)}
-                desc={desc}
-                difficulty={difficulty}
-                assigned={assigned}
-                name={name}
-                points={points}
-            />
-        );
+      return (
+        <Pending
+          date={date.slice(0, 10)}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+        />
+      );
+    } else if (status === "complete") {
+      return (
+        <Tasks
+          date={date.slice(0, 10)}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+        />
+      );
     }
-    //probably not needed
-    else if (status === "complete") {
-        return (
-            <Tasks
-                date={date.slice(0,10)}
-                desc={desc}
-                difficulty={difficulty}
-                assigned={assigned}
-                name={name}
-                points={points}
-            />
-        );
-    }
-});
+  });
 
-  const marked = new Set()
+  const marked = new Set();
 
   const [showAll, setShowAll] = useState(false);
 
   const [taskArray, setTasks] = useState([]);
 
   const onSelect = (e) => {
-    const locale = 'fr-CA';
-    const date = new Intl.DateTimeFormat(
-      locale,
-      {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).format(e)
+    const locale = "fr-CA";
+    const date = new Intl.DateTimeFormat(locale, {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(e);
     //console.log(date);
     //console.log(marked.has(date));
     if (!marked.has(date)) {
@@ -106,8 +99,7 @@ const CalendarView = (props) => {
       setTasks([temp]);
       setShowAll(true);
     }
-  }
-
+  };
 
   return (
     <div className="overlay" class="fixed pin z-50 overflow-auto flex">
@@ -117,17 +109,14 @@ const CalendarView = (props) => {
             Calendar
           </h1>
           <div className="grid justify-items-center">
-
             <Calendar
               tileClassName={({ date }) => {
-                const locale = 'fr-CA';
-                const dateConv = new Intl.DateTimeFormat(
-                  locale,
-                  {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit"
-                  }).format(date)
+                const locale = "fr-CA";
+                const dateConv = new Intl.DateTimeFormat(locale, {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                }).format(date);
                 for (let val of eachTask.values()) {
                   let deadline = val.props.date;
                   if (!marked.has(deadline)) {
@@ -135,10 +124,9 @@ const CalendarView = (props) => {
                   }
                 }
                 if (marked.has(dateConv)) {
-                  return 'highlight'
+                  return "highlight";
                 }
               }}
-
               onClickDay={(e) => onSelect(e)}
             />
             <TempTasks

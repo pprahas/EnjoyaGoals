@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Task = require("../models/TaskModel");
+const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
+const rooms = require("../models/RoomModel");
 
 router.use(express.json());
 
@@ -25,11 +27,19 @@ router.post("/create", async (req, res) => {
         points: task.points, // optional; Number
         status: task.status, // required; Boolean
         assignedUser: task.assignedUser, // optional; id (as a String)
+        roomId: "63477176250a07c21330fbe1",
       },
       { timestamps: true }
     );
 
     await dbTask.save();
+
+    // save db task in the particular room
+    const room = await Room.findById("63477176250a07c21330fbe1");
+
+    room.teamTasks.push(dbTask);
+    await room.save();
+    console.log(room);
 
     return res.status(200).json({ msg: "Task created successfully." });
   } catch (error) {
@@ -97,6 +107,132 @@ router.post("/update", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Updating task failed." });
+  }
+});
+
+router.post("/team_tasks", async (req, res) => {
+  const body = req.body;
+  let completed_tasks = [];
+
+  try {
+    const room_id = body.id;
+    const room = await Room.findById("63477176250a07c21330fbe1");
+    let completed_tasks_id = room.teamTasks;
+
+    for (let i = 0; i < completed_tasks_id.length; i++) {
+      const task = await Task.findById(completed_tasks_id[i]);
+      completed_tasks.push(task);
+    }
+
+    return res.status(200).json(completed_tasks);
+  } catch (error) {
+    return res.status(400).json({ msg: "List not sent." });
+  }
+});
+
+router.post("/team_tasks/assign", async (req, res) => {
+  const body = req.body;
+  const room_id = body.room_id;
+  const task_id = body.task_id;
+
+  try {
+    const task = await Task.findById(task_id);
+    const room = await Room.findById(room_id);
+
+    // let remove_id = [task_id];
+    // rooms.updateOne(
+    //   { _id: room_id },
+    //   {
+    //     $pull: {
+    //       teamTasks: {
+    //         _id: { $in: remove_id },
+    //       },
+    //     },
+    //   }
+    // );
+    // room.updateOne({
+    //   $pull: {
+    //     teamTasks: {
+    //       _id: { $in: remove_id },
+    //     },
+    //   },
+    // });
+
+    task.status = "pending";
+
+    // await room.save();
+    await task.save();
+    room.assignedTasks.push(task);
+    await room.save();
+
+    return res.status(200).json({ msg: "worked" });
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/pending_tasks", async (req, res) => {
+  const body = req.body;
+  let pending_tasks = [];
+
+  try {
+    const room_id = body.id;
+    const room = await Room.findById(room_id);
+    let pending_tasks_id = room.assignedTasks;
+
+    for (let i = 0; i < pending_tasks_id.length; i++) {
+      const task = await Task.findById(pending_tasks_id[i]);
+      pending_tasks.push(task);
+    }
+
+    return res.status(200).json(pending_tasks);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/pending_tasks/submit", async (req, res) => {
+  const body = req.body;
+  const room_id = body.room_id;
+  const task_id = body.task_id;
+
+  try {
+    const task = await Task.findById(task_id);
+    const room = await Room.findById(room_id);
+
+    task.status = "complete";
+
+    await task.save();
+    // room.updateOne({ _id: room_id }, { $pull: { assignedTasks: task_id } });
+
+    room.assignedTasks.pull(task_id);
+    room.completedTasks.push(task);
+
+    // const findRes = await Task.pendfindByIdAndDelete(taskToDelete.id);
+    await room.save();
+    return res.status(200).json({ msg: "worked" });
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/completed_tasks", async (req, res) => {
+  const body = req.body;
+  let completed_tasks = [];
+
+  try {
+    const room_id = body.id;
+    const room = await Room.findById(room_id);
+    let completed_tasks_id = room.completedTasks;
+
+    for (let i = 0; i < completed_tasks_id.length; i++) {
+      const task = await Task.findById(completed_tasks_id[i]);
+      completed_tasks.push(task);
+    }
+
+    return res.status(200).json(completed_tasks);
+  } catch (error) {
+    return res.status(400).json(error);
   }
 });
 

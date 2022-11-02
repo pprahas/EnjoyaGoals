@@ -30,9 +30,10 @@ const Unaccepted = (props) => {
 
       <UnacceptedInformation
         onClose={() => setShow(false)}
+        id={props.id}
         show={show}
         name={props.name}
-        description={props.description}
+        desc={props.desc}
         difficulty={props.difficulty}
         date={props.date}
         points={props.points}
