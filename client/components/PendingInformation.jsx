@@ -7,6 +7,10 @@ const PendingInformation = (props) => {
     return null;
   }
 
+  let user_object = window.localStorage.getItem("user_data");
+  user_object = JSON.parse(user_object);
+  const username = user_object.username;
+
   const submitTask = async (e) => {
     e.preventDefault();
     props.onClose;
@@ -16,6 +20,7 @@ const PendingInformation = (props) => {
       .post("http://localhost:8080/task/pending_tasks/submit", {
         room_id: roomId,
         task_id: props.id,
+        completedBy: username,
       })
       .then((res) => {
         // console.log("printing task data", res.data[0]);

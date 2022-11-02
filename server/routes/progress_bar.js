@@ -22,13 +22,19 @@ router.post("/", async (req, res) => {
       res.status(200).send({ percent: percent });
     } else {
       let incomplete_tasks = 0;
+      let complete_tasks = 0;
       for (let i = 0; i < todo.length; i++) {
         const task = await Task.findById(todo[i]);
-        if (task.status != "complete") {
+        if (task.status === "pending" || task.status === "unassigned") {
           incomplete_tasks += 1;
         }
+        if (task.status != "missed") {
+          complete_tasks += 1;
+        }
       }
-      let percent = (done.length / todo.length) * 100;
+
+      // let percent = (done.length / todo.length) * 100;
+      let percent = (incomplete_tasks / complete_tasks) * 100;
       percent = Math.floor(percent);
 
       res.status(200).send({ percent: percent, number: incomplete_tasks });
