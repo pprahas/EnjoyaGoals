@@ -124,6 +124,11 @@ export default function Header() {
   const [teamList, setteamList] = useState([]);
 //  const roomId = window.localStorage.getItem("currentRoom");
   const [roomId, setRoomId] = useState(window.localStorage.getItem("currentRoom"));
+  let user_object = window.localStorage.getItem("user_data");
+  user_object = JSON.parse(user_object);
+  const username = user_object.username;
+
+
   useEffect(() => {
     //console.log(roomId);
     
@@ -159,6 +164,7 @@ export default function Header() {
     axios
       .post("http://localhost:8080/task/pending_tasks", {
         id: roomId,
+        username: username,
       })
       .then((res) => {
         setteamList(res.data);
