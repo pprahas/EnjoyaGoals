@@ -14,7 +14,15 @@ const Sidebar = () => {
 
   const eachRoom = userRooms.map((d) => {
     const roomName = Object.values(d)[1];
-    return <SideBarIcon icon={<FaFire size="60" />} text={roomName} />;
+    const roomID = Object.values(d)[0];
+    return (
+    <button
+    onClick={() => {
+      window.localStorage.setItem("currentRoom", roomID);
+    }}>
+    <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
+    </button>
+    );
   });
 
   return (
