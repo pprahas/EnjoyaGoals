@@ -3,6 +3,7 @@ import Pending from "./Pending";
 import Tasks from "./Task";
 import "./TaskModal.css";
 import Unaccepted from "./Unaccepted";
+import Missed from "./Missed";
 
 const TeamTasks = (props) => {
   // let teamTasks = [];
@@ -53,6 +54,7 @@ const TeamTasks = (props) => {
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[9];
     const status = Object.values(d)[6];
+    const completedBy = Object.values(d)[11];
     let completedDate;
     if (Object.values(d)[10]) {
       completedDate = Object.values(d)[10].slice(0, 10);
@@ -91,6 +93,20 @@ const TeamTasks = (props) => {
           name={name}
           points={points}
           completedDate={completedDate}
+          completedBy={completedBy}
+        />
+      );
+    } else if (status === "missed") {
+      return (
+        <Missed
+          date={date}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+          completedDate={completedDate}
+          completedBy={completedBy}
         />
       );
     }

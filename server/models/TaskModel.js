@@ -43,6 +43,10 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    completedBy: {
+      type: String,
+      required: false,
+    },
     roomId: {
       type: mongoose.Schema.ObjectId,
       required: true,

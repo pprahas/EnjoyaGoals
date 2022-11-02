@@ -200,6 +200,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
   const body = req.body;
   const room_id = body.room_id;
   const task_id = body.task_id;
+  const completed_by = body.completedBy;
 
   try {
     const task = await Task.findById(task_id);
@@ -216,7 +217,15 @@ router.post("/pending_tasks/submit", async (req, res) => {
 
     let now_time = year + "-" + month + "-" + date;
 
+    const today = new Date();
+
+    if (task.deadline < today) {
+      task.status = "missed";
+    }
+
     task.completedTime = now_time;
+
+    task.completedBy = completed_by;
 
     await task.save();
     // room.updateOne({ _id: room_id }, { $pull: { assignedTasks: task_id } });

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./TaskModal.css";
 
-const TaskInformation = (props) => {
+const MissedInformation = (props) => {
   if (!props.show) {
     return null;
   }
@@ -33,4 +33,4 @@ const TaskInformation = (props) => {
     </div>
   );
 };
-export default TaskInformation;
+export default MissedInformation;
