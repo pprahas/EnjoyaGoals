@@ -37,6 +37,7 @@ const Tasks = (props) => {
         desc={props.desc}
         difficulty={props.difficulty}
         assigned={props.assigned}
+        feedback={props.feedback}
       />
     </div>
   );

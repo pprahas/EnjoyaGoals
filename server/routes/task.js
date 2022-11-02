@@ -196,16 +196,43 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
+router.post("/pending_tasks/upload", async (req, res) => {
+  const body = req.body;
+  const room_id = body.room_id;
+  const task_id = body.task_id;
+  const file = body.file;
+  try {
+    const room = await Room.findById(room_id);
+    const task = await Task.findById(task_id);
+    console.log(file);
+    var fs = require('fs');
+    
+    /*
+    var fs = require('fs');
+    var data = fs.readFileSync(file, 'utf8');
+    task.insert({file: data});
+    
+    await task.save();
+    */
+    return res.status(200).json({ msg: "worked" });
+
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
 router.post("/pending_tasks/submit", async (req, res) => {
   const body = req.body;
   const room_id = body.room_id;
   const task_id = body.task_id;
+  const feedback = body.feedback;
 
   try {
     const task = await Task.findById(task_id);
     const room = await Room.findById(room_id);
 
     task.status = "complete";
+    task.feedback = feedback;
 
     await task.save();
     // room.updateOne({ _id: room_id }, { $pull: { assignedTasks: task_id } });

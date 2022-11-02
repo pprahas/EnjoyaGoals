@@ -31,6 +31,7 @@ const CompletedTasks = (props) => {
     const date = Object.values(d)[4].slice(0, 10);
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[5];
+    const feedback = Object.values(d)[11];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
     return (
       <Tasks
@@ -40,6 +41,7 @@ const CompletedTasks = (props) => {
         assigned={assigned}
         name={name}
         points={points}
+        feedback={feedback}
       />
     );
   });

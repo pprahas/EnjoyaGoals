@@ -43,6 +43,16 @@ const taskSchema = mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       required: true,
     },
+    feedback: {
+      type: String,
+      required: false,
+    },
+    file: {
+      data: Buffer,
+      contentType: String,
+      required: false,
+    },
+    
   },
   { timestamps: true }
 );

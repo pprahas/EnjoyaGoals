@@ -5,26 +5,6 @@ import "./TaskModal.css";
 const PendingTasks = (props) => {
   let pendingTasks = props.data;
 
-  var obj = new Object();
-  obj.name = "task-name";
-  obj.description = "task-desc";
-  obj.difficulty = "easy";
-  obj.deadline = "10/22/1111";
-  obj.points = 34;
-  obj.assigned = "prado156";
-  // pendingTasks.push(obj);
-
-  const AllTasks = [
-    <Pending date="10/22/2022" name="Fixing Frontend" points="30" />,
-    <Pending date="2/22/2022" name="Fixing Backend" points="10" />,
-    <Pending date="110/22/2022" name="Frontend" points="90" />,
-    <Pending date="110/22/2022" name="Frontend" points="90" />,
-    <Pending date="110/22/2022" name="Frontend" points="90" />,
-    <Pending date="110/22/2022" name="Frontend" points="90" />,
-    <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
-    <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
-  ];
-
   const eachTask = pendingTasks.map((d) => {
     const name = Object.values(d)[1];
     const desc = Object.values(d)[2];
