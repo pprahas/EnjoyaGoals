@@ -5,42 +5,21 @@ import Calendar from "react-calendar";
 import "./Calendar.css";
 import Tasks from "./Task";
 import Pending from "./Pending";
-
 import TempTasks from "./TempTasks";
+import Unaccepted from "./Unaccepted";
 
 const CalendarView = (props) => {
   if (!props.show) {
     return null;
   }
-  let completedTasks = [];
-  let deadlineTasks = [];
-
-  var obj = new Object();
-  obj.name = "task-name";
-  obj.description = "task-desc";
-  obj.difficulty = "easy";
-  obj.deadline = "2022-10-03T00:00:00.000+00:00";
-  obj.points = 34;
-  obj.assigned = "prado156";
-  obj.status = "pending";
-  completedTasks.push(obj);
-
-  var obj2 = new Object();
-  obj2.name = "task-name";
-  obj2.description = "task-desc";
-  obj2.difficulty = "easy";
-  obj2.deadline = "2022-10-05T00:00:00.000+00:00";
-  obj2.points = 34;
-  obj2.assigned = "prado156";
-  obj2.status = "pending";
-  completedTasks.push(obj2);
-
+  let completedTasks = props.data;
   const eachTask = completedTasks.map((d) => {
-    const name = Object.values(d)[0];
-    const desc = Object.values(d)[1];
-    const difficulty = Object.values(d)[2];
-    const date = Object.values(d)[3];
-    const points = Object.values(d)[4];
+    const id = Object.values(d)[0];
+    const name = Object.values(d)[1];
+    const desc = Object.values(d)[2];
+    const difficulty = Object.values(d)[3];
+    const date = Object.values(d)[4];
+    const points = Object.values(d)[5];
     const assigned = Object.values(d)[5];
     const status = Object.values(d)[6];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
@@ -59,12 +38,24 @@ const CalendarView = (props) => {
     } else if (status === "complete") {
       return (
         <Tasks
-          date={date.slice(0, 10)}
+          date={date}
           desc={desc}
           difficulty={difficulty}
           assigned={assigned}
           name={name}
           points={points}
+        />
+      );
+    } else if (status === "unassigned") {
+      return (
+        <Unaccepted
+          id={id}
+          date={date.slice(0, 10)}
+          desc={desc}
+          difficulty={difficulty}
+          name={name}
+          points={points}
+          status={status}
         />
       );
     }
@@ -90,8 +81,6 @@ const CalendarView = (props) => {
     } else {
       let temp = [];
       for (let val of eachTask.values()) {
-        // create new array
-        // if val.props.date === date, add obj to array
         if (date === val.props.date) {
           temp.push(val);
         }
@@ -135,11 +124,6 @@ const CalendarView = (props) => {
               tasks={taskArray}
             />
           </div>
-          {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
-          {/* <a href="/forgot_password" className="content-center text-8xl bg-red-400">
-        Create Task
-      </a> */}
-          {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
           <button
             type="button"
             className="mt-4 group relative flex w-full justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
