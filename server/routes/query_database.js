@@ -71,14 +71,28 @@ router.post("/user", async (req, res) => {
     try {
         const findRes = await User.findById(req.body.id).select("-password");
 
-        // converting each Room _id in the User's rooms[] to a room object
-        const newRoomPromises = findRes.rooms.map(convertID.convertRoomID);
-        const newRooms = await Promise.all(newRoomPromises);
-        // replace the rooms[] array with the array of Room Objects
-        findRes.rooms = newRooms;
-        // *NOTE, DO NOT DO findRes.save() !!!!! WE DO NOT WANT TO
-        // REWRITE THE OBJECT IN THE DATABASE, WE WANT rooms[]
-        // TO STORE IDs IN THE DATABASE
+        if (findRes == null) {
+            console.log("Error at /query_database/user, findRes is null");
+            console.log("req.body = ", req.body);
+            console.log("req.body.id = ", req.body.id);
+            return res.status(500).json({ msg: "User query failed." });
+        }
+
+        if (findRes.rooms != null) {
+            // converting each Room _id in the User's rooms[] to a room object
+            const newRoomPromises = findRes.rooms.map(convertID.convertRoomID);
+            const newRooms = await Promise.all(newRoomPromises);
+            // replace the rooms[] array with the array of Room Objects
+            findRes.rooms = newRooms;
+            // *NOTE, DO NOT DO findRes.save() !!!!! WE DO NOT WANT TO
+            // REWRITE THE OBJECT IN THE DATABASE, WE WANT rooms[]
+            // TO STORE IDs IN THE DATABASE
+        } else {
+            console.log("error converting user's rooms");
+            console.log("findRes = ", findRes);
+            res.status(500).json({ msg: "User query failed." });
+        }
+        
         
         res.send(findRes);
     } catch (error) {
