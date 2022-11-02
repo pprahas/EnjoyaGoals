@@ -117,30 +117,27 @@ function logOut() {
   //   navigate("/login");
 }
 
-
-
-
 export default function Header() {
   const [calIsShown, setCalIsShown] = useState(false);
-  const id = '635dd0253dcbd06ca4291053';
   const [message, setMessage] = useState("");
-  
-  
+
+  const roomId = window.localStorage.getItem("currentRoom");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log(id) 
-    axios.post("http://localhost:8080/progress_bar",{
-      id,
-    })
-    .then((res) => {
-      console.log(res.data.percent);
-      window.localStorage.setItem("percentageComp", res.data.percent);
-      window.location.reload();
-    })
-    .catch((err) => {
-      setMessage(err.response.data.message);
-      console.log(message);
-    });
+    //console.log(id)
+    axios
+      .post("http://localhost:8080/progress_bar", {
+        id: roomId,
+      })
+      .then((res) => {
+        console.log(res.data.percent);
+        window.localStorage.setItem("percentageComp", res.data.percent);
+        window.location.reload();
+      })
+      .catch((err) => {
+        setMessage(err.response.data.message);
+        console.log(message);
+      });
     /*
     e.preventDefault();
     
@@ -171,8 +168,7 @@ export default function Header() {
       });
       */
   };
-  
-  
+
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -326,16 +322,15 @@ export default function Header() {
                 Room Name
               </a>
               <div class="flex-row min-h-fit">
-                <button type="button"
+                <button
+                  type="button"
                   onClick={handleSubmit}
                   class="flex-row flex float-right ml-1 mb-1 rounded-md border border-gray-300 bg-white px-1  text-xs font-medium leading-4 text-gray-700 
-                      shadow-sm hover:bg-gray-50 focus:outline-none">
-
+                      shadow-sm hover:bg-gray-50 focus:outline-none"
+                >
                   Re
-
                 </button>
                 <Progressbar />
-
               </div>
             </div>
 
