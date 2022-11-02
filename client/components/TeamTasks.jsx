@@ -53,6 +53,10 @@ const TeamTasks = (props) => {
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[9];
     const status = Object.values(d)[6];
+    let completedDate;
+    if (Object.values(d)[10]) {
+      completedDate = Object.values(d)[10].slice(0, 10);
+    }
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
     if (status === "unassigned") {
       return (
@@ -86,6 +90,7 @@ const TeamTasks = (props) => {
           assigned={assigned}
           name={name}
           points={points}
+          completedDate={completedDate}
         />
       );
     }

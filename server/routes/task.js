@@ -207,6 +207,17 @@ router.post("/pending_tasks/submit", async (req, res) => {
 
     task.status = "complete";
 
+    let ts = Date.now();
+
+    let date_ob = new Date(ts);
+    let date = date_ob.getDate();
+    let month = date_ob.getMonth() + 1;
+    let year = date_ob.getFullYear();
+
+    let now_time = year + "-" + month + "-" + date;
+
+    task.completedTime = now_time;
+
     await task.save();
     // room.updateOne({ _id: room_id }, { $pull: { assignedTasks: task_id } });
 
