@@ -179,12 +179,15 @@ router.post("/pending_tasks", async (req, res) => {
 
   try {
     const room_id = body.id;
+    const username = body.username;
     const room = await Room.findById(room_id);
     let pending_tasks_id = room.assignedTasks;
 
     for (let i = 0; i < pending_tasks_id.length; i++) {
       const task = await Task.findById(pending_tasks_id[i]);
-      pending_tasks.push(task);
+      if (task.assignedUser === username) {
+        pending_tasks.push(task);
+      }
     }
 
     return res.status(200).json(pending_tasks);

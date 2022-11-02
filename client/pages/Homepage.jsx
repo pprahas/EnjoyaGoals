@@ -20,6 +20,10 @@ export default function Homepage() {
   const [pendingList, setpendingList] = useState([]);
   const [completedList, setcompletedList] = useState([]);
 
+  let user_object = window.localStorage.getItem("user_data");
+  user_object = JSON.parse(user_object);
+  const username = user_object.username;
+
   const roomId = window.localStorage.getItem("currentRoom");
   useEffect(() => {
     console.log(teamList);
@@ -54,6 +58,7 @@ export default function Homepage() {
     axios
       .post("http://localhost:8080/task/pending_tasks", {
         id: roomId,
+        username: username,
       })
       .then((res) => {
         pending_list = res.data;
