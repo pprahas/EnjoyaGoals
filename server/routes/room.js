@@ -80,14 +80,14 @@ router.post("/update", async (req, res) => {
 					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
 				}
 				break;
-			case "todoTasks":
+			case "assignedTasks":
 				// to add or remove a task, request should also contain ONE of the following:
 				// "add":		true
 				// "remove":	true
-				if (req.body.add) { roomToUpdate.todoTasks.push(req.body.value); }
-				else if (req.body.remove) { roomToUpdate.todoTasks.pull(req.body.value); }
+				if (req.body.add) { roomToUpdate.assignedTasks.push(req.body.value); }
+				else if (req.body.remove) { roomToUpdate.assignedTasks.pull(req.body.value); }
 				else {
-					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING todoTasks");
+					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING assignedTasks");
 					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
 				}
 				break;
@@ -99,6 +99,17 @@ router.post("/update", async (req, res) => {
 				else if (req.body.remove) { roomToUpdate.completedTasks.pull(req.body.value); }
 				else {
 					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING completedTasks");
+					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
+				}
+				break;
+			case "teamTasks":
+				// to add or remove a task, request should also contain ONE of the following:
+				// "add":		true
+				// "remove":	true
+				if (req.body.add) { roomToUpdate.teamTasks.push(req.body.value); }
+				else if (req.body.remove) { roomToUpdate.teamTasks.pull(req.body.value); }
+				else {
+					console.log("SOMETHING IS WRONG WITH THE /room/update ROUTE FOR UPDATING teamTasks");
 					return res.status(501).json({ msg: "Sorry, we messed up and can't do this operation right now. We'll fix it soon." });
 				}
 				break;
