@@ -120,6 +120,7 @@ function logOut() {
 export default function Header() {
   const [calIsShown, setCalIsShown] = useState(false);
   const [message, setMessage] = useState("");
+  const [number, setNumber] = useState("0");
 
   const roomId = window.localStorage.getItem("currentRoom");
   const handleSubmit = async (e) => {
@@ -132,6 +133,8 @@ export default function Header() {
       .then((res) => {
         console.log(res.data.percent);
         window.localStorage.setItem("percentageComp", res.data.percent);
+        window.localStorage.setItem("numberComp", res.data.number);
+        setNumber(res.data.number);
         window.location.reload();
       })
       .catch((err) => {
@@ -330,7 +333,8 @@ export default function Header() {
                 >
                   Re
                 </button>
-                <Progressbar />
+                <Progressbar number={number} />
+                <h1>Tasks Left: {window.localStorage.getItem("numberComp")}</h1>
               </div>
             </div>
 
