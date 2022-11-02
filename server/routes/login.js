@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     } else {
       // const fullUser = await User.findOne({ email: takenEmail });
       // const full_user_data = await User.find({ username: "prado156" });
-      const full_user_data = await User.find({ email: user.email });
+      const full_user_data = await User.find({ email: user.email }).select("-password");
 
       var userObj = new Object();
       userObj = JSON.parse(JSON.stringify(full_user_data));

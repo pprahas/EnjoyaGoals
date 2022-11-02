@@ -13,7 +13,7 @@ const Sidebar = () => {
   let userRooms = user_object.rooms;
 
   const eachRoom = userRooms.map((d) => {
-    const roomName = Object.values(d)[0];
+    const roomName = Object.values(d)[1];
     return <SideBarIcon icon={<FaFire size="60" />} text={roomName} />;
   });
 
