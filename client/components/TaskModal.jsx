@@ -18,6 +18,7 @@ const TaskModal = (props) => {
     const user_id = window.localStorage.getItem("userId");
     //complete, pending, unassigned
     const status = "unassigned";
+    const roomId = window.localStorage.getItem("currentRoom");
     axios
       .post("http://localhost:8080/task/create", {
         // creatorId: user_id,
@@ -27,6 +28,7 @@ const TaskModal = (props) => {
         deadline: task_deadline,
         points: points,
         status: status,
+        roomId: roomId,
         // assignedUser: assigned_user,
       })
       .then((res) => {

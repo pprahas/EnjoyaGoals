@@ -10,10 +10,11 @@ const PendingInformation = (props) => {
   const submitTask = async (e) => {
     e.preventDefault();
     props.onClose;
-    const id = "63477176250a07c21330fbe1";
+
+    const roomId = window.localStorage.getItem("currentRoom");
     axios
       .post("http://localhost:8080/task/pending_tasks/submit", {
-        room_id: id,
+        room_id: roomId,
         task_id: props.id,
       })
       .then((res) => {

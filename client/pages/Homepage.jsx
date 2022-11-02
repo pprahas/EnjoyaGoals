@@ -20,11 +20,10 @@ export default function Homepage() {
   const [pendingList, setpendingList] = useState([]);
   const [completedList, setcompletedList] = useState([]);
 
+  const roomId = window.localStorage.getItem("currentRoom");
   useEffect(() => {
     console.log(teamList);
   }, [teamList]);
-
-  const id = "63477176250a07c21330fbe1";
 
   const submitTeam = async (e) => {
     setShowAll(true);
@@ -32,7 +31,7 @@ export default function Homepage() {
     e.preventDefault();
     axios
       .post("http://localhost:8080/task/team_tasks", {
-        id,
+        id: roomId,
       })
       .then((res) => {
         // console.log("printing task data", res.data[0]);
@@ -54,7 +53,7 @@ export default function Homepage() {
     let pending_list = [];
     axios
       .post("http://localhost:8080/task/pending_tasks", {
-        id,
+        id: roomId,
       })
       .then((res) => {
         pending_list = res.data;
@@ -72,7 +71,7 @@ export default function Homepage() {
     let completed_list = [];
     axios
       .post("http://localhost:8080/task/completed_tasks", {
-        id,
+        id: roomId,
       })
       .then((res) => {
         completed_list = res.data;
