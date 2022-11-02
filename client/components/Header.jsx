@@ -157,7 +157,7 @@ export default function Header() {
     setRoomId(window.localStorage.getItem("currentRoom"));
     console.log(roomId);
     axios
-      .post("http://localhost:8080/task/team_tasks", {
+      .post("http://localhost:8080/task/pending_tasks", {
         id: roomId,
       })
       .then((res) => {
