@@ -60,7 +60,6 @@ export default function Example() {
   const handleBannerUpload = (e) => {
     const [file] = e.target.files;
     if (file) {
-      console.log("Wow");
       const reader2 = new FileReader();
       reader2.onload = (e) => {
         //change this to mongodb later
