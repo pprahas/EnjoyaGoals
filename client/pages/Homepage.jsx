@@ -18,6 +18,7 @@ export default function Homepage() {
   let list = [];
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
+  const [completedList, setcompletedList] = useState([]);
 
   useEffect(() => {
     console.log(teamList);
@@ -64,6 +65,24 @@ export default function Homepage() {
         console.log("error", err);
       });
   };
+
+  const submitCompleted = async (e) => {
+    setShowCompleted(true);
+    e.preventDefault();
+    let completed_list = [];
+    axios
+      .post("http://localhost:8080/task/completed_tasks", {
+        id,
+      })
+      .then((res) => {
+        completed_list = res.data;
+        setcompletedList(completed_list);
+        console.log("working", res.data);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
   return (
     <div className="content-center">
       <Header />
@@ -83,7 +102,7 @@ export default function Homepage() {
           <div className="col-span-6">
             <button
               className="absolute right-0 content-center text-4xl bg-green-500 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={() => setShowCompleted(true)}
+              onClick={submitCompleted}
             >
               Completed
             </button>
@@ -91,6 +110,7 @@ export default function Homepage() {
             <CompletedTasks
               onClose={() => setShowCompleted(false)}
               show={showCompleted}
+              data={completedList}
             />
           </div>
           {/* <div className="col-span-6">

@@ -9,7 +9,7 @@ const CompletedTasks = (props) => {
   // let userRooms = user_object.rooms;
   // let completedTask = userRooms.completedTasks;
 
-  let completedTasks = [];
+  let completedTasks = props.data;
 
   var obj = new Object();
   obj.name = "task-name";
@@ -18,18 +18,18 @@ const CompletedTasks = (props) => {
   obj.deadline = "10/22/1111";
   obj.points = 34;
   obj.assigned = "prado156";
-  completedTasks.push(obj);
+  // completedTasks.push(obj);
 
   const AllTasks = [
     <Tasks date="10/22/2022" name="Fixing Frontend" points="30" />,
   ];
 
   const eachTask = completedTasks.map((d) => {
-    const name = Object.values(d)[0];
-    const desc = Object.values(d)[1];
-    const difficulty = Object.values(d)[2];
-    const date = Object.values(d)[3];
-    const points = Object.values(d)[4];
+    const name = Object.values(d)[1];
+    const desc = Object.values(d)[2];
+    const difficulty = Object.values(d)[3];
+    const date = Object.values(d)[4].slice(0, 10);
+    const points = Object.values(d)[5];
     const assigned = Object.values(d)[5];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
     return (

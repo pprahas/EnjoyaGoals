@@ -32,6 +32,7 @@ const PendingTasks = (props) => {
     const date = Object.values(d)[4].slice(0, 10);
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[5];
+    const id = Object.values(d)[0];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
     return (
       <Pending
@@ -41,6 +42,7 @@ const PendingTasks = (props) => {
         assigned={assigned}
         name={name}
         points={points}
+        id={id}
       />
     );
   });
