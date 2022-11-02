@@ -7,6 +7,10 @@ const UnacceptedInformation = (props) => {
     return null;
   }
 
+  let user_object = window.localStorage.getItem("user_data");
+  user_object = JSON.parse(user_object);
+  const username = user_object.username;
+
   const submitTask = async (e) => {
     e.preventDefault();
     props.onClose;
@@ -17,6 +21,7 @@ const UnacceptedInformation = (props) => {
       .post("http://localhost:8080/task/team_tasks/assign", {
         room_id: roomId,
         task_id: props.id,
+        assignedUser: username,
       })
       .then((res) => {
         // console.log("printing task data", res.data[0]);

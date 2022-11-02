@@ -138,6 +138,7 @@ router.post("/team_tasks/assign", async (req, res) => {
   try {
     const task = await Task.findById(task_id);
     const room = await Room.findById(room_id);
+    const assignedUser = body.assignedUser;
 
     // let remove_id = [task_id];
     // rooms.updateOne(
@@ -159,6 +160,7 @@ router.post("/team_tasks/assign", async (req, res) => {
     // });
 
     task.status = "pending";
+    task.assignedUser = assignedUser;
 
     // await room.save();
     await task.save();
