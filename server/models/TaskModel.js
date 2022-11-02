@@ -35,10 +35,10 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    // assignedUser: {
-    //   type: String,
-    //   required: true,
-    // },
+    assignedUser: {
+      type: String,
+      required: false,
+    },
     roomId: {
       type: mongoose.Schema.ObjectId,
       required: true,
