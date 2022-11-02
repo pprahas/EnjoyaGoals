@@ -27,7 +27,7 @@ router.post("/create", async (req, res) => {
         points: task.points, // optional; Number
         status: task.status, // required; Boolean
         assignedUser: task.assignedUser, // optional; id (as a String)
-        roomId: "63477176250a07c21330fbe1",
+        roomId: task.roomId,
       },
       { timestamps: true }
     );
@@ -35,7 +35,7 @@ router.post("/create", async (req, res) => {
     await dbTask.save();
 
     // save db task in the particular room
-    const room = await Room.findById("63477176250a07c21330fbe1");
+    const room = await Room.findById(task.roomId);
 
     room.teamTasks.push(dbTask);
     await room.save();
@@ -116,7 +116,7 @@ router.post("/team_tasks", async (req, res) => {
 
   try {
     const room_id = body.id;
-    const room = await Room.findById("63477176250a07c21330fbe1");
+    const room = await Room.findById(room_id);
     let completed_tasks_id = room.teamTasks;
 
     for (let i = 0; i < completed_tasks_id.length; i++) {
