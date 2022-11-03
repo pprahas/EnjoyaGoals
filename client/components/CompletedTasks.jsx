@@ -1,7 +1,7 @@
-import { assign } from "nodemailer/lib/shared";
 import React, { useState } from "react";
 import Tasks from "./Task";
 import "./TaskModal.css";
+import Missed from "./Missed";
 
 const CompletedTasks = (props) => {
   // let user_object = window.localStorage.getItem("user_data");
@@ -32,18 +32,39 @@ const CompletedTasks = (props) => {
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[5];
     const feedback = Object.values(d)[11];
+    const completedDate = Object.values(d)[10].slice(0, 10);
+    const completedBy = Object.values(d)[11];
+
+    const status = Object.values(d)[6];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
-    return (
-      <Tasks
-        date={date}
-        desc={desc}
-        difficulty={difficulty}
-        assigned={assigned}
-        name={name}
-        points={points}
-        feedback={feedback}
-      />
-    );
+
+    if (status === "complete") {
+      return (
+        <Tasks
+          date={date}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+          completedDate={completedDate}
+          completedBy={completedBy}
+        />
+      );
+    } else if (status === "missed") {
+      return (
+        <Missed
+          date={date}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+          completedDate={completedDate}
+          completedBy={completedBy}
+        />
+      );
+    }
   });
 
   if (!props.show) {
@@ -58,6 +79,20 @@ const CompletedTasks = (props) => {
             <h1 className="text-center text-6xl font-semibold pt-4 mb-3 text-indigo-500">
               Completed Tasks
             </h1>
+            <div className = "flex mt-4 mb-3 justify-center">
+              <span className="w-24 text-center rounded-full bg-green-500 text-white px-2 py-1 text-xs font-bold mr-3">
+                Completed
+              </span>
+              <span className="w-24 text-center rounded-full bg-red-700 text-white px-2 py-1 text-xs font-bold mr-3">
+                Pending
+              </span>
+              <span className="w-24 text-center rounded-full bg-indigo-500 text-white px-2 py-1 text-xs font-bold mr-3">
+                Unassigned
+              </span>
+              <span className="w-24 text-center rounded-full bg-yellow-600 text-white px-2 py-1 text-xs font-bold mr-3">
+                Late
+              </span>
+            </div>
           </div>
           {/* <div className="rounded-md pt-24 pb-10 bg-indigo-900">{AllTasks}</div> */}
           <div className="rounded-md pt-24 pb-10 bg-indigo-900">{eachTask}</div>

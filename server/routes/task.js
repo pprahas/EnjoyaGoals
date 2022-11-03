@@ -286,6 +286,9 @@ router.post("/pending_tasks/submit", async (req, res) => {
   const body = req.body;
   const room_id = body.room_id;
   const task_id = body.task_id;
+
+  const completed_by = body.completedBy;
+  
   const feedback = body.feedback;
 
   try {
@@ -298,6 +301,25 @@ router.post("/pending_tasks/submit", async (req, res) => {
 
     task.status = "complete";
     task.feedback = feedback;
+
+    let ts = Date.now();
+
+    let date_ob = new Date(ts);
+    let date = date_ob.getDate();
+    let month = date_ob.getMonth() + 1;
+    let year = date_ob.getFullYear();
+
+    let now_time = year + "-" + month + "-" + date;
+
+    const today = new Date();
+
+    if (task.deadline < today) {
+      task.status = "missed";
+    }
+
+    task.completedTime = now_time;
+
+    task.completedBy = completed_by;
 
     await task.save();
     // room.updateOne({ _id: room_id }, { $pull: { assignedTasks: task_id } });

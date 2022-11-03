@@ -3,6 +3,7 @@ import Pending from "./Pending";
 import Tasks from "./Task";
 import "./TaskModal.css";
 import Unaccepted from "./Unaccepted";
+import Missed from "./Missed";
 
 const TeamTasks = (props) => {
   // let teamTasks = [];
@@ -53,6 +54,11 @@ const TeamTasks = (props) => {
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[9];
     const status = Object.values(d)[6];
+    const completedBy = Object.values(d)[11];
+    let completedDate;
+    if (Object.values(d)[10]) {
+      completedDate = Object.values(d)[10].slice(0, 10);
+    }
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
     if (status === "unassigned") {
       return (
@@ -86,6 +92,21 @@ const TeamTasks = (props) => {
           assigned={assigned}
           name={name}
           points={points}
+          completedDate={completedDate}
+          completedBy={completedBy}
+        />
+      );
+    } else if (status === "missed") {
+      return (
+        <Missed
+          date={date}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+          completedDate={completedDate}
+          completedBy={completedBy}
         />
       );
     }
@@ -115,6 +136,20 @@ const TeamTasks = (props) => {
             <h1 className="text-center text-6xl font-semibold pt-4 mb-3 text-indigo-500">
               All Tasks
             </h1>
+            <div className = "flex mt-4 mb-3 justify-center">
+              <span className="w-24 text-center rounded-full bg-green-500 text-white px-2 py-1 text-xs font-bold mr-3">
+                Completed
+              </span>
+              <span className="w-24 text-center rounded-full bg-red-700 text-white px-2 py-1 text-xs font-bold mr-3">
+                Pending
+              </span>
+              <span className="w-24 text-center rounded-full bg-indigo-500 text-white px-2 py-1 text-xs font-bold mr-3">
+                Unassigned
+              </span>
+              <span className="w-24 text-center rounded-full bg-yellow-600 text-white px-2 py-1 text-xs font-bold mr-3">
+                Late
+              </span>
+            </div>
           </div>
           <div className="rounded-md pt-24 pb-10 bg-indigo-900">{eachTask}</div>
         </div>

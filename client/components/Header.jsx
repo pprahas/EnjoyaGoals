@@ -117,6 +117,59 @@ function logOut() {
   //   navigate("/login");
 }
 
+function leaveRoom() {
+  const currentRoomID = window.localStorage.getItem("currentRoom");
+  const user_object = JSON.parse(window.localStorage.getItem("user_data"));
+  const userID = user_object._id;
+
+  // remove User from Room Object's users[] array
+  axios
+    .post("http://localhost:8080/room/update", {
+      id: currentRoomID,
+      fieldName: "users",
+      remove: true,
+      value: userID
+    })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+    // remove Room from User Object's rooms[] array
+    axios
+      .post("http://localhost:8080/user/updateOM", {
+        "id": userID,
+        "fieldName": "rooms",
+        "remove": true,
+        "value": currentRoomID
+      })
+      .then((res2) => {
+        console.log(res2.data);
+        window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
+        window.localStorage.setItem("user_data", JSON.stringify(res2.data));
+      })
+      .catch((err2) => {
+        console.log(err2);
+      });
+
+      /*
+    // update user_data in localStorage & set currentRoom to the first room in the User's rooms[] array
+    axios
+      .post("http://localhost:8080/query_database/user", {
+        "id": userID,
+      })
+      .then((res3) => {
+        window.localStorage.setItem("user_data", JSON.stringify(res3.data));
+        window.localStorage.setItem("currentRoom", res3.data.rooms[0]);
+      })
+      .catch((err3) => {
+        console.log(err3);
+      });
+      */
+}
+
 export default function Header() {
   const [calIsShown, setCalIsShown] = useState(false);
   const [message, setMessage] = useState("");
@@ -173,6 +226,8 @@ export default function Header() {
         console.log("error", err);
       });
   };
+
+  const currDate = new Date().toLocaleDateString();
 
   return (
     <Popover className="relative bg-white">
@@ -249,10 +304,11 @@ export default function Header() {
             <div>
               <button
                 // href="#"
+                //calendar here
                 onClick={submitCal}
                 className="whitespace-nowrap font-semibold text-xl text-gray-500 hover:text-gray-900 mr-12"
               >
-                11/09/2022
+                {currDate}
               </button>
               <CalendarView
                 onClose={() => setCalIsShown(false)}
@@ -273,9 +329,15 @@ export default function Header() {
             >
               Invite Users
             </button>
+            <button
+              className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
+              onClick={leaveRoom}
+            >
+              Leave Room
+            </button>
             <a
               href="/login"
-              className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+              className="ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
               onClick={logOut}
             >
               Log Out
