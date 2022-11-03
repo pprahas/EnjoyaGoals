@@ -25,6 +25,7 @@ const CompletedTasks = (props) => {
   ];
 
   const eachTask = completedTasks.map((d) => {
+    const id = Object.values(d)[0];
     const name = Object.values(d)[1];
     const desc = Object.values(d)[2];
     const difficulty = Object.values(d)[3];
@@ -49,6 +50,7 @@ const CompletedTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
+          key={id}
           feedback={feedback}
         />
       );
@@ -63,6 +65,7 @@ const CompletedTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
+          key={id}
           feedback={feedback}
         />
       );
@@ -74,7 +77,8 @@ const CompletedTasks = (props) => {
   }
 
   return (
-    <div className="overlay" class="fixed pin z-50 flex">
+//    <div className="overlay" class="fixed pin z-50 flex">
+    <div className="fixed pin z-50 flex">
       <div className="modal">
         <div className="task-content">
           <div className="taskHeader">

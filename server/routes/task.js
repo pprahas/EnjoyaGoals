@@ -4,6 +4,7 @@ const Task = require("../models/TaskModel");
 const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
 const rooms = require("../models/RoomModel");
+const theValidator = require("../helpers/TeamMemberCheck");
 
 var multiparty = require("multiparty");
 
@@ -19,6 +20,14 @@ router.post("/create", async (req, res) => {
   // "name":		    the name of the new task
   // "completed":		a boolean indicating whether this task has been completed or not
   const task = req.body;
+
+  const valid = await theValidator.userInRoomCheck(task.roomId, task.creatorId);
+
+  if (!valid) {
+    console.log(`${task.creatorId} tried to create a task in ${task.roomId} but they aren't a member of that room!`);
+    res.status(403).json({ msg: "User does not have access to that room; task was not created." });
+    return;
+  }
 
   try {
     const dbTask = new Task(
@@ -131,6 +140,7 @@ router.post("/team_tasks", async (req, res) => {
 
     return res.status(200).json(completed_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json({ msg: "List not sent." });
   }
 });
@@ -174,6 +184,7 @@ router.post("/team_tasks/assign", async (req, res) => {
 
     return res.status(200).json({ msg: "worked" });
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -197,6 +208,7 @@ router.post("/pending_tasks", async (req, res) => {
 
     return res.status(200).json(pending_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -331,6 +343,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
     await room.save();
     return res.status(200).json({ msg: "worked" });
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -351,6 +364,7 @@ router.post("/completed_tasks", async (req, res) => {
 
     return res.status(200).json(completed_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
