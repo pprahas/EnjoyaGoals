@@ -4,6 +4,8 @@ import { useState } from "react";
 import { FaFire } from "react-icons/fa";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
+import {Link} from 'react-router-dom';
+
 const Sidebar = () => {
   const [showCreateRoom, setShowCreateRoom] = useState(false);
   const [showJoinRoom, setShowJoinRoom] = useState(false);
@@ -51,9 +53,12 @@ const Sidebar = () => {
 
       {eachRoom}
       {/* <SideBarIcon icon={<FaFire size="60" />} /> */}
+      
+      {
       <a href="/profile">
         <SideBarIcon icon={<BsGearFill size="60" />} text="Profile" />
       </a>
+      }
     </div>
   );
 };
