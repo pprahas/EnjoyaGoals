@@ -111,5 +111,14 @@ router.post("/updateOM", async (req, res) => {
 		res.status(500).json({ msg: "Updating user failed." });
 	}
 });
+router.post("/getInfo", async (req, res) => {
+	const userToGet = await User.findById(req.body.id);
+	try{        
+        res.send(userToGet);
+	} catch (error){
+		console.log(error);
+		res.status(500).json({ msg: "Getting user failed." });
+	}
+});
 
 module.exports = router;

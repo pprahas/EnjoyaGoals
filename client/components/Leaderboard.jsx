@@ -27,7 +27,9 @@ const Sidebar = () => {
         boardData.add(userData[i]);
       }
     }
-    console.log("right now", boardData);
+
+
+    //console.log("right now", boardData);
   }, []);
 
   const getRoom = async () => {
@@ -45,9 +47,23 @@ const Sidebar = () => {
         console.log("error", err);
       });
   };
-  for (let i = 0; i < 20; i++) {
 
-  }
+  const getUser = async () => {
+    //e.preventDefault();
+    axios
+      .post("http://localhost:8080/user/getInfo", {
+        id: roomId,
+      })
+      .then((res) => {
+        console.log(res.data.users);
+        setData(res.data.users);
+        //        return (res.data.users);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
+  
   return (
     <div className="fixed w-32 overflow-auto top-0 right-0 h-screen w-20 flex flex-col bg-gray-900 text-white shadow-lg">
       {/* <Progressbar /> */}
