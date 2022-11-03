@@ -15,10 +15,16 @@ const TaskModal = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(task_deadline == ""){
+      console.log("oof");
+      alert("Please select a deadline.")
+      return;
+    }
     const user_id = window.localStorage.getItem("userId");
     //complete, pending, unassigned
     const status = "unassigned";
     const roomId = window.localStorage.getItem("currentRoom");
+    
     axios
       .post("http://localhost:8080/task/create", {
         // creatorId: user_id,
@@ -33,6 +39,7 @@ const TaskModal = (props) => {
       })
       .then((res) => {
         console.log("Posting data", res);
+        alert("Task creation successful!");
         // navigate("/login");
       })
       .catch((err) => {
