@@ -7,6 +7,7 @@ const rooms = require("../models/RoomModel");
 const theValidator = require("../helpers/TeamMemberCheck");
 
 var multiparty = require("multiparty");
+const User = require("../models/UserModel");
 
 promisify = require("util");
 
@@ -33,7 +34,6 @@ router.post("/create", async (req, res) => {
     const dbTask = new Task(
       {
         _id: new mongoose.Types.ObjectId(), // not part of request
-        creatorId: task.creatorId, // required, id (as a String)
         name: task.name, // required; String
         description: task.description, // optional; String
         difficulty: task.difficulty, // optional; String
@@ -42,6 +42,7 @@ router.post("/create", async (req, res) => {
         status: task.status, // required; Boolean
         assignedUser: task.assignedUser, // optional; id (as a String)
         roomId: task.roomId,
+        creatorId: task.creatorId, // required, id (as a String)
       },
       { timestamps: true }
     );
@@ -306,6 +307,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
   try {
     const task = await Task.findById(task_id);
     const room = await Room.findById(room_id);
+    const user = await User.findById(completed_by);
 
     if (feedback.length < 8) {
       return res.status(200).json({ msg: "put more words pls" });
@@ -338,6 +340,18 @@ router.post("/pending_tasks/submit", async (req, res) => {
 
     room.assignedTasks.pull(task_id);
     room.completedTasks.push(task);
+
+    // give points to User
+    // user = User
+    // task = Task
+    // room = Room
+    var points = task.points;
+    if (user.pointsEarned.has(room._id)) {
+      points += user.pointsEarned.get(room._id);
+    }
+    user.pointsEarned.set(room._id, points);
+
+    await user.save();
 
     // const findRes = await Task.pendfindByIdAndDelete(taskToDelete.id);
     await room.save();
