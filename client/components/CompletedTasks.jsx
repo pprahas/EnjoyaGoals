@@ -31,6 +31,7 @@ const CompletedTasks = (props) => {
     const date = Object.values(d)[4].slice(0, 10);
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[5];
+    const feedback = Object.values(d)[11];
     const completedDate = Object.values(d)[10].slice(0, 10);
     const completedBy = Object.values(d)[11];
 

@@ -18,8 +18,13 @@ const TaskInformation = (props) => {
           <p>Difficulty: {props.difficulty}</p>
           <p>Deadline: {props.date}</p>
           <p>Points: {props.points}</p>
+
+          <p>Feedback: {props.feedback}</p>
+
+
           <p>Date Completed: {props.completedDate}</p>
           <p>Completed By: {props.completedBy}</p>
+
           {/* <p>Assigned: {props.assigned} </p> */}
           <button
             type="button"
