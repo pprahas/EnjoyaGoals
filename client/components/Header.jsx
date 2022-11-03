@@ -227,6 +227,8 @@ export default function Header() {
       });
   };
 
+  const currDate = new Date().toLocaleDateString();
+
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -302,10 +304,11 @@ export default function Header() {
             <div>
               <button
                 // href="#"
+                //calendar here
                 onClick={submitCal}
                 className="whitespace-nowrap font-semibold text-xl text-gray-500 hover:text-gray-900 mr-12"
               >
-                11/09/2022
+                {currDate}
               </button>
               <CalendarView
                 onClose={() => setCalIsShown(false)}

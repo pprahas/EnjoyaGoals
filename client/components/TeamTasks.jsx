@@ -136,6 +136,20 @@ const TeamTasks = (props) => {
             <h1 className="text-center text-6xl font-semibold pt-4 mb-3 text-indigo-500">
               All Tasks
             </h1>
+            <div className = "flex mt-4 mb-3 justify-center">
+              <span className="w-24 text-center rounded-full bg-green-500 text-white px-2 py-1 text-xs font-bold mr-3">
+                Completed
+              </span>
+              <span className="w-24 text-center rounded-full bg-red-700 text-white px-2 py-1 text-xs font-bold mr-3">
+                Pending
+              </span>
+              <span className="w-24 text-center rounded-full bg-indigo-500 text-white px-2 py-1 text-xs font-bold mr-3">
+                Unassigned
+              </span>
+              <span className="w-24 text-center rounded-full bg-yellow-600 text-white px-2 py-1 text-xs font-bold mr-3">
+                Late
+              </span>
+            </div>
           </div>
           <div className="rounded-md pt-24 pb-10 bg-indigo-900">{eachTask}</div>
         </div>
