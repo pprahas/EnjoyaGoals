@@ -123,4 +123,13 @@ router.post("/update", async (req, res) => {
 	}
 });
 
+router.post("/get", async (req, res) => {
+	const roomToGet = await Room.findById(req.body.id);
+	try{        
+        res.send(roomToGet);
+	} catch (error){
+		console.log(error);
+		res.status(500).json({ msg: "Getting room failed." });
+	}
+});
 module.exports = router;
