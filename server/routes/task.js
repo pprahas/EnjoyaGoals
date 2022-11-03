@@ -4,6 +4,7 @@ const Task = require("../models/TaskModel");
 const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
 const rooms = require("../models/RoomModel");
+const theValidator = require("../helpers/TeamMemberCheck");
 
 router.use(express.json());
 
@@ -14,6 +15,14 @@ router.post("/create", async (req, res) => {
   // "name":		    the name of the new task
   // "completed":		a boolean indicating whether this task has been completed or not
   const task = req.body;
+
+  const valid = await theValidator.userInRoomCheck(task.roomId, task.creatorId);
+
+  if (!valid) {
+    console.log(`${task.creatorId} tried to create a task in ${task.roomId} but they aren't a member of that room!`);
+    res.status(403).json({ msg: "User does not have access to that room; task was not created." });
+    return;
+  }
 
   try {
     const dbTask = new Task(
