@@ -22,6 +22,9 @@ const TextInput = (props) => {
   };
 
   const submitTask = async (e) => {
+    let user_object = window.localStorage.getItem("user_data");
+    user_object = JSON.parse(user_object);
+    const username = user_object.username;
     const roomId = window.localStorage.getItem("currentRoom");
     e.preventDefault();
     let file = selectedFile.file;
@@ -75,6 +78,7 @@ const TextInput = (props) => {
         room_id: roomId,
         task_id: props.id,
         feedback: feedback,
+        completedBy: username,
       })
       .then((res) => {
         // console.log("printing task data", res.data[0]);
