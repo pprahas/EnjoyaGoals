@@ -6,8 +6,8 @@ const mongoose = require("mongoose");
 const rooms = require("../models/RoomModel");
 
 var multiparty = require("multiparty");
-var http = require("http");
-var util = require("util");
+
+promisify = require("util");
 
 router.use(express.json());
 // router.use(formidable());
@@ -201,34 +201,40 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
-let all_data = [];
-let man;
 router.post("/pending_tasks/upload", async (req, res) => {
-  let fake_task_id = "636382228fe4d71be7ef3bfc";
+  let task_id;
   let file;
+
   let form = new multiparty.Form();
-  form.parse(req, function (err, fields, field) {
-    // task_id = fields["task_id"][0];
-    task_id = fields.task_id[0];
-    man = task_id;
-    all_data.push(task_id);
-    file = field["file"][0];
+  var promise = new Promise(function (resolve, reject) {
+    let all_data = [];
+    form.parse(req, function (err, fields, field) {
+      task_id = fields.task_id[0];
+      file = field["file"][0];
 
-    console.log("task id is", task_id);
-    console.log("file is", file);
+      console.log("task id is", task_id);
+      console.log("file is", file);
+      all_data.push(task_id);
+      all_data.push(file);
+      resolve(all_data);
+    });
+  });
+  let final_task_id;
+  let final_file;
+  promise.then(async function (data) {
+    console.log("all data is", data);
+    final_task_id = data[0];
+    final_file = data[1];
+    console.log("final task id is", final_task_id);
+    console.log("final file is", JSON.stringify(final_file));
 
-    // res.status(200).json(task_id);
+    const task = await Task.findById(task_id);
+    task.file = final_file;
+    await task.save();
+    console.log("task is", task);
   });
 
-  all_data.push("meh");
-  console.log("task id is STILL", all_data);
-
-  console.log(man);
-  console.log(file);
-
-  const task = await Task.findById(fake_task_id);
-  console.log(task);
-
+  console.log("final task id is", final_task_id);
   // this is probs all you need to do
   // task.file = file;
   // await task.save();
@@ -285,6 +291,10 @@ router.post("/pending_tasks/submit", async (req, res) => {
   try {
     const task = await Task.findById(task_id);
     const room = await Room.findById(room_id);
+
+    if (feedback.length < 8) {
+      return res.status(200).json({ msg: "put more words pls" });
+    }
 
     task.status = "complete";
     task.feedback = feedback;

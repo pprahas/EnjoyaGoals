@@ -52,7 +52,10 @@ const taskSchema = mongoose.Schema(
       contentType: String,
       required: false,
     },
-    
+    // file: {
+    //   type: String,
+    //   required: false,
+    // },
   },
   { timestamps: true }
 );
