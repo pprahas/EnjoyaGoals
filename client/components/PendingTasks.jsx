@@ -43,6 +43,7 @@ const PendingTasks = (props) => {
         name={name}
         points={points}
         id={id}
+        key={id}
       />
     );
   });
@@ -52,7 +53,8 @@ const PendingTasks = (props) => {
   }
 
   return (
-    <div className="overlay" class="fixed pin z-50 flex">
+//    <div className="overlay" class="fixed pin z-50 flex">
+    <div className="fixed pin z-50 flex">
       <div className="modal">
         <div className="task-content">
           <div className="taskHeader">

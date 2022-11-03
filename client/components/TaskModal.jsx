@@ -43,7 +43,8 @@ const TaskModal = (props) => {
   };
 
   return (
-    <div className="overlay" class="fixed pin z-50 overflow-auto flex">
+//    <div className="overlay" class="fixed pin z-50 overflow-auto flex">
+    <div className="fixed pin z-50 overflow-auto flex">
       <div className="modal">
         <div className="modal-content">
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">
@@ -57,7 +58,8 @@ const TaskModal = (props) => {
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <div class="w-full border-b border-gray-100"></div>
+            {/* <div class="w-full border-b border-gray-100"></div> */}
+            <div className="w-full border-b border-gray-100"></div>
 
             <div className=" rounded-md px-4">
               {/* <div>
@@ -168,7 +170,8 @@ const TaskModal = (props) => {
               /> */}
               <div className="border-t border-gray-200"></div>
             </div>
-            <div class="w-full border-b border-gray-100"></div>
+            {/* <div class="w-full border-b border-gray-100"></div> */}
+            <div className="w-full border-b border-gray-100"></div>
 
             {/* <p className="mt-2 text-center text-sm text-red-600">{} </p> */}
             {/* <p className="mt-2 text-center text-sm text-red-600">{message} </p> */}

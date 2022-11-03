@@ -91,7 +91,8 @@ const CalendarView = (props) => {
   };
 
   return (
-    <div className="overlay" class="fixed pin z-50 overflow-auto flex">
+    // <div className="overlay" class="fixed pin z-50 overflow-auto flex">
+    <div className="fixed pin z-50 overflow-auto flex">
       <div className="modal">
         <div className="modal-content">
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">

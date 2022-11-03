@@ -70,6 +70,7 @@ const TeamTasks = (props) => {
           name={name}
           points={points}
           status={status}
+          key={id}
         />
       );
     } else if (status === "pending") {
@@ -81,6 +82,7 @@ const TeamTasks = (props) => {
           assigned={assigned}
           name={name}
           points={points}
+          key={id}
         />
       );
     } else if (status === "complete") {
@@ -94,6 +96,7 @@ const TeamTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
+          key={id}
         />
       );
     } else if (status === "missed") {
@@ -107,6 +110,7 @@ const TeamTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
+          key={id}
         />
       );
     }
@@ -129,7 +133,8 @@ const TeamTasks = (props) => {
   }
 
   return (
-    <div className="overlay" class="fixed pin z-50 flex">
+    //<div className="overlay" class="fixed pin z-50 flex">
+    <div className="fixed pin z-50 flex">
       <div className="modal">
         <div className="task-content">
           <div className="taskHeader">
