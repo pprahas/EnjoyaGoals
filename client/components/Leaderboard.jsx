@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const Side = [
-
     <OtherMembers rank="4" />,
     <OtherMembers rank="4" />,
     <OtherMembers rank="4" />,
@@ -15,30 +14,29 @@ const Sidebar = () => {
 
   const roomId = window.localStorage.getItem("currentRoom");
   const user_object = JSON.parse(window.localStorage.getItem("user_data"));
-  const username = user_object.username;
+  const current_username = user_object.username;
   const [users, setUsers] = useState([]);
   const boardData = new Set();
   let count = 0;
 
   const eachUser = users.map((d) => {
+    const username = Object.values(d)[0];
+    const points = Object.values(d)[1];
 
-    const line = Object.values(d).join("");
+    const level = Math.floor(points / 100) + 1;
 
-    console.log(line);
-    if (username === line.slice(2,)) {
-      return (
-        <You name={line} rank={count += 1} />
-      )
+    const line = level + " " + username;
+
+    console.log("username and level", username, level);
+    if (current_username === username) {
+      return <You name={line} rank={(count += 1)} />;
     } else {
-      return (
-        <OtherMembers name={line} rank={count += 1} />
-      )
+      return <OtherMembers name={line} rank={(count += 1)} />;
     }
   });
 
   const refresh = async (e) => {
     window.location.reload();
-
   };
   useEffect(() => {
     getUsers();
