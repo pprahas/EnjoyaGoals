@@ -21,6 +21,8 @@ const MissedInformation = (props) => {
           <p>Points: {props.points}</p>
           <p>Date Completed: {props.completedDate}</p>
           <p>Completed By: {props.completedBy}</p>
+
+          <p>Feedback: {props.feedback}</p>
           {/* <p>Assigned: {props.assigned} </p> */}
           <button
             type="button"

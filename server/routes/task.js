@@ -6,7 +6,12 @@ const mongoose = require("mongoose");
 const rooms = require("../models/RoomModel");
 const theValidator = require("../helpers/TeamMemberCheck");
 
+var multiparty = require("multiparty");
+
+promisify = require("util");
+
 router.use(express.json());
+// router.use(formidable());
 
 // route for creating a new task
 router.post("/create", async (req, res) => {
@@ -208,17 +213,106 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
+router.post("/pending_tasks/upload", async (req, res) => {
+  let task_id;
+  let file;
+
+  let form = new multiparty.Form();
+  var promise = new Promise(function (resolve, reject) {
+    let all_data = [];
+    form.parse(req, function (err, fields, field) {
+      task_id = fields.task_id[0];
+      file = field["file"][0];
+
+      console.log("task id is", task_id);
+      console.log("file is", file);
+      all_data.push(task_id);
+      all_data.push(file);
+      resolve(all_data);
+    });
+  });
+  let final_task_id;
+  let final_file;
+  promise.then(async function (data) {
+    console.log("all data is", data);
+    final_task_id = data[0];
+    final_file = data[1];
+    console.log("final task id is", final_task_id);
+    console.log("final file is", JSON.stringify(final_file));
+
+    const task = await Task.findById(task_id);
+    task.file = final_file;
+    await task.save();
+    console.log("task is", task);
+  });
+
+  console.log("final task id is", final_task_id);
+  // this is probs all you need to do
+  // task.file = file;
+  // await task.save();
+
+  //
+  // task.filename = file;
+
+  // await task.save();
+  // res.status(200).json({ msg: "worked" });
+
+  // var data = JSON.parse(req.data);
+  // var body = data.data;
+
+  // const body = req.body;
+  // const room_id = body.room_id;
+  // const task_id = body.task_id;
+  // const file = body.file;
+  // const task_id = body.task_id;
+  try {
+    // const task = await Task.findById(task_id);
+    // console.log("file is", data);
+    // task.file = file;
+    // console.log(file);
+    // var fs = require("fs");
+    // fs.readFile(file, "utf8", (err, data) => {
+    //   if (err) {
+    //     console.error(err);
+    //   }
+    // });
+
+    // var fs = require("fs");
+    // fs.readFile(file, "utf8", (err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   console.log(data);
+    // });
+    // task.insert({ file: data });
+
+    // await task.save();
+    return res.status(200).json({ msg: "worked" });
+    // return res.status(200).json(data);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
 router.post("/pending_tasks/submit", async (req, res) => {
   const body = req.body;
   const room_id = body.room_id;
   const task_id = body.task_id;
+
   const completed_by = body.completedBy;
+  
+  const feedback = body.feedback;
 
   try {
     const task = await Task.findById(task_id);
     const room = await Room.findById(room_id);
 
+    if (feedback.length < 8) {
+      return res.status(200).json({ msg: "put more words pls" });
+    }
+
     task.status = "complete";
+    task.feedback = feedback;
 
     let ts = Date.now();
 

@@ -1,15 +1,23 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Input from "../components/Input";
 import Header from "../components/Header";
+import React from "react";
+import { useState, useEffect } from "react";
 
-export default function Profile() {
+export default function Profile(props){
   var bg = window.localStorage.getItem("banner");
   var img = new Image();
   img.src = bg;
+  let user_object = window.localStorage.getItem("user_data");
+  user_object = JSON.parse(user_object);
+  const firstName = user_object.firstName;
+  const lastName = user_object.lastName;
+  const email = user_object.email;
+  const username = user_object.username;
+  
   return (
 
     <>
-
       <Header />
       {/* component */}
       <link
@@ -131,7 +139,8 @@ export default function Profile() {
                   {/* <div class="text-center justify-center items-center flex flex-row"> */}
                   <div className="text-center justify-center items-center flex flex-row">
                     <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                      Firstname Lastname
+                      {firstName}  {lastName}  
+
                     </h3>
                     {/* <a class="ml-3 w-8 h-8 rounded-md border border-gray-300 bg-white text-sm font-medium leading-4 text-gray-700 
                       shadow-sm hover:bg-gray-50 focus:outline-none" href="/Profile_Information"> */}
@@ -150,13 +159,13 @@ export default function Profile() {
                   </div>
                   <div>
                     <span className="mb-2 text-center text-blueGray-500">
-                      FirstLast@email.com
+                      {email}
                     </span>
                   </div>
                   <div>
                     <span className="mb-2 text-center text-blueGray-500"
                     >
-                      XXX-XXX-XXXX
+                      {username}
                     </span>
                   </div>
                   <div className="flex flex-wrap justify-center">

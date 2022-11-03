@@ -37,6 +37,9 @@ const Tasks = (props) => {
         desc={props.desc}
         difficulty={props.difficulty}
         assigned={props.assigned}
+
+        feedback={props.feedback}
+
         completedDate={props.completedDate}
         completedBy={props.completedBy}
       />
