@@ -22,6 +22,7 @@ const Sidebar = () => {
     key={roomID}
     onClick={() => {
       window.localStorage.setItem("currentRoom", roomID);
+      window.location.reload();
     }}>
     <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
     </button>

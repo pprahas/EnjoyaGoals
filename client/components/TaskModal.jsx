@@ -15,14 +15,19 @@ const TaskModal = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user_object = JSON.parse(window.localStorage.getItem("user_data"));
-    const user_id = user_object._id;
+    if(task_deadline == ""){
+      console.log("oof");
+      alert("Please select a deadline.")
+      return;
+    }
+    const user_id = window.localStorage.getItem("userId");
     //complete, pending, unassigned
     const status = "unassigned";
     const roomId = window.localStorage.getItem("currentRoom");
+    
     axios
       .post("http://localhost:8080/task/create", {
-        creatorId: user_id,
+        // creatorId: user_id,
         name: task_name,
         description: task_description,
         difficulty: task_difficulty,
@@ -34,6 +39,7 @@ const TaskModal = (props) => {
       })
       .then((res) => {
         console.log("Posting data", res);
+        alert("Task creation successful!");
         // navigate("/login");
       })
       .catch((err) => {
