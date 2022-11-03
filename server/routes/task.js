@@ -126,6 +126,7 @@ router.post("/team_tasks", async (req, res) => {
 
     return res.status(200).json(completed_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json({ msg: "List not sent." });
   }
 });
@@ -169,6 +170,7 @@ router.post("/team_tasks/assign", async (req, res) => {
 
     return res.status(200).json({ msg: "worked" });
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -192,6 +194,7 @@ router.post("/pending_tasks", async (req, res) => {
 
     return res.status(200).json(pending_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -237,6 +240,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
     await room.save();
     return res.status(200).json({ msg: "worked" });
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -257,6 +261,7 @@ router.post("/completed_tasks", async (req, res) => {
 
     return res.status(200).json(completed_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
