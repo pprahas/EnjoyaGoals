@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const Side = [
-    <FirstThreeMembers rank="1" />,
-    <FirstThreeMembers rank="2" />,
-    <FirstThreeMembers rank="3" />,
+
     <OtherMembers rank="4" />,
     <OtherMembers rank="4" />,
     <OtherMembers rank="4" />,
@@ -16,31 +14,55 @@ const Sidebar = () => {
   ];
 
   const roomId = window.localStorage.getItem("currentRoom");
-  const [userData, setData] = useState([]);
+  const user_object = JSON.parse(window.localStorage.getItem("user_data"));
+  const username = user_object.username;
+  const [users, setUsers] = useState([]);
   const boardData = new Set();
+  let count = 0;
 
+  const eachUser = users.map((d) => {
+
+    const line = Object.values(d).join("");
+
+    console.log(line);
+    if (username === line.slice(2,)) {
+      return (
+        <You name={line} rank={count += 1} />
+      )
+    } else {
+      return (
+        <OtherMembers name={line} rank={count += 1} />
+      )
+    }
+  });
+
+  const refresh = async (e) => {
+    window.location.reload();
+
+  };
   useEffect(() => {
-    getRoom();
-    //console.log("right here",userData);
+    getUsers();
+    /*
     for (let i = 0; i < userData.length; i++) {
       if (!boardData.has(userData[i])) {
+        setId(userData[i]);
+        getUser();
         boardData.add(userData[i]);
       }
     }
-
-
-    //console.log("right now", boardData);
+    */
   }, []);
 
-  const getRoom = async () => {
+  const getUsers = async () => {
     //e.preventDefault();
     axios
-      .post("http://localhost:8080/room/get", {
+      .post("http://localhost:8080/user/getRoomUsers", {
         id: roomId,
       })
       .then((res) => {
-        console.log(res.data.users);
-        setData(res.data.users);
+        console.log("userobjs", res);
+        setUsers(res.data);
+        //setUsers(res.data);
         //        return (res.data.users);
       })
       .catch((err) => {
@@ -48,30 +70,21 @@ const Sidebar = () => {
       });
   };
 
-  const getUser = async () => {
-    //e.preventDefault();
-    axios
-      .post("http://localhost:8080/user/getInfo", {
-        id: roomId,
-      })
-      .then((res) => {
-        console.log(res.data.users);
-        setData(res.data.users);
-        //        return (res.data.users);
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
-  };
-  
   return (
     <div className="fixed w-32 overflow-auto top-0 right-0 h-screen w-20 flex flex-col bg-gray-900 text-white shadow-lg">
       {/* <Progressbar /> */}
       <p className="text-center text-yellow-500 mt-8 text-lg font-serif font-semibold">
         Leaderboard
       </p>
-      {userData}
-      {Side}
+      <button
+        type="button"
+        onClick={refresh}
+        class="flex-row flex text-center float-right ml-1 mb-1 rounded-md border border-gray-300 bg-white px-1  text-xs font-medium leading-4 text-gray-700 
+                      shadow-sm hover:bg-gray-50 focus:outline-none"
+      >
+        Refresh
+      </button>
+      {eachUser}
     </div>
   );
 };
@@ -85,12 +98,21 @@ const FirstThreeMembers = (props) => (
     <p className="ml-16 mt-1 ">Name</p>
   </div>
 );
+const You = (props) => (
+  <div className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
+    <div className="bg-red-500 flex flex-row mr-4">
+      <p className="ml-3 mt-3 mr-6 ml-6">{props.rank}</p>
+      <p className="ml-2 mt-3">{props.name}</p>
+      {/* <img src="/pfp - LightMode.png" alt="" className="ml-2" /> */}
+    </div>
+  </div>
+);
 
 const OtherMembers = (props) => (
   <div className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
     <div className="flex flex-row mr-4">
       <p className="ml-3 mt-3 mr-6 ml-6">{props.rank}</p>
-      <p className="ml-2 mt-3">Name</p>
+      <p className="ml-2 mt-3">{props.name}</p>
       {/* <img src="/pfp - LightMode.png" alt="" className="ml-2" /> */}
     </div>
   </div>

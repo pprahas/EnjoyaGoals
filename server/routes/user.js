@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/UserModel");
 const mongoose = require("mongoose");
 const convertID = require("../helpers/ConvertIDs");
+const Room = require("../models/RoomModel");
 
 router.use(express.json());
 
@@ -91,31 +92,54 @@ router.post("/updateOM", async (req, res) => {
 		await userToUpdate.save();
 
 		if (userToUpdate.rooms != null) {
-            // converting each Room _id in the User's rooms[] to a room object
-            const newRoomPromises = userToUpdate.rooms.map(convertID.convertRoomID);
-            const newRooms = await Promise.all(newRoomPromises);
-            // replace the rooms[] array with the array of Room Objects
-            userToUpdate.rooms = newRooms;
-            // *NOTE, DO NOT DO findRes.save() !!!!! WE DO NOT WANT TO
-            // REWRITE THE OBJECT IN THE DATABASE, WE WANT rooms[]
-            // TO STORE IDs IN THE DATABASE
+			// converting each Room _id in the User's rooms[] to a room object
+			const newRoomPromises = userToUpdate.rooms.map(convertID.convertRoomID);
+			const newRooms = await Promise.all(newRoomPromises);
+			// replace the rooms[] array with the array of Room Objects
+			userToUpdate.rooms = newRooms;
+			// *NOTE, DO NOT DO findRes.save() !!!!! WE DO NOT WANT TO
+			// REWRITE THE OBJECT IN THE DATABASE, WE WANT rooms[]
+			// TO STORE IDs IN THE DATABASE
 
 			return res.status(200).json(userToUpdate);
-        } else {
-            console.log("error converting user's rooms");
-            console.log("userToUpdate = ", userToUpdate);
-            res.status(500).json({ msg: "User query failed." });
-        }
+		} else {
+			console.log("error converting user's rooms");
+			console.log("userToUpdate = ", userToUpdate);
+			res.status(500).json({ msg: "User query failed." });
+		}
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ msg: "Updating user failed." });
 	}
 });
-router.post("/getInfo", async (req, res) => {
-	const userToGet = await User.findById(req.body.id);
-	try{        
-        res.send(userToGet);
-	} catch (error){
+router.post("/getRoomUsers", async (req, res) => {
+	const roomToGet = await Room.findById(req.body.id);
+	try {
+		let userNames = [];
+
+		for (let i = 0; i < roomToGet.users.length; i++) {
+			const user = await (User.findById(roomToGet.users[i]));
+			let levelname = "1 " + user.username;
+			if (!userNames.includes(levelname)) {
+				
+				let pointsEarned;
+				/*
+				if (user.pointsEarned.has(req.body.id)) {
+					pointsEarned = user.pointsEarned.get(req.body.id);
+				} else {
+					pointsEarned = 0;
+				}
+				*/
+				//let level = Math.floor(pointsEarned/100)+1;
+				//let st = level.toString() + " "  + user.username; 
+				//userNames.push(st);
+				
+				userNames.push(levelname);
+			}
+		}
+
+		res.send(userNames);
+	} catch (error) {
 		console.log(error);
 		res.status(500).json({ msg: "Getting user failed." });
 	}
