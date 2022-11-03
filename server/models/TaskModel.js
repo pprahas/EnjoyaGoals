@@ -55,15 +55,15 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    file: {
-      data: Buffer,
-      contentType: String,
-      required: false,
-    },
     // file: {
-    //   type: String,
+    //   data: Buffer,
+    //   contentType: String,
     //   required: false,
     // },
+    file: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

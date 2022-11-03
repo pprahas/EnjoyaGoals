@@ -201,6 +201,18 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
+router.post("/get_file", async (req, res) => {
+  const body = req.body;
+  const task_id = body.task_id;
+
+  try {
+    const task = await Task.findById(task_id);
+    return res.status(200).json(JSON.parse(task.file));
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
 router.post("/pending_tasks/upload", async (req, res) => {
   let task_id;
   let file;
@@ -229,7 +241,7 @@ router.post("/pending_tasks/upload", async (req, res) => {
     console.log("final file is", JSON.stringify(final_file));
 
     const task = await Task.findById(task_id);
-    task.file = final_file;
+    task.file = JSON.stringify(final_file);
     await task.save();
     console.log("task is", task);
   });
@@ -288,7 +300,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
   const task_id = body.task_id;
 
   const completed_by = body.completedBy;
-  
+
   const feedback = body.feedback;
 
   try {
