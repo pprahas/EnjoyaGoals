@@ -27,6 +27,10 @@ const taskSchema = mongoose.Schema(
       type: Date,
       required: false,
     },
+    completedTime: {
+      type: Date,
+      required: false,
+    },
     points: {
       type: Number,
       required: false,
@@ -36,6 +40,10 @@ const taskSchema = mongoose.Schema(
       required: true,
     },
     assignedUser: {
+      type: String,
+      required: false,
+    },
+    completedBy: {
       type: String,
       required: false,
     },

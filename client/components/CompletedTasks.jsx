@@ -1,7 +1,7 @@
-import { assign } from "nodemailer/lib/shared";
 import React, { useState } from "react";
 import Tasks from "./Task";
 import "./TaskModal.css";
+import Missed from "./Missed";
 
 const CompletedTasks = (props) => {
   // let user_object = window.localStorage.getItem("user_data");
@@ -31,17 +31,39 @@ const CompletedTasks = (props) => {
     const date = Object.values(d)[4].slice(0, 10);
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[5];
+    const completedDate = Object.values(d)[10].slice(0, 10);
+    const completedBy = Object.values(d)[11];
+
+    const status = Object.values(d)[6];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
-    return (
-      <Tasks
-        date={date}
-        desc={desc}
-        difficulty={difficulty}
-        assigned={assigned}
-        name={name}
-        points={points}
-      />
-    );
+
+    if (status === "complete") {
+      return (
+        <Tasks
+          date={date}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+          completedDate={completedDate}
+          completedBy={completedBy}
+        />
+      );
+    } else if (status === "missed") {
+      return (
+        <Missed
+          date={date}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+          completedDate={completedDate}
+          completedBy={completedBy}
+        />
+      );
+    }
   });
 
   if (!props.show) {

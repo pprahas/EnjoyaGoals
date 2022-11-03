@@ -38,10 +38,6 @@ router.post("/", async (req, res) => {
 
       res.status(200).send({ percent: percent, number: incomplete_tasks });
     }
-
-    /*
-    const percent = (todoT / doneT) * 100;
-    res.status(200).send({ percent: percent });*/
   } catch (error) {
     res.status(400).send(error);
   }

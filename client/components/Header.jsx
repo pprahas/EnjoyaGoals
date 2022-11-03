@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import CalendarView from "./CalendarView";
@@ -174,8 +174,20 @@ export default function Header() {
   const [calIsShown, setCalIsShown] = useState(false);
   const [message, setMessage] = useState("");
   const [number, setNumber] = useState("0");
+  const [teamList, setteamList] = useState([]);
+//  const roomId = window.localStorage.getItem("currentRoom");
+  const [roomId, setRoomId] = useState(window.localStorage.getItem("currentRoom"));
+  let user_object = window.localStorage.getItem("user_data");
+  user_object = JSON.parse(user_object);
+  const username = user_object.username;
 
-  const roomId = window.localStorage.getItem("currentRoom");
+
+  useEffect(() => {
+    //console.log(roomId);
+    
+  }, [roomId]);
+  
+  //Progressbar backend request
   const handleSubmit = async (e) => {
     e.preventDefault();
     //console.log(id)
@@ -194,35 +206,25 @@ export default function Header() {
         setMessage(err.response.data.message);
         console.log(message);
       });
-    /*
+  };
+  
+  //Calendar backend request
+  const submitCal = async (e) => {
     e.preventDefault();
-    
-    
+    setCalIsShown(true);
+    setRoomId(window.localStorage.getItem("currentRoom"));
+    console.log(roomId);
     axios
-      .post("http://localhost:8080/progress_bar", {
-        roomId
+      .post("http://localhost:8080/task/pending_tasks", {
+        id: roomId,
+        username: username,
       })
       .then((res) => {
-
-        //setMessage(res.data.message);
-        //navigate("/homepage");
-        //console.log(res.data[0]);
-        //console.log(res.data.email);
-        //window.localStorage.setItem("user_data", JSON.stringify(res.data[0]));
-        //let user_object = window.localStorage.getItem("user_data");
-        //user_object = JSON.parse(user_object);
-        //console.log("My name is " + user_object.firstName);
-        // window.localStorage.setItem("username", res.data[0].username);
-        // window.localStorage.setItem("email", res.data[0].email);
-        // window.localStorage.setItem("firstName", res.data[0].firstName);
-        // window.localStorage.setItem("lastName", res.data[0].lastName);
-        // window.localStorage.setItem("userId", res.data[0]._id);
-        // window.localStorage.setItem("isLoggedIn", true);
+        setteamList(res.data);
       })
       .catch((err) => {
-        setMessage(err.response.data.message);
+        console.log("error", err);
       });
-      */
   };
 
   return (
@@ -272,102 +274,6 @@ export default function Header() {
             </a>
           </div>
           <Popover.Group as="nav" className="hidden space-x-10 md:flex">
-            {/* <Popover className="relative">
-              {({ open }) => (
-                <>
-                  <Popover.Button
-                    className={classNames(
-                      open ? "text-gray-900" : "text-gray-500",
-                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    )}
-                  >
-                    <span>Do This</span>
-                    <ChevronDownIcon
-                      className={classNames(
-                        open ? "text-gray-600" : "text-gray-400",
-                        "ml-2 h-5 w-5 group-hover:text-gray-500"
-                      )}
-                      aria-hidden="true"
-                    />
-                  </Popover.Button>
-
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-200"
-                    enterFrom="opacity-0 translate-y-1"
-                    enterTo="opacity-100 translate-y-0"
-                    leave="transition ease-in duration-150"
-                    leaveFrom="opacity-100 translate-y-0"
-                    leaveTo="opacity-0 translate-y-1"
-                  >
-                    <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
-                      <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {solutions.map((item) => (
-                            <a
-                              key={item.name}
-                              href={item.href}
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <item.icon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-600"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  {item.name}
-                                </p>
-                                <p className="mt-1 text-sm text-gray-500">
-                                  {item.description}
-                                </p>
-                              </div>
-                            </a>
-                          ))}
-                        </div>
-                        <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
-                          {callsToAction.map((item) => (
-                            <div key={item.name} className="flow-root">
-                              <a
-                                href={item.href}
-                                className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
-                              >
-                                <item.icon
-                                  className="h-6 w-6 flex-shrink-0 text-gray-400"
-                                  aria-hidden="true"
-                                />
-                                <span className="ml-3">{item.name}</span>
-                              </a>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              )}
-            </Popover> */}
-            {/* <div className="flex place-content-center">
-              <div className="flex items-center justify-between px-6 md:space-x-6">
-                <a
-                  // href="/homepage"
-                  className="text-2xl font-semibold text-green-500"
-                >
-                  32
-                </a>
-                <a
-                  // href="/homepage"
-                  className="text-2xl font-semibold text-red-500"
-                >
-                  12
-                </a>
-                <a
-                  // href="/homepage"
-                  className="text-2xl font-semibold text-blue-500"
-                >
-                  64
-                </a>
-              </div>
-            </div> */}
 
             <div>
               {/* <Progressbar /> */}
@@ -389,116 +295,21 @@ export default function Header() {
                 <Progressbar number={number} />
                 <h1>Tasks Left: {window.localStorage.getItem("numberComp")}</h1>
               </div>
+
             </div>
-
-            {/* <a
-              href="#"
-              className="text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              OR that or this
-            </a> */}
-
-            {/* <Popover className="relative">
-              {({ open }) => (
-                <>
-                  <Popover.Button
-                    className={classNames(
-                      open ? "text-gray-900" : "text-gray-500",
-                      "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    )}
-                  >
-                    <span>Or nothing at all</span>
-                    <ChevronDownIcon
-                      className={classNames(
-                        open ? "text-gray-600" : "text-gray-400",
-                        "ml-2 h-5 w-5 group-hover:text-gray-500"
-                      )}
-                      aria-hidden="true"
-                    />
-                  </Popover.Button>
-
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-200"
-                    enterFrom="opacity-0 translate-y-1"
-                    enterTo="opacity-100 translate-y-0"
-                    leave="transition ease-in duration-150"
-                    leaveFrom="opacity-100 translate-y-0"
-                    leaveTo="opacity-0 translate-y-1"
-                  >
-                    <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 transform px-2 sm:px-0">
-                      <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {resources.map((item) => (
-                            <a
-                              key={item.name}
-                              href={item.href}
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <item.icon
-                                className="h-6 w-6 flex-shrink-0 text-indigo-600"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  {item.name}
-                                </p>
-                                <p className="mt-1 text-sm text-gray-500">
-                                  {item.description}
-                                </p>
-                              </div>
-                            </a>
-                          ))}
-                        </div>
-                        <div className="bg-gray-50 px-5 py-5 sm:px-8 sm:py-8">
-                          <div>
-                            <h3 className="text-base font-medium text-gray-500">
-                              Recent Posts
-                            </h3>
-                            <ul role="list" className="mt-4 space-y-4">
-                              {recentPosts.map((post) => (
-                                <li
-                                  key={post.id}
-                                  className="truncate text-base"
-                                >
-                                  <a
-                                    href={post.href}
-                                    className="font-medium text-gray-900 hover:text-gray-700"
-                                  >
-                                    {post.name}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div className="mt-5 text-sm">
-                            <a
-                              href="#"
-                              className="font-medium text-indigo-600 hover:text-indigo-500"
-                            >
-                              View all posts
-                              <span aria-hidden="true"> &rarr;</span>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              )}
-            </Popover> */}
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
             <div>
               <button
                 // href="#"
-                onClick={() => setCalIsShown(true)}
+                onClick={submitCal}
                 className="whitespace-nowrap font-semibold text-xl text-gray-500 hover:text-gray-900 mr-12"
               >
                 11/09/2022
               </button>
               <CalendarView
                 onClose={() => setCalIsShown(false)}
+                data={teamList}
                 show={calIsShown}
               />
               {/* {calIsShown && <Calendar />} */}
