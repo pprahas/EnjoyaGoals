@@ -28,11 +28,12 @@ const UnacceptedInformation = (props) => {
         // console.log("frontend sends:", res.data);
         // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
         // console.log("its here", teamList);
+        alert("Task added to Pending!");
         console.log("worked", res);
       })
       .catch((err) => {
         // setMessage(err.response.data.message);
-
+        alert("Process failed");
         console.log("error", err);
       });
   };
