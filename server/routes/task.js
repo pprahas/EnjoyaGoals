@@ -5,7 +5,12 @@ const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
 const rooms = require("../models/RoomModel");
 
+var multiparty = require("multiparty");
+var http = require("http");
+var util = require("util");
+
 router.use(express.json());
+// router.use(formidable());
 
 // route for creating a new task
 router.post("/create", async (req, res) => {
@@ -196,26 +201,76 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
+let all_data = [];
+let man;
 router.post("/pending_tasks/upload", async (req, res) => {
-  const body = req.body;
-  const room_id = body.room_id;
-  const task_id = body.task_id;
-  const file = body.file;
-  try {
-    const room = await Room.findById(room_id);
-    const task = await Task.findById(task_id);
-    console.log(file);
-    var fs = require('fs');
-    
-    /*
-    var fs = require('fs');
-    var data = fs.readFileSync(file, 'utf8');
-    task.insert({file: data});
-    
-    await task.save();
-    */
-    return res.status(200).json({ msg: "worked" });
+  let fake_task_id = "636382228fe4d71be7ef3bfc";
+  let file;
+  let form = new multiparty.Form();
+  form.parse(req, function (err, fields, field) {
+    // task_id = fields["task_id"][0];
+    task_id = fields.task_id[0];
+    man = task_id;
+    all_data.push(task_id);
+    file = field["file"][0];
 
+    console.log("task id is", task_id);
+    console.log("file is", file);
+
+    // res.status(200).json(task_id);
+  });
+
+  all_data.push("meh");
+  console.log("task id is STILL", all_data);
+
+  console.log(man);
+  console.log(file);
+
+  const task = await Task.findById(fake_task_id);
+  console.log(task);
+
+  // this is probs all you need to do
+  // task.file = file;
+  // await task.save();
+
+  //
+  // task.filename = file;
+
+  // await task.save();
+  // res.status(200).json({ msg: "worked" });
+
+  // var data = JSON.parse(req.data);
+  // var body = data.data;
+
+  // const body = req.body;
+  // const room_id = body.room_id;
+  // const task_id = body.task_id;
+  // const file = body.file;
+  // const task_id = body.task_id;
+  try {
+    // const task = await Task.findById(task_id);
+    // console.log("file is", data);
+    // task.file = file;
+    // console.log(file);
+    // var fs = require("fs");
+    // fs.readFile(file, "utf8", (err, data) => {
+    //   if (err) {
+    //     console.error(err);
+    //   }
+    // });
+
+    // var fs = require("fs");
+    // fs.readFile(file, "utf8", (err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   console.log(data);
+    // });
+    // task.insert({ file: data });
+
+    // await task.save();
+    return res.status(200).json({ msg: "worked" });
+    // return res.status(200).json(data);
   } catch (error) {
     return res.status(400).json(error);
   }
