@@ -14,6 +14,7 @@ const JoinRoom = (props) => {
 		e.preventDefault();
 		let user_object = window.localStorage.getItem("user_data");
 		user_object = JSON.parse(user_object);
+    var userID = user_object._id;
 
 		axios
 			.post("http://localhost:8080/room/update", {
@@ -29,31 +30,20 @@ const JoinRoom = (props) => {
 				console.log(err.response.data.msg);
 			});
 		
-		axios
-			.post("http://localhost:8080/user/update", {
-				id: user_object._id,
-				fieldName: "rooms",
-				add: true,
-				value: roomId,
-			})
-			.then((res2) => {
-				console.log("Posting data", res2);
-//        user_object.rooms.push(roomId);
-//        window.localStorage.setItem("user_data", JSON.stringify(user_object));
-			})
-			.catch((err) => {
-				console.log(err.response.data.msg);
-			});
-
-      axios.post("http://localhost:8080/query_database/user", {
-          id: user_object._id,
+      axios
+      .post("http://localhost:8080/user/updateOM", {
+        "id": userID,
+        "fieldName": "rooms",
+        "add": true,
+        "value": roomId
       })
-      .then((res3) => {
-        window.localStorage.setItem("user_data", JSON.stringify(res3.data));
+      .then((res2) => {
+        window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
+        window.localStorage.setItem("user_data", JSON.stringify(res2.data));
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch((err2) => {
+        console.log(err2);
+      });
 	};
 
 return (

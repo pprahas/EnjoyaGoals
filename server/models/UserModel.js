@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema(
     },
     pointsEarned: {
       type: Map,
-      of: Number,
+      of: String,
       required: false,
     },
     deadlines: {
