@@ -1,22 +1,22 @@
 import Progressbar from "./Progressbar";
-const Sidebar = () => {
+const Leaderboard = () => {
   const Side = [
-    <FirstThreeMembers rank="1" />,
-    <FirstThreeMembers rank="2" />,
-    <FirstThreeMembers rank="3" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
+    <FirstThreeMembers rank="1" key="1" />,
+    <FirstThreeMembers rank="2" key="2"/>,
+    <FirstThreeMembers rank="3" key="3"/>,
+    <OtherMembers rank="4" key="4"/>,
+    <OtherMembers rank="4" key="5"/>,
+    <OtherMembers rank="4" key="6"/>,
+    <OtherMembers rank="4" key="7"/>,
+    <OtherMembers rank="4" key="8"/>,
+    <OtherMembers rank="4" key="9"/>,
+    <OtherMembers rank="4" key="10"/>,
   ];
 
   return (
     <div className="fixed w-32 overflow-auto top-0 right-0 h-screen w-20 flex flex-col bg-gray-900 text-white shadow-lg">
       {/* <Progressbar /> */}
-      <p className="text-center text-yellow-500 mt-8 text-lg font-serif font-semibold">
+      <p className="text-center text-yellow-500 mt-8 text-lg font-sans-serif font-semibold">
         Leaderboard
       </p>
       {Side}
@@ -43,4 +43,4 @@ const OtherMembers = (props) => (
   </div>
 );
 
-export default Sidebar;
+export default Leaderboard;

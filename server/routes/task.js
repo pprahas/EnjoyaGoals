@@ -4,8 +4,10 @@ const Task = require("../models/TaskModel");
 const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
 const rooms = require("../models/RoomModel");
+const theValidator = require("../helpers/TeamMemberCheck");
 
 var multiparty = require("multiparty");
+const User = require("../models/UserModel");
 
 promisify = require("util");
 
@@ -20,11 +22,18 @@ router.post("/create", async (req, res) => {
   // "completed":		a boolean indicating whether this task has been completed or not
   const task = req.body;
 
+  const valid = await theValidator.userInRoomCheck(task.roomId, task.creatorId);
+
+  if (!valid) {
+    console.log(`${task.creatorId} tried to create a task in ${task.roomId} but they aren't a member of that room!`);
+    res.status(403).json({ msg: "User does not have access to that room; task was not created." });
+    return;
+  }
+
   try {
     const dbTask = new Task(
       {
         _id: new mongoose.Types.ObjectId(), // not part of request
-        creatorId: task.creatorId, // required, id (as a String)
         name: task.name, // required; String
         description: task.description, // optional; String
         difficulty: task.difficulty, // optional; String
@@ -33,6 +42,7 @@ router.post("/create", async (req, res) => {
         status: task.status, // required; Boolean
         assignedUser: task.assignedUser, // optional; id (as a String)
         roomId: task.roomId,
+        creatorId: task.creatorId, // required, id (as a String)
       },
       { timestamps: true }
     );
@@ -131,6 +141,7 @@ router.post("/team_tasks", async (req, res) => {
 
     return res.status(200).json(completed_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json({ msg: "List not sent." });
   }
 });
@@ -174,6 +185,7 @@ router.post("/team_tasks/assign", async (req, res) => {
 
     return res.status(200).json({ msg: "worked" });
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -197,6 +209,7 @@ router.post("/pending_tasks", async (req, res) => {
 
     return res.status(200).json(pending_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -306,6 +319,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
   try {
     const task = await Task.findById(task_id);
     const room = await Room.findById(room_id);
+    const user = await User.findById(completed_by);
 
     if (feedback.length < 8) {
       return res.status(200).json({ msg: "put more words pls" });
@@ -339,10 +353,23 @@ router.post("/pending_tasks/submit", async (req, res) => {
     room.assignedTasks.pull(task_id);
     room.completedTasks.push(task);
 
+    // give points to User
+    // user = User
+    // task = Task
+    // room = Room
+    var points = task.points;
+    if (user.pointsEarned.has(room._id)) {
+      points += user.pointsEarned.get(room._id);
+    }
+    user.pointsEarned.set(room._id, points);
+
+    await user.save();
+
     // const findRes = await Task.pendfindByIdAndDelete(taskToDelete.id);
     await room.save();
     return res.status(200).json({ msg: "worked" });
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });
@@ -363,6 +390,7 @@ router.post("/completed_tasks", async (req, res) => {
 
     return res.status(200).json(completed_tasks);
   } catch (error) {
+    console.log(error);
     return res.status(400).json(error);
   }
 });

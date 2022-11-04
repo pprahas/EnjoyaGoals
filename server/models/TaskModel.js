@@ -6,11 +6,6 @@ const taskSchema = mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       required: true,
     },
-    // creatorId: {
-    //   type: mongoose.Schema.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
     name: {
       type: String,
       required: true,
@@ -55,11 +50,11 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    // file: {
-    //   data: Buffer,
-    //   contentType: String,
-    //   required: false,
-    // },
+    creatorId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
     file: {
       type: String,
       required: false,

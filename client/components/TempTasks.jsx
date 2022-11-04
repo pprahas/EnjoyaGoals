@@ -6,20 +6,6 @@ import Unaccepted from "./Unaccepted";
 
 const TempTasks = (props) => {
 
-
-    const AllTasks = [
-        <Tasks date="10/22/2022" name="Fixing Frontend" points="30" />,
-        <Unaccepted date="2/22/2022" name="Fixing Backend" points="10" />,
-        <Unaccepted date="110/22/2022" name="Frontend" points="90" />,
-        <Pending date="110/22/2022" name="Frontend" points="90" />,
-        <Tasks date="110/22/2022" name="Frontend" points="90" />,
-        <Pending date="110/22/2022" name="Frontend" points="90" />,
-        <Tasks date="10/29/2022" name="Fixing Homepage" points="20" />,
-        <Unaccepted date="10/29/2022" name="Fixing Homepage" points="20" />,
-        <Pending date="10/29/2022" name="Fixing Homepage" points="20" />,
-
-    ];
-
     if (!props.show) {
         return null;
     }
@@ -33,7 +19,7 @@ const TempTasks = (props) => {
                             Deadlines
                         </h1>
                     </div>
-                    <div className="rounded-md pt-24 pb-10 bg-indigo-900">{props.tasks}</div>
+                    <div className="pointer-events-none rounded-md pt-24 pb-10 bg-indigo-900">{props.tasks}</div>
                 </div>
                 <div className="taskFoot">
                     <button

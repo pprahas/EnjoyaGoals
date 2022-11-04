@@ -23,6 +23,7 @@ router.post("/", async (req, res) => {
       res.status(200).send({ percent: percent });
     } else {
       let incomplete_tasks = 0;
+      let complete_tasks = 0;
       for (let i = 0; i < todo.length; i++) {
         const task = await Task.findById(todo[i]);
         if (task.status != "complete") {
@@ -39,6 +40,7 @@ router.post("/", async (req, res) => {
       res.status(200).send({ percent: percent, number: incomplete_tasks });
     }
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 });

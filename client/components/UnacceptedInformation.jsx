@@ -28,24 +28,26 @@ const UnacceptedInformation = (props) => {
         // console.log("frontend sends:", res.data);
         // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
         // console.log("its here", teamList);
+        alert("Task added to Pending!");
         console.log("worked", res);
       })
       .catch((err) => {
         // setMessage(err.response.data.message);
-
+        alert("Process failed");
         console.log("error", err);
       });
   };
 
   return (
-    <div className="overlay" class="fixed pin z-50 overflow-auto flex w-36">
+    // <div className="overlay" class="fixed pin z-50 overflow-auto flex w-36">
+    <div className="fixed pin z-50 overflow-auto flex w-36">
       <div className="modal">
         <div className="modal-content">
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">
             {props.name}
           </h1>
           <p>Description: {props.desc} </p>
-          <p>Difficulty:{props.difficulty}</p>
+          <p>Difficulty: {props.difficulty}</p>
           <p>Deadline: {props.date}</p>
           <p>Points: {props.points}</p>
 
