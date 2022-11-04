@@ -363,10 +363,10 @@ router.post("/pending_tasks/submit", async (req, res) => {
     // task = Task
     // room = Room
     var points = task.points;
-    if (user.pointsEarned.has(room._id)) {
-      points += user.pointsEarned.get(room._id);
+    if (user.pointsEarned.has(room._id.toString())) {
+      points += user.pointsEarned.get(room._id.toString());
     }
-    user.pointsEarned.set(room._id, points);
+    user.pointsEarned.set(room._id.toString(), points);
 
     await user.save();
 
