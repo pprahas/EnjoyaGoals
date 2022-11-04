@@ -127,8 +127,8 @@ router.post("/updateOM", async (req, res) => {
 });
 
 router.post("/getRoomUsers", async (req, res) => {
-  const roomToGet = await Room.findById(req.body.id);
   try {
+    const roomToGet = await Room.findById(req.body.id);
     let userNames = [];
     let user_points_map = new Map();
     let array_b4_sort = [];

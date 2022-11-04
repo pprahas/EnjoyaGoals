@@ -13,7 +13,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-//    console.log(email, password);
+    //    console.log(email, password);
     axios
       .post("http://localhost:8080/login", {
         email,
@@ -21,17 +21,20 @@ export default function Login() {
       })
       .then((res) => {
         setMessage(res.data.message);
-//        console.log(res.data);
+        //        console.log(res.data);
         window.localStorage.setItem("user_data", JSON.stringify(res.data));
         let user_object = window.localStorage.getItem("user_data");
         user_object = JSON.parse(user_object);
-//        console.log("My name is " + user_object.firstName);
+        //        console.log("My name is " + user_object.firstName);
         // window.localStorage.setItem("username", res.data[0].username);
         // window.localStorage.setItem("email", res.data[0].email);
         // window.localStorage.setItem("firstName", res.data[0].firstName);
         // window.localStorage.setItem("lastName", res.data[0].lastName);
         // window.localStorage.setItem("userId", res.data[0]._id);
         window.localStorage.setItem("isLoggedIn", true);
+        if (user_object.rooms.length > 0) {
+          window.localStorage.setItem("currentRoom", user_object.rooms[0]);
+        }
 
         navigate("/homepage");
       })
