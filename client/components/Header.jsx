@@ -115,6 +115,9 @@ function logOut() {
   // window.localStorage.removeItem("lastName");
   // window.localStorage.removeItem("userId");
   window.localStorage.removeItem("isLoggedIn");
+  window.localStorage.removeItem("currentRoom");
+  window.localStorage.removeItem("percentageComp");
+  window.localStorage.removeItem("numberComp");
   //   navigate("/login");
 }
 
@@ -129,7 +132,7 @@ function leaveRoom() {
       id: currentRoomID,
       fieldName: "users",
       remove: true,
-      value: userID
+      value: userID,
     })
     .then((res) => {
       console.log(res.data);
@@ -138,24 +141,24 @@ function leaveRoom() {
       console.log(err);
     });
 
-    // remove Room from User Object's rooms[] array
-    axios
-      .post("http://localhost:8080/user/updateOM", {
-        "id": userID,
-        "fieldName": "rooms",
-        "remove": true,
-        "value": currentRoomID
-      })
-      .then((res2) => {
-        console.log(res2.data);
-        window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
-        window.localStorage.setItem("user_data", JSON.stringify(res2.data));
-      })
-      .catch((err2) => {
-        console.log(err2);
-      });
+  // remove Room from User Object's rooms[] array
+  axios
+    .post("http://localhost:8080/user/updateOM", {
+      id: userID,
+      fieldName: "rooms",
+      remove: true,
+      value: currentRoomID,
+    })
+    .then((res2) => {
+      console.log(res2.data);
+      window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
+      window.localStorage.setItem("user_data", JSON.stringify(res2.data));
+    })
+    .catch((err2) => {
+      console.log(err2);
+    });
 
-      /*
+  /*
     // update user_data in localStorage & set currentRoom to the first room in the User's rooms[] array
     axios
       .post("http://localhost:8080/query_database/user", {
@@ -178,18 +181,18 @@ export default function Header() {
   const [teamList, setteamList] = useState([]);
   const [code, setShowCode] = useState(false);
 
-//  const roomId = window.localStorage.getItem("currentRoom");
-  const [roomId, setRoomId] = useState(window.localStorage.getItem("currentRoom"));
+  //  const roomId = window.localStorage.getItem("currentRoom");
+  const [roomId, setRoomId] = useState(
+    window.localStorage.getItem("currentRoom")
+  );
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
   const username = user_object.username;
 
-
   useEffect(() => {
     //console.log(roomId);
-    
   }, [roomId]);
-  
+
   //Progressbar backend request
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -210,7 +213,7 @@ export default function Header() {
         console.log(message);
       });
   };
-  
+
   //Calendar backend request
   const submitCal = async (e) => {
     e.preventDefault();
@@ -279,7 +282,6 @@ export default function Header() {
             </a>
           </div>
           <Popover.Group as="nav" className="hidden space-x-10 md:flex">
-
             <div>
               {/* <Progressbar /> */}
               <a
@@ -300,7 +302,6 @@ export default function Header() {
                 <Progressbar number={number} />
                 <h1>Tasks Left: {window.localStorage.getItem("numberComp")}</h1>
               </div>
-
             </div>
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
@@ -324,16 +325,19 @@ export default function Header() {
 
             <button
               onClick={() => {
-                setShowCode(true)
+                setShowCode(true);
               }}
               className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
             >
               Invite Users
             </button>
-            <Roomcode 
-            onClose={()=> {setShowCode(false)}} 
-            id={roomId}
-            show={code}/>
+            <Roomcode
+              onClose={() => {
+                setShowCode(false);
+              }}
+              id={roomId}
+              show={code}
+            />
             <button
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
               onClick={leaveRoom}
