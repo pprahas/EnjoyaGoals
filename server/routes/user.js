@@ -70,7 +70,10 @@ router.post("/updateOM", async (req, res) => {
 				// to add or remove a room, request should also contain ONE of the following:
 				// "add":		true
 				// "remove":	true
-				if (req.body.add) { userToUpdate.rooms.push(req.body.value); }
+				if (req.body.add) {
+					userToUpdate.rooms.push(req.body.value);
+					userToUpdate.pointsEarned.set(req.body.value, 0);
+				}
 				else if (req.body.remove) {
 					console.log("userToUpdate = ", userToUpdate);
 					if (userToUpdate.rooms != null) {
