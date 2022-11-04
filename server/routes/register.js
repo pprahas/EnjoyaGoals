@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
         phoneNum: user.phoneNum,
         aboutMe: user.aboutMe,
         password: user.password,
+        pointsEarned: { yes: 0 },
       });
 
       await dbUser.save();
@@ -36,7 +37,9 @@ router.post("/", async (req, res) => {
 
       // sendEmail.sendEmailRegister(takenEmail, user.firstName);
 
-      return res.status(201).json({ msg: "Your account has been created successfully." });
+      return res
+        .status(201)
+        .json({ msg: "Your account has been created successfully." });
     }
   } catch (error) {
     return res.status(500).json({ msg: "Registration Failed." });

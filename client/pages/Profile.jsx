@@ -14,6 +14,11 @@ export default function Profile(props){
   const lastName = user_object.lastName;
   const email = user_object.email;
   const username = user_object.username;
+  const pointsEarnedMap = new Map(Object.entries(user_object.pointsEarned));
+  const points = pointsEarnedMap.get(window.localStorage.getItem("currentRoom").toString());
+  const lvl = (Math.floor(points / 100)) + 1;
+  
+  console.log(`lvl = ${lvl}`);
   
   return (
 
@@ -85,9 +90,11 @@ export default function Profile(props){
                         }}
                       />
                     </div>
-                    <span class="mt-16 lg:mt-14 leading-none items-center justify-center text-center flex inset-x-0 w-12 h-12 lg:-ml-3  bg-white 
+                    {/* <span class="mt-16 lg:mt-14 leading-none items-center justify-center text-center flex inset-x-0 w-12 h-12 lg:-ml-3  bg-white 
+                    border-4 border-indigo-300 dark:border-gray-800 rounded-full z-10 text-blueGray-500 font-bold uppercase"> */}
+                    <span className="mt-16 lg:mt-14 leading-none items-center justify-center text-center flex inset-x-0 w-12 h-12 lg:-ml-3  bg-white 
                     border-4 border-indigo-300 dark:border-gray-800 rounded-full z-10 text-blueGray-500 font-bold uppercase">
-                      Lv.<br></br>34</span>
+                      Lv.<br></br>{lvl}</span>
 
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
@@ -134,12 +141,15 @@ export default function Profile(props){
                 <div className="text-center mt-12">
                   {/**    
                    * <a class="flex justify-center items-center w-10 h-10 text-xs font-medium text-white bg-gray-700 rounded-full border-2 border-white hover:bg-gray-600 dark:border-gray-800" href="#">+99</a> */}
-                  <div class="text-center justify-center items-center flex flex-row">
+                  {/* <div class="text-center justify-center items-center flex flex-row"> */}
+                  <div className="text-center justify-center items-center flex flex-row">
                     <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
                       {firstName}  {lastName}  
 
                     </h3>
-                    <a class="ml-3 w-8 h-8 rounded-md border border-gray-300 bg-white text-sm font-medium leading-4 text-gray-700 
+                    {/* <a class="ml-3 w-8 h-8 rounded-md border border-gray-300 bg-white text-sm font-medium leading-4 text-gray-700 
+                      shadow-sm hover:bg-gray-50 focus:outline-none" href="/Profile_Information"> */}
+                      <a className="ml-3 w-8 h-8 rounded-md border border-gray-300 bg-white text-sm font-medium leading-4 text-gray-700 
                       shadow-sm hover:bg-gray-50 focus:outline-none" href="/Profile_Information">
 
                       <img

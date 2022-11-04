@@ -19,8 +19,10 @@ const Sidebar = () => {
     const roomID = Object.values(d)[0];
     return (
     <button
+    key={roomID}
     onClick={() => {
       window.localStorage.setItem("currentRoom", roomID);
+      window.location.reload();
     }}>
     <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
     </button>
@@ -66,7 +68,7 @@ const Sidebar = () => {
 const SideBarIcon = ({ icon, text }) => (
   <div className="sidebar-icon group">
     {icon}
-    <span class="sidebar-tooltip group-hover:scale-100">{text}</span>
+    <span className="sidebar-tooltip group-hover:scale-100">{text}</span>
   </div>
 );
 

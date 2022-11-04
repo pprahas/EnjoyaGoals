@@ -11,7 +11,7 @@ const PendingTasks = (props) => {
     const difficulty = Object.values(d)[3];
     const date = Object.values(d)[4].slice(0, 10);
     const points = Object.values(d)[5];
-    const assigned = Object.values(d)[9];
+    const assigned = Object.values(d)[10];
     const id = Object.values(d)[0];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
     return (
@@ -23,6 +23,7 @@ const PendingTasks = (props) => {
         name={name}
         points={points}
         id={id}
+        key={id}
       />
     );
   });
@@ -32,14 +33,15 @@ const PendingTasks = (props) => {
   }
 
   return (
-    <div className="overlay" class="fixed pin z-50 flex">
+    //    <div className="overlay" class="fixed pin z-50 flex">
+    <div className="fixed pin z-50 flex">
       <div className="modal">
         <div className="task-content">
           <div className="taskHeader">
             <h1 className="text-center text-6xl font-semibold pt-4 mb-3 text-indigo-500">
               Pending Tasks
             </h1>
-            <div className = "flex mt-4 mb-3 justify-center">
+            <div className="flex mt-4 mb-3 justify-center">
               <span className="w-24 text-center rounded-full bg-green-500 text-white px-2 py-1 text-xs font-bold mr-3">
                 Completed
               </span>

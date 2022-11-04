@@ -41,7 +41,7 @@ const userSchema = mongoose.Schema(
     pointsEarned: {
       type: Map,
       of: Number,
-      required: false,
+      required: true,
     },
     deadlines: {
       type: Map,

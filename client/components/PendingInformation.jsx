@@ -18,34 +18,11 @@ const PendingInformation = (props) => {
     props.onClose;
     //open a text box
     setShowText(true);
-
-
-    //DO NOT DELETE YET
-    /*
-    const roomId = window.localStorage.getItem("currentRoom");
-    axios
-      .post("http://localhost:8080/task/pending_tasks/submit", {
-        room_id: roomId,
-        task_id: props.id,
-        completedBy: username,
-      })
-      .then((res) => {
-        // console.log("printing task data", res.data[0]);
-        // console.log("frontend sends:", res.data);
-        // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
-        // console.log("its here", teamList);
-        console.log("worked", res);
-      })
-      .catch((err) => {
-        // setMessage(err.response.data.message);
-
-        console.log("error", err);
-      });
-      */
   };
 
   return (
-    <div className="overlay" class="fixed pin z-50 overflow-auto flex w-36">
+    // <div className="overlay" class="fixed pin z-50 overflow-auto flex w-36">
+    <div className="fixed pin z-50 overflow-auto flex w-36">
       <div className="modal">
         <div className="modal-content">
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">

@@ -11,33 +11,24 @@ const CompletedTasks = (props) => {
 
   let completedTasks = props.data;
 
-  var obj = new Object();
-  obj.name = "task-name";
-  obj.description = "task-desc";
-  obj.difficulty = "easy";
-  obj.deadline = "10/22/1111";
-  obj.points = 34;
-  obj.assigned = "prado156";
-  // completedTasks.push(obj);
-
-  const AllTasks = [
-    <Tasks date="10/22/2022" name="Fixing Frontend" points="30" />,
-  ];
-
   const eachTask = completedTasks.map((d) => {
+    const id = Object.values(d)[0];
     const name = Object.values(d)[1];
     const desc = Object.values(d)[2];
     const difficulty = Object.values(d)[3];
     const date = Object.values(d)[4].slice(0, 10);
     const points = Object.values(d)[5];
-    const assigned = Object.values(d)[5];
-    const feedback = Object.values(d)[11];
-    const completedDate = Object.values(d)[10].slice(0, 10);
-    const completedBy = Object.values(d)[11];
-
+    const assigned = Object.values(d)[10];
+    const feedback = Object.values(d)[15];
+    const completedDate = Object.values(d)[14].slice(0, 10);
+    const completedBy = Object.values(d)[10];
     const status = Object.values(d)[6];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
-
+    /*
+    console.log(" ")
+    for(let i=0; i<Object.values(d).length; i++){
+      console.log(i + ": " + Object.values(d)[i]);
+    }*/
     if (status === "complete") {
       return (
         <Tasks
@@ -49,9 +40,15 @@ const CompletedTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
+          key={id}
+          feedback={feedback}
         />
       );
     } else if (status === "missed") {
+      /*console.log(" ")
+      for (let i = 0; i < Object.values(d).length; i++) {
+        console.log(i + ": " + Object.values(d)[i]);
+      }*/
       return (
         <Missed
           date={date}
@@ -62,6 +59,8 @@ const CompletedTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
+          key={id}
+          feedback={feedback}
         />
       );
     }
@@ -72,14 +71,15 @@ const CompletedTasks = (props) => {
   }
 
   return (
-    <div className="overlay" class="fixed pin z-50 flex">
+    //    <div className="overlay" class="fixed pin z-50 flex">
+    <div className="fixed pin z-50 flex">
       <div className="modal">
         <div className="task-content">
           <div className="taskHeader">
             <h1 className="text-center text-6xl font-semibold pt-4 mb-3 text-indigo-500">
               Completed Tasks
             </h1>
-            <div className = "flex mt-4 mb-3 justify-center">
+            <div className="flex mt-4 mb-3 justify-center">
               <span className="w-24 text-center rounded-full bg-green-500 text-white px-2 py-1 text-xs font-bold mr-3">
                 Completed
               </span>

@@ -16,20 +16,25 @@ const TextInput = (props) => {
 
   const handleFile = (e) => {
     let file = e.target.files[0];
-    // console.log(e.target.files, "$$$$");
-    // console.log(e.target.files[0], "$$$$");
     setSelectedFile({ file: file });
   };
 
   const submitTask = async (e) => {
+    let user_object = window.localStorage.getItem("user_data");
+    user_object = JSON.parse(user_object);
+    const username = user_object.username;
     const roomId = window.localStorage.getItem("currentRoom");
     e.preventDefault();
+    if (selectedFile == null) {
+      alert("Please attach a file.");
+      return;
+    }
     let file = selectedFile.file;
     let formData = new FormData();
     formData.append("file", file);
     formData.append("task_id", props.id);
     // formData.append("name", "Prahas");
-    console.log(selectedFile, "STATE $$$$$");
+    console.log(props.id, "task id isssssssssss");
 
     // let json = await convert2JSON(formData);
     axios({
@@ -54,6 +59,7 @@ const TextInput = (props) => {
     //     console.log(err);
 
     const form = new FormData();
+
     form.append("file", selectedFile.data);
     // for (var pair of form.entries()) {
     //   console.log(pair[0] + ", " + pair[1]);
@@ -75,17 +81,22 @@ const TextInput = (props) => {
         room_id: roomId,
         task_id: props.id,
         feedback: feedback,
+        completedBy: user_object._id,
       })
       .then((res) => {
         // console.log("printing task data", res.data[0]);
         // console.log("frontend sends:", res.data);
         // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
         // console.log("its here", teamList);
+        if (res.data.msg === "put more words pls") {
+          alert("Feedback should be 7 or more characters long.");
+          return;
+        }
         console.log("worked", res);
+        alert("Task submitted successfully!");
       })
       .catch((err) => {
         // setMessage(err.response.data.message);
-
         console.log("error", err);
       });
   };

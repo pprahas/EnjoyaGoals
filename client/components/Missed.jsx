@@ -39,6 +39,7 @@ const Missed = (props) => {
         assigned={props.assigned}
         completedDate={props.completedDate}
         completedBy={props.completedBy}
+        feedback={props.feedback}
       />
     </div>
   );
