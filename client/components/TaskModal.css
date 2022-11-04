@@ -11,6 +11,43 @@
 }
 .modal-content {
   width: 500px;
-  background-origin: #fff;
+   background-origin: #fff;
   border-radius: 5px;
+}
+.info {
+  padding-top: 110px;
+  margin-bottom: 50px;
+}
+  .task-info {
+    width: 500px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    height:332px;
+  }
+.task-info-header{
+  position: fixed;
+  width: 500px;
+  height: 100px;
+  background-color: white;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #eee;
+}
+.task-info-foot {
+  position:fixed;
+  margin-top: 295px;
+  width: 500px;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.unaccepted-task-info-foot {
+  position:fixed;
+  margin-top: 226px;
+  width: 500px;
+  border-radius: 0px 0px 0px 0px;
+}
+.pending-info {
+  padding-top: 110px;
+  height: 230px;
+  margin-bottom: 100px;
 }
