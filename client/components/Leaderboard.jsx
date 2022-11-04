@@ -25,7 +25,7 @@ const Sidebar = () => {
 
     const level = Math.floor(points / 100) + 1;
 
-    const line = level + " " + username;
+    const line = points + " " + username;
 
     console.log("username and level", username, level);
     if (current_username === username) {
