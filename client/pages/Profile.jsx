@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import Header from "../components/Header";
 import React from "react";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Profile(props){
   var bg = window.localStorage.getItem("banner");
@@ -10,6 +11,22 @@ export default function Profile(props){
   img.src = bg;
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
+
+  // update user object *this is scuffed*
+  axios
+      .post("http://localhost:8080/query_database/user", {
+        "id": user_object._id,
+      })
+      .then((res) => {
+        window.localStorage.setItem("user_data", JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  user_object = window.localStorage.getItem("user_data");
+  user_object = JSON.parse(user_object);
+
   const firstName = user_object.firstName;
   const lastName = user_object.lastName;
   const email = user_object.email;
