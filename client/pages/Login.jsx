@@ -33,7 +33,7 @@ export default function Login() {
         // window.localStorage.setItem("userId", res.data[0]._id);
         window.localStorage.setItem("isLoggedIn", true);
         if (user_object.rooms.length > 0) {
-          window.localStorage.setItem("currentRoom", user_object.rooms[0]);
+          window.localStorage.setItem("currentRoom", user_object.rooms[0]._id);
         }
 
         navigate("/homepage");
