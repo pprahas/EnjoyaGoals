@@ -14,7 +14,8 @@ export default function Homepage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user_id = window.localStorage.getItem("userId");
+    const user_object = window.localStorage.getItem("user_data");
+    const user_id = user_object._id;
     const completed = false;
 
     // console.log(
@@ -29,7 +30,7 @@ export default function Homepage() {
     // );
     axios
       .post("http://localhost:8080/task/create", {
-        // creatorId: user_id,
+        creatorId: user_id,
         name: task_name,
         description: task_description,
         difficulty: task_difficulty,

@@ -45,7 +45,21 @@ const TeamTasks = (props) => {
 
   const eachTask = teamTasksFinal.map((d) => {
     // console.log(Object.values(d));
-    console.log("here we are", d);
+    // console.log(d);
+    // console.log(`Object.values(d)[0] = ${Object.values(d)[0]}`);
+    // console.log(`Object.values(d)[1] = ${Object.values(d)[1]}`);
+    // console.log(`Object.values(d)[2] = ${Object.values(d)[2]}`);
+    // console.log(`Object.values(d)[3] = ${Object.values(d)[3]}`);
+    // console.log(`Object.values(d)[4] = ${Object.values(d)[4]}`);
+    // console.log(`Object.values(d)[5] = ${Object.values(d)[5]}`);
+    // console.log(`Object.values(d)[6] = ${Object.values(d)[6]}`);
+    // console.log(`Object.values(d)[7] = ${Object.values(d)[7]}`);
+    // console.log(`Object.values(d)[8] = ${Object.values(d)[8]}`);
+    // console.log(`Object.values(d)[9] = ${Object.values(d)[9]}`);
+    // console.log(`Object.values(d)[10] = ${Object.values(d)[10]}`);
+    // console.log(`Object.values(d)[11] = ${Object.values(d)[11]}`);
+    // console.log(`Object.values(d)[12] = ${Object.values(d)[12]}`);
+    // console.log(`Object.values(d)[13] = ${Object.values(d)[13]}`);
     const id = Object.values(d)[0];
     const name = Object.values(d)[1];
     const desc = Object.values(d)[2];
@@ -54,7 +68,8 @@ const TeamTasks = (props) => {
     const points = Object.values(d)[5];
     const assigned = Object.values(d)[9];
     const status = Object.values(d)[6];
-    const completedBy = Object.values(d)[11];
+    const completedBy = Object.values(d)[9];
+    const feedback = Object.values(d)[13];
     let completedDate;
     if (Object.values(d)[10]) {
       completedDate = Object.values(d)[10].slice(0, 10);
@@ -70,6 +85,7 @@ const TeamTasks = (props) => {
           name={name}
           points={points}
           status={status}
+          key={id}
         />
       );
     } else if (status === "pending") {
@@ -81,6 +97,7 @@ const TeamTasks = (props) => {
           assigned={assigned}
           name={name}
           points={points}
+          key={id}
         />
       );
     } else if (status === "complete") {
@@ -94,6 +111,8 @@ const TeamTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
+          key={id}
+          feedback={feedback}
         />
       );
     } else if (status === "missed") {
@@ -107,6 +126,8 @@ const TeamTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
+          key={id}
+          feedback={feedback}
         />
       );
     }
@@ -129,14 +150,15 @@ const TeamTasks = (props) => {
   }
 
   return (
-    <div className="overlay" class="fixed pin z-50 flex">
+    //<div className="overlay" class="fixed pin z-50 flex">
+    <div className="fixed pin z-50 flex">
       <div className="modal">
         <div className="task-content">
           <div className="taskHeader">
             <h1 className="text-center text-6xl font-semibold pt-4 mb-3 text-indigo-500">
               All Tasks
             </h1>
-            <div className = "flex mt-4 mb-3 justify-center">
+            <div className="flex mt-4 mb-3 justify-center">
               <span className="w-24 text-center rounded-full bg-green-500 text-white px-2 py-1 text-xs font-bold mr-3">
                 Completed
               </span>

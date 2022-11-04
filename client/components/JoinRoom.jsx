@@ -14,6 +14,7 @@ const JoinRoom = (props) => {
 		e.preventDefault();
 		let user_object = window.localStorage.getItem("user_data");
 		user_object = JSON.parse(user_object);
+    var userID = user_object._id;
 
 		axios
 			.post("http://localhost:8080/room/update", {
@@ -29,35 +30,25 @@ const JoinRoom = (props) => {
 				console.log(err.response.data.msg);
 			});
 		
-		axios
-			.post("http://localhost:8080/user/update", {
-				id: user_object._id,
-				fieldName: "rooms",
-				add: true,
-				value: roomId,
-			})
-			.then((res2) => {
-				console.log("Posting data", res2);
-//        user_object.rooms.push(roomId);
-//        window.localStorage.setItem("user_data", JSON.stringify(user_object));
-			})
-			.catch((err) => {
-				console.log(err.response.data.msg);
-			});
-
-      axios.post("http://localhost:8080/query_database/user", {
-          id: user_object._id,
+      axios
+      .post("http://localhost:8080/user/updateOM", {
+        "id": userID,
+        "fieldName": "rooms",
+        "add": true,
+        "value": roomId
       })
-      .then((res3) => {
-        window.localStorage.setItem("user_data", JSON.stringify(res3.data));
+      .then((res2) => {
+        window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
+        window.localStorage.setItem("user_data", JSON.stringify(res2.data));
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch((err2) => {
+        console.log(err2);
+      });
 	};
 
 return (
-    <div className="overlay" class="fixed pin z-50 overflow-auto flex">
+    // <div className="overlay" class="fixed pin z-50 overflow-auto flex">
+    <div className="fixed pin z-50 overflow-auto flex">
       <div className="modal">
         <div className="modal-content">
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">
@@ -66,7 +57,8 @@ return (
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <div class="w-full border-b border-gray-100"></div>
+            {/* <div class="w-full border-b border-gray-100"></div> */}
+            <div className="w-full border-b border-gray-100"></div>
             <div className=" rounded-md px-4">
               <input
                 id="roomId"
@@ -80,7 +72,8 @@ return (
 
               <div className="border-t border-gray-200"></div>
             </div>
-            <div class="w-full border-b border-gray-100"></div>
+            {/* <div class="w-full border-b border-gray-100"></div> */}
+            <div className="w-full border-b border-gray-100"></div>
             <div className="px-4">
               <button
                 type="submit"
