@@ -56,14 +56,9 @@ const taskSchema = mongoose.Schema(
       required: true,
     },
     file: {
-      data: Buffer,
-      contentType: String,
+      type: String,
       required: false,
     },
-    // file: {
-    //   type: String,
-    //   required: false,
-    // },
   },
   { timestamps: true }
 );
