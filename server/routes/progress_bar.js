@@ -51,7 +51,9 @@ router.post("/", async (req, res) => {
       percent = Math.floor(percent);
 
       // res.status(200).send({ percent: percent, number: tasks_left });
-      res.status(200).send({ percent: new_percent, number: tasks_left });
+      res
+        .status(200)
+        .send({ percent: Math.floor(new_percent), number: tasks_left });
     }
   } catch (error) {
     res.status(400).send(error);
