@@ -31,14 +31,20 @@ const CompletedTasks = (props) => {
     const difficulty = Object.values(d)[3];
     const date = Object.values(d)[4].slice(0, 10);
     const points = Object.values(d)[5];
-    const assigned = Object.values(d)[5];
-    const feedback = Object.values(d)[13];
-    const completedDate = Object.values(d)[10].slice(0, 10);
-    const completedBy = Object.values(d)[9];
+    const assigned = Object.values(d)[10];
+    const feedback = Object.values(d)[15];
+    const completedDate = Object.values(d)[14].slice(0, 10);
+    const completedBy = Object.values(d)[10];
 
     const status = Object.values(d)[6];
-    // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
 
+
+    // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
+    /*
+    console.log(" ")
+    for(let i=0; i<Object.values(d).length; i++){
+      console.log(i + ": " + Object.values(d)[i]);
+    }*/
     if (status === "complete") {
       return (
         <Tasks
