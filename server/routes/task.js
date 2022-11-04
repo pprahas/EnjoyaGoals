@@ -25,8 +25,12 @@ router.post("/create", async (req, res) => {
   const valid = await theValidator.userInRoomCheck(task.roomId, task.creatorId);
 
   if (!valid) {
-    console.log(`${task.creatorId} tried to create a task in ${task.roomId} but they aren't a member of that room!`);
-    res.status(403).json({ msg: "User does not have access to that room; task was not created." });
+    console.log(
+      `${task.creatorId} tried to create a task in ${task.roomId} but they aren't a member of that room!`
+    );
+    res.status(403).json({
+      msg: "User does not have access to that room; task was not created.",
+    });
     return;
   }
 
@@ -255,6 +259,7 @@ router.post("/pending_tasks/upload", async (req, res) => {
 
     const task = await Task.findById(task_id);
     task.file = JSON.stringify(final_file);
+    // task.file = final_file;
     await task.save();
     console.log("task is", task);
   });

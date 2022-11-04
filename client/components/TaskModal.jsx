@@ -15,19 +15,21 @@ const TaskModal = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(task_deadline == ""){
+    if (task_deadline == "") {
       console.log("oof");
-      alert("Please select a deadline.")
+      alert("Please select a deadline.");
       return;
     }
     const user_id = window.localStorage.getItem("userId");
+    let user_object = window.localStorage.getItem("user_data");
+    user_object = JSON.parse(user_object);
     //complete, pending, unassigned
     const status = "unassigned";
     const roomId = window.localStorage.getItem("currentRoom");
-    
+
     axios
       .post("http://localhost:8080/task/create", {
-        // creatorId: user_id,
+        creatorId: user_object._id,
         name: task_name,
         description: task_description,
         difficulty: task_difficulty,
@@ -50,7 +52,7 @@ const TaskModal = (props) => {
   };
 
   return (
-//    <div className="overlay" class="fixed pin z-50 overflow-auto flex">
+    //    <div className="overlay" class="fixed pin z-50 overflow-auto flex">
     <div className="fixed pin z-50 overflow-auto flex">
       <div className="modal">
         <div className="modal-content">
