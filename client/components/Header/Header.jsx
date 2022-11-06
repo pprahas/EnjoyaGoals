@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import CalendarView from "./CalendarView";
-import TaskModal from "../components/TaskModal";
-import Progressbar from "./Progressbar";
+import CalendarView from "./Calendar/CalendarView";
+import TaskModal from "../Tasks/CreateTask/CreateTask";
+import Progressbar from "./ProgressBar/Progressbar";
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
@@ -22,7 +22,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
-import Roomcode from "./Roomcode";
+import Roomcode from "./Room/InviteRoom";
 // import { useNavigate } from "react-router-dom";
 
 const solutions = [

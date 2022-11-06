@@ -1,12 +1,12 @@
 import { useState } from "react";
-import UnacceptedInformation from "./UnacceptedInformation";
+import PendingInformation from "../../PendingInformation";
 
-const Unaccepted = (props) => {
+const Pending = (props) => {
   const [show, setShow] = useState(false);
   return (
     <div className="bg-indigo-900 text-center py-4 lg:px-4">
       <button
-        className="p-2 w-96 justify-center bg-indigo-600 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+        className="p-2 w-96 justify-center bg-red-700 items-center text-white leading-none lg:rounded-full flex lg:inline-flex"
         role="alert"
         onClick={() => setShow(true)}
       >
@@ -28,18 +28,19 @@ const Unaccepted = (props) => {
         </span>
       </button>
 
-      <UnacceptedInformation
+      <PendingInformation
         onClose={() => setShow(false)}
-        id={props.id}
         show={show}
         name={props.name}
-        desc={props.desc}
-        difficulty={props.difficulty}
         date={props.date}
         points={props.points}
+        desc={props.desc}
+        difficulty={props.difficulty}
+        assigned={props.assigned}
+        id={props.id}
       />
     </div>
   );
 };
 
-export default Unaccepted;
+export default Pending;

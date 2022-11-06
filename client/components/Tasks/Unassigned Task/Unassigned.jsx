@@ -1,12 +1,12 @@
 import { useState } from "react";
-import TaskInformation from "./TaskInformation";
+import UnacceptedInformation from "./UnassignedTask";
 
-const Tasks = (props) => {
+const Unaccepted = (props) => {
   const [show, setShow] = useState(false);
   return (
     <div className="bg-indigo-900 text-center py-4 lg:px-4">
       <button
-        className="p-2 w-96 justify-center bg-green-600 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+        className="p-2 w-96 justify-center bg-indigo-600 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
         role="alert"
         onClick={() => setShow(true)}
       >
@@ -28,23 +28,18 @@ const Tasks = (props) => {
         </span>
       </button>
 
-      <TaskInformation
+      <UnacceptedInformation
         onClose={() => setShow(false)}
+        id={props.id}
         show={show}
         name={props.name}
-        date={props.date}
-        points={props.points}
         desc={props.desc}
         difficulty={props.difficulty}
-        assigned={props.assigned}
-
-        feedback={props.feedback}
-
-        completedDate={props.completedDate}
-        completedBy={props.completedBy}
+        date={props.date}
+        points={props.points}
       />
     </div>
   );
 };
 
-export default Tasks;
+export default Unaccepted;

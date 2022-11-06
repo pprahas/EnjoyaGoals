@@ -1,12 +1,12 @@
 import { useState } from "react";
-import PendingInformation from "./PendingInformation";
+import TaskInformation from "./TaskInformation";
 
-const Pending = (props) => {
+const Tasks = (props) => {
   const [show, setShow] = useState(false);
   return (
     <div className="bg-indigo-900 text-center py-4 lg:px-4">
       <button
-        className="p-2 w-96 justify-center bg-red-700 items-center text-white leading-none lg:rounded-full flex lg:inline-flex"
+        className="p-2 w-96 justify-center bg-green-600 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
         role="alert"
         onClick={() => setShow(true)}
       >
@@ -28,7 +28,7 @@ const Pending = (props) => {
         </span>
       </button>
 
-      <PendingInformation
+      <TaskInformation
         onClose={() => setShow(false)}
         show={show}
         name={props.name}
@@ -37,10 +37,12 @@ const Pending = (props) => {
         desc={props.desc}
         difficulty={props.difficulty}
         assigned={props.assigned}
-        id={props.id}
+        feedback={props.feedback}
+        completedDate={props.completedDate}
+        completedBy={props.completedBy}
       />
     </div>
   );
 };
 
-export default Pending;
+export default Tasks;

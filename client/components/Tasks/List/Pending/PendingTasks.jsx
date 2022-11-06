@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Pending from "./Pending";
+import Pending from "../../PendingTask/Pending";
 import "./TaskModal.css";
 
 const PendingTasks = (props) => {

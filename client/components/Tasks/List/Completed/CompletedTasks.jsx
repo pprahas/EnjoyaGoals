@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Tasks from "./Task";
+import Tasks from "../../CompletedTask/CompletedTask";
 import "./TaskModal.css";
-import Missed from "./Missed";
+import Missed from "../../MissedTask/Missed";
 
 const CompletedTasks = (props) => {
   // let user_object = window.localStorage.getItem("user_data");

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FaFire } from "react-icons/fa";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [showCreateRoom, setShowCreateRoom] = useState(false);
@@ -18,14 +18,15 @@ const Sidebar = () => {
     const roomName = Object.values(d)[1];
     const roomID = Object.values(d)[0];
     return (
-    <button
-    key={roomID}
-    onClick={() => {
-      window.localStorage.setItem("currentRoom", roomID);
-      window.location.reload();
-    }}>
-    <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
-    </button>
+      <button
+        key={roomID}
+        onClick={() => {
+          window.localStorage.setItem("currentRoom", roomID);
+          window.location.reload();
+        }}
+      >
+        <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
+      </button>
     );
   });
 
@@ -44,22 +45,22 @@ const Sidebar = () => {
 
       <div>
         <div onClick={() => setShowJoinRoom(true)}>
-          <SideBarIcon icon={<BiCaretRight size="60" />} text="Join Room"/>
+          <SideBarIcon icon={<BiCaretRight size="60" />} text="Join Room" />
         </div>
 
-        <JoinRoom 
+        <JoinRoom
           onClose={() => setShowJoinRoom(false)}
           show={showJoinRoom}
-          ></JoinRoom>
+        ></JoinRoom>
       </div>
 
       {eachRoom}
       {/* <SideBarIcon icon={<FaFire size="60" />} /> */}
-      
+
       {
-      <a href="/profile">
-        <SideBarIcon icon={<BsGearFill size="60" />} text="Profile" />
-      </a>
+        <a href="/profile">
+          <SideBarIcon icon={<BsGearFill size="60" />} text="Profile" />
+        </a>
       }
     </div>
   );

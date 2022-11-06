@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./TaskModal.css";
+import "../TaskModal.css";
 import Calendar from "react-calendar";
 import "./Calendar.css";
-import Tasks from "./Task";
-import Pending from "./Pending";
+import Tasks from "../../Tasks/CompletedTask/CompletedTask";
+import Pending from "../../Tasks/PendingTask/Pending";
 import TempTasks from "./TempTasks";
-import Unaccepted from "./Unaccepted";
+import Unaccepted from "../../Tasks/Unassigned Task/Unassigned";
 
 const CalendarView = (props) => {
   if (!props.show) {
