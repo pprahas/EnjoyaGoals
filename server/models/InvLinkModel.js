@@ -27,13 +27,3 @@ const invLinkSchema = mongoose.Schema({
 const invLink = mongoose.model("InvLink", invLinkSchema);
 
 module.exports = invLink;
-
-
-
-
-
-
-
-SUCKMYCOCK//999 
-
-join
