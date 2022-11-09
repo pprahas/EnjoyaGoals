@@ -3,7 +3,6 @@ const router = express.Router();
 const Task = require("../models/TaskModel");
 const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
-const rooms = require("../models/RoomModel");
 const theValidator = require("../helpers/TeamMemberCheck");
 
 var multiparty = require("multiparty");

@@ -2,7 +2,6 @@ const User = require("../models/UserModel");
 const Task = require("../models/TaskModel");
 const Room = require("../models/RoomModel");
 const express = require("express");
-const mongoose = require("mongoose");
 const convertID = require("../helpers/ConvertIDs");
 
 const router = express.Router();

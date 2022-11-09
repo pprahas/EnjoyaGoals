@@ -4,7 +4,6 @@ import { useState } from "react";
 import { FaFire } from "react-icons/fa";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
-import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [showCreateRoom, setShowCreateRoom] = useState(false);

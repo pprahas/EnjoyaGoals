@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import CalendarView from "./Calendar/CalendarView";
-import TaskModal from "../Tasks/CreateTask/CreateTask";
 import Progressbar from "./ProgressBar/Progressbar";
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
@@ -20,7 +19,6 @@ import {
   Squares2X2Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import Roomcode from "./Room/InviteRoom";
 // import { useNavigate } from "react-router-dom";

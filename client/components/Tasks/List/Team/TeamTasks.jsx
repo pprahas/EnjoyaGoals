@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Pending from "../../PendingTask/Pending";
 import Tasks from "../../CompletedTask/CompletedTask";
-import "./TaskModal.css";
-import Unaccepted from "../../Unassigned Task/Unassigned";
+//import taskModal.css
+import "../TaskModal.css";
+import Unaccepted from "../../UnassignedTask/Unassigned";
 import Missed from "../../MissedTask/Missed";
 
 const TeamTasks = (props) => {

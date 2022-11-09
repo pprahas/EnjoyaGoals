@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/UserModel");
 const Room = require("../models/RoomModel");
-const mongoose = require("mongoose");
 const convertID = require("../helpers/ConvertIDs");
 
 router.use(express.json());

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import Pending from "../../Tasks/PendingTask/Pending";
-import Tasks from "../../Tasks/CompletedTask/CompletedTask";
 import "./TaskModal.css";
-import Unaccepted from "../../Tasks/Unassigned Task/Unassigned";
 
 const TempTasks = (props) => {
   if (!props.show) {

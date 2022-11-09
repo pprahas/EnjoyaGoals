@@ -1,6 +1,4 @@
-//const User = require("../models/UserModel");
 const Room = require("../models/RoomModel");
-const mongoose = require("mongoose");
 
 async function userInRoomCheck(roomID, userID) {
 	try {
