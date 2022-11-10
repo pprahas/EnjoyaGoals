@@ -1,7 +1,6 @@
 const createToken = require("../helpers/CreateToken");
 const sendEmail = require("../helpers/SendEmail");
 const User = require("../models/UserModel");
-const bcrypt = require("bcrypt");
 const express = require("express");
 
 const router = express.Router();

@@ -1,12 +1,13 @@
 import { useState } from "react";
-import TaskInformation from "./TaskInformation";
+import MissedInformation from "./MissedInformation";
 
-const Tasks = (props) => {
+
+const Missed = (props) => {
   const [show, setShow] = useState(false);
   return (
     <div className="bg-indigo-900 text-center py-4 lg:px-4">
       <button
-        className="p-2 w-96 justify-center bg-green-600 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+        className="p-2 w-96 justify-center bg-yellow-600 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
         role="alert"
         onClick={() => setShow(true)}
       >
@@ -28,7 +29,7 @@ const Tasks = (props) => {
         </span>
       </button>
 
-      <TaskInformation
+      <MissedInformation
         onClose={() => setShow(false)}
         show={show}
         name={props.name}
@@ -37,14 +38,12 @@ const Tasks = (props) => {
         desc={props.desc}
         difficulty={props.difficulty}
         assigned={props.assigned}
-
-        feedback={props.feedback}
-
         completedDate={props.completedDate}
         completedBy={props.completedBy}
+        feedback={props.feedback}
       />
     </div>
   );
 };
 
-export default Tasks;
+export default Missed;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UnacceptedInformation from "./UnacceptedInformation";
+import UnacceptedInformation from "./UnassignedTask";
 
 const Unaccepted = (props) => {
   const [show, setShow] = useState(false);

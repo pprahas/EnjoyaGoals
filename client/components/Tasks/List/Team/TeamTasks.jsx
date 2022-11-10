@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Pending from "./Pending";
-import Tasks from "./Task";
-import "./TaskModal.css";
-import Unaccepted from "./Unaccepted";
-import Missed from "./Missed";
+import Pending from "../../PendingTask/Pending";
+import Tasks from "../../CompletedTask/CompletedTask";
+import "../../TaskModal.css";
+import Unaccepted from "../../UnassignedTask/Unassigned";
+import Missed from "../../MissedTask/Missed";
 
 const TeamTasks = (props) => {
   // let teamTasks = [];
@@ -14,39 +14,6 @@ const TeamTasks = (props) => {
   });
 
   const eachTask = teamTasksFinal.map((d) => {
-    // console.log(Object.values(d));
-    // console.log(d);
-    // console.log(`Object.values(d)[0] = ${Object.values(d)[0]}`);
-    // console.log(`Object.values(d)[1] = ${Object.values(d)[1]}`);
-    // console.log(`Object.values(d)[2] = ${Object.values(d)[2]}`);
-    // console.log(`Object.values(d)[3] = ${Object.values(d)[3]}`);
-    // console.log(`Object.values(d)[4] = ${Object.values(d)[4]}`);
-    // console.log(`Object.values(d)[5] = ${Object.values(d)[5]}`);
-    // console.log(`Object.values(d)[6] = ${Object.values(d)[6]}`);
-    // console.log(`Object.values(d)[7] = ${Object.values(d)[7]}`);
-    // console.log(`Object.values(d)[8] = ${Object.values(d)[8]}`);
-    // console.log(`Object.values(d)[9] = ${Object.values(d)[9]}`);
-    // console.log(`Object.values(d)[10] = ${Object.values(d)[10]}`);
-    // console.log(`Object.values(d)[11] = ${Object.values(d)[11]}`);
-    // console.log(`Object.values(d)[12] = ${Object.values(d)[12]}`);
-    // console.log(`Object.values(d)[13] = ${Object.values(d)[13]}`);
-    /*
-    const id = Object.values(d)[0];
-    const name = Object.values(d)[1];
-    const desc = Object.values(d)[2];
-    const difficulty = Object.values(d)[3];
-    const date = Object.values(d)[4].slice(0, 10);
-    const points = Object.values(d)[5];
-    const assigned = Object.values(d)[9];
-    const status = Object.values(d)[6];
-    const completedBy = Object.values(d)[9];
-    const feedback = Object.values(d)[13];
-    let completedDate;
-    if (Object.values(d)[10]) {
-      completedDate = Object.values(d)[10].slice(0, 10);
-    }
-    */
-
     const id = Object.values(d)[0];
     const name = Object.values(d)[1];
     const desc = Object.values(d)[2];
@@ -107,22 +74,20 @@ const TeamTasks = (props) => {
     } else if (status === "missed") {
       return (
         <Missed
-        date={date}
-        desc={desc}
-        difficulty={difficulty}
-        assigned={assigned}
-        name={name}
-        points={points}
-        completedDate={completedDate}
-        completedBy={completedBy}
-        key={id}
-        feedback={feedback}
+          date={date}
+          desc={desc}
+          difficulty={difficulty}
+          assigned={assigned}
+          name={name}
+          points={points}
+          completedDate={completedDate}
+          completedBy={completedBy}
+          key={id}
+          feedback={feedback}
         />
       );
     }
   });
-
-
 
   if (!props.show) {
     return null;

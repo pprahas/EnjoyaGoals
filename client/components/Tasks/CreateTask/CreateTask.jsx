@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./TaskModal.css";
+import "../TaskModal.css";
 
 const TaskModal = (props) => {
   if (!props.show) {
@@ -37,7 +37,6 @@ const TaskModal = (props) => {
         points: points,
         status: status,
         roomId: roomId,
-        // assignedUser: assigned_user,
       })
       .then((res) => {
         console.log("Posting data", res);
@@ -45,8 +44,6 @@ const TaskModal = (props) => {
         // navigate("/login");
       })
       .catch((err) => {
-        // console.log(err);
-        // setMessage(err.response.data.msg);
         console.log(err.response.data.msg);
       });
   };
@@ -59,33 +56,11 @@ const TaskModal = (props) => {
           <h1 className="text-center text-6xl font-semibold pt-8 text-indigo-400	">
             Create Task
           </h1>
-          {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
-          {/* <a href="/forgot_password" className="content-center text-8xl bg-red-400">
-        Create Task
-      </a> */}
-          {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
-
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
-            {/* <div class="w-full border-b border-gray-100"></div> */}
             <div className="w-full border-b border-gray-100"></div>
 
             <div className=" rounded-md px-4">
-              {/* <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Username
-                </label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="text"
-                  autoComplete="email"
-                  required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="Username"
-                />
-              </div> */}
-              {/* <Input label="text" htmlFor="text" placeholder="First Name" /> */}
               <input
                 id="task_name"
                 name="task_name"

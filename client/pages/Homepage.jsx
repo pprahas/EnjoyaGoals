@@ -1,11 +1,11 @@
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
-import Leaderboard from "../components/Leaderboard";
-import TaskModal from "../components/TaskModal";
+import Sidebar from "../components/Sidebar/Sidebar";
+import Header from "../components/Header/Header";
+import Leaderboard from "../components/Leaderboard/Leaderboard";
+import TaskModal from "../components/Tasks/CreateTask/CreateTask";
 import { useState } from "react";
-import CompletedTasks from "../components/CompletedTasks";
-import PendingTasks from "../components/PendingTasks";
-import TeamTasks from "../components/TeamTasks";
+import CompletedTasks from "../components/Tasks/List/Completed/CompletedTasks";
+import PendingTasks from "../components/Tasks/List/Pending/PendingTasks";
+import TeamTasks from "../components/Tasks/List/Team/TeamTasks";
 import axios from "axios";
 import { useEffect } from "react";
 

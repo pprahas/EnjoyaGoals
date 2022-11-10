@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./TaskModal.css";
+import "../Tasks/TaskModal.css";
 
 const JoinRoom = (props) => {
 	if (!props.show) {

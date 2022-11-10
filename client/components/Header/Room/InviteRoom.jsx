@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Modal.css";
+import "../../Modal.css";
 
 const Roomcode = (props) => {
 

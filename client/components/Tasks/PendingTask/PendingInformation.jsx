@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import axios from "axios";
-import "./TaskModal.css";
+import "../TaskModal.css";
+import TextInput from "./Feedback";
 
-const UnacceptedInformation = (props) => {
+const PendingInformation = (props) => {
   if (!props.show) {
     return null;
   }
+  const [showText, setShowText] = useState(false);
 
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
@@ -14,28 +15,8 @@ const UnacceptedInformation = (props) => {
   const submitTask = async (e) => {
     e.preventDefault();
     props.onClose;
-
-    const roomId = window.localStorage.getItem("currentRoom");
-
-    axios
-      .post("http://localhost:8080/task/team_tasks/assign", {
-        room_id: roomId,
-        task_id: props.id,
-        assignedUser: username,
-      })
-      .then((res) => {
-        // console.log("printing task data", res.data[0]);
-        // console.log("frontend sends:", res.data);
-        // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
-        // console.log("its here", teamList);
-        alert("Task added to Pending!");
-        console.log("worked", res);
-      })
-      .catch((err) => {
-        // setMessage(err.response.data.message);
-        alert("Process failed");
-        console.log("error", err);
-      });
+    //open a text box
+    setShowText(true);
   };
 
   return (
@@ -52,11 +33,20 @@ const UnacceptedInformation = (props) => {
             <button
               type="button"
               className="mt-4 group relative flex w-full justify-center rounded-md border border-transparent bg-blue-500 py-2 px-4 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              // onClick={props.onClose}
               onClick={submitTask}
             >
-              Accept
+              Submit
             </button>
+
+            <TextInput onClose={() => setShowText(false)} show={showText}
+              date={props.date}
+              desc={props.desc}
+              difficulty={props.difficulty}
+              assigned={props.assigned}
+              name={props.name}
+              points={props.points}
+              id={props.id} />
+
             <button
               type="button"
               className="mt-4 group relative flex w-full justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -65,11 +55,12 @@ const UnacceptedInformation = (props) => {
               Back
             </button>
           </div>
-          <div className="info overflow-y-auto">
-            <p>Description: {props.desc} </p>
-            <p>Difficulty: {props.difficulty}</p>
+          <div className="pending-info overflow-y-auto">
+            <p>Description: {props.desc}</p>
+            <p>Difficulty: {props.difficulty} </p>
             <p>Deadline: {props.date}</p>
             <p>Points: {props.points}</p>
+            <p>Assigned: {props.assigned}</p>
           </div>
 
         </div>
@@ -77,4 +68,4 @@ const UnacceptedInformation = (props) => {
     </div>
   );
 };
-export default UnacceptedInformation;
+export default PendingInformation;
