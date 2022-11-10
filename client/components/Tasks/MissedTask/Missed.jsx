@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MissedInformation from "./MissedInformation";
 
+
 const Missed = (props) => {
   const [show, setShow] = useState(false);
   return (

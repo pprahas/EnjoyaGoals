@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./TaskModal.css";
+import "../TaskModal.css";
 
 const UnacceptedInformation = (props) => {
   if (!props.show) {

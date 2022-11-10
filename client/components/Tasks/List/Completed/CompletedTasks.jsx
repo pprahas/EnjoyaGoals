@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Tasks from "../../CompletedTask/CompletedTask";
-import "./TaskModal.css";
+import "../../TaskModal.css";
 import Missed from "../../MissedTask/Missed";
 
 const CompletedTasks = (props) => {

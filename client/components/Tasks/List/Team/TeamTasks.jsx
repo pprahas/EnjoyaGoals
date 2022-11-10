@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Pending from "../../PendingTask/Pending";
 import Tasks from "../../CompletedTask/CompletedTask";
-//import taskModal.css
-import "../TaskModal.css";
+import "../../TaskModal.css";
 import Unaccepted from "../../UnassignedTask/Unassigned";
 import Missed from "../../MissedTask/Missed";
 

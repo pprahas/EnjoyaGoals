@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Pending from "../../PendingTask/Pending";
-import "./TaskModal.css";
+import "../../TaskModal.css";
 
 const PendingTasks = (props) => {
   let pendingTasks = props.data;

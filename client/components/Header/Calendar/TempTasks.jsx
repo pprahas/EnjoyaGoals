@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./TaskModal.css";
+import "../../Tasks/TaskModal.css";
 
 const TempTasks = (props) => {
   if (!props.show) {

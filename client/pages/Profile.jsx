@@ -1,5 +1,5 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import Input from "../components/Input";
+// import Input from "../components/Input";
 import Header from "../components/Header/Header";
 import React from "react";
 import { useState, useEffect } from "react";

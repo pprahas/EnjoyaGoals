@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PendingInformation from "../../PendingInformation";
+import PendingInformation from "./PendingInformation";
 
 const Pending = (props) => {
   const [show, setShow] = useState(false);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./TaskModal.css";
+import "../TaskModal.css";
 
 const MissedInformation = (props) => {
   if (!props.show) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./TaskModal.css";
-import TextInput from "./TextInput";
+import "../TaskModal.css";
+import TextInput from "./Feedback";
 
 const PendingInformation = (props) => {
   if (!props.show) {
