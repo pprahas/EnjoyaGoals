@@ -183,13 +183,28 @@ export default function Header() {
   const [roomId, setRoomId] = useState(
     window.localStorage.getItem("currentRoom")
   );
+  const [roomName, setRoomName] = useState("Room Name")
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
   const username = user_object.username;
 
   useEffect(() => {
-    //console.log(roomId);
-  }, [roomId]);
+    getRoom();
+  }, []);
+
+  const getRoom= async() => {
+    axios
+      .post("http://localhost:8080/room/get", {
+        id: roomId,
+      })
+      .then((res) => {
+//        console.log(res.data.name);
+        setRoomName(res.data.name);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }
 
   //Progressbar backend request
   const handleSubmit = async (e) => {
@@ -286,7 +301,7 @@ export default function Header() {
                 href="/homepage"
                 className="text-2xl font-semibold text-gray-500 hover:text-gray-900"
               >
-                Room Name
+                {roomName}
               </a>
               <div className="flex-row min-h-fit">
                 <button
