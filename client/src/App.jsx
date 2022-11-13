@@ -21,7 +21,10 @@ function App() {
         ></Route>
         {/* <Route path="/" element={loggedIn ? <Homepage /> : <Login />}></Route> */}
         <Route path="/" element={<LandingPage />}></Route>
-        <Route path="/register" element={<Register />}></Route>
+        <Route
+          path="/register"
+          element={loggedIn ? <Homepage /> : <Register />}
+        ></Route>
         <Route path="/forgot_password" element={<ForgotPassword />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/homepage" element={<Homepage />}></Route>
