@@ -40,7 +40,7 @@ const CompletedTasks = (props) => {
           points={points}
           completedDate={completedDate}
           completedBy={completedBy}
-          key={id}
+          id={id}
           feedback={feedback}
         />
       );

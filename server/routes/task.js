@@ -219,9 +219,11 @@ router.post("/pending_tasks", async (req, res) => {
 
 router.post("/get_file", async (req, res) => {
   try {
-    const body = req.body;
-    const task_id = body.task_id;
-    const task = await Task.findById(task_id);
+    const body = req.body.id;
+    //const task_id = body.task.id;
+    //console.log(body.task.id);
+    console.log(body);
+    const task = await Task.findById(body);
     return res.status(200).json(JSON.parse(task.file));
   } catch (error) {
     return res.status(400).json(error);

@@ -192,13 +192,13 @@ export default function Header() {
     getRoom();
   }, []);
 
-  const getRoom= async() => {
+  const getRoom = async () => {
     axios
       .post("http://localhost:8080/room/get", {
         id: roomId,
       })
       .then((res) => {
-//        console.log(res.data.name);
+        //        console.log(res.data.name);
         setRoomName(res.data.name);
       })
       .catch((err) => {
