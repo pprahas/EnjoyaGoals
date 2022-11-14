@@ -23,8 +23,9 @@ const userSchema = mongoose.Schema(
       required: false,
     },
     aboutMe: {
-      type: String,
-      required: false,
+      type: Map,
+      of: String,
+      required: true,
     },
     password: {
       type: String,
