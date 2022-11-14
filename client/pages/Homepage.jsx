@@ -8,6 +8,7 @@ import PendingTasks from "../components/Tasks/List/Pending/PendingTasks";
 import TeamTasks from "../components/Tasks/List/Team/TeamTasks";
 import axios from "axios";
 import { useEffect } from "react";
+import Notification from "../components/Notifications/Notification";
 
 export default function Homepage() {
   const [showCreate, setShowCreate] = useState(false);
@@ -15,6 +16,8 @@ export default function Homepage() {
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [message, setMessage] = useState("");
+  let notifList = [];
+  const [notifs, setNotifs] = useState(notifList);
   let list = [];
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
@@ -87,8 +90,16 @@ export default function Homepage() {
         console.log("error", err);
       });
   };
+
+  // const getNotifs = async (e) => {
+  //   const testNotif = new Notification({color: 1, text: "testNotif"});
+  //   const newNotifList = [testNotif];
+  //   setNotifs(newNotifList);
+  // };
+
   return (
     <div className="content-center">
+      <Notification color="0" text="notif test"/>
       <Header />
       <div className="ml-32 flex flex-row ">
         {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
@@ -153,6 +164,15 @@ export default function Homepage() {
               data={teamList}
             />
           </div>
+
+          {/* <div className="col-span-6">
+          <button
+              className="absolute right-0 content-center text-4xl bg-yellow-400 mr-36 p-3 w-56 text-white rounded-md"
+              onClick={getNotifs}
+            >
+              Notifs
+            </button>
+          </div> */}
         </div>
       </div>
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}

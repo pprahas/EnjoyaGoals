@@ -1,0 +1,60 @@
+container {
+	overflow: hidden;
+	max-height: 200px;
+	/* transition: max-height 0.3s ease-out; */
+}
+
+container:not(:last-child) {
+	margin-bottom: 8px;
+}
+
+container.shrink {
+	max-height: 0;
+}
+
+notification {
+	max-width: 430px;
+	overflow: hidden;
+	padding: 12px 48px 12px 12px;
+	z-index: 99;
+	display: grid;
+	grid-auto-flow: column;
+	grid-gap: 24px;
+	font-weight: bold;
+	position: relative;
+	/* transition: transform 0.3s ease-out; */
+}
+
+notification:not(:last-child) {
+	margin-bottom: 8px;
+}
+
+notification.info {
+	background-color: #50affd;
+}
+  
+notification.success {
+	background-color: #55d159;
+}
+  
+notification.warning {
+	background-color: #f7bd67;
+}
+  
+notification.error {
+	background-color: #fd675c;
+}
+
+notification.closeButton {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	background: transparent;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+}
+  
+notification, notification.closeButton {
+	color: #fff;
+}
