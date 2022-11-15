@@ -10,7 +10,6 @@ const CompletedTasks = (props) => {
   // let completedTask = userRooms.completedTasks;
 
   let completedTasks = props.data;
-
   const eachTask = completedTasks.map((d) => {
     const id = Object.values(d)[0];
     const name = Object.values(d)[1];
@@ -24,12 +23,16 @@ const CompletedTasks = (props) => {
     const completedBy = Object.values(d)[10];
     const status = Object.values(d)[6];
     // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
+    
     /*
     console.log(" ")
     for(let i=0; i<Object.values(d).length; i++){
-      console.log(i + ": " + Object.values(d)[i]);
+      co
+      nsole.log(i + ": " + Object.values(d)[i]);
     }*/
     if (status === "complete") {
+      // Object.values(d)[8] = User ID probably
+
       return (
         <Tasks
           date={date}
@@ -93,9 +96,10 @@ const CompletedTasks = (props) => {
                 Late
               </span>
             </div>
+
           </div>
           {/* <div className="rounded-md pt-24 pb-10 bg-indigo-900">{AllTasks}</div> */}
-          <div className="rounded-md pt-24 pb-10 bg-indigo-900">{eachTask}</div>
+          <div className="rounded-md pt-32 pb-10 bg-indigo-900">{eachTask}</div>
         </div>
         <div className="taskFoot">
           <button

@@ -217,6 +217,51 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
+
+router.post("/my_tasks", async (req, res) => {
+  /**
+   * const body = req.body;
+  let completed_tasks = [];
+
+  try {
+    const room_id = body.id;
+    const room = await Room.findById(room_id);
+    let completed_tasks_id = room.teamTasks;
+
+    for (let i = 0; i < completed_tasks_id.length; i++) {
+      const task = await Task.findById(completed_tasks_id[i]);
+      completed_tasks.push(task);
+    }
+
+    return res.status(200).json(completed_tasks);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ msg: "List not sent." });
+  }
+   */
+  const body = req.body;
+  let my_tasks = [];
+
+  try {
+    const room_id = body.id;
+    const username = body.username;
+    const room = await Room.findById(room_id);
+    let completed_tasks_id = room.teamTasks;
+
+    for (let i = 0; i < completed_tasks_id.length; i++) {
+      const task = await Task.findById(completed_tasks_id[i]);
+      if (task.assignedUser === username) {
+        my_tasks.push(task);
+      }
+    }
+
+    return res.status(200).json(my_tasks);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 router.post("/get_file", async (req, res) => {
   try {
     const body = req.body;
