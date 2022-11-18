@@ -8,7 +8,9 @@ import PendingTasks from "../components/Tasks/List/Pending/PendingTasks";
 import TeamTasks from "../components/Tasks/List/Team/TeamTasks";
 import axios from "axios";
 import { useEffect } from "react";
-import Notification from "../components/Notifications/Notification";
+// import Notification from "../components/Notifications/Notification";
+// import "../components/Notifications/Notification.css";
+import Notif2 from "../components/Notifications/Notif2";
 
 export default function Homepage() {
   const [showCreate, setShowCreate] = useState(false);
@@ -97,10 +99,32 @@ export default function Homepage() {
   //   setNotifs(newNotifList);
   // };
 
+  const testNotifList = [
+		{
+      id: 0,
+			title: "This is a test",
+			desc: "Put your hands over your head and nobody gets hurt",
+		},
+    {
+      id: 1,
+      title: "Test number 2",
+			desc: "Testing testing 1 2 3",
+    },
+    {
+      id: 2,
+      title: "Test number 3",
+			desc: "This literally has to overflow because I am putting so many words and letters and characters into it it's literally unbelievable",
+    }
+	];
+
   return (
     <div className="content-center">
-      <Notification color="0" text="notif test"/>
+      {/* <Notification color="0" text="notif test"/> */}
       <Header />
+      {/* <div className="notifContainer">
+        <Notification color="2" text="test notif"/>
+        <Notification color="0" text="test notif2"/>
+      </div> */}
       <div className="ml-32 flex flex-row ">
         {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
         <div className="mt-6 grid grid-cols-1 gap-24">
@@ -176,6 +200,8 @@ export default function Homepage() {
         </div>
       </div>
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
+      <Notif2 notifList={testNotifList}/>
+      {/* <Notif2 /> */}
       <Sidebar />
       <Leaderboard />
     </div>

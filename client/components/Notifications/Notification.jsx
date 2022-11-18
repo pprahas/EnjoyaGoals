@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Notification.css";
 
-const colors = ["notification.info", "notification.success", "notification.warning", "notification.error"];
+const colors = ["notification info", "notification success", "notification warning", "notification error"];
 
 // export default function Notification({
 // 	color = colors[color - 1],
@@ -32,7 +32,9 @@ const Notification = (props) => {
 		return null;
 	}
 	
-	const convertedColor = colors[props.color];
+	var convertedColor = colors[props.color];
+	// convertedColor = "notification " + convertedColor;
+	console.log(`convertedColor = ${convertedColor}`);
 
 	return (
 		<div className="notification">
@@ -40,6 +42,10 @@ const Notification = (props) => {
 				{props.text}
 			</div>
 		</div>
+		
+		// <div className={convertedColor}>
+		// 		{props.text}
+		// </div>
 	)
 	
 };
