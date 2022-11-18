@@ -1,18 +1,23 @@
 const express = require("express");
-const User = require("../models/UserModel");
-
 const router = express.Router();
-router.use(express.json());
+const Room = require("../models/RoomModel");
+const User = require("../models/UserModel");
+const Task = require("../models/TaskModel");
 
-//assign about me to a user
-router.post("/about_me", async (req, res) => {
+
+const mongoose = require("mongoose");
+
+
+router.post("/", async (req, res) => {
     try {
-        const user = await User.findById(req.body.id);
-        user.aboutMe = req.body.aboutMe;
+        const { aboutMe, userId, roomId } = req.body;
+        const room = await Room.findById
+        (roomId);
+        const user = await User.findById(room.userId);
+        user.aboutMe.set(roomId, aboutMe);
         await user.save();
-        res.status(200).send(user);
-    } catch (error) {
-
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json(err);
     }
-
 });
