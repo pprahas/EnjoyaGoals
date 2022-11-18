@@ -162,27 +162,27 @@ router.post("/getRoomUsers", async (req, res) => {
         ryan: 213,
       };
 
-      console.log("the map iis", user_points_map);
-      console.log("the user map iis", user_map);
+      // console.log("the map iis", user_points_map);
+      // console.log("the user map iis", user_map);
 
-      console.log("the keys are", array_b4_sort);
+      // console.log("the keys are", array_b4_sort);
       for (
         var a = 0, keys = Object.keys(user_points_map), ii = keys.length;
         a < ii;
         a++
       ) {
-        console.log("key : " + keys[a] + " val : " + user_points_map[keys[a]]);
+        // console.log("key : " + keys[a] + " val : " + user_points_map[keys[a]]);
       }
       var array = [];
       for (var key in user_points_map) {
-        console.log("kkey", key);
+        // console.log("kkey", key);
         array.push({
           name: key,
           value: user_points_map.get(key),
         });
       }
 
-      console.log("the array iis", array);
+      // console.log("the array iis", array);
       var sorted = array_b4_sort.sort(function (a, b) {
         return a.value < b.value ? 1 : b.value < a.value ? -1 : 0;
       });
