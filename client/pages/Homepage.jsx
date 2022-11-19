@@ -35,6 +35,7 @@ export default function Homepage() {
   }, [teamList]);
 
   const submitTeam = async (e) => {
+    createNotif("info", "Information", "Doing this to test the createNotif function");
     setShowAll(true);
     let list_2 = [];
     e.preventDefault();
@@ -47,6 +48,7 @@ export default function Homepage() {
         // console.log("frontend sends:", res.data);
         list_2 = res.data;
         setteamList(list_2);
+        console.log(`notifs = ${notifs}`);
         // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
         // console.log("its here", teamList);
       })
@@ -116,6 +118,18 @@ export default function Homepage() {
 			desc: "This literally has to overflow because I am putting so many words and letters and characters into it it's literally unbelievable",
     }
 	];
+
+  const createNotif = (type, title, desc) => {
+		setNotifs([
+			...notifs,
+			{
+				id: Math.floor(Math.random() * 100 + 1),
+				title,
+				desc,
+				type,
+			},
+		]);
+	};
 
   return (
     <div className="content-center">
@@ -200,7 +214,7 @@ export default function Homepage() {
         </div>
       </div>
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
-      <Notif2 notifList={testNotifList}/>
+      <Notif2 notifList={notifs}/>
       {/* <Notif2 /> */}
       <Sidebar />
       <Leaderboard />

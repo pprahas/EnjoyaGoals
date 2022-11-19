@@ -6,15 +6,11 @@
 }
 
 .notification-container button {
-	/* position: relative; */
-	/* right: -.3em;
-	top: -.3em; */
 	float: right;
 	font-weight: 700;
 	color: rgb(255, 255, 255);
 	outline: none;
 	border: none;
-	/* text-shadow: 0 1px 0 #fff; */
 	opacity: .8;
 	line-height: 1;
 	font-size: 16px;
@@ -27,8 +23,8 @@
 .bottom-right {
 	bottom: 20px;
 	right: 20px;
-	transition: transform .6s ease-in-out;
-	animation: toast-in-right .7s;
+	transition: transform .3s ease-in-out;
+	animation: toast-in-right .3s;
 }
 
 .notification {
@@ -49,6 +45,18 @@
 	background-position: 15px;
 	background-repeat: no-repeat;
 	/* z-index: 99; */
+}
+
+.info {
+	background: rgb(64, 122, 232);
+}
+
+.success {
+	background: rgb(32, 187, 94);
+}
+
+.warning {
+	background: rgb(181, 38, 38);
 }
 
 .notification:hover {
