@@ -149,6 +149,44 @@ router.post("/team_tasks", async (req, res) => {
   }
 });
 
+router.post("/task_count", async (req, res) => {
+  const body = req.body;
+  let pending_tasks_count = 0;
+  let completed_count = 0;
+  let returned = [];
+  try {
+    const room_id = body.id;
+    const username = body.username;
+    const room = await Room.findById(room_id);
+    let pending_tasks_id = room.assignedTasks;
+    let team_tasks_id = room.teamTasks;
+    let complete_tasks_id = room.completedTasks;
+
+    for (let i = 0; i < complete_tasks_id.length; i++) {
+      const task = await Task.findById(complete_tasks_id[i]);
+      if (task.assignedUser === username && task.status !== "missed") {
+        completed_count += 1;
+      }
+    }
+    for (let i = 0; i < pending_tasks_id.length; i++) {
+      const task = await Task.findById(pending_tasks_id[i]);
+      if (task.assignedUser === username) {
+        pending_tasks_count += 1;
+      }
+    }
+    let team_tasks_count = team_tasks_id.length;
+
+    returned.push(pending_tasks_count);
+    returned.push(completed_count);
+    returned.push(team_tasks_count);
+
+    return res.status(200).json(returned);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 router.post("/team_tasks/assign", async (req, res) => {
   const body = req.body;
   const room_id = body.room_id;
@@ -217,56 +255,13 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
-
-router.post("/my_tasks", async (req, res) => {
-  /**
-   * const body = req.body;
-  let completed_tasks = [];
-
-  try {
-    const room_id = body.id;
-    const room = await Room.findById(room_id);
-    let completed_tasks_id = room.teamTasks;
-
-    for (let i = 0; i < completed_tasks_id.length; i++) {
-      const task = await Task.findById(completed_tasks_id[i]);
-      completed_tasks.push(task);
-    }
-
-    return res.status(200).json(completed_tasks);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json({ msg: "List not sent." });
-  }
-   */
-  const body = req.body;
-  let my_tasks = [];
-
-  try {
-    const room_id = body.id;
-    const username = body.username;
-    const room = await Room.findById(room_id);
-    let completed_tasks_id = room.teamTasks;
-
-    for (let i = 0; i < completed_tasks_id.length; i++) {
-      const task = await Task.findById(completed_tasks_id[i]);
-      if (task.assignedUser === username) {
-        my_tasks.push(task);
-      }
-    }
-
-    return res.status(200).json(my_tasks);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);
-  }
-});
-
 router.post("/get_file", async (req, res) => {
   try {
-    const body = req.body;
-    const task_id = body.task_id;
-    const task = await Task.findById(task_id);
+    const body = req.body.id;
+    //const task_id = body.task.id;
+    //console.log(body.task.id);
+    console.log(body);
+    const task = await Task.findById(body);
     return res.status(200).json(JSON.parse(task.file));
   } catch (error) {
     return res.status(400).json(error);
