@@ -8,9 +8,7 @@ import PendingTasks from "../components/Tasks/List/Pending/PendingTasks";
 import TeamTasks from "../components/Tasks/List/Team/TeamTasks";
 import axios from "axios";
 import { useEffect } from "react";
-// import Notification from "../components/Notifications/Notification";
-// import "../components/Notifications/Notification.css";
-import Notif2 from "../components/Notifications/Notif2";
+import Notif from "../components/Notifications/Notif";
 
 export default function Homepage() {
   const [showCreate, setShowCreate] = useState(false);
@@ -18,8 +16,7 @@ export default function Homepage() {
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [message, setMessage] = useState("");
-  let notifList = [];
-  const [notifs, setNotifs] = useState(notifList);
+  const [notifs, setNotifs] = useState([]);
   let list = [];
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
@@ -95,30 +92,6 @@ export default function Homepage() {
       });
   };
 
-  // const getNotifs = async (e) => {
-  //   const testNotif = new Notification({color: 1, text: "testNotif"});
-  //   const newNotifList = [testNotif];
-  //   setNotifs(newNotifList);
-  // };
-
-  const testNotifList = [
-		{
-      id: 0,
-			title: "This is a test",
-			desc: "Put your hands over your head and nobody gets hurt",
-		},
-    {
-      id: 1,
-      title: "Test number 2",
-			desc: "Testing testing 1 2 3",
-    },
-    {
-      id: 2,
-      title: "Test number 3",
-			desc: "This literally has to overflow because I am putting so many words and letters and characters into it it's literally unbelievable",
-    }
-	];
-
   const createNotif = (type, title, desc) => {
 		setNotifs([
 			...notifs,
@@ -133,12 +106,7 @@ export default function Homepage() {
 
   return (
     <div className="content-center">
-      {/* <Notification color="0" text="notif test"/> */}
       <Header />
-      {/* <div className="notifContainer">
-        <Notification color="2" text="test notif"/>
-        <Notification color="0" text="test notif2"/>
-      </div> */}
       <div className="ml-32 flex flex-row ">
         {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
         <div className="mt-6 grid grid-cols-1 gap-24">
@@ -202,20 +170,10 @@ export default function Homepage() {
               data={teamList}
             />
           </div>
-
-          {/* <div className="col-span-6">
-          <button
-              className="absolute right-0 content-center text-4xl bg-yellow-400 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={getNotifs}
-            >
-              Notifs
-            </button>
-          </div> */}
         </div>
       </div>
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
-      <Notif2 notifList={notifs}/>
-      {/* <Notif2 /> */}
+      <Notif notifList={notifs}/>
       <Sidebar />
       <Leaderboard />
     </div>

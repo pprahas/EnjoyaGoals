@@ -24,7 +24,7 @@
 	bottom: 20px;
 	right: 20px;
 	transition: transform .3s ease-in-out;
-	animation: toast-in-right .3s;
+	animation: notif-in-right .3s;
 }
 
 .notification {
@@ -100,7 +100,7 @@
     height: 30px;
 }
 
-.toast {
+.notif {
     min-height: 50px;
 	height: fit-content;
 	max-height: 100px;
@@ -110,7 +110,7 @@
 	z-index: 99;
 }
 
-@keyframes toast-in-right {
+@keyframes notif-in-right {
 	from {
 	  transform: translateX(100%);
 	  

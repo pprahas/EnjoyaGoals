@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineInfoCircle, AiFillCheckCircle } from "react-icons/ai";
-import "./Notif2.css";
+import "./Notif.css";
 
-const Notif2 = (props) => {
+const Notif = (props) => {
 	try {
 		const { notifList } = props;
 		const [list, setList] = useState(notifList);
@@ -20,7 +20,7 @@ const Notif2 = (props) => {
 		// return (
 		// 	<>
 		// 		<div className="notification-container bottom-right">
-		// 				<div className="notification toast bottom-right">
+		// 				<div className="notification notif bottom-right">
 		// 					<button>X</button>
 		// 					<div className="notification-image">
 		// 						<img src={<AiOutlineInfoCircle size="20"/>} alt="" />\
@@ -57,7 +57,7 @@ const Notif2 = (props) => {
 			<>
 				<div className="notification-container bottom-right">
 					{list.map((notif, i) => (
-						<div key={i} className={`notification toast bottom-right ${notif.type}`}>
+						<div key={i} className={`notification notif bottom-right ${notif.type}`}>
 							<button onClick={() => deleteToast(notif.id)}>X</button>
 							<div className="notification-image">
 								{getIcon(notif.type)}
@@ -77,4 +77,4 @@ const Notif2 = (props) => {
 };
 
 
-export default Notif2;
+export default Notif;
