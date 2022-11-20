@@ -12,28 +12,6 @@ const Notif = (props) => {
 			setList(notifList);
 		}, [notifList, list]);
 
-		// console.log(`list = ${list}`);
-		// for (var item in list) {
-		// 	console.log(Object.values(item));
-		// }
-
-		// return (
-		// 	<>
-		// 		<div className="notification-container bottom-right">
-		// 				<div className="notification notif bottom-right">
-		// 					<button>X</button>
-		// 					<div className="notification-image">
-		// 						<img src={<AiOutlineInfoCircle size="20"/>} alt="" />\
-		// 					</div>
-		// 					<div>
-		// 						<p className="notification-title">This is a test</p>
-		// 						<p className="notification-message">Work and nobody gets hurt</p>
-		// 					</div>
-		// 				</div>
-		// 		</div>
-		// 	</>
-		// );
-
 		const deleteToast = (id) => {
 			const listItemIndex = list.findIndex((e) => e.id === id);
 			list.splice(listItemIndex, 1);
