@@ -13,8 +13,8 @@ const TextInput = (props) => {
   const [show, setShow] = useState(false);
   //false means there is no file, true means file
   const [hasFile, setFileFlag] = useState(true);
-  
-  
+  const [uid, setUID] = useState(null);
+
   const feedbackHandler = (event) => {
     setFeedback(event.target.value);
   };
@@ -24,13 +24,39 @@ const TextInput = (props) => {
     setSelectedFile({ file: file });
   };
 
+  const fileHandler = (event) => {
+    let testfile = event.target.files;
+    let file = null;
+    let fileName = "";
+    //Check File is not Empty
+    if (testfile.length > 0) {
+      // Select the very first file from list
+      let fileToLoad = testfile[0];
+      fileName = fileToLoad.name;
+      // FileReader function for read the file.
+      let fileReader = new FileReader();
+      // Onload of file read the file content
+      fileReader.onload = function (fileLoadedEvent) {
+        file = fileLoadedEvent.target.result;
+        // Print data in console
+        console.log(file);
+        setSelectedFile({ fileData: file, fileName: fileName });
+      };
+      // Convert data to base64
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  };
+
+
   const submitTask = async (e) => {
     let user_object = window.localStorage.getItem("user_data");
     user_object = JSON.parse(user_object);
-    const username = user_object.username;
+    setUID(user_object._id);
     const roomId = window.localStorage.getItem("currentRoom");
     e.preventDefault();
     if (selectedFile != null) {
+      /*
+      // original file upload system
       let file = selectedFile.file;
       let formData = new FormData();
       formData.append("file", file);
@@ -47,6 +73,43 @@ const TextInput = (props) => {
       }).then((res) => {
         console.log("here", res);
       });
+      */
+      if (selectedFile != null) {
+        axios
+        .post("http://localhost:8080/task/pending_tasks/test_upload", {
+          task_id: props.id,
+          fileData: selectedFile.fileData,
+          fileName: selectedFile.fileName,
+        })
+        .then((res) => {
+          console.log("testing", res);
+        });
+      }
+      axios
+        .post("http://localhost:8080/task/pending_tasks/submit", {
+          room_id: roomId,
+          task_id: props.id,
+          feedback: feedback,
+          completedBy: user_object._id,
+        })
+        .then((res) => {
+          // console.log("printing task data", res.data[0]);
+          // console.log("frontend sends:", res.data);
+          // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
+          // console.log("its here", teamList);
+          if (res.data.msg === "put more words pls") {
+            console.log("Feedback should be 7 or more characters long.");
+            alert("Feedback should be 7 or more characters long.");
+            return;
+          }
+          console.log("worked", res);
+          alert("Task submitted successfully!");
+        })
+        .catch((err) => {
+          // setMessage(err.response.data.message);
+          console.log("error", err);
+        });
+
     } else {
       //alert("You have not attached a file to the task.")
       setShow(true);
@@ -82,30 +145,6 @@ const TextInput = (props) => {
             console.log("AAAAAAAAAAA");
         });
         */
-    axios
-      .post("http://localhost:8080/task/pending_tasks/submit", {
-        room_id: roomId,
-        task_id: props.id,
-        feedback: feedback,
-        completedBy: user_object._id,
-      })
-      .then((res) => {
-        // console.log("printing task data", res.data[0]);
-        // console.log("frontend sends:", res.data);
-        // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
-        // console.log("its here", teamList);
-        if (res.data.msg === "put more words pls") {
-          console.log("Feedback should be 7 or more characters long.");
-          alert("Feedback should be 7 or more characters long.");
-          return;
-        }
-        console.log("worked", res);
-        alert("Task submitted successfully!");
-      })
-      .catch((err) => {
-        // setMessage(err.response.data.message);
-        console.log("error", err);
-      });
   };
 
   function convert2JSON(formData) {
@@ -131,7 +170,13 @@ const TextInput = (props) => {
               value={feedback}
             />
           </div>
-          <input type="file" name="file" onChange={handleFile} />
+
+
+          <input type="file" name="file" onChange={fileHandler}
+          //File handler button
+          />
+
+
           <div className="modal-footer">
             <button
               className="button"
@@ -141,12 +186,17 @@ const TextInput = (props) => {
             >
               Submit
             </button>
+
             <Confirm
-            onClose={() => setShow(false)}
-            show = {show}
-            hasFile = {setFileFlag}
-            setShow = {setShow}/>
-              
+              onClose={() => setShow(false)}
+              show={show}
+              hasFile={setFileFlag}
+              setShow={setShow}
+              roomId={window.localStorage.getItem("currentRoom")}
+              id={props.id}
+              feedback={feedback}
+              completedBy={uid} />
+
             <button
               className="button"
               onClick={props.onClose}

@@ -7,6 +7,7 @@ const theValidator = require("../helpers/TeamMemberCheck");
 
 var multiparty = require("multiparty");
 const User = require("../models/UserModel");
+const Image = require("../models/ImageModel");
 
 promisify = require("util");
 
@@ -225,6 +226,39 @@ router.post("/get_file", async (req, res) => {
     console.log(body);
     const task = await Task.findById(body);
     return res.status(200).json(JSON.parse(task.file));
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/pending_tasks/upload_null", async (req, res) => {
+  try {
+    let task_id = req.body.id;
+    const task = await Task.findById(task_id);
+    task.file = null;
+    await task.save();
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/pending_tasks/test_upload", async (req, res) => {
+  let task_id;
+  let file;
+  let fileName;
+  try {
+
+    task_id = req.body.task_id;
+    fileName = req.body.fileName;
+    file = req.body.fileData;
+    let binData = new Buffer(file.split(",")[1],"base64");
+    let filetype = file.split(",")[0] + ",";
+    let img = new Buffer(binData, 'base64');
+    let res = await Image.create({ "name": fileName, "image": img, "filetype": filetype,"task_id": task_id,});
+    const task = await Task.findById(task_id);
+    task.file = res._id;
+    await task.save();
+    
   } catch (error) {
     return res.status(400).json(error);
   }
