@@ -11,6 +11,7 @@ const MyCompleted = (props) => {
 
     let completedTasks = props.data;
     let mypoints = 0;
+    let completed = 0;
     const eachTask = completedTasks.map((d) => {
         const id = Object.values(d)[0];
         const name = Object.values(d)[1];
@@ -28,6 +29,7 @@ const MyCompleted = (props) => {
         const status = Object.values(d)[6];
         if (props.UID === Object.values(d)[8]) {
             if (status === "complete") {
+                completed+=1;
                 mypoints+=points;
                 return (
                     <Tasks
@@ -88,7 +90,10 @@ const MyCompleted = (props) => {
                                 Late
                             </span>
                         </div>
-                        <div className="pb-2 text-center text-indigo-500 font-bold text-2xl">
+                        <div className="text-center text-indigo-500 font-bold text-lg">
+                            Tasks Completed: {completed}
+                        </div>
+                        <div className="pb-2 text-center text-indigo-500 font-bold text-lg">
                             Points Earned: {mypoints}
                         </div>
                     </div>

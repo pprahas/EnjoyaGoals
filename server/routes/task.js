@@ -153,6 +153,7 @@ router.post("/task_count", async (req, res) => {
   const body = req.body;
   let pending_tasks_count = 0;
   let completed_count = 0;
+  let unassigned_count = 0;
   let returned = [];
   try {
     const room_id = body.id;
@@ -174,11 +175,16 @@ router.post("/task_count", async (req, res) => {
         pending_tasks_count += 1;
       }
     }
-    let team_tasks_count = team_tasks_id.length;
-
+    //let team_tasks_count = team_tasks_id.length;
+    for (let i = 0; i < team_tasks_id.length; i++) {
+      const task = await Task.findById(team_tasks_id[i]);
+      if (task.status == "unassigned") {
+        unassigned_count += 1;
+      }
+    }
     returned.push(pending_tasks_count);
     returned.push(completed_count);
-    returned.push(team_tasks_count);
+    returned.push(unassigned_count);
 
     return res.status(200).json(returned);
   } catch (error) {
