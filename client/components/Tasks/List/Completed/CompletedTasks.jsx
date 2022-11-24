@@ -10,8 +10,9 @@ const CompletedTasks = (props) => {
   // let completedTask = userRooms.completedTasks;
 
   let completedTasks = props.data;
+
   // console.log(props.data[0].name)
-  let eachtask = [];
+  let eachTask = [];
   for (let i = 0; i < completedTasks.length; i++) {
     let task = props.data[i];
     const id = task._id;
@@ -33,7 +34,7 @@ const CompletedTasks = (props) => {
       hasFile = false;
     }
     if (status === "complete") {
-      eachtask.push(<Tasks
+      eachTask.push(<Tasks
         date={date}
         desc={desc}
         difficulty={difficulty}
@@ -49,7 +50,7 @@ const CompletedTasks = (props) => {
     }
 
     if (status === "missed") {
-      eachtask.push(<Missed
+      eachTask.push(<Missed
         date={date}
         desc={desc}
         difficulty={difficulty}
@@ -63,56 +64,7 @@ const CompletedTasks = (props) => {
         flag={hasFile}
       />)
     }
-
-  }/*
-  const eachTask = completedTasks.map((d) => {
-    const id = Object.values(d)[0];
-    const name = Object.values(d)[1];
-    const desc = Object.values(d)[2];
-    const difficulty = Object.values(d)[3];
-    const date = Object.values(d)[4].slice(0, 10);
-    const points = Object.values(d)[5];
-    const assigned = Object.values(d)[10];
-    const feedback = Object.values(d)[15];
-    const completedDate = Object.values(d)[14].slice(0, 10);
-    const completedBy = Object.values(d)[10];
-    const status = Object.values(d)[6];
-    // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
- 
-    if (status === "complete") {
-      return (
-        <Tasks
-          date={date}
-          desc={desc}
-          difficulty={difficulty}
-          assigned={assigned}
-          name={name}
-          points={points}
-          completedDate={completedDate}
-          completedBy={completedBy}
-          id={id}
-          feedback={feedback}
-        />
-      );
-    } else if (status === "missed") {
-
-      return (
-        <Missed
-          date={date}
-          desc={desc}
-          difficulty={difficulty}
-          assigned={assigned}
-          name={name}
-          points={points}
-          completedDate={completedDate}
-          completedBy={completedBy}
-          key={id}
-          feedback={feedback}
-        />
-      );
-    }
-  });
-*/
+  }
   if (!props.show) {
     return null;
   }
@@ -140,9 +92,12 @@ const CompletedTasks = (props) => {
                 Late
               </span>
             </div>
+
           </div>
           {/* <div className="rounded-md pt-24 pb-10 bg-indigo-900">{AllTasks}</div> */}
-          <div className="rounded-md pt-24 pb-10 bg-indigo-900">{eachtask}</div>
+
+          <div className="rounded-md pt-24 pb-10 bg-indigo-900">{eachTask}</div>
+
         </div>
         <div className="taskFoot">
           <button
