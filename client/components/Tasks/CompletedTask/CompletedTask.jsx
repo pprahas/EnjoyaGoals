@@ -41,6 +41,7 @@ const Tasks = (props) => {
         completedDate={props.completedDate}
         completedBy={props.completedBy}
         id={props.id}
+        flag={props.flag}
       />
     </div>
   );

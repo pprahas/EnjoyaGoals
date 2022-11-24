@@ -37,10 +37,6 @@ const Confirm = (props) => {
 
     }
 
-    const submitFileless = () => {
-
-    }
-
     return (
         <div className="overlay" class="fixed pin z-50 overflow-auto flex">
             <div className="modal" onClick={props.onClose}>

@@ -8,16 +8,27 @@ const TaskInformation = (props) => {
   }
 
   const flag = true;
-
+  
   const getFile = async (e) => {
     e.preventDefault;
-    //console.log(props);
+
     axios
     .post("http://localhost:8080/task/get_file", {
       id: props.id,
     })
     .then((res) => {
-      console.log(res.data)
+      //console.log(res)
+//      console.log(res.data[2].toString("base64"));
+      const fileName = res.data[0];
+      const fileType = res.data[1];
+      const imgData = res.data[2];
+      //console.log(imgData);
+      const toDownload = (fileType+imgData);
+      const link = document.createElement("a");
+      link.href=toDownload;
+      link.download=fileName;
+      link.click();
+
     })
     .catch((err) => {
       // setMessage(err.response.data.message);
@@ -62,7 +73,7 @@ const TaskInformation = (props) => {
             <p>Date Completed: {props.completedDate}</p>
             <p>Completed By: {props.completedBy}</p>
             <p>Feedback: {props.feedback}</p>
-            <p>{flag && <a className="text-blue-600" onClick={getFile}>Download File</a>}</p>
+            <p>{props.flag && <button className="text-blue-600" onClick={getFile}>Download File</button>}</p>
           </div>
           {/* <p>Assigned: {props.assigned} </p> */}
         </div>

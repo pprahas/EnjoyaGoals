@@ -218,18 +218,6 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
-router.post("/get_file", async (req, res) => {
-  try {
-    const body = req.body.id;
-    //const task_id = body.task.id;
-    //console.log(body.task.id);
-    console.log(body);
-    const task = await Task.findById(body);
-    return res.status(200).json(JSON.parse(task.file));
-  } catch (error) {
-    return res.status(400).json(error);
-  }
-});
 
 router.post("/pending_tasks/upload_null", async (req, res) => {
   try {
@@ -263,6 +251,28 @@ router.post("/pending_tasks/test_upload", async (req, res) => {
     return res.status(400).json(error);
   }
 });
+
+router.post("/get_file", async (req, res) => {
+  try {
+    let all_data = []
+    const body = req.body.id;
+    const task = await Task.findById(body);
+    const img = await Image.findById(task.file);
+    let name = img.name;
+    let filetype = img.filetype;
+    let data = img.image;
+    all_data.push(name);
+    all_data.push(filetype);
+    console.log(data.toString('base64'));
+    all_data.push(data.toString('base64'));
+    return res.status(200).json(all_data);
+//    return res.status(200).json(JSON.parse(task.file));
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+
 
 router.post("/pending_tasks/upload", async (req, res) => {
   let task_id;
