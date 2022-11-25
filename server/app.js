@@ -30,8 +30,8 @@ express.urlencoded({ extended: true });
 const registerRoutes = require("./routes/register");
 app.use("/register", registerRoutes);
 
-const aboutme = require("./routes/AboutMe");
-app.use("/about_me", aboutme);
+const userInfoRoutes = require("./routes/user_info");
+app.use("/user_info", userInfoRoutes);
 
 const loginRoutes = require("./routes/login");
 app.use("/login", loginRoutes);
