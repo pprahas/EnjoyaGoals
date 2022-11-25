@@ -26,6 +26,7 @@ const CompletedTasks = (props) => {
     const completedDate = task.completedTime.slice(0, 10);
     const completedBy = task.assignedUser;
     const status = task.status;
+    //task.completedBy = user ID
     let hasFile = false;
     if (task.file) {
      hasFile = true;

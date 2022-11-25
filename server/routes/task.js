@@ -155,6 +155,8 @@ router.post("/task_count", async (req, res) => {
   let pending_tasks_count = 0;
   let completed_count = 0;
   let unassigned_count = 0;
+  let completed_count_personal = 0;
+
   let returned = [];
   try {
     const room_id = body.id;
@@ -166,8 +168,11 @@ router.post("/task_count", async (req, res) => {
 
     for (let i = 0; i < complete_tasks_id.length; i++) {
       const task = await Task.findById(complete_tasks_id[i]);
-      if (task.assignedUser === username && task.status !== "missed") {
+      if (task.status !== "missed") {
         completed_count += 1;
+        if(task.assignedUser===username){
+          completed_count_personal+=1;
+        }
       }
     }
     for (let i = 0; i < pending_tasks_id.length; i++) {
@@ -186,6 +191,7 @@ router.post("/task_count", async (req, res) => {
     returned.push(pending_tasks_count);
     returned.push(completed_count);
     returned.push(unassigned_count);
+    returned.push(completed_count_personal);
 
     return res.status(200).json(returned);
   } catch (error) {
@@ -283,14 +289,14 @@ router.post("/pending_tasks/test_upload", async (req, res) => {
     task_id = req.body.task_id;
     fileName = req.body.fileName;
     file = req.body.fileData;
-    let binData = new Buffer(file.split(",")[1],"base64");
+    let binData = new Buffer(file.split(",")[1], "base64");
     let filetype = file.split(",")[0] + ",";
     let img = new Buffer(binData, 'base64');
-    let res = await Image.create({ "name": fileName, "image": img, "filetype": filetype,"task_id": task_id,});
+    let res = await Image.create({ "name": fileName, "image": img, "filetype": filetype, "task_id": task_id, });
     const task = await Task.findById(task_id);
     task.file = res._id;
     await task.save();
-    
+
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -310,7 +316,7 @@ router.post("/get_file", async (req, res) => {
     console.log(data.toString('base64'));
     all_data.push(data.toString('base64'));
     return res.status(200).json(all_data);
-//    return res.status(200).json(JSON.parse(task.file));
+    //    return res.status(200).json(JSON.parse(task.file));
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -470,7 +476,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
 router.post("/completed_tasks", async (req, res) => {
   const body = req.body;
   let completed_tasks = [];
-
+  let userID = req.body.UID;
   try {
     const room_id = body.id;
     const room = await Room.findById(room_id);
@@ -478,7 +484,11 @@ router.post("/completed_tasks", async (req, res) => {
 
     for (let i = 0; i < completed_tasks_id.length; i++) {
       const task = await Task.findById(completed_tasks_id[i]);
-      completed_tasks.push(task);
+      //console.log(task.completedBy)
+      if (task.completedBy === userID) {
+
+        completed_tasks.push(task);
+      }
     }
 
     return res.status(200).json(completed_tasks);
