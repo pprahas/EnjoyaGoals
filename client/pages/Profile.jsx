@@ -74,7 +74,7 @@ export default function Profile(props) {
     })
     //console.log(user_object);
     axios
-      .post("http://localhost:8080/task/completed_tasks", {
+      .post("http://localhost:8080/task/completed_tasks_personal", {
         id: roomId,
         UID: user_object._id,
       })

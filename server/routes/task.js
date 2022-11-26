@@ -476,6 +476,24 @@ router.post("/pending_tasks/submit", async (req, res) => {
 router.post("/completed_tasks", async (req, res) => {
   const body = req.body;
   let completed_tasks = [];
+  try {
+    const room_id = body.id;
+    const room = await Room.findById(room_id);
+    let completed_tasks_id = room.completedTasks;
+    for (let i = 0; i < completed_tasks_id.length; i++) {
+      const task = await Task.findById(completed_tasks_id[i]);
+      completed_tasks.push(task);
+    }
+    return res.status(200).json(completed_tasks);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/completed_tasks_personal", async (req, res) => {
+  const body = req.body;
+  let completed_tasks = [];
   let userID = req.body.UID;
   try {
     const room_id = body.id;
