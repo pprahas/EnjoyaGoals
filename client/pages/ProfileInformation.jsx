@@ -17,6 +17,7 @@ import ReactDOM from "react-dom";
 import Modal from "../components/Modal";
 
 export default function Example() {
+  // const roomId =
   var colors = [
     {
       value: 1,
@@ -67,6 +68,23 @@ export default function Example() {
       };
       reader2.readAsDataURL(file);
     }
+  };
+
+  const [aboutMe, setAboutMe] = useState("");
+  const submitAboutMe = async (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8080/user_info/create/about_me", {
+        roomId,
+        userId,
+        aboutMe,
+      })
+      .then((res) => {
+        alert("About Me information has been changed.");
+      })
+      .catch((err) => {
+        alert("About Me information has not been changed.");
+      });
   };
 
   return (
@@ -203,7 +221,7 @@ export default function Example() {
                       >
                         About Me
                       </label>
-                      <button>Change</button>
+                      <button onClick={submitAboutMe}>Change</button>
                     </div>
 
                     <div className="mt-1">
@@ -214,6 +232,8 @@ export default function Example() {
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="About me..."
                         defaultValue={""}
+                        onChange={(e) => setAboutMe(e.target.value)}
+                        value={aboutMe}
                       />
                     </div>
                     <p className="mt-2 text-sm text-gray-500">
