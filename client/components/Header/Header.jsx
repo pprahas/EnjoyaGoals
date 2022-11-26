@@ -172,6 +172,7 @@ function leaveRoom() {
       */
 }
 
+
 export default function Header() {
   const [calIsShown, setCalIsShown] = useState(false);
   const [message, setMessage] = useState("");
@@ -184,6 +185,9 @@ export default function Header() {
     window.localStorage.getItem("currentRoom")
   );
   const [roomName, setRoomName] = useState("Room Name")
+  const [completeCount, setCompleteCount] = useState(0);
+  const [pendingTaskCount, setPendingCount] = useState(0);
+  const [teamTaskCount, setTeamCount] = useState(0);
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
   const username = user_object.username;
@@ -192,18 +196,27 @@ export default function Header() {
     getRoom();
   }, []);
 
-  const getRoom= async() => {
+  const getRoom = async () => {
     axios
       .post("http://localhost:8080/room/get", {
         id: roomId,
       })
       .then((res) => {
-//        console.log(res.data.name);
         setRoomName(res.data.name);
       })
       .catch((err) => {
         console.log("error", err);
       });
+    axios.post("http://localhost:8080/task/task_count", {
+      id: roomId,
+      username: username,
+    }).then((res) => {
+      //may have to change to UID when username changes are implemented
+      setTeamCount(res.data[2]);
+      setPendingCount(res.data[0]);
+      setCompleteCount(res.data[1]);
+    })
+
   }
 
   //Progressbar backend request
@@ -267,19 +280,19 @@ export default function Header() {
               // href="/homepage"
               className="text-2xl font-semibold text-green-500"
             >
-              32
+              {completeCount}
             </a>
             <a
               // href="/homepage"
               className="text-2xl font-semibold text-red-500"
             >
-              32
+              {pendingTaskCount}
             </a>
             <a
               // href="/homepage"
               className="text-2xl font-semibold text-blue-500"
             >
-              32
+              {teamTaskCount}
             </a>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
