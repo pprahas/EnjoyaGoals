@@ -19,7 +19,7 @@ const Footer = (props) => {
           </li>
           <li>
             <a href="#" className="mr-4 hover:underline md:mr-6">
-              Privacy Policy
+              Github
             </a>
           </li>
           <li>
@@ -37,5 +37,7 @@ const Footer = (props) => {
     </>
   );
 };
-{/*min-h-fit  */}
+{
+  /*min-h-fit  */
+}
 export default Footer;
