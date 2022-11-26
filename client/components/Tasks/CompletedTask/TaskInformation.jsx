@@ -8,35 +8,34 @@ const TaskInformation = (props) => {
   }
 
   const flag = true;
-  
+
   const getFile = async (e) => {
     e.preventDefault;
 
     axios
-    .post("http://localhost:8080/task/get_file", {
-      id: props.id,
-    })
-    .then((res) => {
-      //console.log(res)
-//      console.log(res.data[2].toString("base64"));
-      const fileName = res.data[0];
-      const fileType = res.data[1];
-      const imgData = res.data[2];
-      //console.log(imgData);
-      const toDownload = (fileType+imgData);
-      const link = document.createElement("a");
-      link.href=toDownload;
-      link.download=fileName;
-      link.click();
+      .post("http://localhost:8080/task/get_file", {
+        id: props.id,
+      })
+      .then((res) => {
+        //console.log(res)
+        //      console.log(res.data[2].toString("base64"));
+        const fileName = res.data[0];
+        const fileType = res.data[1];
+        const imgData = res.data[2];
+        //console.log(imgData);
+        const toDownload = fileType + imgData;
+        const link = document.createElement("a");
+        link.href = toDownload;
+        link.download = fileName;
+        link.click();
+      })
+      .catch((err) => {
+        // setMessage(err.response.data.message);
 
-    })
-    .catch((err) => {
-      // setMessage(err.response.data.message);
-
-      console.log("error", err);
-    });
-    console.log("S")
-  }
+        console.log("error", err);
+      });
+    console.log("S");
+  };
   return (
     //    <div className="overlay" class="fixed pin z-50 overflow-auto flex w-36">
     <div className="fixed pin z-50 overflow-auto flex w-36">
@@ -73,7 +72,22 @@ const TaskInformation = (props) => {
             <p>Date Completed: {props.completedDate}</p>
             <p>Completed By: {props.completedBy}</p>
             <p>Feedback: {props.feedback}</p>
-            <p>{props.flag && <button className="text-blue-600" onClick={getFile}>Download File</button>}</p>
+            <p>
+              {props.flag ? (
+                <button className="text-blue-600" onClick={getFile}>
+                  Download File
+                </button>
+              ) : (
+                <p className="text-red-600">No File</p>
+              )}
+            </p>
+            {/* <p>
+              {props.flag && (
+                <button className="text-blue-600" onClick={getFile}>
+                  {props.flag ? <p>Download File</p> : <p>No File</p>}
+                </button>
+              )}
+            </p> */}
           </div>
           {/* <p>Assigned: {props.assigned} </p> */}
         </div>
