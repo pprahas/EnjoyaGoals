@@ -11,61 +11,61 @@ const CompletedTasks = (props) => {
 
   let completedTasks = props.data;
 
-  const eachTask = completedTasks.map((d) => {
-    const id = Object.values(d)[0];
-    const name = Object.values(d)[1];
-    const desc = Object.values(d)[2];
-    const difficulty = Object.values(d)[3];
-    const date = Object.values(d)[4].slice(0, 10);
-    const points = Object.values(d)[5];
-    const assigned = Object.values(d)[10];
-    const feedback = Object.values(d)[15];
-    const completedDate = Object.values(d)[14].slice(0, 10);
-    const completedBy = Object.values(d)[10];
-    const status = Object.values(d)[6];
-    // return <Tasks date={task.deadline} name={task.name} points={task.points} />;
-    /*
-    console.log(" ")
-    for(let i=0; i<Object.values(d).length; i++){
-      console.log(i + ": " + Object.values(d)[i]);
-    }*/
-    if (status === "complete") {
-      return (
-        <Tasks
-          date={date}
-          desc={desc}
-          difficulty={difficulty}
-          assigned={assigned}
-          name={name}
-          points={points}
-          completedDate={completedDate}
-          completedBy={completedBy}
-          key={id}
-          feedback={feedback}
-        />
-      );
-    } else if (status === "missed") {
-      /*console.log(" ")
-      for (let i = 0; i < Object.values(d).length; i++) {
-        console.log(i + ": " + Object.values(d)[i]);
-      }*/
-      return (
-        <Missed
-          date={date}
-          desc={desc}
-          difficulty={difficulty}
-          assigned={assigned}
-          name={name}
-          points={points}
-          completedDate={completedDate}
-          completedBy={completedBy}
-          key={id}
-          feedback={feedback}
-        />
-      );
+  // console.log(props.data[0].name)
+  let eachTask = [];
+  for (let i = 0; i < completedTasks.length; i++) {
+    let task = props.data[i];
+    const id = task._id;
+    const name = task.name;
+    const desc = task.description;
+    const difficulty = task.difficulty;
+    const date = task.deadline.slice(0, 10);
+    const points = task.points;
+    const assigned = task.assignedUser;
+    const feedback = task.feedback;
+    const completedDate = task.completedTime.slice(0, 10);
+    const completedBy = task.assignedUser;
+    const status = task.status;
+    //task.completedBy = user ID
+    let hasFile = false;
+    if (task.file) {
+     hasFile = true;
+    } else {
+      //  setHasFile(false)
+      hasFile = false;
     }
-  });
+    if (status === "complete") {
+      eachTask.push(<Tasks
+        date={date}
+        desc={desc}
+        difficulty={difficulty}
+        assigned={assigned}
+        name={name}
+        points={points}
+        completedDate={completedDate}
+        completedBy={completedBy}
+        id={id}
+        feedback={feedback}
+        flag={hasFile}
+      />)
+    }
 
+    if (status === "missed") {
+      eachTask.push(<Missed
+        date={date}
+        desc={desc}
+        difficulty={difficulty}
+        assigned={assigned}
+        name={name}
+        points={points}
+        completedDate={completedDate}
+        completedBy={completedBy}
+        id={id}
+        feedback={feedback}
+        flag={hasFile}
+      />)
+    }
+  }
   if (!props.show) {
     return null;
   }
@@ -93,9 +93,12 @@ const CompletedTasks = (props) => {
                 Late
               </span>
             </div>
+
           </div>
           {/* <div className="rounded-md pt-24 pb-10 bg-indigo-900">{AllTasks}</div> */}
+
           <div className="rounded-md pt-24 pb-10 bg-indigo-900">{eachTask}</div>
+
         </div>
         <div className="taskFoot">
           <button

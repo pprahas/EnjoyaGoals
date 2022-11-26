@@ -56,7 +56,9 @@ const taskSchema = mongoose.Schema(
       required: true,
     },
     file: {
-      type: String,
+      //type: String,
+      type: mongoose.Schema.ObjectId,
+      //type:  [{ type: mongoose.Schema.ObjectId, ref: "Image" }],
       required: false,
     },
   },
