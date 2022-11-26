@@ -15,9 +15,13 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../components/Modal";
+import axios from "axios";
 
 export default function Example() {
-  // const roomId =
+  let user_object = window.localStorage.getItem("user_data");
+  let roomId = window.localStorage.getItem("currentRoom");
+  user_object = JSON.parse(user_object);
+
   var colors = [
     {
       value: 1,
@@ -73,10 +77,12 @@ export default function Example() {
   const [aboutMe, setAboutMe] = useState("");
   const submitAboutMe = async (e) => {
     e.preventDefault();
+    console.log(user_object);
+    console.log(user_object._id, aboutMe);
     axios
       .post("http://localhost:8080/user_info/create/about_me", {
-        roomId,
-        userId,
+        roomId: roomId,
+        userId: user_object._id,
         aboutMe,
       })
       .then((res) => {

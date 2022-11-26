@@ -6,7 +6,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Profile(props) {
+  const [aboutMe, setAboutMe] = useState("");
   var bg = window.localStorage.getItem("banner");
+  const roomId = window.localStorage.getItem("currentRoom");
   var img = new Image();
   img.src = bg;
   let user_object = window.localStorage.getItem("user_data");
@@ -19,6 +21,20 @@ export default function Profile(props) {
     })
     .then((res) => {
       window.localStorage.setItem("user_data", JSON.stringify(res.data));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  axios
+    .post("http://localhost:8080/user_info/get/about_me", {
+      userId: user_object._id,
+      roomId,
+    })
+    .then((res) => {
+      console.log(res.data);
+      setAboutMe(res.data);
+      // window.localStorage.setItem("user_data", JSON.stringify(res.data));
     })
     .catch((err) => {
       console.log(err);
@@ -37,8 +53,7 @@ export default function Profile(props) {
   );
   const lvl = Math.floor(points / 100) + 1;
 
-  const roomId = window.localStorage.getItem("currentRoom");
-  const [roomName, setRoomName] = useState("Room Name")
+  const [roomName, setRoomName] = useState("Room Name");
   useEffect(() => {
     getRoom();
   }, []);
@@ -49,15 +64,13 @@ export default function Profile(props) {
         id: roomId,
       })
       .then((res) => {
-               console.log(user_object);
+        console.log(user_object);
         setRoomName(res.data.name);
       })
       .catch((err) => {
         console.log("error", err);
       });
-  }
-
-
+  };
 
   console.log(`lvl = ${lvl}`);
 
@@ -146,8 +159,8 @@ export default function Profile(props) {
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
                       <a
-                      className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                      href="/homepage"
+                        className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                        href="/homepage"
                       >
                         {roomName}
                       </a>
@@ -251,14 +264,13 @@ export default function Profile(props) {
                   </div>
                   <div className="mt-10 py-4 border-t border-blueGray-200 text-center"></div>
                   <div className="mt-1">
-                    <textarea
-                      id="about"
-                      name="about"
+                    <p>{aboutMe}</p>
+                    {/* <p
                       rows={3}
-                      className="mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      placeholder="About me..."
-                      defaultValue={""}
-                    />
+                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    >
+                      {aboutMe}
+                    </p> */}
                   </div>
                 </div>
               </div>
