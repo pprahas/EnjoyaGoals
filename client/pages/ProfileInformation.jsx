@@ -93,6 +93,15 @@ export default function Example() {
       });
   };
 
+  let aboutMeMap = user_object.aboutMe;
+  // console.log(aboutMeInside);
+  // console.log(aboutMeInside instanceof Map);
+  aboutMeMap = new Map(Object.entries(aboutMeMap));
+  // console.log(map1 instanceof Map);
+
+  let aboutMeContent = aboutMeMap.get(roomId);
+  // console.log(ef);
+
   return (
     <>
       <div>
@@ -129,7 +138,7 @@ export default function Example() {
                         name="first-name"
                         id="first-name"
                         autoComplete="given-name"
-                        placeholder="First"
+                        placeholder={user_object.firstName}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
@@ -150,7 +159,7 @@ export default function Example() {
                         name="last-name"
                         id="last-name"
                         autoComplete="family-name"
-                        placeholder="Last"
+                        placeholder={user_object.lastName}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                       {/* <button>Change</button> */}
@@ -173,7 +182,7 @@ export default function Example() {
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="User_name22"
+                        placeholder={user_object.username}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
@@ -193,7 +202,7 @@ export default function Example() {
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="FirstLast@email.com"
+                        placeholder={user_object.email}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
@@ -236,7 +245,7 @@ export default function Example() {
                         name="about"
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="About me..."
+                        placeholder={aboutMeContent}
                         defaultValue={""}
                         onChange={(e) => setAboutMe(e.target.value)}
                         value={aboutMe}
@@ -390,7 +399,6 @@ export default function Example() {
                     <button
                       type="button"
                       className="mr-4 inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-
                     >
                       Return
                     </button>
