@@ -1,4 +1,4 @@
-import "./Contact.css"; // Tell webpack that Button.js uses these styles
+// import "./Contact.css"; // Tell webpack that Button.js uses these styles
 
 const Contact = () => {
   return (
