@@ -13,11 +13,13 @@ router.post("/create/about_me", async (req, res) => {
     const aboutMe = data.aboutMe;
     const userId = data.userId;
     const roomId = data.roomId;
+    console.log(aboutMe, userId, roomId);
     // const room = await Room.findById(roomId);
     const user = await User.findById(userId);
+    console.log(user);
     user.aboutMe.set(roomId, aboutMe);
     await user.save();
-    res.status(200).json(user);
+    return res.status(200).json({ msg: "About Me has been stored." });
   } catch (err) {
     res.status(500).json(err);
   }
