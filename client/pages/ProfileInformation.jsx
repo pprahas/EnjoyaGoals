@@ -90,12 +90,16 @@ export default function Example() {
                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="first-name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        First name
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="first-name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          First name
+                        </label>
+                        <button className="">Change</button>
+                      </div>
+
                       <input
                         type="text"
                         name="first-name"
@@ -107,12 +111,16 @@ export default function Example() {
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="last-name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Last name
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="last-name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Last name
+                        </label>
+                        <button className="ml-80 block">Change</button>
+                      </div>
+
                       <input
                         type="text"
                         name="last-name"
@@ -121,15 +129,20 @@ export default function Example() {
                         placeholder="Last"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
+                      {/* <button>Change</button> */}
                     </div>
 
                     <div className="col-span-3 sm:col-span-2">
-                      <label
-                        htmlFor="email-address"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Username
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="email-address"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Username
+                        </label>
+                        <button>Change</button>
+                      </div>
+
                       <input
                         type="text"
                         name="email-address"
@@ -140,12 +153,16 @@ export default function Example() {
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
-                      <label
-                        htmlFor="email-address"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Email address
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="email-address"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Email address
+                        </label>
+                        <button>Change</button>
+                      </div>
+
                       <input
                         type="text"
                         name="email-address"
@@ -156,31 +173,39 @@ export default function Example() {
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
-                      <label
-                        htmlFor="email-address"
-                        className="block text-sm font-medium text-gray-700"
-                        placeholder="FirstLast@email.com"
-                      >
-                        Phone Number
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="email-address"
+                          className="block text-sm font-medium text-gray-700"
+                          placeholder="FirstLast@email.com"
+                        >
+                          Password
+                        </label>
+                        <button>Change</button>
+                      </div>
+
                       <input
                         type="text"
                         name="email-address"
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="XXX-XXX-XXXX"
+                        placeholder="*********"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="about"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      About
-                    </label>
+                    <div className="flex">
+                      <label
+                        htmlFor="about"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        About Me
+                      </label>
+                      <button>Change</button>
+                    </div>
+
                     <div className="mt-1">
                       <textarea
                         id="about"
