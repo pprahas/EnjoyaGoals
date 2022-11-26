@@ -6,6 +6,8 @@ import ProfileInformation from "../pages/ProfileInformation";
 import Profile from "../pages/Profile";
 import Homepage from "../pages/Homepage";
 import LandingPage from "../pages/LandingPage";
+import About from "../components/Footer/About";
+import Contact from "../components/Footer/Contact/Contact";
 import ResetPassword from "../pages/ResetPassword";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -29,6 +31,8 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/homepage" element={<Homepage />}></Route>
         <Route path="/reset_password" element={<ResetPassword />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
         <Route
           path="/profile_information"
           element={<ProfileInformation />}
