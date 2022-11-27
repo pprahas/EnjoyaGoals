@@ -56,19 +56,19 @@ router.post("/get/about_me", async (req, res) => {
 //change password after user is logged in
 router.post("/change_password", async (req, res) => {
   try {
-    const { email, newPassword, oldPassword } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) return res.status(403).json({ msg: "Incorrect Email address." });
-    const match = await bcrypt.compare(oldPassword, user.password);
+    const { userId, newPassword } = req.body;
 
-    if (!match) return res.status(403).json({ msg: "Incorrect Password." });
-    user.password = newPassword;
+    const user = await User.findById(userId);
+
+    user.password = await bcrypt.hash(newPassword, 10);
+
     await user.save();
     return res.status(200).json({ msg: "Password changed." });
   } catch (error) {
-    return res.status(403).json({ msg: "Incorrect Email address." });
+    return res.status(403).json({ msg: "Password was not changed." });
   }
 });
+
 
 router.post("/first_name", async (req, res) => {
   try {
