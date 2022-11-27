@@ -115,12 +115,16 @@ router.post("/username", async (req, res) => {
     const data = req.body;
 
     const userId = data.userId;
-    const lastName = data.lastName;
+    const username = data.username;
     // console.log(aboutMe, userId, roomId);
     // const room = await Room.findById(roomId);
     const user = await User.findById(userId);
+    const user2 = await User.find(username);
+    if (user2) {
+      return res.status(500).json({ msg: "Username exists." });
+    }
     // console.log(user);
-    user.lastName = lastName;
+    user.username = username;
     // aboutMe = user.aboutMe.get(roomId);
     // user.aboutMe.set(roomId, aboutMe);
     await user.save();

@@ -156,23 +156,6 @@ export default function Example() {
       });
   };
 
-  const [email, setEmail] = useState("");
-  const submitEmail = async (e) => {
-    e.preventDefault();
-    // console.log(user_object);
-    // console.log(user_object._id, aboutMe);
-    axios
-      .post("http://localhost:8080/user_info/email", {
-        userId: user_object._id,
-        email,
-      })
-      .then((res) => {
-        alert("Email has been changed.");
-      })
-      .catch((err) => {
-        alert("Email has not been changed.");
-      });
-  };
   return (
     <>
       <div>
@@ -248,7 +231,7 @@ export default function Example() {
                         >
                           Username
                         </label>
-                        <button onClick={submitUsername}>Change</button>
+                        {/* <button onClick={submitUsername}>Change</button> */}
                       </div>
 
                       <input
@@ -258,8 +241,6 @@ export default function Example() {
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder={user_object.username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        value={username}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
@@ -270,7 +251,6 @@ export default function Example() {
                         >
                           Email address
                         </label>
-                        <button onClick={submitEmail}>Change</button>
                       </div>
 
                       <input
@@ -280,8 +260,6 @@ export default function Example() {
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder={user_object.email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
