@@ -16,6 +16,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../components/Modal";
 import axios from "axios";
+import { unstable_HistoryRouter } from "react-router-dom";
 
 export default function Example() {
   let user_object = window.localStorage.getItem("user_data");
@@ -93,6 +94,76 @@ export default function Example() {
       });
   };
 
+  let aboutMeContent;
+  if (user_object.aboutMe) {
+    let aboutMeMap = user_object.aboutMe;
+
+    aboutMeMap = new Map(Object.entries(aboutMeMap));
+    aboutMeContent = aboutMeMap.get(roomId);
+  } else {
+    aboutMeContent = "";
+  }
+
+  // console.log(aboutMeInside);
+  // console.log(aboutMeInside instanceof Map);
+  // console.log(map1 instanceof Map);
+
+  // console.log(ef);
+
+  const [firstName, setFirstName] = useState("");
+  const submitFirstName = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/first_name", {
+        userId: user_object._id,
+        firstName,
+      })
+      .then((res) => {
+        alert("First name has been changed.");
+      })
+      .catch((err) => {
+        alert("First name has not been changed.");
+      });
+  };
+
+  const [lastName, setLastName] = useState("");
+  const submitLastName = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/last_name", {
+        userId: user_object._id,
+        lastName,
+      })
+      .then((res) => {
+        alert("Last name has been changed.");
+      })
+      .catch((err) => {
+        alert("Last name has not been changed.");
+      });
+  };
+
+  const [newPassword, setNewPassword] = useState("");
+  const submitNewPassword = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/change_password", {
+        userId: user_object._id,
+        newPassword,
+      })
+      .then((res) => {
+        alert("Password has been changed.");
+      })
+      .catch((err) => {
+        alert("Password has not been changed.");
+      });
+  };
+
   return (
     <>
       <div>
@@ -121,7 +192,7 @@ export default function Example() {
                         >
                           First name
                         </label>
-                        <button className="">Change</button>
+                        <button onClick={submitFirstName}>Change</button>
                       </div>
 
                       <input
@@ -129,8 +200,10 @@ export default function Example() {
                         name="first-name"
                         id="first-name"
                         autoComplete="given-name"
-                        placeholder="First"
+                        placeholder={user_object.firstName}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onChange={(e) => setFirstName(e.target.value)}
+                        value={firstName}
                       />
                     </div>
 
@@ -142,7 +215,7 @@ export default function Example() {
                         >
                           Last name
                         </label>
-                        <button className="ml-80 block">Change</button>
+                        <button onClick={submitLastName}>Change</button>
                       </div>
 
                       <input
@@ -150,8 +223,10 @@ export default function Example() {
                         name="last-name"
                         id="last-name"
                         autoComplete="family-name"
-                        placeholder="Last"
+                        placeholder={user_object.lastName}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onChange={(e) => setLastName(e.target.value)}
+                        value={lastName}
                       />
                       {/* <button>Change</button> */}
                     </div>
@@ -164,7 +239,7 @@ export default function Example() {
                         >
                           Username
                         </label>
-                        <button>Change</button>
+                        {/* <button onClick={submitUsername}>Change</button> */}
                       </div>
 
                       <input
@@ -173,7 +248,7 @@ export default function Example() {
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="User_name22"
+                        placeholder={user_object.username}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
@@ -184,7 +259,6 @@ export default function Example() {
                         >
                           Email address
                         </label>
-                        <button>Change</button>
                       </div>
 
                       <input
@@ -193,7 +267,7 @@ export default function Example() {
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="FirstLast@email.com"
+                        placeholder={user_object.email}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
@@ -205,7 +279,7 @@ export default function Example() {
                         >
                           Password
                         </label>
-                        <button>Change</button>
+                        <button onClick={submitNewPassword}>Change</button>
                       </div>
 
                       <input
@@ -215,6 +289,8 @@ export default function Example() {
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="*********"
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        value={newPassword}
                       />
                     </div>
                   </div>
@@ -236,7 +312,7 @@ export default function Example() {
                         name="about"
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="About me..."
+                        placeholder={aboutMeContent}
                         defaultValue={""}
                         onChange={(e) => setAboutMe(e.target.value)}
                         value={aboutMe}
@@ -390,7 +466,6 @@ export default function Example() {
                     <button
                       type="button"
                       className="mr-4 inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-
                     >
                       Return
                     </button>
