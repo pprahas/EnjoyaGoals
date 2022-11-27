@@ -16,6 +16,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../components/Modal";
 import axios from "axios";
+import { unstable_HistoryRouter } from "react-router-dom";
 
 export default function Example() {
   let user_object = window.localStorage.getItem("user_data");
@@ -93,13 +94,20 @@ export default function Example() {
       });
   };
 
-  let aboutMeMap = user_object.aboutMe;
+  let aboutMeContent;
+  if (user_object.aboutMe) {
+    let aboutMeMap = user_object.aboutMe;
+
+    aboutMeMap = new Map(Object.entries(aboutMeMap));
+    aboutMeContent = aboutMeMap.get(roomId);
+  } else {
+    aboutMeContent = "";
+  }
+
   // console.log(aboutMeInside);
   // console.log(aboutMeInside instanceof Map);
-  aboutMeMap = new Map(Object.entries(aboutMeMap));
   // console.log(map1 instanceof Map);
 
-  let aboutMeContent = aboutMeMap.get(roomId);
   // console.log(ef);
 
   const [firstName, setFirstName] = useState("");
@@ -138,21 +146,21 @@ export default function Example() {
       });
   };
 
-  const [username, setUsername] = useState("");
-  const submitUsername = async (e) => {
+  const [newPassword, setNewPassword] = useState("");
+  const submitNewPassword = async (e) => {
     e.preventDefault();
     // console.log(user_object);
     // console.log(user_object._id, aboutMe);
     axios
-      .post("http://localhost:8080/user_info/username", {
+      .post("http://localhost:8080/user_info/change_password", {
         userId: user_object._id,
-        username,
+        newPassword,
       })
       .then((res) => {
-        alert("Username has been changed.");
+        alert("Password has been changed.");
       })
       .catch((err) => {
-        alert("Username has not been changed.");
+        alert("Password has not been changed.");
       });
   };
 
@@ -271,7 +279,7 @@ export default function Example() {
                         >
                           Password
                         </label>
-                        <button>Change</button>
+                        <button onClick={submitNewPassword}>Change</button>
                       </div>
 
                       <input
@@ -281,6 +289,8 @@ export default function Example() {
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="*********"
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        value={newPassword}
                       />
                     </div>
                   </div>
