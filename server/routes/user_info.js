@@ -3,6 +3,7 @@ const router = express.Router();
 const Room = require("../models/RoomModel");
 const User = require("../models/UserModel");
 const Task = require("../models/TaskModel");
+const bcrypt = require("bcrypt");
 
 const mongoose = require("mongoose");
 
@@ -55,24 +56,75 @@ router.post("/get/about_me", async (req, res) => {
 //change password after user is logged in
 router.post("/change_password", async (req, res) => {
   try {
+    const { email, newPassword, oldPassword } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(403).json({ msg: "Incorrect Email address." });
+    const match = await bcrypt.compare(oldPassword, user.password);
+
+    if (!match) return res.status(403).json({ msg: "Incorrect Password." });
+    user.password = newPassword;
+    await user.save();
+    return res.status(200).json({ msg: "Password changed." });
+  } catch (error) {
+    return res.status(403).json({ msg: "Incorrect Email address." });
+  }
+});
+
+router.post("/first_name", async (req, res) => {
+  try {
     const data = req.body;
 
     const userId = data.userId;
-    const roomId = data.roomId;
+    const firstName = data.firstName;
     // console.log(aboutMe, userId, roomId);
     // const room = await Room.findById(roomId);
     const user = await User.findById(userId);
     // console.log(user);
-    let aboutMe;
-    if (user.aboutMe.has(roomId)) {
-      aboutMe = user.aboutMe.get(roomId);
-    } else {
-      aboutMe = "";
-    }
+    user.firstName = firstName;
     // aboutMe = user.aboutMe.get(roomId);
     // user.aboutMe.set(roomId, aboutMe);
-    // await user.save();
-    return res.status(200).json(aboutMe);
+    await user.save();
+    return res.status(200).json({ msg: "First name changed." });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.post("/last_name", async (req, res) => {
+  try {
+    const data = req.body;
+
+    const userId = data.userId;
+    const lastName = data.lastName;
+    // console.log(aboutMe, userId, roomId);
+    // const room = await Room.findById(roomId);
+    const user = await User.findById(userId);
+    // console.log(user);
+    user.lastName = lastName;
+    // aboutMe = user.aboutMe.get(roomId);
+    // user.aboutMe.set(roomId, aboutMe);
+    await user.save();
+    return res.status(200).json({ msg: "Last name changed." });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.post("/username", async (req, res) => {
+  try {
+    const data = req.body;
+
+    const userId = data.userId;
+    const lastName = data.lastName;
+    // console.log(aboutMe, userId, roomId);
+    // const room = await Room.findById(roomId);
+    const user = await User.findById(userId);
+    // console.log(user);
+    user.lastName = lastName;
+    // aboutMe = user.aboutMe.get(roomId);
+    // user.aboutMe.set(roomId, aboutMe);
+    await user.save();
+    return res.status(200).json({ msg: "Last name changed." });
   } catch (err) {
     res.status(500).json(err);
   }

@@ -102,6 +102,77 @@ export default function Example() {
   let aboutMeContent = aboutMeMap.get(roomId);
   // console.log(ef);
 
+  const [firstName, setFirstName] = useState("");
+  const submitFirstName = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/first_name", {
+        userId: user_object._id,
+        firstName,
+      })
+      .then((res) => {
+        alert("First name has been changed.");
+      })
+      .catch((err) => {
+        alert("First name has not been changed.");
+      });
+  };
+
+  const [lastName, setLastName] = useState("");
+  const submitLastName = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/last_name", {
+        userId: user_object._id,
+        lastName,
+      })
+      .then((res) => {
+        alert("Last name has been changed.");
+      })
+      .catch((err) => {
+        alert("Last name has not been changed.");
+      });
+  };
+
+  const [username, setUsername] = useState("");
+  const submitUsername = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/username", {
+        userId: user_object._id,
+        username,
+      })
+      .then((res) => {
+        alert("Username has been changed.");
+      })
+      .catch((err) => {
+        alert("Username has not been changed.");
+      });
+  };
+
+  const [email, setEmail] = useState("");
+  const submitEmail = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/email", {
+        userId: user_object._id,
+        email,
+      })
+      .then((res) => {
+        alert("Email has been changed.");
+      })
+      .catch((err) => {
+        alert("Email has not been changed.");
+      });
+  };
   return (
     <>
       <div>
@@ -130,7 +201,7 @@ export default function Example() {
                         >
                           First name
                         </label>
-                        <button className="">Change</button>
+                        <button onClick={submitFirstName}>Change</button>
                       </div>
 
                       <input
@@ -140,6 +211,8 @@ export default function Example() {
                         autoComplete="given-name"
                         placeholder={user_object.firstName}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onChange={(e) => setFirstName(e.target.value)}
+                        value={firstName}
                       />
                     </div>
 
@@ -151,7 +224,7 @@ export default function Example() {
                         >
                           Last name
                         </label>
-                        <button className="ml-80 block">Change</button>
+                        <button onClick={submitLastName}>Change</button>
                       </div>
 
                       <input
@@ -161,6 +234,8 @@ export default function Example() {
                         autoComplete="family-name"
                         placeholder={user_object.lastName}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onChange={(e) => setLastName(e.target.value)}
+                        value={lastName}
                       />
                       {/* <button>Change</button> */}
                     </div>
@@ -173,7 +248,7 @@ export default function Example() {
                         >
                           Username
                         </label>
-                        <button>Change</button>
+                        <button onClick={submitUsername}>Change</button>
                       </div>
 
                       <input
@@ -183,6 +258,8 @@ export default function Example() {
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder={user_object.username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        value={username}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
@@ -193,7 +270,7 @@ export default function Example() {
                         >
                           Email address
                         </label>
-                        <button>Change</button>
+                        <button onClick={submitEmail}>Change</button>
                       </div>
 
                       <input
@@ -203,6 +280,8 @@ export default function Example() {
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder={user_object.email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
