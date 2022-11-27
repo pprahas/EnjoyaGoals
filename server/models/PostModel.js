@@ -24,7 +24,7 @@ const postSchema = mongoose.Schema(
     },
     datePosted: {
       type: Date,
-      required: false,
+      required: true,
     },
     roomId: {
       type: mongoose.Schema.ObjectId,
@@ -33,6 +33,10 @@ const postSchema = mongoose.Schema(
     userId: {
       type: mongoose.Schema.ObjectId,
       required: true,
+    },
+    comments: {
+      type: [{ type: mongoose.Schema.ObjectId, ref: "Comment" }],
+      required: false,
     },
   },
   { timestamps: true }

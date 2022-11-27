@@ -39,6 +39,10 @@ const roomSchema = mongoose.Schema(
       type: [{ type: mongoose.Schema.ObjectId, ref: "Task" }],
       required: false,
     },
+    posts: {
+      type: [{ type: mongoose.Schema.ObjectId, ref: "Post" }],
+      required: false,
+    },
   },
   { timestamps: true }
 );
