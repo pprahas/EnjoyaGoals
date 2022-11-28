@@ -51,11 +51,18 @@ const MainPost = (props) => {
                     id="about"
                     name="about"
                     rows={3}
-                    className="mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     placeholder="Add a comment . . ."
                 //onChange={feedbackHandler}
                 //value={feedback}
                 />
+                <button
+                type="button"
+                class=" mb-5 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
+                shadow-sm hover:bg-gray-50 focus:outline-none"              >
+                    Comment
+                </button>
+                
             </div>
             <div class="flex-grow border-t border-gray-200"></div>
             {/** Comments show up here */}

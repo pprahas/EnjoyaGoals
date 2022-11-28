@@ -262,9 +262,9 @@ export default function Header() {
   const currDate = new Date().toLocaleDateString();
 
   return (
-    <Popover className="fixed inset-x-0 mb-24 bg-white z-50">
+    <Popover className="fixed inset-x-0 border-b-2 border-gray-100 mb-24 bg-white z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+        <div className="flex items-center justify-between py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 md:space-x-16">
             <a href="#">
               <span className="sr-only">Your Company</span>

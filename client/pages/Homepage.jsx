@@ -17,7 +17,7 @@ export default function Homepage() {
   const [showCompleted, setShowCompleted] = useState(false);
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
-  const [message, setMessage] = useState("");
+  const [showVote, setShowVote] = useState(false);
   let list = [];
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
@@ -31,6 +31,13 @@ export default function Homepage() {
   useEffect(() => {
     console.log(teamList);
   }, [teamList]);
+
+  const openVote = async(e) => {
+    setShowVote(true);
+    //axios to get room data
+    //open modal
+    //send room data over as props
+  }
 
   const submitTeam = async (e) => {
     setShowAll(true);
@@ -113,6 +120,7 @@ export default function Homepage() {
     <div className="content-center">
       <div className="grid grid-flow-col auto-cols-max">
         <div className="mt-32 w-3/4 ml-16">
+           
           <Posts />
         </div>
         {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
@@ -189,6 +197,23 @@ export default function Homepage() {
               UID={user_object._id}
             />
           </div>
+
+          <div className="col-span-6">
+            <button
+              className="font-bold absolute right-0 content-center text-4xl bg-red-600 mr-36 p-3 w-56 text-white rounded-md"
+              //onClick={}
+            >
+              Call a vote
+            </button>
+
+            <CompletedTasks
+              onClose={() => setShowCompleted(false)}
+              show={showCompleted}
+              data={completedList}
+              UID={user_object._id}
+            />
+          </div>
+
           {/* <div className="col-span-6">
             <a
               href="/homepage/create_task"

@@ -19,6 +19,7 @@ export default function Posts() {
         </div> */}
         <div class="">
           <section class="inset-0 bg-white dark:bg-gray-900">
+            
             <div class="py-8 px-4 mx-auto max-w-full lg:py-16 lg:px-6">
               {/* <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
                 <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
@@ -29,6 +30,36 @@ export default function Posts() {
                   the needs of your audience early and often.
                 </p>
               </div> */}
+              <div class="mb-4 font-bold text-gray-900 text-3xl">
+              Posts
+            </div>
+            <div class="flex-grow border-t border-gray-200"></div>
+
+              <div class="flex items-center space-x-4 mb-4 mt-2">
+                    <img
+                        class="w-7 h-7 rounded-full"
+                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                        alt="Jese Leos avatar"
+                    />
+                    <span class="font-medium text-gray-500 dark:text-white">
+                        Firstname Lastname
+                    </span>
+                </div>
+               <textarea
+                    id="about"
+                    name="about"
+                    rows={7}
+                    className="mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Make a new post . . ."
+                //onChange={feedbackHandler}
+                //value={feedback}
+                />
+                <button
+                type="button"
+                class=" mb-5 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
+                shadow-sm hover:bg-gray-50 focus:outline-none"              >
+                    Create a new Post
+                </button>
               <div class="">
                 {arr}
                 {/* <eachPost /> */}
