@@ -16,8 +16,14 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../components/Modal";
 import axios from "axios";
+import { unstable_HistoryRouter } from "react-router-dom";
+
 
 export default function Example() {
+  let user_object = window.localStorage.getItem("user_data");
+  let roomId = window.localStorage.getItem("currentRoom");
+  user_object = JSON.parse(user_object);
+
   var colors = [
     {
       value: 1,
@@ -70,7 +76,6 @@ export default function Example() {
       reader2.readAsDataURL(file);
     }
   };
-
 
   const upload = async (e) => {
     let user_object = window.localStorage.getItem("user_data");
@@ -132,6 +137,95 @@ export default function Example() {
     alert("Profile updated!");
   }
 
+
+  const [aboutMe, setAboutMe] = useState("");
+  const submitAboutMe = async (e) => {
+    e.preventDefault();
+    console.log(user_object);
+    console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/create/about_me", {
+        roomId: roomId,
+        userId: user_object._id,
+        aboutMe,
+      })
+      .then((res) => {
+        alert("About Me information has been changed.");
+      })
+      .catch((err) => {
+        alert("About Me information has not been changed.");
+      });
+  };
+
+  let aboutMeContent;
+  if (user_object.aboutMe) {
+    let aboutMeMap = user_object.aboutMe;
+
+    aboutMeMap = new Map(Object.entries(aboutMeMap));
+    aboutMeContent = aboutMeMap.get(roomId);
+  } else {
+    aboutMeContent = "";
+  }
+
+  // console.log(aboutMeInside);
+  // console.log(aboutMeInside instanceof Map);
+  // console.log(map1 instanceof Map);
+
+  // console.log(ef);
+
+  const [firstName, setFirstName] = useState("");
+  const submitFirstName = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/first_name", {
+        userId: user_object._id,
+        firstName,
+      })
+      .then((res) => {
+        alert("First name has been changed.");
+      })
+      .catch((err) => {
+        alert("First name has not been changed.");
+      });
+  };
+
+  const [lastName, setLastName] = useState("");
+  const submitLastName = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/last_name", {
+        userId: user_object._id,
+        lastName,
+      })
+      .then((res) => {
+        alert("Last name has been changed.");
+      })
+      .catch((err) => {
+        alert("Last name has not been changed.");
+      });
+  };
+
+  const [newPassword, setNewPassword] = useState("");
+  const submitNewPassword = async (e) => {
+    e.preventDefault();
+    // console.log(user_object);
+    // console.log(user_object._id, aboutMe);
+    axios
+      .post("http://localhost:8080/user_info/change_password", {
+        userId: user_object._id,
+        newPassword,
+      })
+      .then((res) => {
+        alert("Password has been changed.");
+      })
+      .catch((err) => {
+        alert("Password has not been changed.");
+      });
+  };
   return (
     <>
       <div>
@@ -153,105 +247,137 @@ export default function Example() {
                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="first-name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        First name
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="first-name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          First name
+                        </label>
+                        <button onClick={submitFirstName}>Change</button>
+                      </div>
+
                       <input
                         type="text"
                         name="first-name"
                         id="first-name"
                         autoComplete="given-name"
-                        placeholder="First"
+                        placeholder={user_object.firstName}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onChange={(e) => setFirstName(e.target.value)}
+                        value={firstName}
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="last-name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Last name
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="last-name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Last name
+                        </label>
+                        <button onClick={submitLastName}>Change</button>
+                      </div>
+
                       <input
                         type="text"
                         name="last-name"
                         id="last-name"
                         autoComplete="family-name"
-                        placeholder="Last"
+                        placeholder={user_object.lastName}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onChange={(e) => setLastName(e.target.value)}
+                        value={lastName}
                       />
+                      {/* <button>Change</button> */}
                     </div>
 
                     <div className="col-span-3 sm:col-span-2">
-                      <label
-                        htmlFor="email-address"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Username
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="email-address"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Username
+                        </label>
+                        {/* <button onClick={submitUsername}>Change</button> */}
+                      </div>
+
                       <input
                         type="text"
                         name="email-address"
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="User_name22"
+                        placeholder={user_object.username}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
-                      <label
-                        htmlFor="email-address"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Email address
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="email-address"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Email address
+                        </label>
+                      </div>
+
                       <input
                         type="text"
                         name="email-address"
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="FirstLast@email.com"
+                        placeholder={user_object.email}
                       />
                     </div>
                     <div className="col-span-3 sm:col-span-2">
-                      <label
-                        htmlFor="email-address"
-                        className="block text-sm font-medium text-gray-700"
-                        placeholder="FirstLast@email.com"
-                      >
-                        Phone Number
-                      </label>
+                      <div className="flex">
+                        <label
+                          htmlFor="email-address"
+                          className="block text-sm font-medium text-gray-700"
+                          placeholder="FirstLast@email.com"
+                        >
+                          Password
+                        </label>
+                        <button onClick={submitNewPassword}>Change</button>
+                      </div>
+
                       <input
                         type="text"
                         name="email-address"
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="XXX-XXX-XXXX"
+                        placeholder="*********"
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        value={newPassword}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="about"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      About
-                    </label>
+                    <div className="flex">
+                      <label
+                        htmlFor="about"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        About Me
+                      </label>
+                      <button onClick={submitAboutMe}>Change</button>
+                    </div>
+
                     <div className="mt-1">
                       <textarea
                         id="about"
                         name="about"
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="About me..."
+                        placeholder={aboutMeContent}
                         defaultValue={""}
+                        onChange={(e) => setAboutMe(e.target.value)}
+                        value={aboutMe}
                       />
                     </div>
                     <p className="mt-2 text-sm text-gray-500">
