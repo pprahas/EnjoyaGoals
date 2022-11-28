@@ -2,10 +2,8 @@ import MainPost from "./MainPost";
 import Comments from "./Comments";
 
 export default function Posts() {
-  
-
   //let arr = [<Comments/>, <Comments/>,<Comments/> ];
-  let arr = [<MainPost/>, <MainPost/>]
+  let arr = [<MainPost />, <MainPost />];
 
   return (
     <section className=" bg-white dark:bg-gray-900 ml-52">
@@ -32,13 +30,10 @@ export default function Posts() {
                 </p>
               </div> */}
               <div class="">
-
                 {arr}
                 {/* <eachPost /> */}
 
-
-
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                {/* <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                   <div class="flex justify-between items-center mb-5 text-gray-500">
                     <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                       <svg
@@ -97,8 +92,8 @@ export default function Posts() {
                       </svg>
                     </a>
                   </div>
-                </article>
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                </article> */}
+                {/* <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                   <div class="flex justify-between items-center mb-5 text-gray-500">
                     <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                       <svg
@@ -157,8 +152,8 @@ export default function Posts() {
                       </svg>
                     </a>
                   </div>
-                </article>
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                </article> */}
+                {/* <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                   <div class="flex justify-between items-center mb-5 text-gray-500">
                     <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                       <svg
@@ -217,7 +212,7 @@ export default function Posts() {
                       </svg>
                     </a>
                   </div>
-                </article>
+                </article> */}
               </div>
             </div>
           </section>

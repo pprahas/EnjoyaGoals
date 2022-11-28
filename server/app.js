@@ -54,6 +54,9 @@ app.use("/user", userRoutes);
 const progressBarRoutes = require("./routes/progress_bar");
 app.use("/progress_bar", progressBarRoutes);
 
+const postRoutes = require("./routes/post");
+app.use("/post", postRoutes);
+
 // port
 const port = process.env.PORT || 8080;
 
