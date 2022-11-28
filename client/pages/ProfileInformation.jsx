@@ -76,7 +76,6 @@ export default function Example() {
     }
   };
 
-
   const upload = async (e) => {
     let user_object = window.localStorage.getItem("user_data");
     user_object = JSON.parse(user_object);
@@ -225,7 +224,6 @@ export default function Example() {
         alert("Password has not been changed.");
       });
   };
-
   return (
     <>
       <div>

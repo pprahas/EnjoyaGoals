@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function Profile(props) {
 
-
+  const [aboutMe, setAboutMe] = useState("");
   var bg = window.localStorage.getItem("banner");
   const roomId = window.localStorage.getItem("currentRoom");
   var img = new Image();
@@ -91,7 +91,6 @@ export default function Profile(props) {
       id: roomId,
       username: username,
     }).then((res) => {
-      //may have to change to UID if username changes are implemented
       setPendingCount(res.data[0]);
       setCompleteCount(res.data[3]);
     });
@@ -158,8 +157,6 @@ export default function Profile(props) {
       console.log("error", err);
       });
   }
-
-
 
   console.log(`lvl = ${lvl}`);
 
