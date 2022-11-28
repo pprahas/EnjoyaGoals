@@ -5,6 +5,7 @@ const imageSchema = mongoose.Schema({
     image: Buffer,
     filetype: String,
     task_id:  mongoose.Schema.ObjectId,
+    user_id:  mongoose.Schema.ObjectId,
 
 });
 

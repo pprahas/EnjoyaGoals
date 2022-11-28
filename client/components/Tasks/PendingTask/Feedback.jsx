@@ -38,8 +38,6 @@ const TextInput = (props) => {
       // Onload of file read the file content
       fileReader.onload = function (fileLoadedEvent) {
         file = fileLoadedEvent.target.result;
-        // Print data in console
-        console.log(file);
         setSelectedFile({ fileData: file, fileName: fileName });
       };
       // Convert data to base64

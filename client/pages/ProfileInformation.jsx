@@ -15,6 +15,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../components/Modal";
+import axios from "axios";
 
 export default function Example() {
   var colors = [
@@ -38,7 +39,7 @@ export default function Example() {
   };
 
   const [show, setShow] = useState(false);
-
+  const [banner, setBanner] = useState("");
   const uploadedImage = React.useRef(null);
 
   const handleImageUpload = (e) => {
@@ -64,10 +65,72 @@ export default function Example() {
       reader2.onload = (e) => {
         //change this to mongodb later
         window.localStorage.setItem("banner", reader2.result);
+        setBanner(window.localStorage.getItem("banner"));
       };
       reader2.readAsDataURL(file);
     }
   };
+
+
+  const upload = async (e) => {
+    let user_object = window.localStorage.getItem("user_data");
+    user_object = JSON.parse(user_object);
+    const UID = user_object._id;
+
+    e.preventDefault();
+    let pfp = window.localStorage.getItem("ProfilePic");
+    let banner = window.localStorage.getItem("banner");
+    let color = window.localStorage.getItem("Color");
+
+    if(pfp !== null){
+      let name = "pfp";
+      axios
+        .post("http://localhost:8080/user/pic_upload", {
+          user_id: UID,
+          fileData: pfp,
+          fileName: name,
+        })
+        .then((res) => {
+          console.log("testing", res);
+        })
+        .catch((err) => {
+          // setMessage(err.response.data.message);
+          console.log("error", err);
+        });
+
+    }
+    if(banner !== null){
+      let name = "banner";
+      axios
+        .post("http://localhost:8080/user/pic_upload", {
+          user_id: UID,
+          fileData: banner,
+          fileName: name,
+        })
+        .then((res) => {
+          console.log("testing", res);
+        })
+        .catch((err) => {
+          // setMessage(err.response.data.message);
+          console.log("error", err);
+        });
+    }
+    if(color !== null){
+      axios
+        .post("http://localhost:8080/user/set_color", {
+          user_id: UID,
+          color: color,
+        })
+        .then((res) => {
+          console.log("testing", res);
+        })
+        .catch((err) => {
+          // setMessage(err.response.data.message);
+          console.log("error", err);
+        });
+    }
+    alert("Profile updated!");
+  }
 
   return (
     <>
@@ -270,11 +333,13 @@ export default function Example() {
                     </div>
                   </div>
                   */}
-                  <div>
+                  <div >
                     <label className="block text-sm font-medium text-gray-700">
                       Banner
                     </label>
-                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6" 
+                    //set bg
+                    style = {{backgroundImage: "url('" + banner + "')"}}>
                       <div className="space-y-1 text-center">
                         <svg
                           className="mx-auto h-12 w-12 text-gray-400"
@@ -290,6 +355,7 @@ export default function Example() {
                             strokeLinejoin="round"
                           />
                         </svg>
+
                         <div className="flex text-sm text-gray-600">
                           <label
                             htmlFor="file-upload"
@@ -339,7 +405,6 @@ export default function Example() {
                     <button
                       type="button"
                       className="mr-4 inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-
                     >
                       Return
                     </button>
@@ -347,6 +412,7 @@ export default function Example() {
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={upload}
                   >
                     Save
                   </button>
