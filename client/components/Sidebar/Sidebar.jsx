@@ -12,7 +12,25 @@ const Sidebar = () => {
   user_object = JSON.parse(user_object);
   window.localStorage.setItem("user_data", JSON.stringify(user_object));
   let userRooms = user_object.rooms;
-
+  let eachRoom=[];
+  for (let i = 0; i < userRooms.length; i++) {
+    let room = userRooms[i];
+    const posts = room.posts;
+    const roomID = room._id;
+    const roomName = room.name;
+    eachRoom.push(
+      <button
+        key={roomID}
+        onClick={() => {
+          window.localStorage.setItem("currentRoom", roomID);
+          window.location.reload();
+        }}
+      >
+        <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
+      </button>
+    );
+  };
+  /*
   const eachRoom = userRooms.map((d) => {
     const roomName = Object.values(d)[1];
     const roomID = Object.values(d)[0];
@@ -27,8 +45,7 @@ const Sidebar = () => {
         <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
       </button>
     );
-  });
-
+  });*/
   return (
     <div className="fixed w-32 overflow-auto top-0 left-0 h-screen w-20 flex flex-col bg-gray-900 text-white ">
       <div>

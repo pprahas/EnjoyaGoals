@@ -40,6 +40,8 @@ const Tasks = (props) => {
         feedback={props.feedback}
         completedDate={props.completedDate}
         completedBy={props.completedBy}
+        id={props.id}
+        flag={props.flag}
       />
     </div>
   );

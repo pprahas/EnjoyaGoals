@@ -23,8 +23,9 @@ const userSchema = mongoose.Schema(
       required: false,
     },
     aboutMe: {
-      type: String,
-      required: false,
+      type: Map,
+      of: String,
+      required: true,
     },
     password: {
       type: String,
@@ -61,6 +62,18 @@ const userSchema = mongoose.Schema(
     completedTasks: {
       type: Map,
       of: [{ type: mongoose.Schema.ObjectId, ref: "Task" }],
+      required: false,
+    },
+    pfp: {
+      type: mongoose.Schema.ObjectId,
+      required: false,
+    },
+    banner: {
+      type: mongoose.Schema.ObjectId,
+      required: false,
+    },
+    color: {
+      type: String,
       required: false,
     },
   },

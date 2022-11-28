@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/UserModel");
 const Room = require("../models/RoomModel");
 const convertID = require("../helpers/ConvertIDs");
+const Image = require("../models/ImageModel");
 
 router.use(express.json());
 
@@ -194,4 +195,91 @@ router.post("/getRoomUsers", async (req, res) => {
     res.status(500).json({ msg: "Getting user failed." });
   }
 });
+
+router.post("/pic_upload", async (req, res) => {
+  let user_id;
+  let file;
+  let fileName;
+  try {
+    console.log(req.body);
+    user_id = req.body.user_id;
+    fileName = req.body.fileName;
+    file = req.body.fileData;
+    let binData = new Buffer(file.split(",")[1], "base64");
+    let filetype = file.split(",")[0] + ",";
+    let img = new Buffer(binData, 'base64');
+
+    let res = await Image.create({ "name": fileName, "image": img, "filetype": filetype, "user_id": user_id, });
+    const user = await User.findById(user_id);
+
+    if (fileName === "pfp") {
+      user.pfp = res._id;
+      await user.save();
+      return;
+    }
+    else if (fileName === "banner") {
+      user.banner = res._id;
+      await user.save();
+      return;
+    }
+    return;
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+router.post("/set_color", async (req, res) => {
+  let user_id;
+  let color;
+  try {
+    user_id = req.body.user_id;
+    color = req.body.color;
+
+    const user = await User.findById(user_id);
+    user.color = color;
+    await user.save();
+    return;
+
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/get_profile_data", async (req, res) => {
+  try {
+
+    let all_data = []
+    const body = req.body.id;
+    const user = await User.findById(body);
+    if (user.pfp) {
+      const pfp = await Image.findById(user.pfp);
+      let pfpType = pfp.filetype;
+      let pfpData = pfp.image;
+      all_data.push(pfpType);
+      all_data.push(pfpData.toString('base64'));
+    } else {
+      all_data.push("");
+      all_data.push("");
+    }
+    if (user.banner) {
+      const banner = await Image.findById(user.banner);
+      let bannType = banner.filetype;
+      let bannData = banner.image;
+      all_data.push(bannType);
+      all_data.push(bannData.toString('base64'));
+    } else {
+      all_data.push("");
+      all_data.push("");
+    }
+
+    if (user.color) {
+      all_data.push(user.color);
+    } else {
+      all_data.push("")
+    }
+    return res.status(200).json(all_data);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
 module.exports = router;

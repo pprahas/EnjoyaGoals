@@ -184,6 +184,9 @@ const Header = (props) => {
     window.localStorage.getItem("currentRoom")
   );
   const [roomName, setRoomName] = useState("Room Name")
+  const [completeCount, setCompleteCount] = useState(0);
+  const [pendingTaskCount, setPendingCount] = useState(0);
+  const [teamTaskCount, setTeamCount] = useState(0);
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
   const username = user_object.username;
@@ -192,18 +195,27 @@ const Header = (props) => {
     getRoom();
   }, []);
 
-  const getRoom= async() => {
+  const getRoom = async () => {
     axios
       .post("http://localhost:8080/room/get", {
         id: roomId,
       })
       .then((res) => {
-//        console.log(res.data.name);
         setRoomName(res.data.name);
       })
       .catch((err) => {
         console.log("error", err);
       });
+    axios.post("http://localhost:8080/task/task_count", {
+      id: roomId,
+      username: username,
+    }).then((res) => {
+      //may have to change to UID when username changes are implemented
+      setTeamCount(res.data[2]);
+      setPendingCount(res.data[0]);
+      setCompleteCount(res.data[1]);
+    })
+
   }
 
   //Progressbar backend request
@@ -250,9 +262,9 @@ const Header = (props) => {
   const currDate = new Date().toLocaleDateString();
 
   return (
-    <Popover className="relative bg-white">
+    <Popover className="fixed inset-x-0 border-b-2 border-gray-100 mb-24 bg-white z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+        <div className="flex items-center justify-between py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 md:space-x-16">
             <a href="#">
               <span className="sr-only">Your Company</span>
@@ -268,19 +280,19 @@ const Header = (props) => {
               // href="/homepage"
               className="text-2xl font-semibold text-green-500"
             >
-              32
+              {completeCount}
             </a>
             <a
               // href="/homepage"
               className="text-2xl font-semibold text-red-500"
             >
-              32
+              {pendingTaskCount}
             </a>
             <a
               // href="/homepage"
               className="text-2xl font-semibold text-blue-500"
             >
-              32
+              {teamTaskCount}
             </a>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
@@ -358,13 +370,16 @@ const Header = (props) => {
             >
               Leave Room
             </button>
-            <a
-              href="/login"
-              className="ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-              onClick={logOut}
-            >
-              Log Out
+            <a href="/login">
+              <button
+                type="button"
+                className="ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+
+                onClick={logOut}>
+                Log Out
+              </button>
             </a>
+            
           </div>
         </div>
       </div>

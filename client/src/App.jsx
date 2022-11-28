@@ -6,6 +6,8 @@ import ProfileInformation from "../pages/ProfileInformation";
 import Profile from "../pages/Profile";
 import Homepage from "../pages/Homepage";
 import LandingPage from "../pages/LandingPage";
+import About from "../components/Footer/About";
+import Contact from "../components/Footer/Contact/Contact";
 import ResetPassword from "../pages/ResetPassword";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -45,6 +47,8 @@ function App() {
         <Route path="/profile" element={<Profile createNotif={createNotif}/>}></Route>
         <Route path="/homepage" element={<Homepage createNotif={createNotif}/>}></Route>
         <Route path="/reset_password" element={<ResetPassword createNotif={createNotif}/>}></Route>
+        <Route path="/about" element={<About createNotif={createNotif}/>}></Route>
+        <Route path="/contact" element={<Contact createNotif={createNotif}/>}></Route>
         <Route
           path="/profile_information"
           element={<ProfileInformation createNotif={createNotif}/>}

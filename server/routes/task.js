@@ -7,6 +7,7 @@ const theValidator = require("../helpers/TeamMemberCheck");
 
 var multiparty = require("multiparty");
 const User = require("../models/UserModel");
+const Image = require("../models/ImageModel");
 
 promisify = require("util");
 
@@ -149,6 +150,56 @@ router.post("/team_tasks", async (req, res) => {
   }
 });
 
+router.post("/task_count", async (req, res) => {
+  const body = req.body;
+  let pending_tasks_count = 0;
+  let completed_count = 0;
+  let unassigned_count = 0;
+  let completed_count_personal = 0;
+
+  let returned = [];
+  try {
+    const room_id = body.id;
+    const username = body.username;
+    const room = await Room.findById(room_id);
+    let pending_tasks_id = room.assignedTasks;
+    let team_tasks_id = room.teamTasks;
+    let complete_tasks_id = room.completedTasks;
+
+    for (let i = 0; i < complete_tasks_id.length; i++) {
+      const task = await Task.findById(complete_tasks_id[i]);
+      if (task.status !== "missed") {
+        completed_count += 1;
+        if (task.assignedUser === username) {
+          completed_count_personal += 1;
+        }
+      }
+    }
+    for (let i = 0; i < pending_tasks_id.length; i++) {
+      const task = await Task.findById(pending_tasks_id[i]);
+      if (task.assignedUser === username) {
+        pending_tasks_count += 1;
+      }
+    }
+    //let team_tasks_count = team_tasks_id.length;
+    for (let i = 0; i < team_tasks_id.length; i++) {
+      const task = await Task.findById(team_tasks_id[i]);
+      if (task.status == "unassigned") {
+        unassigned_count += 1;
+      }
+    }
+    returned.push(pending_tasks_count);
+    returned.push(completed_count);
+    returned.push(unassigned_count);
+    returned.push(completed_count_personal);
+
+    return res.status(200).json(returned);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 router.post("/team_tasks/assign", async (req, res) => {
   const body = req.body;
   const room_id = body.room_id;
@@ -217,12 +268,56 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
+
+router.post("/pending_tasks/upload_null", async (req, res) => {
+  try {
+    let task_id = req.body.id;
+    const task = await Task.findById(task_id);
+    task.file = null;
+    await task.save();
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/pending_tasks/test_upload", async (req, res) => {
+  let task_id;
+  let file;
+  let fileName;
+  try {
+
+    task_id = req.body.task_id;
+    fileName = req.body.fileName;
+    file = req.body.fileData;
+    let binData = new Buffer(file.split(",")[1], "base64");
+    let filetype = file.split(",")[0] + ",";
+    let img = new Buffer(binData, 'base64');
+    let res = await Image.create({ "name": fileName, "image": img, "filetype": filetype, "task_id": task_id, });
+    const task = await Task.findById(task_id);
+    task.file = res._id;
+    await task.save();
+
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+
 router.post("/get_file", async (req, res) => {
   try {
-    const body = req.body;
-    const task_id = body.task_id;
-    const task = await Task.findById(task_id);
-    return res.status(200).json(JSON.parse(task.file));
+    let all_data = []
+    const body = req.body.id;
+    const task = await Task.findById(body);
+    const img = await Image.findById(task.file);
+    let name = img.name;
+    let filetype = img.filetype;
+    let data = img.image;
+    all_data.push(name);
+    all_data.push(filetype);
+    console.log(data.toString('base64'));
+    all_data.push(data.toString('base64'));
+    return res.status(200).json(all_data);
+    //    return res.status(200).json(JSON.parse(task.file));
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -380,7 +475,25 @@ router.post("/pending_tasks/submit", async (req, res) => {
 router.post("/completed_tasks", async (req, res) => {
   const body = req.body;
   let completed_tasks = [];
+  try {
+    const room_id = body.id;
+    const room = await Room.findById(room_id);
+    let completed_tasks_id = room.completedTasks;
+    for (let i = 0; i < completed_tasks_id.length; i++) {
+      const task = await Task.findById(completed_tasks_id[i]);
+      completed_tasks.push(task);
+    }
+    return res.status(200).json(completed_tasks);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
 
+router.post("/completed_tasks_personal", async (req, res) => {
+  const body = req.body;
+  let completed_tasks = [];
+  let userID = req.body.UID;
   try {
     const room_id = body.id;
     const room = await Room.findById(room_id);
@@ -388,7 +501,11 @@ router.post("/completed_tasks", async (req, res) => {
 
     for (let i = 0; i < completed_tasks_id.length; i++) {
       const task = await Task.findById(completed_tasks_id[i]);
-      completed_tasks.push(task);
+      //console.log(task.completedBy)
+      if (task.completedBy === userID) {
+
+        completed_tasks.push(task);
+      }
     }
 
     return res.status(200).json(completed_tasks);
