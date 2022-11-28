@@ -22,14 +22,6 @@ const commentSchema = mongoose.Schema(
       type: Date,
       required: false,
     },
-    roomId: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
-    },
-    userId: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
-    },
   },
   { timestamps: true }
 );

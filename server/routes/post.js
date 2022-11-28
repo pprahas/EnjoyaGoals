@@ -45,6 +45,7 @@ router.post("/create/post", async (req, res) => {
   }
 });
 
+//getting posts for a particular room
 router.post("/get/post", async (req, res) => {
   try {
     const { roomId } = req.body;
@@ -60,6 +61,64 @@ router.post("/get/post", async (req, res) => {
     }
 
     return res.status(200).json(allPosts);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+//creating a comment
+router.post("/create/comment", async (req, res) => {
+  try {
+    const { firstName, lastName, content, postId } = req.body;
+
+    let ts = Date.now();
+
+    let date_ob = new Date(ts);
+    let date = date_ob.getDate();
+    let month = date_ob.getMonth() + 1;
+    let year = date_ob.getFullYear();
+
+    let nowTime = year + "-" + month + "-" + date;
+
+    const newComment = new Comment({
+      _id: new mongoose.Types.ObjectId(), // not part of request
+      firstName: firstName,
+      lastName: lastName,
+      content: content,
+      postId: postId,
+      datePosted: nowTime,
+    });
+
+    await newComment.save();
+
+    const post = await Post.findById(postId);
+
+    post.comments.push(newComment);
+
+    await post.save();
+
+    return res.status(200).json({ msg: "Comment created." });
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+//getting comments for a particular post of a particular room
+router.post("/get/comment", async (req, res) => {
+  try {
+    const { postId } = req.body;
+
+    const post = await Post.findById(postId);
+
+    let allCommentsId = post.comments;
+    let allComments = [];
+
+    for (let i = 0; i < allCommentsId.length; i++) {
+      const comment = await Comment.findById(allCommentsId[i]);
+      allComments.push(comment);
+    }
+
+    return res.status(200).json(allComments);
   } catch (error) {
     return res.status(400).json(error);
   }

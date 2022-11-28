@@ -24,7 +24,7 @@ const postSchema = mongoose.Schema(
     },
     datePosted: {
       type: Date,
-      required: true,
+      required: false,
     },
     roomId: {
       type: mongoose.Schema.ObjectId,
