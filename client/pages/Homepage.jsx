@@ -8,15 +8,13 @@ import PendingTasks from "../components/Tasks/List/Pending/PendingTasks";
 import TeamTasks from "../components/Tasks/List/Team/TeamTasks";
 import axios from "axios";
 import { useEffect } from "react";
-import Notif from "../components/Notifications/Notif";
 
-export default function Homepage() {
+const Homepage = (props) => {
   const [showCreate, setShowCreate] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [message, setMessage] = useState("");
-  const [notifs, setNotifs] = useState([]);
   let list = [];
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
@@ -32,7 +30,7 @@ export default function Homepage() {
   }, [teamList]);
 
   const submitTeam = async (e) => {
-    createNotif("info", "Information", "Doing this to test the createNotif function");
+    props.createNotif("info", "Information", "This is a test from homepage");
     setShowAll(true);
     let list_2 = [];
     e.preventDefault();
@@ -92,21 +90,9 @@ export default function Homepage() {
       });
   };
 
-  const createNotif = (type, title, desc) => {
-		setNotifs([
-			...notifs,
-			{
-				id: Math.floor(Math.random() * 100 + 1),
-				title,
-				desc,
-				type,
-			},
-		]);
-	};
-
   return (
     <div className="content-center">
-      <Header />
+      <Header createNotif={props.createNotif}/>
       <div className="ml-32 flex flex-row ">
         {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
         <div className="mt-6 grid grid-cols-1 gap-24">
@@ -173,9 +159,10 @@ export default function Homepage() {
         </div>
       </div>
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
-      <Notif notifList={notifs}/>
-      <Sidebar />
-      <Leaderboard />
+      <Sidebar createNotif={props.createNotif}/>
+      <Leaderboard createNotif={props.createNotif}/>
     </div>
   );
-}
+};
+
+export default Homepage;

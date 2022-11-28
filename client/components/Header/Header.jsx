@@ -172,7 +172,7 @@ function leaveRoom() {
       */
 }
 
-export default function Header() {
+const Header = (props) => {
   const [calIsShown, setCalIsShown] = useState(false);
   const [message, setMessage] = useState("");
   const [number, setNumber] = useState("0");
@@ -230,6 +230,7 @@ export default function Header() {
   //Calendar backend request
   const submitCal = async (e) => {
     e.preventDefault();
+    props.createNotif("info", "Information", "This is a test from header");
     setCalIsShown(true);
     setRoomId(window.localStorage.getItem("currentRoom"));
     console.log(roomId);
@@ -463,4 +464,6 @@ export default function Header() {
       </Transition>
     </Popover>
   );
-}
+};
+
+export default Header;
