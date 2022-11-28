@@ -9,6 +9,7 @@ export default function Profile(props) {
 
 
   var bg = window.localStorage.getItem("banner");
+  const roomId = window.localStorage.getItem("currentRoom");
   var img = new Image();
   img.src = bg;
   let user_object = window.localStorage.getItem("user_data");
@@ -29,6 +30,20 @@ export default function Profile(props) {
       console.log(err);
     });
 
+  axios
+    .post("http://localhost:8080/user_info/get/about_me", {
+      userId: user_object._id,
+      roomId,
+    })
+    .then((res) => {
+      console.log(res.data);
+      setAboutMe(res.data);
+      // window.localStorage.setItem("user_data", JSON.stringify(res.data));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
 
@@ -42,15 +57,16 @@ export default function Profile(props) {
   );
   const lvl = Math.floor(points / 100) + 1;
 
-  const roomId = window.localStorage.getItem("currentRoom");
-  const [roomName, setRoomName] = useState("Room Name")
+  // const [roomName, setRoomName] = useState("Room Name");
+
+  // const roomId = window.localStorage.getItem("currentRoom");
+  const [roomName, setRoomName] = useState("Room Name");
   const [easy, setEasy] = useState(0);
   const [medium, setMedium] = useState(0);
   const [hard, setHard] = useState(0);
   const [total, setTotal] = useState(0);
   const [completeCount, setCompleteCount] = useState(0);
   const [pendingTaskCount, setPendingCount] = useState(0);
-
 
   useEffect(() => {
     getRoom();
@@ -68,40 +84,41 @@ export default function Profile(props) {
       .catch((err) => {
         console.log("error", err);
       });
+  };
 
-    axios.post("http://localhost:8080/task/task_count", {
+  axios
+    .post("http://localhost:8080/task/task_count", {
       id: roomId,
       username: username,
     }).then((res) => {
       //may have to change to UID if username changes are implemented
       setPendingCount(res.data[0]);
       setCompleteCount(res.data[3]);
+    });
+  //console.log(user_object);
+  axios
+    .post("http://localhost:8080/task/completed_tasks_personal", {
+      id: roomId,
+      UID: user_object._id,
     })
-    //console.log(user_object);
-    axios
-      .post("http://localhost:8080/task/completed_tasks_personal", {
-        id: roomId,
-        UID: user_object._id,
-      })
-      .then((res) => {
-        let points = 0;
-        let easyCount = 0;
-        let medCount = 0;
-        let hardCount = 0;
-        for (let i = 0; i < res.data.length; i++) {
-          let task = res.data[i];
-          if (task.status != "missed") {
-
-            points += task.points
-            if (task.difficulty == "Easy") {
-              easyCount += 1;
-            } else if (task.difficulty == "Medium") {
-              medCount += 1;
-            } else if (task.difficulty == "Hard") {
-              hardCount += 1;
-            }
+    .then((res) => {
+      let points = 0;
+      let easyCount = 0;
+      let medCount = 0;
+      let hardCount = 0;
+      for (let i = 0; i < res.data.length; i++) {
+        let task = res.data[i];
+        if (task.status != "missed") {
+          points += task.points;
+          if (task.difficulty == "Easy") {
+            easyCount += 1;
+          } else if (task.difficulty == "Medium") {
+            medCount += 1;
+          } else if (task.difficulty == "Hard") {
+            hardCount += 1;
           }
         }
+      }
         setEasy(easyCount);
         setMedium(medCount);
         setHard(hardCount);
@@ -337,14 +354,13 @@ export default function Profile(props) {
                   </div>
                   <div className="mt-10 py-4 border-t border-blueGray-200 text-center"></div>
                   <div className="mt-1">
-                    <textarea
-                      id="about"
-                      name="about"
+                    <p>{aboutMe}</p>
+                    {/* <p
                       rows={3}
-                      className="mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      placeholder="About me..."
-                      defaultValue={""}
-                    />
+                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    >
+                      {aboutMe}
+                    </p> */}
                   </div>
                 </div>
               </div>
@@ -355,4 +371,4 @@ export default function Profile(props) {
 
     </div>
   );
-}
+

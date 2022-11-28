@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
         aboutMe: user.aboutMe,
         password: user.password,
         pointsEarned: { yes: 0 },
+        aboutMe: { yes: "yes" },
       });
 
       await dbUser.save();
