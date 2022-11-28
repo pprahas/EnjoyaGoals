@@ -3,6 +3,8 @@ import "./Modal.css";
 import Imgs from "./Imgs";
 
 export const toBase64 = (image) => {
+
+
   fetch(image.src)
     .then((res) => res.blob())
     .then((blob) => {
@@ -14,7 +16,6 @@ export const toBase64 = (image) => {
 
         // Convert to Base64 string
         window.localStorage.setItem("ProfilePic", reader.result);
-
         // Logs wL2dvYWwgbW9yZ...
       };
       reader.readAsDataURL(blob);

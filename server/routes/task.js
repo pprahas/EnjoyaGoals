@@ -170,8 +170,8 @@ router.post("/task_count", async (req, res) => {
       const task = await Task.findById(complete_tasks_id[i]);
       if (task.status !== "missed") {
         completed_count += 1;
-        if(task.assignedUser===username){
-          completed_count_personal+=1;
+        if (task.assignedUser === username) {
+          completed_count_personal += 1;
         }
       }
     }
@@ -302,6 +302,7 @@ router.post("/pending_tasks/test_upload", async (req, res) => {
   }
 });
 
+
 router.post("/get_file", async (req, res) => {
   try {
     let all_data = []
@@ -321,8 +322,6 @@ router.post("/get_file", async (req, res) => {
     return res.status(400).json(error);
   }
 });
-
-
 
 router.post("/pending_tasks/upload", async (req, res) => {
   let task_id;

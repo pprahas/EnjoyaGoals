@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Profile(props) {
+
   const [aboutMe, setAboutMe] = useState("");
   var bg = window.localStorage.getItem("banner");
   const roomId = window.localStorage.getItem("currentRoom");
@@ -13,6 +14,9 @@ export default function Profile(props) {
   img.src = bg;
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
+  const [pfp, setpfp] = useState("");
+  const [background, setbg] = useState("");
+  const [color, setcolor] = useState("");
 
   // update user object *this is scuffed*
   axios
@@ -86,9 +90,7 @@ export default function Profile(props) {
     .post("http://localhost:8080/task/task_count", {
       id: roomId,
       username: username,
-    })
-    .then((res) => {
-      //may have to change to UID when username changes are implemented
+    }).then((res) => {
       setPendingCount(res.data[0]);
       setCompleteCount(res.data[3]);
     });
@@ -115,20 +117,51 @@ export default function Profile(props) {
             hardCount += 1;
           }
         }
-      }
-      setEasy(easyCount);
-      setMedium(medCount);
-      setHard(hardCount);
-      setTotal(points);
-    })
-    .catch((err) => {
+        setEasy(easyCount);
+        setMedium(medCount);
+        setHard(hardCount);
+        setTotal(points);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+    axios
+      .post("http://localhost:8080/user/get_profile_data", {
+        id: user_object._id,
+      })
+      .then((res) => {
+
+        console.log(res);
+        //set pfp
+        const fileType = res.data[0];
+        const imgData = res.data[1];
+        const toPFP = fileType + imgData;
+        setpfp(toPFP);
+
+        //set banner image
+        const bannFileType = res.data[2];
+        const bannImgData = res.data[3];
+        const tobanner = bannFileType + bannImgData;
+        var im = new Image();
+        im.src = tobanner
+        //console.log(im);
+        setbg(im);
+
+        //set color
+        setcolor(res.data[4]);
+
+      })
+      .catch((err) => {
+        // setMessage(err.response.data.message);
       console.log("error", err);
-    });
+      });
+  }
 
   console.log(`lvl = ${lvl}`);
 
   return (
-    <>
+
+    <div>
       <Header />
       {/* component */}
       <link
@@ -147,13 +180,14 @@ export default function Profile(props) {
             style={{
               /*backgroundImage:
             'url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80")',*/
-              backgroundImage: "url('" + img.src + "')",
+              backgroundImage: "url('" + background.src + "')",
             }}
           >
+            {/** 
             <span
               id="blackOverlay"
               className="w-full h-full absolute opacity-50 bg-black"
-            />
+            />*/}
           </div>
           <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
@@ -168,10 +202,7 @@ export default function Profile(props) {
               x={0}
               y={0}
             >
-              <polygon
-                className="text-blueGray-200 fill-current"
-                points="2560 0 2560 100 0 100"
-              />
+
             </svg>
           </div>
         </section>
@@ -180,7 +211,7 @@ export default function Profile(props) {
         <section
           className="relative py-16"
           style={{
-            backgroundColor: window.localStorage.getItem("Color"),
+            backgroundColor: color,
           }}
         >
           <div className="container mx-auto px-4">
@@ -191,7 +222,7 @@ export default function Profile(props) {
                     <div className="relative">
                       <img
                         alt="..."
-                        src={window.localStorage.getItem("ProfilePic")}
+                        src={pfp}
                         className="bg-white rounded-full  justify-center align-middle border-none absolute -mb-32 -m-14 mr-0 lg:-m-16 lg:-ml-16 max-w-150-px ring-4 ring-indigo-300"
                         style={{
                           width: "150px",
@@ -333,6 +364,7 @@ export default function Profile(props) {
           </div>
         </section>
       </main>
-    </>
+
+    </div>
   );
 }

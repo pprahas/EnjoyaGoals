@@ -64,6 +64,18 @@ const userSchema = mongoose.Schema(
       of: [{ type: mongoose.Schema.ObjectId, ref: "Task" }],
       required: false,
     },
+    pfp: {
+      type: mongoose.Schema.ObjectId,
+      required: false,
+    },
+    banner: {
+      type: mongoose.Schema.ObjectId,
+      required: false,
+    },
+    color: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );
