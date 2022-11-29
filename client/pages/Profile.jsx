@@ -117,6 +117,7 @@ export default function Profile(props) {
             hardCount += 1;
           }
         }
+      }
         setEasy(easyCount);
         setMedium(medCount);
         setHard(hardCount);
@@ -154,7 +155,8 @@ export default function Profile(props) {
     .catch((err) => {
       // setMessage(err.response.data.message);
       console.log("error", err);
-    });
+      });
+ 
 
   console.log(`lvl = ${lvl}`);
 

@@ -10,6 +10,7 @@ import Posts from "../components/Posts/Posts";
 import axios from "axios";
 import { useEffect } from "react";
 import MyCompleted from "../components/Tasks/List/Completed/MyCompleted";
+import VoteModal from "../components/VoteKick/VoteModal";
 
 const Homepage = (props) => {
   const [showCreate, setShowCreate] = useState(false);
@@ -29,7 +30,7 @@ const Homepage = (props) => {
 
   const roomId = window.localStorage.getItem("currentRoom");
   useEffect(() => {
-    console.log(teamList);
+    //console.log(teamList);
   }, [teamList]);
 
   const openVote = async(e) => {
@@ -129,7 +130,7 @@ const Homepage = (props) => {
         <div className="fixed right-0">
         <Header createNotif={props.createNotif}/>
 
-        <div className="relative mt-40 grid grid-cols-1 gap-24">
+        <div className="relative mt-40 grid grid-cols-1 gap-24 mr-8">
           <div className="col-span-6">
             <button
               className="absolute right-0 content-center text-4xl bg-purple-400 mr-36 p-3 w-56 text-white rounded-md"
@@ -202,17 +203,17 @@ const Homepage = (props) => {
 
           <div className="col-span-6">
             <button
-              className="font-bold absolute right-0 content-center text-4xl bg-red-600 mr-36 p-3 w-56 text-white rounded-md"
-              //onClick={}
+              className=" absolute right-0 content-center text-4xl bg-red-600 mr-36 p-3 w-56 text-white rounded-md"
+              onClick={openVote}
             >
               Call a vote
             </button>
 
-            <CompletedTasks
-              onClose={() => setShowCompleted(false)}
-              show={showCompleted}
-              data={completedList}
-              UID={user_object._id}
+            <VoteModal
+              onClose={() => setShowVote(false)}
+              show={showVote}
+              data={roomId}
+            
             />
           </div>
 

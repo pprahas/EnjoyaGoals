@@ -18,7 +18,6 @@ import Modal from "../components/Modal";
 import axios from "axios";
 import { unstable_HistoryRouter } from "react-router-dom";
 
-
 export default function Example() {
   let user_object = window.localStorage.getItem("user_data");
   let roomId = window.localStorage.getItem("currentRoom");
@@ -136,7 +135,6 @@ export default function Example() {
     }
     alert("Profile updated!");
   }
-
 
   const [aboutMe, setAboutMe] = useState("");
   const submitAboutMe = async (e) => {
