@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Profile(props) {
+
   const [aboutMe, setAboutMe] = useState("");
   var bg = window.localStorage.getItem("banner");
   const roomId = window.localStorage.getItem("currentRoom");
@@ -89,8 +90,7 @@ export default function Profile(props) {
     .post("http://localhost:8080/task/task_count", {
       id: roomId,
       username: username,
-    })
-    .then((res) => {
+    }).then((res) => {
       setPendingCount(res.data[0]);
       setCompleteCount(res.data[3]);
     });
@@ -122,45 +122,46 @@ export default function Profile(props) {
         setMedium(medCount);
         setHard(hardCount);
         setTotal(points);
-      }
-    })
-    .catch((err) => {
-      console.log("error", err);
-    });
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+    axios
+      .post("http://localhost:8080/user/get_profile_data", {
+        id: user_object._id,
+      })
+      .then((res) => {
 
-  axios
-    .post("http://localhost:8080/user/get_profile_data", {
-      id: user_object._id,
-    })
-    .then((res) => {
-      console.log(res);
-      //set pfp
-      const fileType = res.data[0];
-      const imgData = res.data[1];
-      const toPFP = fileType + imgData;
-      setpfp(toPFP);
+        console.log(res);
+        //set pfp
+        const fileType = res.data[0];
+        const imgData = res.data[1];
+        const toPFP = fileType + imgData;
+        setpfp(toPFP);
 
-      //set banner image
-      const bannFileType = res.data[2];
-      const bannImgData = res.data[3];
-      const tobanner = bannFileType + bannImgData;
-      var im = new Image();
-      im.src = tobanner;
-      //console.log(im);
-      setbg(im);
+        //set banner image
+        const bannFileType = res.data[2];
+        const bannImgData = res.data[3];
+        const tobanner = bannFileType + bannImgData;
+        var im = new Image();
+        im.src = tobanner
+        //console.log(im);
+        setbg(im);
 
-      //set color
-      setcolor(res.data[4]);
-    })
-    .catch((err) => {
-      // setMessage(err.response.data.message);
+        //set color
+        setcolor(res.data[4]);
+
+      })
+      .catch((err) => {
+        // setMessage(err.response.data.message);
       console.log("error", err);
       });
- 
+  
 
   console.log(`lvl = ${lvl}`);
 
   return (
+
     <div>
       <Header />
       {/* component */}
@@ -201,7 +202,9 @@ export default function Profile(props) {
               viewBox="0 0 2560 100"
               x={0}
               y={0}
-            ></svg>
+            >
+
+            </svg>
           </div>
         </section>
         {/** Color change here */}
@@ -362,6 +365,7 @@ export default function Profile(props) {
           </div>
         </section>
       </main>
+
     </div>
   );
 }

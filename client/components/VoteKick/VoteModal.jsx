@@ -11,8 +11,8 @@ const VoteModal = (props) => {
     const [userData, setUsers] = useState([]);
 
     const User = (props) => (
-        <button
-            className=" pb-2 w-full mt-2 mb-2 justify-center bg-white items-center text-white leading-none rounded-md flex lg:inline-flex"
+        <span
+            className="justify-center pb-2 w-full mt-2 mb-2 bg-white items-center text-white leading-none rounded-md flex "
         //role="alert"
         //onClick={() => setShow(true)}
         >
@@ -20,16 +20,17 @@ const VoteModal = (props) => {
                 {props.name}
             </span>
 
-            <span className="text-center font-semibold text-black text-left  flex-auto">
-            </span>
             
-            <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
-                yes
-            </span>
-            <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-12">
-                no
-            </span>
-        </button>
+            <button className="flex rounded-full bg-red-600 uppercase px-2 py-1 text-xs font-bold mr-3">
+                +
+            </button>
+            <button className="flex rounded-full  bg-green-600 uppercase px-2 py-1 text-m font-extrabold mr-4">
+                -
+            </button>
+            <button className="flex rounded-md text-gray-700 bg-white uppercase px-2 py-1 text-m font-medium mr-12 border border-gray-300">
+                0
+            </button>
+        </span>
 
         /*
         <div className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
@@ -80,10 +81,24 @@ const VoteModal = (props) => {
                         >
                             Choose someone to vote out.
                         </h4>
+                        <h5
+                            className="modal-title"
+                            class="text-center font-medium text-xl leading-4 text-gray-700 mb-4 mt-4 "
+                        >
+                            (+) = vote out, (-) = keep in
+                        </h5>
+                        <h6
+                            className="modal-title"
+                            class="text-center font-medium text-l leading-4 text-gray-700 mb-4 mt-4 "
+                        >
+                            X Votes to Kick
+                        </h6>
                     </div>
 
-                    <div className=" w-32 overflow-auto w-full w-20 flex flex-col bg-white text-white border-gray-100 border-t border-b">
+                    <div className=" w-32 overflow-auto w-full w-20 flex bg-white text-white border-gray-100 border-t border-b">
+                        <div className="modal-body">
                         {userData}
+                        </div>
                     </div>
                     <div className="modal-footer">
                         <button
