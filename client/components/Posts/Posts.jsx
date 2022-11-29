@@ -61,7 +61,6 @@ export default function Posts() {
       .then((res) => {
         let temp = [];
         for(let i=0; i<res.data.length; i++){
-          console.log(res.data[i]);
           let postData = res.data[i];
           temp.push(<MainPost 
             PID={postData._id}

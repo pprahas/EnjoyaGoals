@@ -10,7 +10,7 @@ import Posts from "../components/Posts/Posts";
 import axios from "axios";
 import { useEffect } from "react";
 import MyCompleted from "../components/Tasks/List/Completed/MyCompleted";
-import VoteModal from "../components/VoteKick/VoteModal";
+import SelectModal from "../components/VoteKick/SelectModal";
 
 const Homepage = (props) => {
   const [showCreate, setShowCreate] = useState(false);
@@ -35,9 +35,6 @@ const Homepage = (props) => {
 
   const openVote = async(e) => {
     setShowVote(true);
-    //axios to get room data
-    //open modal
-    //send room data over as props
   }
 
   const submitTeam = async (e) => {
@@ -209,7 +206,7 @@ const Homepage = (props) => {
               Call a vote
             </button>
 
-            <VoteModal
+            <SelectModal
               onClose={() => setShowVote(false)}
               show={showVote}
               data={roomId}

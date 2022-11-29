@@ -101,14 +101,7 @@ const VoteModal = (props) => {
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button
-                            className="button"
-                            onClick={props.onClose}
-                            class="ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-700 
-                        shadow-sm hover:bg-gray-50 focus:outline-none"
-                        >
-                            Confirm
-                        </button>
+         
                         <button
                             className="button"
                             onClick={props.onClose}
