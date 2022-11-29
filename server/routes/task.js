@@ -268,7 +268,6 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
-
 router.post("/pending_tasks/upload_null", async (req, res) => {
   try {
     let task_id = req.body.id;
@@ -285,27 +284,29 @@ router.post("/pending_tasks/test_upload", async (req, res) => {
   let file;
   let fileName;
   try {
-
     task_id = req.body.task_id;
     fileName = req.body.fileName;
     file = req.body.fileData;
     let binData = new Buffer(file.split(",")[1], "base64");
     let filetype = file.split(",")[0] + ",";
-    let img = new Buffer(binData, 'base64');
-    let res = await Image.create({ "name": fileName, "image": img, "filetype": filetype, "task_id": task_id, });
+    let img = new Buffer(binData, "base64");
+    let res = await Image.create({
+      name: fileName,
+      image: img,
+      filetype: filetype,
+      task_id: task_id,
+    });
     const task = await Task.findById(task_id);
     task.file = res._id;
     await task.save();
-
   } catch (error) {
     return res.status(400).json(error);
   }
 });
 
-
 router.post("/get_file", async (req, res) => {
   try {
-    let all_data = []
+    let all_data = [];
     const body = req.body.id;
     const task = await Task.findById(body);
     const img = await Image.findById(task.file);
@@ -314,8 +315,8 @@ router.post("/get_file", async (req, res) => {
     let data = img.image;
     all_data.push(name);
     all_data.push(filetype);
-    console.log(data.toString('base64'));
-    all_data.push(data.toString('base64'));
+    console.log(data.toString("base64"));
+    all_data.push(data.toString("base64"));
     return res.status(200).json(all_data);
     //    return res.status(200).json(JSON.parse(task.file));
   } catch (error) {
@@ -451,6 +452,8 @@ router.post("/pending_tasks/submit", async (req, res) => {
     room.assignedTasks.pull(task_id);
     room.completedTasks.push(task);
 
+    room.voteRemoveTaskFromCompleted.set(task_id, user.username + "!@#$" + "0");
+
     // give points to User
     // user = User
     // task = Task
@@ -503,7 +506,6 @@ router.post("/completed_tasks_personal", async (req, res) => {
       const task = await Task.findById(completed_tasks_id[i]);
       //console.log(task.completedBy)
       if (task.completedBy === userID) {
-
         completed_tasks.push(task);
       }
     }
