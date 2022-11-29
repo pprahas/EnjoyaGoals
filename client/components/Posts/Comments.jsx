@@ -8,16 +8,14 @@ const Comments = (props) => {
             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
             alt="Jese Leos avatar"
           />
-          <span class="font-medium dark:text-white">Firstname Lastname</span>
+          <span class="font-medium dark:text-white">{props.firstName} {" "} {props.lastName}</span>
           <span className="font-medium dark:text-white ml-10">
-            ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ11/22/2001
+            ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ{props.datePosted}
           </span>
         </div>
       </div>
       <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
-        Static websites are now used to bootstrap lots of websites and are
-        becoming the basis for a variety of tools that even influence both web
-        designers and developers influence both web designers and developers.
+        {props.content}
       </p>
     </div>
   );

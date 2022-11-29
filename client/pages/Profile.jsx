@@ -156,7 +156,7 @@ export default function Profile(props) {
         // setMessage(err.response.data.message);
       console.log("error", err);
       });
-  }
+  
 
   console.log(`lvl = ${lvl}`);
 
@@ -368,4 +368,4 @@ export default function Profile(props) {
 
     </div>
   );
-
+}
