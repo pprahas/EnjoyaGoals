@@ -10,7 +10,7 @@ import Posts from "../components/Posts/Posts";
 import axios from "axios";
 import { useEffect } from "react";
 import MyCompleted from "../components/Tasks/List/Completed/MyCompleted";
-import VoteModal from "../components/VoteKick/VoteModal";
+import SelectModal from "../components/VoteKick/SelectModal";
 
 const Homepage = (props) => {
   const [showCreate, setShowCreate] = useState(false);
@@ -18,7 +18,7 @@ const Homepage = (props) => {
   const [showCompleted, setShowCompleted] = useState(false);
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
-  const [showVote, setShowVote] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
   let list = [];
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
@@ -34,10 +34,7 @@ const Homepage = (props) => {
   }, [teamList]);
 
   const openVote = async(e) => {
-    setShowVote(true);
-    //axios to get room data
-    //open modal
-    //send room data over as props
+    setShowSelect(true);
   }
 
   const submitTeam = async (e) => {
@@ -209,9 +206,9 @@ const Homepage = (props) => {
               Call a vote
             </button>
 
-            <VoteModal
-              onClose={() => setShowVote(false)}
-              show={showVote}
+            <SelectModal
+              onClose={() => setShowSelect(false)}
+              show={showSelect}
               data={roomId}
             
             />

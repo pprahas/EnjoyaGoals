@@ -2,18 +2,36 @@ import React from "react";
 import { useEffect, useState } from "react";
 import "./VoteModal.css";
 import axios from "axios";
+import Tasks from "../Tasks/CompletedTask/CompletedTask";
+import Missed from "../Tasks/MissedTask/Missed";
 
-
-const VoteModal = (props) => {
+const CompleteTaskVote = (props) => {
     if (!props.show) {
         return null;
     }
-
-    const [userDivs, setUserDivs] = useState([]);
     const [userData, setUsers] = useState([]);
-    const [userIDs, setUserIDs] = useState([]);
+    const [completedTasks, setcompletedList] = useState([]);
+    const [displayTasks, setDisplayedTasks] = useState([]);
+    const submitCompleted = async (e) => {
+        setShowCompleted(true);
+        e.preventDefault();
+        let completed_list = [];
+        axios
+            .post("http://localhost:8080/task/completed_tasks", {
+                id: roomId,
+            })
+            .then((res) => {
+                completed_list = res.data;
+                setcompletedList(completed_list);
+                console.log("working", res.data);
+            })
+            .catch((err) => {
+                console.log("error", err);
+            });
+    };
 
-    const User = (props) => (
+
+    const Task = (props) => (
         <span
             className="justify-center pb-2 w-full mt-2 mb-2 bg-white items-center text-white leading-none rounded-md flex "
         //role="alert"
@@ -34,42 +52,9 @@ const VoteModal = (props) => {
                 0
             </button>
         </span>
-
-        /*
-        <div className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
-            <div className="col-span-6 ml-6 text-gray-700 flex flex-row mr-4">
-                <p>{props.name}</p>
-                <button type="button" className="ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm  leading-4 text-gray-700 
-                        shadow-sm hover:bg-gray-50 focus:outline-none">Kick</button>
-                <p>0</p>
-                <button type="button" className="ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm  leading-4 text-gray-700 
-                        shadow-sm hover:bg-gray-50 focus:outline-none">Don't Kick</button>
-                <p>0</p>
-            </div>
-        </div>*/
     );
-
+    /*
     const getUsers = async () => {
-        const roomID = props.data;
-        /*
-        axios
-            .post("http://localhost:8080/room/get", {
-                id: roomID,
-            })
-            .then((res) => {
-                let uidArr = [];
-                for (let i = 0; i < res.data.users.length; i++) {
-                    let uid = res.data.users[i];
-                    uidArr.push(uid);
-                }
-                setUserIDs(uidArr);
-
-            })
-            .catch((err) => {
-                console.log("error", err);
-            });*/
-
-        
         axios
             .post("http://localhost:8080/user/getRoomUsers", {
                 id: props.data,
@@ -80,8 +65,7 @@ const VoteModal = (props) => {
                 for (let i = 0; i < res.data.length; i++) {
                     let data = res.data[i];
                     let name = data.name;
-                    console.log(res.data[i]);
-                    users.push(<User name={name} />);
+                    users.push(<Task name={name} />);
                 }
                 setUsers(users);
                 console.log(userData);
@@ -89,10 +73,9 @@ const VoteModal = (props) => {
             .catch((err) => {
                 console.log("error", err);
             });
-    };
+    };*/
     useEffect(() => {
-        getUsers();
-
+        submitCompleted;
     }, []);
     return (
         <div className="overlay" class="fixed pin z-50 overflow-auto flex">
@@ -103,7 +86,7 @@ const VoteModal = (props) => {
                             className="modal-title"
                             class="text-center font-medium text-2xl leading-4 text-gray-700 mb-4 mt-4 "
                         >
-                            Choose someone to vote out.
+                            Choose a task to remove from the List.
                         </h4>
                         <h5
                             className="modal-title"
@@ -115,13 +98,13 @@ const VoteModal = (props) => {
                             className="modal-title"
                             class="text-center font-medium text-l leading-4 text-gray-700 mb-4 mt-4 "
                         >
-                            X Votes to Kick
+                            X Votes to Remove
                         </h6>
                     </div>
 
                     <div className=" items-center justify-center w-32 overflow-auto w-full w-20 flex bg-white text-white border-gray-100 border-t border-b">
                         <div className="modal-body">
-                            {userData}
+                            {displayTasks}
                         </div>
                     </div>
                     <div className="modal-footer">
@@ -141,4 +124,4 @@ const VoteModal = (props) => {
     );
 };
 
-export default VoteModal;
+export default CompleteTaskVote;

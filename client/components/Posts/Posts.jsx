@@ -59,8 +59,7 @@ export default function Posts() {
       })
       .then((res) => {
         let temp = [];
-        for (let i = 0; i < res.data.length; i++) {
-          console.log(res.data[i]);
+        for(let i=0; i<res.data.length; i++){
           let postData = res.data[i];
           temp.push(
             <MainPost
@@ -87,7 +86,13 @@ export default function Posts() {
         <div class="">
           <section class="inset-0 bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-full lg:py-16 lg:px-6">
-              <div class="mb-4 font-bold text-gray-900 text-3xl">Posts</div>
+              
+              <div class="mb-4 font-bold text-gray-900 text-3xl">
+                Posts
+                </div>
+                <span class="font-medium text-2xl text-gray-600 dark:text-white">
+                  {user_object.firstName} {user_object.lastName}
+                </span>
               <div class="flex-grow border-t border-gray-200"></div>
 
               <div class="flex items-center space-x-4 mb-4 mt-2">
@@ -96,9 +101,7 @@ export default function Posts() {
                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                   alt="Jese Leos avatar"
                 /> */}
-                <span class="font-medium text-gray-500 dark:text-white">
-                  {user_object.firstName} {user_object.lastName}
-                </span>
+ 
               </div>
               <span class="font-medium text-gray-500 dark:text-white">
                 Post Title
