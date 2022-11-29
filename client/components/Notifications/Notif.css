@@ -1,0 +1,121 @@
+.notification-container {
+	font-size: 14px;
+	box-sizing: border-box;
+	position: fixed;
+	z-index: 99;
+}
+
+.notification-container button {
+	float: right;
+	font-weight: 700;
+	color: rgb(255, 255, 255);
+	outline: none;
+	border: none;
+	opacity: .8;
+	line-height: 1;
+	font-size: 16px;
+	padding: 0;
+	cursor: pointer;
+	background: 0 0;
+	border: 0;
+}
+
+.bottom-right {
+	bottom: 20px;
+	right: 20px;
+	transition: transform .3s ease-in-out;
+	animation: notif-in-right .3s;
+}
+
+.notification {
+	background: rgb(64, 122, 232);
+	transition: .3s ease;
+	/* position: relative; */
+	pointer-events: auto;
+	overflow: hidden;
+	margin: 0 0 6px;
+	padding: 0px;
+	margin-bottom: 15px;
+	width: 300px;
+	max-height: 100px;
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 0 10px #999;
+	color: #000;
+	opacity: .95;
+	background-position: 15px;
+	background-repeat: no-repeat;
+	/* z-index: 99; */
+}
+
+.info {
+	background: rgb(64, 122, 232);
+}
+
+.success {
+	background: rgb(32, 187, 94);
+}
+
+.warning {
+	background: rgb(181, 38, 38);
+}
+
+.notification:hover {
+	box-shadow: 0 0 12px #fff;
+	opacity: 1;
+	cursor: pointer
+}
+
+.notification-title {
+	font-weight: 700;
+	font-size: 16px;
+	text-align: left;
+	margin-top: 0;
+	margin-bottom: 6px;
+    /* width: 300px; */
+	/* min-width: 200px;
+	width: fit-content;
+	max-width: 300px; */
+    height: 18px;
+}
+
+.notification-message {
+	margin: 0;
+	font-weight: 500;
+	text-align: left;
+    min-height: 18px;
+	word-wrap: break-word;
+    /* margin-left: -1px; */
+	/* overflow: scroll; */
+}
+
+.notification-image {
+    float: left;
+    margin-right: 15px;
+	margin-top: 5px;
+	margin-left: 2px;
+}
+
+.notification-image img {
+    width: 30px;
+    height: 30px;
+}
+
+.notif {
+    min-height: 50px;
+	height: fit-content;
+	max-height: 100px;
+	width: 365px;
+	color: rgb(255, 255, 255);
+	padding: 0px 10px 5px 5px;
+	z-index: 99;
+}
+
+@keyframes notif-in-right {
+	from {
+	  transform: translateX(100%);
+	  
+	}
+	to {
+	  transform: translateX(0);
+	}
+}
