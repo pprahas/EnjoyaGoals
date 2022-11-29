@@ -54,6 +54,9 @@ app.use("/room", roomRoutes);
 const userRoutes = require("./routes/user");
 app.use("/user", userRoutes);
 
+const votingSystemRoutes = require("./routes/voting_system");
+app.use("/vote", votingSystemRoutes);
+
 const progressBarRoutes = require("./routes/progress_bar");
 app.use("/progress_bar", progressBarRoutes);
 
