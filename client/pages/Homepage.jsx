@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import MyCompleted from "../components/Tasks/List/Completed/MyCompleted";
 import VoteModal from "../components/VoteKick/VoteModal";
 
-export default function Homepage() {
+const Homepage = (props) => {
   const [showCreate, setShowCreate] = useState(false);
   const [showMine, setShowMine] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
@@ -41,6 +41,7 @@ export default function Homepage() {
   }
 
   const submitTeam = async (e) => {
+    props.createNotif("info", "Information", "This is a test from homepage");
     setShowAll(true);
     let list_2 = [];
     e.preventDefault();
@@ -53,6 +54,7 @@ export default function Homepage() {
         // console.log("frontend sends:", res.data);
         list_2 = res.data;
         setteamList(list_2);
+        console.log(`notifs = ${notifs}`);
         // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
         // console.log("its here", teamList);
       })
@@ -126,7 +128,7 @@ export default function Homepage() {
         </div>
         {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
         <div className="fixed right-0">
-        <Header/>
+        <Header createNotif={props.createNotif}/>
 
         <div className="relative mt-40 grid grid-cols-1 gap-24 mr-8">
           <div className="col-span-6">
@@ -227,8 +229,10 @@ export default function Homepage() {
         </div>
       </div>
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
-      <Sidebar />
-      <Leaderboard />
+      <Sidebar createNotif={props.createNotif}/>
+      <Leaderboard createNotif={props.createNotif}/>
     </div>
   );
-}
+};
+
+export default Homepage;
