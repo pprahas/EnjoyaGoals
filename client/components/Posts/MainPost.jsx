@@ -26,7 +26,7 @@ const MainPost = (props) => {
                 // setMessage(err.response.data.message);
                 console.log("error", err);
             });
-        //window.location.reload();
+        window.location.reload();
     };
 
     useEffect(() => {
