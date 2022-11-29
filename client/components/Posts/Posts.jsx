@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import "./Posts.css";
 
 export default function Posts() {
-
   const [postBody, setPostBody] = useState(" ");
   const [title, setTitle] = useState(" ");
   const [posts, setPosts] = useState([]);
@@ -46,7 +45,7 @@ export default function Posts() {
         // setMessage(err.response.data.message);
         console.log("error", err);
       });
-      window.location.reload();
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -60,18 +59,20 @@ export default function Posts() {
       })
       .then((res) => {
         let temp = [];
-        for(let i=0; i<res.data.length; i++){
+        for (let i = 0; i < res.data.length; i++) {
           console.log(res.data[i]);
           let postData = res.data[i];
-          temp.push(<MainPost 
-            PID={postData._id}
-            title={postData.title}
-            content={postData.content}
-            firstName={postData.firstName}
-            lastName={postData.lastName}
-            datePosted={postData.datePosted.slice(0,10)}
-            UID={UID}
-          />)
+          temp.push(
+            <MainPost
+              PID={postData._id}
+              title={postData.title}
+              content={postData.content}
+              firstName={postData.firstName}
+              lastName={postData.lastName}
+              datePosted={postData.datePosted.slice(0, 10)}
+              UID={UID}
+            />
+          );
         }
         setPosts(temp);
       })
@@ -80,26 +81,23 @@ export default function Posts() {
       });
   };
 
-
   return (
     <section className="w-auto bg-white dark:bg-gray-900 ml-32">
       <div class="contain">
         <div class="">
           <section class="inset-0 bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-full lg:py-16 lg:px-6">
-              <div class="mb-4 font-bold text-gray-900 text-3xl">
-                Posts
-              </div>
+              <div class="mb-4 font-bold text-gray-900 text-3xl">Posts</div>
               <div class="flex-grow border-t border-gray-200"></div>
 
               <div class="flex items-center space-x-4 mb-4 mt-2">
-                <img
+                {/* <img
                   class="w-7 h-7 rounded-full"
                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                   alt="Jese Leos avatar"
-                />
+                /> */}
                 <span class="font-medium text-gray-500 dark:text-white">
-                  Firstname Lastname
+                  {user_object.firstName} {user_object.lastName}
                 </span>
               </div>
               <span class="font-medium text-gray-500 dark:text-white">
@@ -134,9 +132,7 @@ export default function Posts() {
               >
                 Create a new Post
               </button>
-              <div class="">
-                {posts}
-              </div>
+              <div class="">{posts}</div>
             </div>
           </section>
         </div>
