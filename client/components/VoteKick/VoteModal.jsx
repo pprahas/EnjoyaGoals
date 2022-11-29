@@ -8,7 +8,10 @@ const VoteModal = (props) => {
     if (!props.show) {
         return null;
     }
+
+    const [userDivs, setUserDivs] = useState([]);
     const [userData, setUsers] = useState([]);
+    const [userIDs, setUserIDs] = useState([]);
 
     const User = (props) => (
         <span
@@ -20,7 +23,7 @@ const VoteModal = (props) => {
                 {props.name}
             </span>
 
-            
+
             <button className="flex rounded-full bg-red-600 uppercase px-2 py-1 text-xs font-bold mr-3">
                 +
             </button>
@@ -47,6 +50,26 @@ const VoteModal = (props) => {
     );
 
     const getUsers = async () => {
+        const roomID = props.data;
+        /*
+        axios
+            .post("http://localhost:8080/room/get", {
+                id: roomID,
+            })
+            .then((res) => {
+                let uidArr = [];
+                for (let i = 0; i < res.data.users.length; i++) {
+                    let uid = res.data.users[i];
+                    uidArr.push(uid);
+                }
+                setUserIDs(uidArr);
+
+            })
+            .catch((err) => {
+                console.log("error", err);
+            });*/
+
+        
         axios
             .post("http://localhost:8080/user/getRoomUsers", {
                 id: props.data,
@@ -57,6 +80,7 @@ const VoteModal = (props) => {
                 for (let i = 0; i < res.data.length; i++) {
                     let data = res.data[i];
                     let name = data.name;
+                    console.log(res.data[i]);
                     users.push(<User name={name} />);
                 }
                 setUsers(users);
@@ -95,13 +119,13 @@ const VoteModal = (props) => {
                         </h6>
                     </div>
 
-                    <div className=" w-32 overflow-auto w-full w-20 flex bg-white text-white border-gray-100 border-t border-b">
+                    <div className=" items-center justify-center w-32 overflow-auto w-full w-20 flex bg-white text-white border-gray-100 border-t border-b">
                         <div className="modal-body">
-                        {userData}
+                            {userData}
                         </div>
                     </div>
                     <div className="modal-footer">
-         
+
                         <button
                             className="button"
                             onClick={props.onClose}

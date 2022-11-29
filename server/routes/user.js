@@ -201,6 +201,7 @@ router.post("/getRoomUsers", async (req, res) => {
   }
 });
 
+
 router.post("/pic_upload", async (req, res) => {
   let user_id;
   let file;
@@ -282,6 +283,22 @@ router.post("/get_profile_data", async (req, res) => {
       all_data.push("")
     }
     return res.status(200).json(all_data);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/get_uNames", async (req, res) => {
+  try {
+    let data = []
+    let UIDs = req.body.UIDs;
+    console.log(UIDs)
+    for(let i=0; i<UIDs.length; i++){
+      let UID = UIDs[i];
+      const user = await User.findById(UID);
+      data.push(user.username);
+    }
+    return res.status(200).json(data);
   } catch (error) {
     return res.status(400).json(error);
   }

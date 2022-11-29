@@ -18,7 +18,7 @@ const Homepage = (props) => {
   const [showCompleted, setShowCompleted] = useState(false);
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
-  const [showVote, setShowVote] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
   let list = [];
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
@@ -34,7 +34,7 @@ const Homepage = (props) => {
   }, [teamList]);
 
   const openVote = async(e) => {
-    setShowVote(true);
+    setShowSelect(true);
   }
 
   const submitTeam = async (e) => {
@@ -207,8 +207,8 @@ const Homepage = (props) => {
             </button>
 
             <SelectModal
-              onClose={() => setShowVote(false)}
-              show={showVote}
+              onClose={() => setShowSelect(false)}
+              show={showSelect}
               data={roomId}
             
             />
