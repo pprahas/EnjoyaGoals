@@ -8,51 +8,81 @@ const PendingTaskVote = (props) => {
     if (!props.show) {
         return null;
     }
-    const [userData, setUsers] = useState([]);
-
-    const User = (props) => (
-        <span
-            className="justify-center pb-2 w-full mt-2 mb-2 bg-white items-center text-white leading-none rounded-md flex "
-        >
-            <span className="ml-12 w-24 text-center rounded-md bg-indigo-300 uppercase px-2 py-1 text-xs font-bold mr-3">
-                {props.name}
-            </span>
-            <button className="flex rounded-full bg-red-600 uppercase px-2 py-1 text-xs font-bold mr-3">
-                +
-            </button>
-            <button className="flex rounded-full  bg-green-600 uppercase px-2 py-1 text-m font-extrabold mr-4">
-                -
-            </button>
-            <button className="flex rounded-md text-gray-700 bg-white uppercase px-2 py-1 text-m font-medium mr-12 border border-gray-300">
-                0
-            </button>
+    const [displayTasks, setDisplayedTasks] = useState([]);
+    
+    const Task = (props) => (
+        <span className="justify-center pb-2 w-full mt-2 mb-2 bg-white items-center text-white leading-none rounded-md flex ">
+        <span className="ml-12 w-24 text-center rounded-md bg-indigo-300 uppercase px-2 py-1 text-xs font-bold mr-3">
+          {props.name}
         </span>
+  
+        <button
+          className="flex rounded-full bg-red-600 uppercase px-2 py-1 text-xs font-bold mr-3"
+          onClick={() => {
+            updateVotes(props.ID, true);
+          }}
+        >
+          +
+        </button>
+        <button
+          className="flex rounded-full  bg-green-600 uppercase px-2 py-1 text-m font-extrabold mr-4"
+          onClick={() => {
+            updateVotes(props.ID, false);
+          }}
+        >
+          -
+        </button>
+        <button className="flex rounded-md text-gray-700 bg-white uppercase px-2 py-1 text-m font-medium mr-12 border border-gray-300">
+          {props.votes}
+        </button>
+      </span>
     );
 
-    const getUsers = async () => {
+    const updateVotes = async (ID, action) => {
+        let roomId = props.data;
+        console.log(ID, action);
+        
         axios
-            .post("http://localhost:8080/user/getRoomUsers", {
-                id: props.data,
-            })
-            .then((res) => {
-                let users = [];
-
-                for (let i = 0; i < res.data.length; i++) {
-                    let data = res.data[i];
-                    let name = data.name;
-                    users.push(<User name={name} />);
-                }
-                setUsers(users);
-                console.log(userData);
-            })
-            .catch((err) => {
-                console.log("error", err);
-            });
-    };
-    useEffect(() => {
-        getUsers();
-
-    }, []);
+          .post("http://localhost:8080/vote/kick/pending_tasks", {
+            roomId: roomId,
+            taskId: ID,
+            action: action,
+          })
+          .then((res) => {
+            console.log(res);
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log("error", err);
+            window.location.reload();
+          });
+      };
+    
+    const getTasks = async () => {
+        axios
+          .post("http://localhost:8080/vote/show/pending_tasks", {
+            roomId: props.data,
+          })
+          .then((res) => {
+            let tasks = [];            
+            for (const [key, value] of Object.entries(res.data)) {
+                //console.log(key, value);
+                let ID = key;
+                let name = value.split("!@#$")[0];
+                let votes = value.split("!@#$")[1];
+           //   if (user_object._id != UID) {
+                tasks.push(<Task name={name} ID={ID} votes={votes} />);
+          //    }
+            }
+            setDisplayedTasks(tasks);
+          })
+          .catch((err) => {
+            console.log("error", err);
+          });
+      };
+      useEffect(() => {
+        getTasks();
+      }, []);
     return (
         <div className="overlay" class="fixed pin z-50 overflow-auto flex">
             <div className="modal" onClick={props.onClose}>
@@ -80,7 +110,7 @@ const PendingTaskVote = (props) => {
 
                     <div className=" items-center justify-center w-32 overflow-auto w-full w-20 flex bg-white text-white border-gray-100 border-t border-b">
                         <div className="modal-body">
-                        {userData}
+                        {displayTasks}
                         </div>
                     </div>
                     <div className="modal-footer">

@@ -34,6 +34,7 @@ router.post("/create", async (req, res) => {
         completedTasks: room.compeletedTasks, // optional; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e32a", "6341946d6dab0e7432acd82e"])
         voteKickMember: { yes: "0" },
         voteRemoveTaskFromCompleted: { yes: "0" },
+        voteRemoveUserFromPending: { yes: "0" },
       },
       { timestamps: true }
     );

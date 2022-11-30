@@ -56,7 +56,7 @@ const roomSchema = mongoose.Schema(
     },
     voteRemoveUserFromPending: {
       type: Map,
-      of: Number,
+      of: String,
       required: false,
     },
   },
