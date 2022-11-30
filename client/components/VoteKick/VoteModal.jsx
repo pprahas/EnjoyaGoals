@@ -5,6 +5,9 @@ import axios from "axios";
 //vote to kick any members of the room
 
 const VoteModal = (props) => {
+  let user_object = window.localStorage.getItem("user_data");
+  user_object = JSON.parse(user_object);
+
   if (!props.show) {
     return null;
   }
@@ -70,7 +73,9 @@ const VoteModal = (props) => {
           let UID = key;
           let name = value.split("!@#$")[0];
           let votes = value.split("!@#$")[1];
-          users.push(<User name={name} UID={UID} votes={votes} />);
+          if (user_object._id != UID) {
+            users.push(<User name={name} UID={UID} votes={votes} />);
+          }
         }
         setUsers(users);
       })
