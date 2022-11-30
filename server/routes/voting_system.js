@@ -57,14 +57,14 @@ router.post("/kick/team_member", async (req, res) => {
     console.log(currentVotes);
     voteMap.set(userId, user.username + "!@#$" + currentVotes.toString());
 
-    //if the member is being kicked
-    // if (currentVotes == usersNum - 1) {
-    //   room.users.pull(userId);
-    //   // user.rooms.pull(roomId);
-    //   return res.status(200).send({ msg: "The user got kicked." });
-    // }
-
     await room.save();
+    //if the member is being kicked
+    if (currentVotes == usersNum - 1) {
+      // room.users.pull(userId);
+      // user.rooms.pull(roomId);
+      return res.status(201).send({ msg: "The user got kicked." });
+    }
+
     // await user.save();
 
     return res
