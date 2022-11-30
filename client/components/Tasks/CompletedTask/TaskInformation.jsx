@@ -64,7 +64,7 @@ const TaskInformation = (props) => {
               Close
             </button>{" "}
           </div>
-          <div className="info overflow-y-auto">
+          <div className="info bg-white">
             <p>Description: {props.desc} </p>
             <p>Difficulty: {props.difficulty}</p>
             <p>Deadline: {props.date}</p>

@@ -9,7 +9,7 @@ const PendingTaskVote = (props) => {
         return null;
     }
     const [displayTasks, setDisplayedTasks] = useState([]);
-
+    
     const Task = (props) => (
         <span className="justify-center pb-2 w-full mt-2 mb-2 bg-white items-center text-white leading-none rounded-md flex ">
         <span className="ml-12 w-24 text-center rounded-md bg-indigo-300 uppercase px-2 py-1 text-xs font-bold mr-3">

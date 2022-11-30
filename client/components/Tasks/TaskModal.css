@@ -17,6 +17,8 @@
 }
 
 .info {
+  overflow-y: auto;
+  background-color: #fff;
   padding-top: 110px;
   margin-bottom: 50px;
 }
