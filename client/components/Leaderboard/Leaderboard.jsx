@@ -2,15 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Sidebar = () => {
-  const Side = [
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-    <OtherMembers rank="4" />,
-  ];
 
   const roomId = window.localStorage.getItem("currentRoom");
   const user_object = JSON.parse(window.localStorage.getItem("user_data"));
@@ -22,16 +13,38 @@ const Sidebar = () => {
   const eachUser = users.map((d) => {
     const username = Object.values(d)[0];
     const points = Object.values(d)[1];
-
+    
     const level = Math.floor(points / 100) + 1;
 
     const line = points + " " + username;
 
-    console.log("username and level", username, level);
+    //console.log("username and level", username, level);
     if (current_username === username) {
-      return <You name={line} rank={(count += 1)} />;
+      let data = [];
+      axios
+      .post("http://localhost:8080/user/get", {
+        name: username,
+      })
+      .then((res) => {
+        data.push(res.data[0]);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+      return <You name={line} rank={(count += 1)} data={data} />;
     } else {
-      return <OtherMembers name={line} rank={(count += 1)} />;
+      let data = [];
+      axios
+      .post("http://localhost:8080/user/get", {
+        name: username,
+      })
+      .then((res) => {
+        data.push(res.data[0]);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+      return <OtherMembers name={line} rank={(count += 1)} data={data}/>;
     }
   });
 
@@ -86,33 +99,26 @@ const Sidebar = () => {
   );
 };
 
-const FirstThreeMembers = (props) => (
-  <div className="h-8 w-16 right-0 mt-4 mb-12 mr-4">
-    <div className="flex flex-row mr-4">
-      <p className="ml-3 mt-3 mr-6 ml-6">{props.rank}</p>
-      <img src="/pfp - LightMode.png" alt="" className="ml-2" />
-    </div>
-    <p className="ml-16 mt-1 ">Name</p>
-  </div>
-);
+
+
 const You = (props) => (
-  <div className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
+  <a href="/profile" onClick={()=>window.localStorage.setItem("other_user_data", JSON.stringify(props.data[0]))} className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
     <div className="bg-red-500 flex flex-row mr-4">
       <p className="ml-3 mt-3 mr-6 ml-6">{props.rank}</p>
       <p className="ml-2 mt-3">{props.name}</p>
       {/* <img src="/pfp - LightMode.png" alt="" className="ml-2" /> */}
     </div>
-  </div>
+  </a>
 );
 
 const OtherMembers = (props) => (
-  <div className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
+  <a href="/profile" onClick={()=>window.localStorage.setItem("other_user_data", JSON.stringify(props.data[0]))} className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
     <div className="flex flex-row mr-4">
       <p className="ml-3 mt-3 mr-6 ml-6">{props.rank}</p>
       <p className="ml-2 mt-3">{props.name}</p>
       {/* <img src="/pfp - LightMode.png" alt="" className="ml-2" /> */}
     </div>
-  </div>
+  </a>
 );
 
 export default Sidebar;
