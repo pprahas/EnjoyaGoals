@@ -21,11 +21,13 @@ const MainPost = (props) => {
         postId: props.PID,
       })
       .then((res) => {
+        props.createNotif("success", "Success!", "Comment created.");
         console.log("testing", res);
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         // setMessage(err.response.data.message);
+        props.createNotif("error", "Error!", "Comment not created.");
         console.log("error", err);
       });
   };

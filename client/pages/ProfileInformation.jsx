@@ -18,7 +18,7 @@ import Modal from "../components/Modal";
 import axios from "axios";
 import { unstable_HistoryRouter } from "react-router-dom";
 
-export default function Example() {
+export default function Example(props) {
   let user_object = window.localStorage.getItem("user_data");
   let roomId = window.localStorage.getItem("currentRoom");
   user_object = JSON.parse(user_object);
@@ -86,7 +86,7 @@ export default function Example() {
     let banner = window.localStorage.getItem("banner");
     let color = window.localStorage.getItem("Color");
 
-    if(pfp !== null){
+    if (pfp !== null) {
       let name = "pfp";
       axios
         .post("http://localhost:8080/user/pic_upload", {
@@ -101,9 +101,8 @@ export default function Example() {
           // setMessage(err.response.data.message);
           console.log("error", err);
         });
-
     }
-    if(banner !== null){
+    if (banner !== null) {
       let name = "banner";
       axios
         .post("http://localhost:8080/user/pic_upload", {
@@ -119,7 +118,7 @@ export default function Example() {
           console.log("error", err);
         });
     }
-    if(color !== null){
+    if (color !== null) {
       axios
         .post("http://localhost:8080/user/set_color", {
           user_id: UID,
@@ -134,7 +133,7 @@ export default function Example() {
         });
     }
     alert("Profile updated!");
-  }
+  };
 
   const [aboutMe, setAboutMe] = useState("");
   const submitAboutMe = async (e) => {
@@ -148,10 +147,10 @@ export default function Example() {
         aboutMe,
       })
       .then((res) => {
-        alert("About Me information has been changed.");
+        props.createNotif("success", "Success!", "About Me has been changed.");
       })
       .catch((err) => {
-        alert("About Me information has not been changed.");
+        props.createNotif("error", "Error!", "About Me has not been changed.");
       });
   };
 
@@ -182,10 +181,20 @@ export default function Example() {
         firstName,
       })
       .then((res) => {
-        alert("First name has been changed.");
+        // alert("First name has been changed.");
+        props.createNotif(
+          "success",
+          "Success!",
+          "First name has been changed.."
+        );
       })
       .catch((err) => {
-        alert("First name has not been changed.");
+        props.createNotif(
+          "error",
+          "Error!",
+          "First name has not been changed.."
+        );
+        // alert("First name has not been changed.");
       });
   };
 
@@ -457,13 +466,15 @@ export default function Example() {
                     </div>
                   </div>
                   */}
-                  <div >
+                  <div>
                     <label className="block text-sm font-medium text-gray-700">
                       Banner
                     </label>
-                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6" 
-                    //set bg
-                    style = {{backgroundImage: "url('" + banner + "')"}}>
+                    <div
+                      className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
+                      //set bg
+                      style={{ backgroundImage: "url('" + banner + "')" }}
+                    >
                       <div className="space-y-1 text-center">
                         <svg
                           className="mx-auto h-12 w-12 text-gray-400"

@@ -5,14 +5,14 @@ import { FaFire } from "react-icons/fa";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const [showCreateRoom, setShowCreateRoom] = useState(false);
   const [showJoinRoom, setShowJoinRoom] = useState(false);
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
   window.localStorage.setItem("user_data", JSON.stringify(user_object));
   let userRooms = user_object.rooms;
-  let eachRoom=[];
+  let eachRoom = [];
   for (let i = 0; i < userRooms.length; i++) {
     let room = userRooms[i];
     const posts = room.posts;
@@ -29,7 +29,7 @@ const Sidebar = () => {
         <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
       </button>
     );
-  };
+  }
   /*
   const eachRoom = userRooms.map((d) => {
     const roomName = Object.values(d)[1];
