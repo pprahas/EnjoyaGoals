@@ -2,89 +2,74 @@ import React from "react";
 import { useEffect, useState } from "react";
 import "./VoteModal.css";
 import axios from "axios";
-
+//vote to kick any members of the room
 
 const VoteModal = (props) => {
     if (!props.show) {
         return null;
     }
 
-    const [userDivs, setUserDivs] = useState([]);
     const [userData, setUsers] = useState([]);
-    const [userIDs, setUserIDs] = useState([]);
 
     const User = (props) => (
         <span
             className="justify-center pb-2 w-full mt-2 mb-2 bg-white items-center text-white leading-none rounded-md flex "
-        //role="alert"
-        //onClick={() => setShow(true)}
         >
             <span className="ml-12 w-24 text-center rounded-md bg-indigo-300 uppercase px-2 py-1 text-xs font-bold mr-3">
                 {props.name}
             </span>
 
 
-            <button className="flex rounded-full bg-red-600 uppercase px-2 py-1 text-xs font-bold mr-3">
+            <button className="flex rounded-full bg-red-600 uppercase px-2 py-1 text-xs font-bold mr-3"
+                onClick={() => {
+                    updateVotes(props.UID, true)
+                }}>
                 +
             </button>
-            <button className="flex rounded-full  bg-green-600 uppercase px-2 py-1 text-m font-extrabold mr-4">
+            <button className="flex rounded-full  bg-green-600 uppercase px-2 py-1 text-m font-extrabold mr-4"
+                onClick={() => {
+                    updateVotes(props.UID, false)
+                }}>
                 -
             </button>
             <button className="flex rounded-md text-gray-700 bg-white uppercase px-2 py-1 text-m font-medium mr-12 border border-gray-300">
-                0
+                {props.votes}
             </button>
         </span>
-
-        /*
-        <div className="h-1 w-16 right-0 mt-4 mb-12 mr-4">
-            <div className="col-span-6 ml-6 text-gray-700 flex flex-row mr-4">
-                <p>{props.name}</p>
-                <button type="button" className="ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm  leading-4 text-gray-700 
-                        shadow-sm hover:bg-gray-50 focus:outline-none">Kick</button>
-                <p>0</p>
-                <button type="button" className="ml-2 mb-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm  leading-4 text-gray-700 
-                        shadow-sm hover:bg-gray-50 focus:outline-none">Don't Kick</button>
-                <p>0</p>
-            </div>
-        </div>*/
     );
 
+    const updateVotes = async (UID, action) => {
+       
+        let roomId = props.data;
+        axios.post("http://localhost:8080/vote/kick/team_member", {
+            roomId:roomId,
+            userId:UID,
+            action:action
+        }).then((res) => {
+            console.log(res)
+        }
+        ).catch((err) => {
+            console.log("error", err)
+        }
+        );
+    }
     const getUsers = async () => {
-        const roomID = props.data;
-        /*
         axios
-            .post("http://localhost:8080/room/get", {
-                id: roomID,
-            })
-            .then((res) => {
-                let uidArr = [];
-                for (let i = 0; i < res.data.users.length; i++) {
-                    let uid = res.data.users[i];
-                    uidArr.push(uid);
-                }
-                setUserIDs(uidArr);
-
-            })
-            .catch((err) => {
-                console.log("error", err);
-            });*/
-
-        
-        axios
-            .post("http://localhost:8080/user/getRoomUsers", {
-                id: props.data,
+            .post("http://localhost:8080/vote/show/team_member", {
+                roomId: props.data,
             })
             .then((res) => {
                 let users = [];
-
-                for (let i = 0; i < res.data.length; i++) {
-                    let data = res.data[i];
-                    let name = data.name;
-                    console.log(res.data[i]);
-                    users.push(<User name={name} />);
+                console.log(res.data);
+                
+                for (const [key, value] of Object.entries(res.data)) {
+                    //console.log(key, value);
+                    let UID = key;
+                    let name = value.split("!@#$")[0]
+                    let votes = value.split("!@#$")[1]
+                    users.push(<User name={name} UID={UID} votes={votes} />)
                 }
                 setUsers(users);
-                console.log(userData);
             })
             .catch((err) => {
                 console.log("error", err);

@@ -33,10 +33,18 @@ router.post("/kick/team_member", async (req, res) => {
     const voteMap = room.voteKickMember;
     const usersNum = room.users.length;
 
-    let value = voteMap.get(userId).substring(12);
+    //let value = voteMap.get(userId).substring(12);
     console.log(voteMap.get(userId));
-    console.log(value);
-    currentVotes = parseInt(voteMap.get(userId).substring(12));
+    //console.log(value); 
+    let votes = voteMap.get(userId).split("!@#$")[1]
+    if(votes!=="NaN"){
+      currentVotes = parseInt(votes);
+    } else {
+      // just in case
+      currentVotes = 0;
+    }
+ //   currentVotes = parseInt(voteMap.get(userId).substring(12));
+ //   this only works if your username is exactly 8 characters long
     console.log(currentVotes);
     //action == true -> plus is clicked
     if (action) {

@@ -12,6 +12,7 @@ const CompleteTaskVote = (props) => {
     const [userData, setUsers] = useState([]);
     const [completedTasks, setcompletedList] = useState([]);
     const [displayTasks, setDisplayedTasks] = useState([]);
+
     const submitCompleted = async (e) => {
         setShowCompleted(true);
         e.preventDefault();
@@ -53,8 +54,8 @@ const CompleteTaskVote = (props) => {
             </button>
         </span>
     );
-    /*
-    const getUsers = async () => {
+    
+    const getTasks = async () => {
         axios
             .post("http://localhost:8080/user/getRoomUsers", {
                 id: props.data,
@@ -73,7 +74,7 @@ const CompleteTaskVote = (props) => {
             .catch((err) => {
                 console.log("error", err);
             });
-    };*/
+    };
     useEffect(() => {
         submitCompleted;
     }, []);
