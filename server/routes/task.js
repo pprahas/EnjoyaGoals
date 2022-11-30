@@ -452,7 +452,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
     room.assignedTasks.pull(task_id);
     room.completedTasks.push(task);
 
-    room.voteRemoveTaskFromCompleted.set(task_id, user.username + "!@#$" + "0");
+    room.voteRemoveTaskFromCompleted.set(task_id, task.name + "!@#$" + "0");
 
     // give points to User
     // user = User

@@ -9,75 +9,82 @@ const CompleteTaskVote = (props) => {
     if (!props.show) {
         return null;
     }
-    const [userData, setUsers] = useState([]);
-    const [completedTasks, setcompletedList] = useState([]);
     const [displayTasks, setDisplayedTasks] = useState([]);
-
-    const submitCompleted = async (e) => {
-        setShowCompleted(true);
-        e.preventDefault();
-        let completed_list = [];
-        axios
-            .post("http://localhost:8080/task/completed_tasks", {
-                id: roomId,
-            })
-            .then((res) => {
-                completed_list = res.data;
-                setcompletedList(completed_list);
-                console.log("working", res.data);
-            })
-            .catch((err) => {
-                console.log("error", err);
-            });
-    };
 
 
     const Task = (props) => (
-        <span
-            className="justify-center pb-2 w-full mt-2 mb-2 bg-white items-center text-white leading-none rounded-md flex "
-        //role="alert"
-        //onClick={() => setShow(true)}
-        >
-            <span className="ml-12 w-24 text-center rounded-md bg-indigo-300 uppercase px-2 py-1 text-xs font-bold mr-3">
-                {props.name}
-            </span>
-
-
-            <button className="flex rounded-full bg-red-600 uppercase px-2 py-1 text-xs font-bold mr-3">
-                +
-            </button>
-            <button className="flex rounded-full  bg-green-600 uppercase px-2 py-1 text-m font-extrabold mr-4">
-                -
-            </button>
-            <button className="flex rounded-md text-gray-700 bg-white uppercase px-2 py-1 text-m font-medium mr-12 border border-gray-300">
-                0
-            </button>
+        <span className="justify-center pb-2 w-full mt-2 mb-2 bg-white items-center text-white leading-none rounded-md flex ">
+        <span className="ml-12 w-24 text-center rounded-md bg-indigo-300 uppercase px-2 py-1 text-xs font-bold mr-3">
+          {props.name}
         </span>
+  
+        <button
+          className="flex rounded-full bg-red-600 uppercase px-2 py-1 text-xs font-bold mr-3"
+          onClick={() => {
+            updateVotes(props.ID, true);
+          }}
+        >
+          +
+        </button>
+        <button
+          className="flex rounded-full  bg-green-600 uppercase px-2 py-1 text-m font-extrabold mr-4"
+          onClick={() => {
+            updateVotes(props.ID, false);
+          }}
+        >
+          -
+        </button>
+        <button className="flex rounded-md text-gray-700 bg-white uppercase px-2 py-1 text-m font-medium mr-12 border border-gray-300">
+          {props.votes}
+        </button>
+      </span>
     );
+
+    const updateVotes = async (ID, action) => {
+        let roomId = props.data;
+        console.log(ID, action);
+        
+        axios
+          .post("http://localhost:8080/vote/kick/completed_tasks", {
+            roomId: roomId,
+            taskId: ID,
+            action: action,
+          })
+          .then((res) => {
+            console.log(res);
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log("error", err);
+            window.location.reload();
+          });
+      };
     
     const getTasks = async () => {
         axios
-            .post("http://localhost:8080/user/getRoomUsers", {
-                id: props.data,
-            })
-            .then((res) => {
-                let users = [];
-
-                for (let i = 0; i < res.data.length; i++) {
-                    let data = res.data[i];
-                    let name = data.name;
-                    users.push(<Task name={name} />);
-                }
-                setUsers(users);
-                console.log(userData);
-            })
-            .catch((err) => {
-                console.log("error", err);
-            });
-    };
-    useEffect(() => {
-        submitCompleted;
-    }, []);
+          .post("http://localhost:8080/vote/show/completed_tasks", {
+            roomId: props.data,
+          })
+          .then((res) => {
+            let tasks = [];            
+            for (const [key, value] of Object.entries(res.data)) {
+                //console.log(key, value);
+                let ID = key;
+                let name = value.split("!@#$")[0];
+                let votes = value.split("!@#$")[1];
+           //   if (user_object._id != UID) {
+                tasks.push(<Task name={name} ID={ID} votes={votes} />);
+          //    }
+            }
+            setDisplayedTasks(tasks);
+          })
+          .catch((err) => {
+            console.log("error", err);
+          });
+      };
+      useEffect(() => {
+        getTasks();
+      }, []);
     return (
         <div className="overlay" class="fixed pin z-50 overflow-auto flex">
             <div className="modal" onClick={props.onClose}>
