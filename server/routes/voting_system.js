@@ -94,17 +94,18 @@ router.post("/show/completed_tasks", async (req, res) => {
 
 router.post("/kick/completed_tasks", async (req, res) => {
   try {
-    const { roomId, userId, action } = req.body;
+    const { roomId, taskId, action } = req.body;
 
     const room = await Room.findById(roomId);
-    const user = await User.findById(userId);
-    const voteMap = room.voteKickMember;
+    const task = await Task.findById(taskId);
+    const voteMap = room.voteRemoveTaskFromCompleted;
     const usersNum = room.users.length;
 
     //let value = voteMap.get(userId).substring(12);
-    console.log(voteMap.get(userId));
+    // console.log(voteMap.get(userId));
     //console.log(value);
-    let votes = voteMap.get(userId).split("!@#$")[1];
+    let votes = voteMap.get(taskId).split("!@#$")[1];
+    console.log(votes);
     if (votes !== "NaN") {
       currentVotes = parseInt(votes);
     } else {
@@ -122,7 +123,7 @@ router.post("/kick/completed_tasks", async (req, res) => {
     }
 
     console.log(currentVotes);
-    voteMap.set(userId, user.username + "!@#$" + currentVotes.toString());
+    voteMap.set(taskId, task.name + "!@#$" + currentVotes.toString());
 
     //if the member is being kicked
     // if (currentVotes == usersNum - 1) {
@@ -138,7 +139,7 @@ router.post("/kick/completed_tasks", async (req, res) => {
       .status(200)
       .json({ msg: "The user is not being kicked, but the value changed." });
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
