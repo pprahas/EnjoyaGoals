@@ -26,9 +26,11 @@ const CreateRoom = (props) => {
         users: users,
       })
       .then((res) => {
+        props.createNotif("success", "Success!", "Room created.");
         console.log("Posting data", res);
       })
       .catch((err) => {
+        props.createNotif("error", "Error!", "Room not created.");
         setMessage(err.response.data.msg);
         console.log(err.response.data.msg);
       });

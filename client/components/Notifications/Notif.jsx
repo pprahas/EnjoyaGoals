@@ -54,5 +54,4 @@ const Notif = (props) => {
 	}
 };
 
-
 export default Notif;
