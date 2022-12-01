@@ -12,8 +12,10 @@ export default function Profile(props) {
   const roomId = window.localStorage.getItem("currentRoom");
   var img = new Image();
   img.src = bg;
-  let user_object = window.localStorage.getItem("user_data");
+  let own_user_object = window.localStorage.getItem("user_data");
+  let user_object = window.localStorage.getItem("other_user_data");
   user_object = JSON.parse(user_object);
+  own_user_object = JSON.parse(own_user_object);
   const [pfp, setpfp] = useState("");
   const [background, setbg] = useState("");
   const [color, setcolor] = useState("");
@@ -24,7 +26,7 @@ export default function Profile(props) {
       id: user_object._id,
     })
     .then((res) => {
-      window.localStorage.setItem("user_data", JSON.stringify(res.data));
+      window.localStorage.setItem("other_user_data", JSON.stringify(res.data));
     })
     .catch((err) => {
       console.log(err);
@@ -36,16 +38,13 @@ export default function Profile(props) {
       roomId,
     })
     .then((res) => {
-      console.log(res.data);
+      //console.log(res.data);
       setAboutMe(res.data);
       // window.localStorage.setItem("user_data", JSON.stringify(res.data));
     })
     .catch((err) => {
       console.log(err);
     });
-
-  user_object = window.localStorage.getItem("user_data");
-  user_object = JSON.parse(user_object);
 
   const firstName = user_object.firstName;
   const lastName = user_object.lastName;
@@ -78,46 +77,44 @@ export default function Profile(props) {
         id: roomId,
       })
       .then((res) => {
-        console.log(user_object);
         setRoomName(res.data.name);
       })
       .catch((err) => {
         console.log("error", err);
       });
-  };
 
-  axios
-    .post("http://localhost:8080/task/task_count", {
-      id: roomId,
-      username: username,
-    }).then((res) => {
-      setPendingCount(res.data[0]);
-      setCompleteCount(res.data[3]);
-    });
-  //console.log(user_object);
-  axios
-    .post("http://localhost:8080/task/completed_tasks_personal", {
-      id: roomId,
-      UID: user_object._id,
-    })
-    .then((res) => {
-      let points = 0;
-      let easyCount = 0;
-      let medCount = 0;
-      let hardCount = 0;
-      for (let i = 0; i < res.data.length; i++) {
-        let task = res.data[i];
-        if (task.status != "missed") {
-          points += task.points;
-          if (task.difficulty == "Easy") {
-            easyCount += 1;
-          } else if (task.difficulty == "Medium") {
-            medCount += 1;
-          } else if (task.difficulty == "Hard") {
-            hardCount += 1;
+    axios
+      .post("http://localhost:8080/task/task_count", {
+        id: roomId,
+        username: username,
+      }).then((res) => {
+        setPendingCount(res.data[0]);
+        setCompleteCount(res.data[3]);
+      });
+
+     axios
+      .post("http://localhost:8080/task/completed_tasks_personal", {
+        id: roomId,
+        UID: user_object._id,
+      })
+      .then((res) => {
+        let points = 0;
+        let easyCount = 0;
+        let medCount = 0;
+        let hardCount = 0;
+        for (let i = 0; i < res.data.length; i++) {
+          let task = res.data[i];
+          if (task.status != "missed") {
+            points += task.points;
+            if (task.difficulty == "Easy") {
+              easyCount += 1;
+            } else if (task.difficulty == "Medium") {
+              medCount += 1;
+            } else if (task.difficulty == "Hard") {
+              hardCount += 1;
+            }
           }
         }
-      }
         setEasy(easyCount);
         setMedium(medCount);
         setHard(hardCount);
@@ -131,8 +128,6 @@ export default function Profile(props) {
         id: user_object._id,
       })
       .then((res) => {
-
-        console.log(res);
         //set pfp
         const fileType = res.data[0];
         const imgData = res.data[1];
@@ -145,7 +140,6 @@ export default function Profile(props) {
         const tobanner = bannFileType + bannImgData;
         var im = new Image();
         im.src = tobanner
-        //console.log(im);
         setbg(im);
 
         //set color
@@ -154,11 +148,10 @@ export default function Profile(props) {
       })
       .catch((err) => {
         // setMessage(err.response.data.message);
-      console.log("error", err);
+        console.log("error", err);
       });
-  
-
-  console.log(`lvl = ${lvl}`);
+    console.log(`lvl = ${lvl}`);
+  };
 
   return (
 
@@ -286,7 +279,8 @@ export default function Profile(props) {
                     </h3>
                     {/* <a class="ml-3 w-8 h-8 rounded-md border border-gray-300 bg-white text-sm font-medium leading-4 text-gray-700 
                       shadow-sm hover:bg-gray-50 focus:outline-none" href="/Profile_Information"> */}
-                    <a
+
+                    {own_user_object._id !== user_object._id ? (" ") : (<a
                       className="ml-3 w-8 h-8 rounded-md border border-gray-300 bg-white text-sm font-medium leading-4 text-gray-700 
                       shadow-sm hover:bg-gray-50 focus:outline-none"
                       href="/Profile_Information"
@@ -299,7 +293,7 @@ export default function Profile(props) {
                           height: "2rem",
                         }}
                       />
-                    </a>
+                    </a>)}
                   </div>
                   <div>
                     <span className="mb-2 text-center text-blueGray-500">

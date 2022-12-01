@@ -23,6 +23,8 @@ export default function Login() {
         setMessage(res.data.message);
         //        console.log(res.data);
         window.localStorage.setItem("user_data", JSON.stringify(res.data));
+        // using this for profile page rendering
+        window.localStorage.setItem("other_user_data", JSON.stringify(res.data));
         let user_object = window.localStorage.getItem("user_data");
         user_object = JSON.parse(user_object);
         //        console.log("My name is " + user_object.firstName);
