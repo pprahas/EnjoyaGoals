@@ -32,7 +32,10 @@ router.post("/kick/team_member", async (req, res) => {
     const room = await Room.findById(roomId);
     const user = await User.findById(userId);
     const voteMap = room.voteKickMember;
-    const usersNum = room.users.length;
+    let usersNum = room.users.length;
+    // if (usersNum == 2) {
+    //   usersNum = 1;
+    // }
 
     //let value = voteMap.get(userId).substring(12);
     console.log(voteMap.get(userId));
@@ -57,14 +60,16 @@ router.post("/kick/team_member", async (req, res) => {
     console.log(currentVotes);
     voteMap.set(userId, user.username + "!@#$" + currentVotes.toString());
 
-    //if the member is being kicked
-    // if (currentVotes == usersNum - 1) {
-    //   room.users.pull(userId);
-    //   // user.rooms.pull(roomId);
-    //   return res.status(200).send({ msg: "The user got kicked." });
-    // }
-
     await room.save();
+    //if the member is being kicked
+    if (currentVotes == usersNum - 1) {
+      // room.users.pull(userId);
+      // user.rooms.pull(roomId);
+      room.voteKickMember.delete(userId);
+      await room.save();
+      return res.status(201).send({ msg: "The user got kicked." });
+    }
+
     // await user.save();
 
     return res
@@ -124,15 +129,21 @@ router.post("/kick/completed_tasks", async (req, res) => {
 
     console.log(currentVotes);
     voteMap.set(taskId, task.name + "!@#$" + currentVotes.toString());
-
-    //if the member is being kicked
-    // if (currentVotes == usersNum - 1) {
-    //   room.users.pull(userId);
-    //   // user.rooms.pull(roomId);
-    //   return res.status(200).send({ msg: "The user got kicked." });
-    // }
-
     await room.save();
+
+    //if the task is being removed
+    if (currentVotes == usersNum - 1) {
+      task.status = "pending";
+      room.assignedTasks.push(taskId);
+      room.completedTasks.pull(taskId);
+      room.voteRemoveTaskFromCompleted.delete(taskId);
+      // room.users.pull(userId);
+      // user.rooms.pull(roomId);
+      await room.save();
+      await task.save();
+      return res.status(201).send({ msg: "The task got removed." });
+    }
+
     // await user.save();
 
     return res
@@ -168,6 +179,7 @@ router.post("/kick/pending_tasks", async (req, res) => {
     const task = await Task.findById(taskId);
     const voteMap = room.voteRemoveUserFromPending;
     const usersNum = room.users.length;
+    console.log("there are " + usersNum);
 
     //let value = voteMap.get(userId).substring(12);
     // console.log(voteMap.get(userId));
@@ -193,14 +205,23 @@ router.post("/kick/pending_tasks", async (req, res) => {
     console.log(currentVotes);
     voteMap.set(taskId, task.name + "!@#$" + currentVotes.toString());
 
+    await room.save();
+
     //if the member is being kicked
-    // if (currentVotes == usersNum - 1) {
-    //   room.users.pull(userId);
-    //   // user.rooms.pull(roomId);
-    //   return res.status(200).send({ msg: "The user got kicked." });
-    // }
+    if (currentVotes == usersNum - 1) {
+      task.status = "unassigned";
+      room.assignedTasks.pull(taskId);
+      // room.teamTasks.push(taskId);
+      room.voteRemoveUserFromPending.delete(taskId);
+      // room.users.pull(userId);
+      await room.save();
+      await task.save();
+      // user.rooms.pull(roomId);
+      return res.status(201).send({ msg: "The task got deleted." });
+    }
 
     await room.save();
+    await task.save();
     // await user.save();
 
     return res
