@@ -16,10 +16,10 @@ const Roomcode = (props) => {
               className="modal-title"
               class="font-medium leading-4 text-gray-700"
             >
-                Copy the room code shown below.
+                Share the room code shown below :
             </h4>
           </div>
-          <div className="modal-body">
+          <div className="text-gray-600 ml-3 border-gray-200 border py-1 px-2 rounded-md mr-3">
             {props.id}
           </div>
           <div className="modal-footer">

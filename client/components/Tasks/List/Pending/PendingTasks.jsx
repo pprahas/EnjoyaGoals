@@ -24,6 +24,7 @@ const PendingTasks = (props) => {
         points={points}
         id={id}
         key={id}
+        createNotif={props.createNotif}
       />
     );
   });

@@ -56,6 +56,7 @@ const Sidebar = (props) => {
         <CreateRoom
           onClose={() => setShowCreateRoom(false)}
           show={showCreateRoom}
+          createNotif={props.createNotif}
         ></CreateRoom>
       </div>
 
@@ -67,6 +68,7 @@ const Sidebar = (props) => {
         <JoinRoom
           onClose={() => setShowJoinRoom(false)}
           show={showJoinRoom}
+          createNotif={props.createNotif}
         ></JoinRoom>
       </div>
 

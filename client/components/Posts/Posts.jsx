@@ -85,7 +85,7 @@ export default function Posts(props) {
 
   return (
     <section className="w-auto bg-white dark:bg-gray-900 ml-32">
-      <div class="contain">
+      <div style={{ width: '1220px' }} class="">
         <div class="">
           <section class="inset-0 bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-full lg:py-16 lg:px-6">

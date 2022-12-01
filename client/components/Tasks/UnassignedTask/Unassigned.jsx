@@ -37,6 +37,7 @@ const Unaccepted = (props) => {
         difficulty={props.difficulty}
         date={props.date}
         points={props.points}
+        createNotif={props.createNotif}
       />
     </div>
   );

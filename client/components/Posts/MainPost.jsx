@@ -44,7 +44,6 @@ const MainPost = (props) => {
       .then((res) => {
         let temp = [];
         for (let i = 0; i < res.data.length; i++) {
-          console.log(res.data[i]);
           let commentData = res.data[i];
           temp.push(
             <Comments

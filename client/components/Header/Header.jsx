@@ -151,6 +151,7 @@ function leaveRoom() {
       console.log(res2.data);
       window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
       window.localStorage.setItem("user_data", JSON.stringify(res2.data));
+      
     })
     .catch((err2) => {
       console.log(err2);

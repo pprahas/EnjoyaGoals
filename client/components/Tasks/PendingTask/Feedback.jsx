@@ -91,17 +91,13 @@ const TextInput = (props) => {
           completedBy: user_object._id,
         })
         .then((res) => {
-          // console.log("printing task data", res.data[0]);
-          // console.log("frontend sends:", res.data);
-          // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
-          // console.log("its here", teamList);
           if (res.data.msg === "put more words pls") {
             console.log("Feedback should be 7 or more characters long.");
-            alert("Feedback should be 7 or more characters long.");
+            props.createNotif("warning", "Error!", "Feedback should be 7 or more characters long.")
             return;
           }
           console.log("worked", res);
-          alert("Task submitted successfully!");
+          props.createNotif("success", "Success!", "Task submitted successfully.")
         })
         .catch((err) => {
           // setMessage(err.response.data.message);
@@ -138,9 +134,7 @@ const TextInput = (props) => {
             task_id: props.id,
             file: form,
         }).then((res) => {
-            console.log("cool");
         }).catch((err) => {
-            console.log("AAAAAAAAAAA");
         });
         */
   };
@@ -158,12 +152,15 @@ const TextInput = (props) => {
       <div className="modal" onClick={props.onClose}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-body">
+            <div className="ml-2 text-gray-500">
+              Feedback:
+            </div>
             <textarea
               id="about"
               name="about"
               rows={7}
               className="mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              placeholder="Write a comment here"
+              placeholder="Submit your feedback here"
               onChange={feedbackHandler}
               value={feedback}
             />
@@ -179,7 +176,7 @@ const TextInput = (props) => {
             <button
               className="button"
               onClick={submitTask}
-              class="mt-4 ml-2 mb-0 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-500 
+              class="mt-4 ml-2 mb-0 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium leading-4 text-gray-600 
                             shadow-sm hover:bg-gray-200 focus:outline-none"
             >
               Submit
@@ -193,7 +190,8 @@ const TextInput = (props) => {
               roomId={window.localStorage.getItem("currentRoom")}
               id={props.id}
               feedback={feedback}
-              completedBy={uid} />
+              completedBy={uid} 
+              createNotif={props.createNotif}/>
 
             <button
               className="button"

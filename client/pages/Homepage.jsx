@@ -38,7 +38,6 @@ const Homepage = (props) => {
   };
 
   const submitTeam = async (e) => {
-    props.createNotif("info", "Information", "This is a test from homepage");
     setShowAll(true);
     let list_2 = [];
     e.preventDefault();
@@ -51,7 +50,7 @@ const Homepage = (props) => {
         // console.log("frontend sends:", res.data);
         list_2 = res.data;
         setteamList(list_2);
-        console.log(`notifs = ${notifs}`);
+        //console.log(`notifs = ${notifs}`);
         // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
         // console.log("its here", teamList);
       })
@@ -119,14 +118,14 @@ const Homepage = (props) => {
   return (
     <div className="content-center">
       <div className="grid grid-flow-col auto-cols-max">
-        <div className="mt-32 w-3/4 ml-16">
+        <div className="mt-32 w-3/4 ml-16 ">
           <Posts createNotif={props.createNotif} />
         </div>
         {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
         <div className="fixed right-0">
           <Header createNotif={props.createNotif} />
 
-          <div className="relative mt-40 grid grid-cols-1 gap-24 mr-8">
+          <div className="relative mt-44 grid grid-cols-1 gap-24 mr-8 md:mt-40">
             <div className="col-span-6">
               <button
                 className="absolute right-0 content-center text-4xl bg-purple-400 mr-36 p-3 w-56 text-white rounded-md"
@@ -153,6 +152,7 @@ const Homepage = (props) => {
               <TaskModal
                 onClose={() => setShowCreate(false)}
                 show={showCreate}
+                createNotif={props.createNotif}
               />
             </div>
 
@@ -167,6 +167,7 @@ const Homepage = (props) => {
                 onClose={() => setShowAll(false)}
                 show={showAll}
                 data={teamList}
+                createNotif={props.createNotif}
               />
             </div>
 
@@ -181,6 +182,7 @@ const Homepage = (props) => {
                 onClose={() => setShowPending(false)}
                 show={showPending}
                 data={pendingList}
+                createNotif={props.createNotif}
               />
             </div>
 
@@ -212,6 +214,7 @@ const Homepage = (props) => {
                 onClose={() => setShowSelect(false)}
                 show={showSelect}
                 data={roomId}
+                createNotif={props.createNotif}
               />
             </div>
 

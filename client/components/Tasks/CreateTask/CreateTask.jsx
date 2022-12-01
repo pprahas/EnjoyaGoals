@@ -41,11 +41,11 @@ const TaskModal = (props) => {
       .then((res) => {
         props.createNotif("success", "Success!", "Task created.");
         console.log("Posting data", res);
-        alert("Task creation successful!");
+        //alert("Task creation successful!");
         // navigate("/login");
       })
       .catch((err) => {
-        props.createNotif("error", "Error!", "Task not created.");
+        props.createNotif("error", "Error!", "Task was not created.");
         console.log(err.response.data.msg);
       });
   };
