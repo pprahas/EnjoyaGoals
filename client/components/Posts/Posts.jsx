@@ -24,14 +24,24 @@ export default function Posts(props) {
   };
 
   const submitPost = (e) => {
-    title = title.trim();
-    postBody = postBody.trim();
+    // title = title.trim();
+    setTitle(title.trim());
+    setPostBody(postBody.trim());
+    // postBody = postBody.trim();
     if (title === "") {
-      props.createNotif("warning", "Error!", "Post title must be 1 or more characters long");
+      props.createNotif(
+        "warning",
+        "Error!",
+        "Post title must be 1 or more characters long"
+      );
       return;
     }
     if (postBody === "") {
-      props.createNotif("warning", "Error!", "Posts must be 1 or more characters long");
+      props.createNotif(
+        "warning",
+        "Error!",
+        "Posts must be 1 or more characters long"
+      );
       return;
     }
     axios
@@ -90,7 +100,7 @@ export default function Posts(props) {
 
   return (
     <section className="w-auto bg-white dark:bg-gray-900 ml-32">
-      <div style={{ width: '1220px' }} class="">
+      <div style={{ width: "1220px" }} class="">
         <div class="">
           <section class="inset-0 bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-full lg:py-16 lg:px-6">

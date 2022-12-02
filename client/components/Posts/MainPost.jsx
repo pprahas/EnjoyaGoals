@@ -6,16 +6,21 @@ const MainPost = (props) => {
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
   const [comments, setComments] = useState([]);
-  const [commentContent, setCommentContent] = useState([]);
+  const [commentContent, setCommentContent] = useState("");
 
   const commentHandler = (event) => {
     setCommentContent(event.target.value);
   };
 
   const submitComment = (e) => {
-    commentContent = commentContent.trim();
+    setCommentContent(commentContent.trim());
+    // commentContent = commentContent.trim();
     if (commentContent === "") {
-      props.createNotif("warning", "Error!", "Comments must be 1 or more characters long");
+      props.createNotif(
+        "warning",
+        "Error!",
+        "Comments must be 1 or more characters long"
+      );
       return;
     }
     axios
@@ -42,7 +47,6 @@ const MainPost = (props) => {
   }, []);
 
   const getComments = async () => {
-
     axios
       .post("http://localhost:8080/post/get/comment", {
         postId: props.PID,
