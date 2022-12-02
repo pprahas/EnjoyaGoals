@@ -54,11 +54,11 @@ const PendingTaskVote = (props) => {
           console.log("The vote changed.");
         }
         console.log(res);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((err) => {
         console.log("error", err);
-        // window.location.reload();
+        window.location.reload();
       });
   };
 

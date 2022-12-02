@@ -54,7 +54,7 @@ const CompleteTaskVote = (props) => {
           console.log("The task got deleted.");
         }
         console.log(res);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((err) => {
         console.log("error", err);
