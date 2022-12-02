@@ -3,30 +3,38 @@ import axios from "axios";
 const Progressbar = (props) => {
   const [data, setData] = useState(null);
   let roomId = window.localStorage.getItem("currentRoom");
+
+  const handleSubmit = async () => {
+    // e.preventDefault();
+    //console.log(id)
+    axios
+      .post("http://localhost:8080/progress_bar", {
+        id: roomId,
+      })
+      .then((res) => {
+        // console.log(res.data.percent);
+        // console.log("inside itch");
+        window.localStorage.setItem("percentageComp", res.data.percent);
+        window.localStorage.setItem("numberComp", res.data.number);
+        setData(res.data.number);
+        // window.location.reload();
+      })
+      .catch((err) => {
+        // setMessage(err.response.data.message);
+        console.log(message);
+      });
+  };
+
   useEffect(() => {
-    const handleSubmit = async () => {
-      // e.preventDefault();
-      //console.log(id)
-      axios
-        .post("http://localhost:8080/progress_bar", {
-          id: roomId,
-        })
-        .then((res) => {
-          // console.log(res.data.percent);
-          // console.log("inside itch");
-          window.localStorage.setItem("percentageComp", res.data.percent);
-          window.localStorage.setItem("numberComp", res.data.number);
-          setData(res.data.number);
-          // window.location.reload();
-        })
-        .catch((err) => {
-          // setMessage(err.response.data.message);
-          console.log(message);
-        });
+    const intervalId = setInterval(() => {
+      handleSubmit();
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
     };
-    handleSubmit();
-    // }, [window.localStorage.getItem("triggerProgressBar")]);
   });
+
   // fetchData() is called whenever data is updated.
   var w = "percentageComp in localStorage"
     ? window.localStorage.getItem("percentageComp")
