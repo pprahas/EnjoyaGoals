@@ -21,7 +21,7 @@ const Progressbar = (props) => {
       })
       .catch((err) => {
         // setMessage(err.response.data.message);
-        console.log(message);
+        console.log(err);
       });
   };
 

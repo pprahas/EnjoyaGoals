@@ -16,7 +16,8 @@ const CreateRoom = (props) => {
     let user_object = window.localStorage.getItem("user_data");
     user_object = JSON.parse(user_object);
 
-    const users = [user_object._id];
+    // const users = [user_object._id];
+    const users = [];
     axios
       .post("http://localhost:8080/room/create", {
         // creatorId: user_id,
