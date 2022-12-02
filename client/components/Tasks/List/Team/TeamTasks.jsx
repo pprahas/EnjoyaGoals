@@ -42,6 +42,7 @@ const TeamTasks = (props) => {
           points={points}
           status={status}
           key={id}
+          createNotif={props.createNotif}
         />
       );
     } else if (status === "pending") {
@@ -54,6 +55,7 @@ const TeamTasks = (props) => {
           name={name}
           points={points}
           key={id}
+          createNotif={props.createNotif}
         />
       );
     } else if (status === "complete") {
@@ -69,6 +71,7 @@ const TeamTasks = (props) => {
           completedBy={completedBy}
           key={id}
           feedback={feedback}
+          createNotif={props.createNotif}
         />
       );
     } else if (status === "missed") {
@@ -84,6 +87,7 @@ const TeamTasks = (props) => {
           completedBy={completedBy}
           key={id}
           feedback={feedback}
+          createNotif={props.createNotif}
         />
       );
     }

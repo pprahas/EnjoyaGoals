@@ -10,14 +10,15 @@ import Posts from "../components/Posts/Posts";
 import axios from "axios";
 import { useEffect } from "react";
 import MyCompleted from "../components/Tasks/List/Completed/MyCompleted";
+import SelectModal from "../components/VoteKick/SelectModal";
 
-export default function Homepage() {
+const Homepage = (props) => {
   const [showCreate, setShowCreate] = useState(false);
   const [showMine, setShowMine] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
   const [showPending, setShowPending] = useState(false);
   const [showAll, setShowAll] = useState(false);
-  const [showVote, setShowVote] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
   let list = [];
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
@@ -29,17 +30,15 @@ export default function Homepage() {
 
   const roomId = window.localStorage.getItem("currentRoom");
   useEffect(() => {
-    console.log(teamList);
+    //console.log(teamList);
   }, [teamList]);
 
-  const openVote = async(e) => {
-    setShowVote(true);
-    //axios to get room data
-    //open modal
-    //send room data over as props
-  }
+  const openVote = async (e) => {
+    setShowSelect(true);
+  };
 
   const submitTeam = async (e) => {
+    // props.createNotif("info", "Information", "This is a test from homepage");
     setShowAll(true);
     let list_2 = [];
     e.preventDefault();
@@ -119,102 +118,107 @@ export default function Homepage() {
   return (
     <div className="content-center">
       <div className="grid grid-flow-col auto-cols-max">
-        <div className="mt-32 w-3/4 ml-16">
-           
-          <Posts />
+        <div className="mt-32 w-3/4 ml-16 ">
+          <Posts createNotif={props.createNotif} />
         </div>
         {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
         <div className="fixed right-0">
-        <Header/>
+          <Header createNotif={props.createNotif} />
 
-        <div className="relative mt-40 grid grid-cols-1 gap-24">
-          <div className="col-span-6">
-            <button
-              className="absolute right-0 content-center text-4xl bg-purple-400 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={submitMine}
-            >
-              My Tasks
-            </button>
+          <div className="relative mt-44 grid grid-cols-1 gap-24 mr-8 md:mt-40">
+            <div className="col-span-6">
+              <button
+                className="absolute right-0 content-center text-4xl bg-purple-400 mr-36 p-3 w-56 text-white rounded-md"
+                onClick={submitMine}
+              >
+                My Tasks
+              </button>
 
-            <MyCompleted
-              onClose={() => setShowMine(false)}
-              show={showMine}
-              data={completedList}
-              UID={user_object._id}
-            />
-          </div>
-          <div className="col-span-6">
-            <button
-              className="absolute right-0 content-center text-4xl bg-blue-500 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={() => setShowCreate(true)}
-            >
-              Create Task
-            </button>
+              <MyCompleted
+                onClose={() => setShowMine(false)}
+                show={showMine}
+                data={completedList}
+                UID={user_object._id}
+              />
+            </div>
+            <div className="col-span-6">
+              <button
+                className="absolute right-0 content-center text-4xl bg-blue-500 mr-36 p-3 w-56 text-white rounded-md"
+                onClick={() => setShowCreate(true)}
+              >
+                Create Task
+              </button>
 
-            <TaskModal onClose={() => setShowCreate(false)} show={showCreate} />
-          </div>
+              <TaskModal
+                onClose={() => setShowCreate(false)}
+                show={showCreate}
+                createNotif={props.createNotif}
+              />
+            </div>
 
-          <div className="col-span-6">
-            <button
-              className="absolute right-0 content-center text-4xl bg-indigo-300 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={submitTeam}
-            >
-              Team Tasks
-            </button>
-            <TeamTasks
-              onClose={() => setShowAll(false)}
-              show={showAll}
-              data={teamList}
-            />
-          </div>
+            <div className="col-span-6">
+              <button
+                className="absolute right-0 content-center text-4xl bg-indigo-300 mr-36 p-3 w-56 text-white rounded-md"
+                onClick={submitTeam}
+              >
+                Team Tasks
+              </button>
+              <TeamTasks
+                onClose={() => setShowAll(false)}
+                show={showAll}
+                data={teamList}
+                createNotif={props.createNotif}
+              />
+            </div>
 
-          <div className="col-span-6">
-            <button
-              className="absolute right-0 content-center text-4xl bg-red-400 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={submitPending}
-            >
-              Pending
-            </button>
-            <PendingTasks
-              onClose={() => setShowPending(false)}
-              show={showPending}
-              data={pendingList}
-            />
-          </div>
+            <div className="col-span-6">
+              <button
+                className="absolute right-0 content-center text-4xl bg-red-400 mr-36 p-3 w-56 text-white rounded-md"
+                onClick={submitPending}
+              >
+                Pending
+              </button>
+              <PendingTasks
+                onClose={() => setShowPending(false)}
+                show={showPending}
+                data={pendingList}
+                createNotif={props.createNotif}
+              />
+            </div>
 
-          <div className="col-span-6">
-            <button
-              className="absolute right-0 content-center text-4xl bg-green-500 mr-36 p-3 w-56 text-white rounded-md"
-              onClick={submitCompleted}
-            >
-              Completed
-            </button>
+            <div className="col-span-6">
+              <button
+                className="absolute right-0 content-center text-4xl bg-green-500 mr-36 p-3 w-56 text-white rounded-md"
+                onClick={submitCompleted}
+              >
+                Completed
+              </button>
 
-            <CompletedTasks
-              onClose={() => setShowCompleted(false)}
-              show={showCompleted}
-              data={completedList}
-              UID={user_object._id}
-            />
-          </div>
+              <CompletedTasks
+                onClose={() => setShowCompleted(false)}
+                show={showCompleted}
+                data={completedList}
+                UID={user_object._id}
+              />
+            </div>
 
-          <div className="col-span-6">
-            <button
-              className="font-bold absolute right-0 content-center text-4xl bg-red-600 mr-36 p-3 w-56 text-white rounded-md"
-              //onClick={}
-            >
-              Call a vote
-            </button>
+            <div className="col-span-6">
+              <button
+                className=" absolute right-0 content-center text-4xl bg-red-600 mr-36 p-3 w-56 text-white rounded-md"
+                onClick={openVote}
+              >
+                Call a vote
+              </button>
 
-            <CompletedTasks
-              onClose={() => setShowCompleted(false)}
-              show={showCompleted}
-              data={completedList}
-              UID={user_object._id}
-            />
-          </div>
+              <SelectModal
+                onClose={() => setShowSelect(false)}
+                show={showSelect}
+                data={roomId}
+                createNotif={props.createNotif}
+              />
+            </div>
 
-          {/* <div className="col-span-6">
+            {/* <div className="col-span-6">
             <a
               href="/homepage/create_task"
               className=" absolute right-0 text-center content-center text-4xl  text-white bg-indigo-400 w-56 mr-36 p-3 rounded-md"
@@ -226,8 +230,10 @@ export default function Homepage() {
         </div>
       </div>
       {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
-      <Sidebar />
-      <Leaderboard />
+      <Sidebar createNotif={props.createNotif} />
+      <Leaderboard createNotif={props.createNotif} />
     </div>
   );
-}
+};
+
+export default Homepage;

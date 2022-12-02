@@ -145,7 +145,6 @@ router.post("/getRoomUsers", async (req, res) => {
         let level = Math.floor(pointsEarned / 100) + 1;
         let st = level.toString() + " " + user.username;
         userNames.push(st);
-
         array_b4_sort.push({
           name: user.username,
           value: level,
@@ -153,7 +152,6 @@ router.post("/getRoomUsers", async (req, res) => {
 
         // user_points_map.set(user.username, level);
         user_points_map.set("hjwef", "yah");
-
         userNames.push(levelname);
       }
 
@@ -163,27 +161,34 @@ router.post("/getRoomUsers", async (req, res) => {
         ryan: 213,
       };
 
-      console.log("the map iis", user_points_map);
-      console.log("the user map iis", user_map);
+      // console.log("the map iis", user_points_map);
+      // console.log("the user map iis", user_map);
 
-      console.log("the keys are", array_b4_sort);
       for (
         var a = 0, keys = Object.keys(user_points_map), ii = keys.length;
         a < ii;
         a++
       ) {
         console.log("key : " + keys[a] + " val : " + user_points_map[keys[a]]);
+        console.log("kkey", keys[a]);
+        array.push({
+          name: keys[a],
+          value: user_points_map[keys[a]],
+        });
+
       }
       var array = [];
+      //console.log("kjashdflkajds", user_points_map);
+/*
       for (var key in user_points_map) {
-        console.log("kkey", key);
+        // console.log("kkey", key);
         array.push({
           name: key,
           value: user_points_map.get(key),
         });
-      }
+      }*/
 
-      console.log("the array iis", array);
+      // console.log("the array iis", array);
       var sorted = array_b4_sort.sort(function (a, b) {
         return a.value < b.value ? 1 : b.value < a.value ? -1 : 0;
       });
@@ -196,12 +201,13 @@ router.post("/getRoomUsers", async (req, res) => {
   }
 });
 
+
 router.post("/pic_upload", async (req, res) => {
   let user_id;
   let file;
   let fileName;
   try {
-    console.log(req.body);
+    //console.log(req.body);
     user_id = req.body.user_id;
     fileName = req.body.fileName;
     file = req.body.fileData;
@@ -277,6 +283,17 @@ router.post("/get_profile_data", async (req, res) => {
       all_data.push("")
     }
     return res.status(200).json(all_data);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
+
+router.post("/get", async (req, res) => {
+  try {
+    let name = req.body.name;
+    const user = await User.find({username: name});
+    console.log(user);
+    return res.status(200).json(user);    
   } catch (error) {
     return res.status(400).json(error);
   }

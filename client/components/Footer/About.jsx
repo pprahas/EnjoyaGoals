@@ -1,6 +1,5 @@
 import "../../public/logo.png";
 import "./About.css";
-
 const About = () => {
   return (
     <div className="mt-40 text-center justify-center">
@@ -27,8 +26,10 @@ const About = () => {
       <div className="text-lg px-40 mt-12" >
         <h2 className="textColor"><b className="text-xl">Our Developers:</b></h2>
         <p>
+
           Ryan Chang, Prahas Pattem, Nabi Nabiyev, Karim Mammadli, Nick Norton
         </p>
+        
       </div>
     </div>
   );

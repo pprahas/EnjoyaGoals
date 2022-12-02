@@ -43,6 +43,22 @@ const roomSchema = mongoose.Schema(
       type: [{ type: mongoose.Schema.ObjectId, ref: "Post" }],
       required: false,
     },
+    voteKickMember: {
+      type: Map,
+      of: String,
+      required: false,
+    },
+
+    voteRemoveTaskFromCompleted: {
+      type: Map,
+      of: String,
+      required: false,
+    },
+    voteRemoveUserFromPending: {
+      type: Map,
+      of: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

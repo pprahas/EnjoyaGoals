@@ -15,7 +15,6 @@ const PendingInformation = (props) => {
   const submitTask = async (e) => {
     e.preventDefault();
     props.onClose;
-    //open a text box
     setShowText(true);
   };
 
@@ -45,7 +44,9 @@ const PendingInformation = (props) => {
               assigned={props.assigned}
               name={props.name}
               points={props.points}
-              id={props.id} />
+              id={props.id} 
+              createNotif={props.createNotif}
+              />
 
             <button
               type="button"

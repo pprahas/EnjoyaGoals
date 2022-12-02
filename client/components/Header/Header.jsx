@@ -107,6 +107,8 @@ function classNames(...classes) {
 function logOut() {
   //   const navigate = useNavigate();
   window.localStorage.removeItem("user_data");
+  window.localStorage.removeItem("other_user_data");
+
   // window.localStorage.removeItem("username");
   // window.localStorage.removeItem("email");
   // window.localStorage.removeItem("firstName");
@@ -151,6 +153,8 @@ function leaveRoom() {
       console.log(res2.data);
       window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
       window.localStorage.setItem("user_data", JSON.stringify(res2.data));
+      window.localStorage.setItem("other_user_data", JSON.stringify(res2.data));
+
     })
     .catch((err2) => {
       console.log(err2);
@@ -172,8 +176,7 @@ function leaveRoom() {
       */
 }
 
-
-export default function Header() {
+const Header = (props) => {
   const [calIsShown, setCalIsShown] = useState(false);
   const [message, setMessage] = useState("");
   const [number, setNumber] = useState("0");
@@ -243,6 +246,7 @@ export default function Header() {
   //Calendar backend request
   const submitCal = async (e) => {
     e.preventDefault();
+    //props.createNotif("warning", "Aaaa scary warning", "This is a test from header");
     setCalIsShown(true);
     setRoomId(window.localStorage.getItem("currentRoom"));
     console.log(roomId);
@@ -479,4 +483,6 @@ export default function Header() {
       </Transition>
     </Popover>
   );
-}
+};
+
+export default Header;
