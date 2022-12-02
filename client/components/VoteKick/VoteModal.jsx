@@ -44,6 +44,9 @@ const VoteModal = (props) => {
 
   const updateVotes = async (UID, action) => {
     let roomId = props.data;
+    const currentRoomID = window.localStorage.getItem("currentRoom");
+    const user_object = JSON.parse(window.localStorage.getItem("user_data"));
+    const userID = user_object._id;
     axios
       .post("http://localhost:8080/vote/kick/team_member", {
         roomId: roomId,
@@ -51,8 +54,48 @@ const VoteModal = (props) => {
         action: action,
       })
       .then((res) => {
-        console.log(res);
-        window.location.reload();
+        console.log(res.status);
+        if (res.status == 201) {
+          // remove User from Room Object's users[] array
+          axios
+            .post("http://localhost:8080/room/update", {
+              id: currentRoomID,
+              fieldName: "users",
+              remove: true,
+              value: UID,
+            })
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          // remove Room from User Object's rooms[] array
+          axios
+            .post("http://localhost:8080/user/updateOM", {
+              id: UID,
+              fieldName: "rooms",
+              remove: true,
+              value: currentRoomID,
+            })
+            .then((res2) => {
+              console.log(res2.data);
+              // window.localStorage.setItem(
+              //   "currentRoom",
+              //   res2.data.rooms[0]._id
+              // );
+              // window.localStorage.setItem(
+              //   "user_data",
+              //   JSON.stringify(res2.data)
+              // );
+            })
+            .catch((err2) => {
+              console.log(err2);
+            });
+          console.log("the user is gonna get kicked.");
+        }
+        // window.location.reload();
       })
       .catch((err) => {
         console.log("error", err);

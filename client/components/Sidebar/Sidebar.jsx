@@ -11,6 +11,8 @@ const Sidebar = (props) => {
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);
   window.localStorage.setItem("user_data", JSON.stringify(user_object));
+  // for profile jsx related stuff
+  window.localStorage.setItem("other_user_data", JSON.stringify(user_object));
   let userRooms = user_object.rooms;
   let eachRoom = [];
   for (let i = 0; i < userRooms.length; i++) {

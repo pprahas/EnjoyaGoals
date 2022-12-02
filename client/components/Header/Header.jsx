@@ -107,6 +107,8 @@ function classNames(...classes) {
 function logOut() {
   //   const navigate = useNavigate();
   window.localStorage.removeItem("user_data");
+  window.localStorage.removeItem("other_user_data");
+
   // window.localStorage.removeItem("username");
   // window.localStorage.removeItem("email");
   // window.localStorage.removeItem("firstName");
@@ -151,7 +153,8 @@ function leaveRoom() {
       console.log(res2.data);
       window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
       window.localStorage.setItem("user_data", JSON.stringify(res2.data));
-      
+      window.localStorage.setItem("other_user_data", JSON.stringify(res2.data));
+
     })
     .catch((err2) => {
       console.log(err2);

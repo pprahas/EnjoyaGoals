@@ -288,17 +288,12 @@ router.post("/get_profile_data", async (req, res) => {
   }
 });
 
-router.post("/get_uNames", async (req, res) => {
+router.post("/get", async (req, res) => {
   try {
-    let data = []
-    let UIDs = req.body.UIDs;
-    console.log(UIDs)
-    for(let i=0; i<UIDs.length; i++){
-      let UID = UIDs[i];
-      const user = await User.findById(UID);
-      data.push(user.username);
-    }
-    return res.status(200).json(data);
+    let name = req.body.name;
+    const user = await User.find({username: name});
+    console.log(user);
+    return res.status(200).json(user);    
   } catch (error) {
     return res.status(400).json(error);
   }
