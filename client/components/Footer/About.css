@@ -1,0 +1,12 @@
+.AboutCenter{
+  display: block;
+  /* centering doesnt work */
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+ 
+  }
+
+.textColor{
+    color: #2596be;
+  }
