@@ -52,7 +52,7 @@ const Sidebar = (props) => {
     <div className="fixed w-32 overflow-auto top-0 left-0 h-screen w-20 flex flex-col bg-gray-900 text-white ">
       <div>
         <div onClick={() => setShowCreateRoom(true)}>
-          <SideBarIcon icon={<BsPlus size="60" />} text="New Server" />
+          <SideBarIcon icon={<BsPlus size="60" />} text="New Room" />
         </div>
 
         <CreateRoom

@@ -21,7 +21,7 @@ const roomSchema = mongoose.Schema(
     },
     type: {
       type: String,
-      required: true,
+      required: false,
     },
     users: {
       type: [{ type: mongoose.Schema.ObjectId, ref: "User" }],

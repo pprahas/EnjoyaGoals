@@ -22,7 +22,7 @@ const CreateRoom = (props) => {
         // creatorId: user_id,
         name: roomName,
         owner: user_object,
-        type: roomType,
+        // type: roomType,
         users: users,
       })
       .then((res) => {
@@ -60,7 +60,7 @@ const CreateRoom = (props) => {
                 onChange={(e) => setRoomName(e.target.value)}
               />
 
-              <input
+              {/* <input
                 id="room_type"
                 name="room_type"
                 autoComplete="room_type"
@@ -69,7 +69,7 @@ const CreateRoom = (props) => {
                 list="type"
                 onChange={(e) => setRoomType(e.target.value)}
                 value={roomType}
-              />
+              /> */}
               <datalist id="type">
                 <option value="Democracy" />
                 <option value="Monarchy" />

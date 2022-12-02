@@ -28,7 +28,7 @@ router.post("/create", async (req, res) => {
         name: room.name, // required; String
         password: room.password, // optional; String
         owner: room.owner, // required; String
-        type: room.type, // required; String
+        // type: room.type, // required; String
         users: room.users, // required; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e7ed", "6341946d6dab0e743279e7eg"])
         todoTasks: room.todoTasks, // optional; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e32a", "6341946d6dab0e7432acd82e"])
         completedTasks: room.compeletedTasks, // optional; Array of ObjectIds as Strings (ex: ["6341946d6dab0e743279e32a", "6341946d6dab0e7432acd82e"])
