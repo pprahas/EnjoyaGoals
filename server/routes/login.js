@@ -2,11 +2,33 @@ const User = require("../models/UserModel");
 const convertID = require("../helpers/ConvertIDs");
 const bcrypt = require("bcrypt");
 const express = require("express");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const router = express.Router();
 
 router.use(express.json());
+router.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
+router.use(cookieParser());
+
+function generateToken(id, username) {
+  try {
+    const token = jwt.sign({
+      _id: id,
+      username,
+    },
+      `${process.env.JWT_PRIVATE_KEY}`,
+      { expiresIn: "15m" }
+    );
+
+    return token;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
 
 router.post("/", async (req, res) => {
   const user = req.body;
@@ -54,7 +76,12 @@ router.post("/", async (req, res) => {
           // res.send({ message: "User deets" });
           // res.send(prado);
           // res.status(200).send({ message: "Login Successful." });
-          res.status(200).send(userObj);
+          const token = generateToken(userObj._id, userObj.username);
+
+          res
+            .status(200)
+            .cookie("token", token, { httpOnly: true })
+            .send(userObj);
         } else {
           res
             .status(403)

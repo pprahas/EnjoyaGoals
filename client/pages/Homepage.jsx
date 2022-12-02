@@ -23,6 +23,8 @@ const Homepage = (props) => {
   const [teamList, setteamList] = useState(list);
   const [pendingList, setpendingList] = useState([]);
   const [completedList, setcompletedList] = useState([]);
+  
+  axios.defaults.withCredentials = true;
 
   let user_object = window.localStorage.getItem("user_data");
   user_object = JSON.parse(user_object);

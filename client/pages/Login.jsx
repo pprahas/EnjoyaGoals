@@ -18,6 +18,7 @@ export default function Login() {
       .post("http://localhost:8080/login", {
         email,
         password,
+        credentials: 'include',
       })
       .then((res) => {
         setMessage(res.data.message);
@@ -42,7 +43,7 @@ export default function Login() {
       })
       .catch((err) => {
         console.log(err);
-        setMessage(err.response.data.message);
+        setMessage(err);
       });
   };
 
