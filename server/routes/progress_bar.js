@@ -2,12 +2,13 @@ const Room = require("../models/RoomModel");
 const express = require("express");
 const Task = require("../models/TaskModel");
 require("dotenv").config();
+const cookieHandler = require("../helpers/CookieHandler");
 
 const router = express.Router();
 
 router.use(express.json());
 
-router.post("/", async (req, res) => {
+router.post("/", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const todoT = await Room.findById(req.body.id); /*.select(todoTasks);*/
     const doneT = await Room.findById(req.body.id); /*.select(

@@ -4,6 +4,7 @@ const Task = require("../models/TaskModel");
 const Room = require("../models/RoomModel");
 const mongoose = require("mongoose");
 const theValidator = require("../helpers/TeamMemberCheck");
+const cookieHandler = require("../helpers/CookieHandler");
 
 var multiparty = require("multiparty");
 const User = require("../models/UserModel");
@@ -15,7 +16,7 @@ router.use(express.json());
 // router.use(formidable());
 
 // route for creating a new task
-router.post("/create", async (req, res) => {
+router.post("/create", cookieHandler.checkCookie2, async (req, res) => {
   // this request MUST contain:
   // "creatorId":     the id of the user sending the request to create a new task
   // "name":		    the name of the new task
@@ -68,7 +69,7 @@ router.post("/create", async (req, res) => {
 });
 
 // route for deleting an existing task
-router.post("/delete", async (req, res) => {
+router.post("/delete", cookieHandler.checkCookie2, async (req, res) => {
   // this request should contain the `_id` of the task to be deleted
   const taskToDelete = req.body;
 
@@ -83,7 +84,7 @@ router.post("/delete", async (req, res) => {
 });
 
 // route for updating a field of an existing task
-router.post("/update", async (req, res) => {
+router.post("/update", cookieHandler.checkCookie2, async (req, res) => {
   // this request should contain:
   // "id":        the `_id` of the task,
   // "fieldName": the name of the field to be changed,
@@ -129,7 +130,7 @@ router.post("/update", async (req, res) => {
   }
 });
 
-router.post("/team_tasks", async (req, res) => {
+router.post("/team_tasks", cookieHandler.checkCookie2, async (req, res) => {
   const body = req.body;
   let completed_tasks = [];
 
@@ -150,7 +151,7 @@ router.post("/team_tasks", async (req, res) => {
   }
 });
 
-router.post("/task_count", async (req, res) => {
+router.post("/task_count", cookieHandler.checkCookie2, async (req, res) => {
   const body = req.body;
   let pending_tasks_count = 0;
   let completed_count = 0;
@@ -200,7 +201,7 @@ router.post("/task_count", async (req, res) => {
   }
 });
 
-router.post("/team_tasks/assign", async (req, res) => {
+router.post("/team_tasks/assign", cookieHandler.checkCookie2, async (req, res) => {
   const body = req.body;
   const room_id = body.room_id;
   const task_id = body.task_id;
@@ -245,7 +246,7 @@ router.post("/team_tasks/assign", async (req, res) => {
   }
 });
 
-router.post("/pending_tasks", async (req, res) => {
+router.post("/pending_tasks", cookieHandler.checkCookie2, async (req, res) => {
   const body = req.body;
   let pending_tasks = [];
 
@@ -269,7 +270,7 @@ router.post("/pending_tasks", async (req, res) => {
   }
 });
 
-router.post("/pending_tasks/upload_null", async (req, res) => {
+router.post("/pending_tasks/upload_null", cookieHandler.checkCookie2, async (req, res) => {
   try {
     let task_id = req.body.id;
     const task = await Task.findById(task_id);
@@ -280,7 +281,7 @@ router.post("/pending_tasks/upload_null", async (req, res) => {
   }
 });
 
-router.post("/pending_tasks/test_upload", async (req, res) => {
+router.post("/pending_tasks/test_upload", cookieHandler.checkCookie2, async (req, res) => {
   let task_id;
   let file;
   let fileName;
@@ -305,7 +306,7 @@ router.post("/pending_tasks/test_upload", async (req, res) => {
   }
 });
 
-router.post("/get_file", async (req, res) => {
+router.post("/get_file", cookieHandler.checkCookie2, async (req, res) => {
   try {
     let all_data = [];
     const body = req.body.id;
@@ -325,7 +326,7 @@ router.post("/get_file", async (req, res) => {
   }
 });
 
-router.post("/pending_tasks/upload", async (req, res) => {
+router.post("/pending_tasks/upload", cookieHandler.checkCookie2, async (req, res) => {
   let task_id;
   let file;
 
@@ -407,7 +408,7 @@ router.post("/pending_tasks/upload", async (req, res) => {
   }
 });
 
-router.post("/pending_tasks/submit", async (req, res) => {
+router.post("/pending_tasks/submit", cookieHandler.checkCookie2, async (req, res) => {
   const body = req.body;
   const room_id = body.room_id;
   const task_id = body.task_id;
@@ -476,7 +477,7 @@ router.post("/pending_tasks/submit", async (req, res) => {
   }
 });
 
-router.post("/completed_tasks", async (req, res) => {
+router.post("/completed_tasks", cookieHandler.checkCookie2, async (req, res) => {
   const body = req.body;
   let completed_tasks = [];
   try {
@@ -494,7 +495,7 @@ router.post("/completed_tasks", async (req, res) => {
   }
 });
 
-router.post("/completed_tasks_personal", async (req, res) => {
+router.post("/completed_tasks_personal", cookieHandler.checkCookie2, async (req, res) => {
   const body = req.body;
   let completed_tasks = [];
   let userID = req.body.UID;

@@ -1,12 +1,13 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const express = require("express");
+const cookieHandler = require("../helpers/CookieHandler");
 
 const router = express.Router();
 
 router.use(express.json());
 
-router.post("/", async (req, res) => {
+router.post("/", cookieHandler.checkCookie2, async (req, res) => {
   const data = req.body;
   try {
     const tokenString = data.token;

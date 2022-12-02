@@ -4,11 +4,12 @@ const Room = require("../models/RoomModel");
 const User = require("../models/UserModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const cookieHandler = require("../helpers/CookieHandler");
 
 router.use(express.json());
 
 // route for creating a new room
-router.post("/create", async (req, res) => {
+router.post("/create", cookieHandler.checkCookie2, async (req, res) => {
   // this request MUST contain:
   // "name":		the name of the new room
   // "owner":		the username of the owner of the new room (whoever requested to create the new room)
@@ -49,7 +50,7 @@ router.post("/create", async (req, res) => {
 });
 
 // route for deleting an existing room
-router.post("/delete", async (req, res) => {
+router.post("/delete", cookieHandler.checkCookie2, async (req, res) => {
   // this request should contain the `_id` of the room to be deleted
   try {
     await Room.findByIdAndDelete(req.body.id);
@@ -168,7 +169,7 @@ router.post("/update", async (req, res) => {
   }
 });
 
-router.post("/get", async (req, res) => {
+router.post("/get", cookieHandler.checkCookie2, async (req, res) => {
   const roomToGet = await Room.findById(req.body.id);
   try {
     res.send(roomToGet);

@@ -33,7 +33,7 @@ const checkCookie2 = (req, res, next) => {
 			req.user = {};
 			req.user.id = decoded.id;
 			req.user.username = decoded.username;
-			console.log("cookie verified successfully");
+			// console.log("cookie verified successfully");
 			next();
 		});
 	} else {
