@@ -154,7 +154,6 @@ function leaveRoom() {
       window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
       window.localStorage.setItem("user_data", JSON.stringify(res2.data));
       window.localStorage.setItem("other_user_data", JSON.stringify(res2.data));
-
     })
     .catch((err2) => {
       console.log(err2);
@@ -187,7 +186,7 @@ const Header = (props) => {
   const [roomId, setRoomId] = useState(
     window.localStorage.getItem("currentRoom")
   );
-  const [roomName, setRoomName] = useState("Room Name")
+  const [roomName, setRoomName] = useState("Room Name");
   const [completeCount, setCompleteCount] = useState(0);
   const [pendingTaskCount, setPendingCount] = useState(0);
   const [teamTaskCount, setTeamCount] = useState(0);
@@ -210,17 +209,18 @@ const Header = (props) => {
       .catch((err) => {
         console.log("error", err);
       });
-    axios.post("http://localhost:8080/task/task_count", {
-      id: roomId,
-      username: username,
-    }).then((res) => {
-      //may have to change to UID when username changes are implemented
-      setTeamCount(res.data[2]);
-      setPendingCount(res.data[0]);
-      setCompleteCount(res.data[1]);
-    })
-
-  }
+    axios
+      .post("http://localhost:8080/task/task_count", {
+        id: roomId,
+        username: username,
+      })
+      .then((res) => {
+        //may have to change to UID when username changes are implemented
+        setTeamCount(res.data[2]);
+        setPendingCount(res.data[0]);
+        setCompleteCount(res.data[1]);
+      });
+  };
 
   //Progressbar backend request
   const handleSubmit = async (e) => {
@@ -261,6 +261,8 @@ const Header = (props) => {
         console.log("error", err);
       });
   };
+
+  // useEffect(() => {}, []);
 
   const currDate = new Date().toLocaleDateString();
 
@@ -320,14 +322,14 @@ const Header = (props) => {
                 {roomName}
               </a>
               <div className="flex-row min-h-fit">
-                <button
+                {/* <button
                   type="button"
                   onClick={handleSubmit}
                   className="flex-row flex float-right ml-1 mb-1 rounded-md border border-gray-300 bg-white px-1  text-xs font-medium leading-4 text-gray-700 
                       shadow-sm hover:bg-gray-50 focus:outline-none"
                 >
                   Re
-                </button>
+                </button> */}
                 <Progressbar number={number} />
                 <h1>Tasks Left: {window.localStorage.getItem("numberComp")}</h1>
               </div>
@@ -377,12 +379,11 @@ const Header = (props) => {
               <button
                 type="button"
                 className="ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-
-                onClick={logOut}>
+                onClick={logOut}
+              >
                 Log Out
               </button>
             </a>
-            
           </div>
         </div>
       </div>
