@@ -15,10 +15,23 @@ const TaskModal = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (task_deadline == "") {
-      console.log("oof");
-      alert("Please select a deadline.");
-      return;
+    if (task_deadline == "" || task_name == "" || task_description == "" || isNaN(points)) {  
+      if (task_name == "") {
+        props.createNotif("warning", "Error!", "Please name the task.");
+        return;
+      }
+      if (task_description == "") {
+        props.createNotif("warning", "Error!", "Please write a description.");
+        return;
+      }
+      if (isNaN(points)) {
+        props.createNotif("warning", "Error!", "The input must be a number.");
+        return;
+      }
+      if (task_deadline == "") {
+        props.createNotif("warning", "Error!", "Please select a deadline.");
+        return;
+      }
     }
     const user_id = window.localStorage.getItem("userId");
     let user_object = window.localStorage.getItem("user_data");
@@ -41,11 +54,9 @@ const TaskModal = (props) => {
       .then((res) => {
         props.createNotif("success", "Success!", "Task created.");
         console.log("Posting data", res);
-        //alert("Task creation successful!");
-        // navigate("/login");
       })
       .catch((err) => {
-        props.createNotif("error", "Error!", "Task was not created.");
+        props.createNotif("warning", "Error!", "Task was not created.");
         console.log(err.response.data.msg);
       });
   };
@@ -71,7 +82,7 @@ const TaskModal = (props) => {
                 className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="Task Name"
                 onChange={(e) => settask_name(e.target.value)}
-                // value={task_name}
+              // value={task_name}
               />
               {/* <Input label="text" htmlFor="text" placeholder="Last Name" /> */}
               <input

@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import "./Posts.css";
 
 export default function Posts(props) {
-  const [postBody, setPostBody] = useState(" ");
-  const [title, setTitle] = useState(" ");
+  const [postBody, setPostBody] = useState("");
+  const [title, setTitle] = useState("");
   const [posts, setPosts] = useState([]);
 
   let user_object = window.localStorage.getItem("user_data");
@@ -24,11 +24,16 @@ export default function Posts(props) {
   };
 
   const submitPost = (e) => {
-    //console.log(UID);
-    //console.log(roomID);
-    //console.log(first);
-    //console.log(last);
-
+    title = title.trim();
+    postBody = postBody.trim();
+    if (title === "") {
+      props.createNotif("warning", "Error!", "Post title must be 1 or more characters long");
+      return;
+    }
+    if (postBody === "") {
+      props.createNotif("warning", "Error!", "Posts must be 1 or more characters long");
+      return;
+    }
     axios
       .post("http://localhost:8080/post/create/post", {
         firstName: first,
@@ -110,7 +115,7 @@ export default function Posts(props) {
                 name="about"
                 rows={1}
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Make a new post . . ."
+                placeholder="Title your post . . ."
                 onChange={titleHandler}
                 value={title}
               />
