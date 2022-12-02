@@ -38,6 +38,7 @@ const Pending = (props) => {
         difficulty={props.difficulty}
         assigned={props.assigned}
         id={props.id}
+        createNotif={props.createNotif}
       />
     </div>
   );

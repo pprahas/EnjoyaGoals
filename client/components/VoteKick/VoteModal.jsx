@@ -95,7 +95,7 @@ const VoteModal = (props) => {
             });
           console.log("the user is gonna get kicked.");
         }
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((err) => {
         console.log("error", err);

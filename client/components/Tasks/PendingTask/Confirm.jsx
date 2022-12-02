@@ -24,11 +24,11 @@ const Confirm = (props) => {
                 // console.log("its here", teamList);
                 if (res.data.msg === "put more words pls") {
                     console.log("Feedback should be 7 or more characters long.");
-                    alert("Feedback should be 7 or more characters long.");
+                    props.createNotif("warning", "Error!", "Feedback should be 7 or more characters long.")
                     return;
                 }
                 console.log("worked", res);
-                alert("Task submitted successfully!");
+                props.createNotif("success", "Success!", "Task submitted successfully.")
             })
             .catch((err) => {
                 // setMessage(err.response.data.message);

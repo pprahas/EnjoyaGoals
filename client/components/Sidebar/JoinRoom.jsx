@@ -24,9 +24,11 @@ const JoinRoom = (props) => {
 				value: user_object._id,
 			})
 			.then((res) => {
+        props.createNotif("success", "Success!", "Joined room.");
 				console.log("Posting data", res);
 			})
 			.catch((err) => {
+        props.createNotif("error", "Error!", "Room not joined.");
 				console.log(err.response.data.msg);
 			});
 		
@@ -38,10 +40,12 @@ const JoinRoom = (props) => {
         "value": roomId
       })
       .then((res2) => {
+        props.createNotif("success", "Success!", "Joined room.");
         window.localStorage.setItem("currentRoom", res2.data.rooms[0]._id);
         window.localStorage.setItem("user_data", JSON.stringify(res2.data));
       })
       .catch((err2) => {
+        props.createNotif("error", "Error!", "Room not joined.");
         console.log(err2);
       });
 	};

@@ -21,11 +21,13 @@ const MainPost = (props) => {
         postId: props.PID,
       })
       .then((res) => {
+        props.createNotif("success", "Success!", "Comment created.");
         console.log("testing", res);
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         // setMessage(err.response.data.message);
+        props.createNotif("error", "Error!", "Comment not created.");
         console.log("error", err);
       });
   };
@@ -42,7 +44,6 @@ const MainPost = (props) => {
       .then((res) => {
         let temp = [];
         for (let i = 0; i < res.data.length; i++) {
-          console.log(res.data[i]);
           let commentData = res.data[i];
           temp.push(
             <Comments
