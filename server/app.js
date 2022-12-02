@@ -7,6 +7,7 @@ require("dotenv").config();
 const User = require("./models/UserModel.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 // app
 const app = express();
@@ -24,6 +25,7 @@ mongoose
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
+app.use(cookieParser());
 express.urlencoded({ extended: true });
 
 // routes
