@@ -170,8 +170,8 @@ router.post("/getRoomUsers", cookieHandler.checkCookie2, async (req, res) => {
         a < ii;
         a++
       ) {
-        console.log("key : " + keys[a] + " val : " + user_points_map[keys[a]]);
-        console.log("kkey", keys[a]);
+        // console.log("key : " + keys[a] + " val : " + user_points_map[keys[a]]);
+        // console.log("kkey", keys[a]);
         array.push({
           name: keys[a],
           value: user_points_map[keys[a]],

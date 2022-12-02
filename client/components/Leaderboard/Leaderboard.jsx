@@ -10,42 +10,42 @@ const Sidebar = () => {
   let count = 0;
 
   const eachUser = users.map((d) => {
-    const username = Object.values(d)[0];
-    const points = Object.values(d)[1];
-
-    const level = Math.floor(points / 100) + 1;
-
-    const line = points + " " + username;
-
-    //console.log("username and level", username, level);
-    if (current_username === username) {
-      let data = [];
-      axios
-        .post("http://localhost:8080/user/get", {
-          name: username,
-        })
-        .then((res) => {
-          data.push(res.data[0]);
-        })
-        .catch((err) => {
-          console.log("error", err);
-        });
-      return <You name={line} rank={(count += 1)} data={data} />;
-    } else {
-      let data = [];
-      axios
-        .post("http://localhost:8080/user/get", {
-          name: username,
-        })
-        .then((res) => {
-          data.push(res.data[0]);
-        })
-        .catch((err) => {
-          console.log("error", err);
-        });
-      return <OtherMembers name={line} rank={(count += 1)} data={data} />;
-    }
-  });
+      const username = Object.values(d)[0];
+      const points = Object.values(d)[1];
+  
+      const level = Math.floor(points / 100) + 1;
+  
+      const line = points + " " + username;
+  
+      //console.log("username and level", username, level);
+      if (current_username === username) {
+        let data = [];
+        axios
+          .post("http://localhost:8080/user/get", {
+            name: username,
+          })
+          .then((res) => {
+            data.push(res.data[0]);
+          })
+          .catch((err) => {
+            console.log("error", err);
+          });
+        return <You name={line} rank={(count += 1)} data={data} />;
+      } else {
+        let data = [];
+        axios
+          .post("http://localhost:8080/user/get", {
+            name: username,
+          })
+          .then((res) => {
+            data.push(res.data[0]);
+          })
+          .catch((err) => {
+            console.log("error", err);
+          });
+        return <OtherMembers name={line} rank={(count += 1)} data={data} />;
+      }
+    });
 
   const refresh = async (e) => {
     window.location.reload();

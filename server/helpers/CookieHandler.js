@@ -25,7 +25,7 @@ const checkCookie2 = (req, res, next) => {
 	if (token) {
 		jwt.verify(token, process.env.JWT_PRIVATE_KEY, (err, decoded) => {
 			if (err) {
-				return res.json({
+				return res.status(401).json({
 					isLoggedIn: false,
 					message: "Access denied, authentication failed."
 				});
@@ -37,7 +37,7 @@ const checkCookie2 = (req, res, next) => {
 			next();
 		});
 	} else {
-		res.json({
+		res.status(401).json({
 			isLoggedIn: false,
 			message: "Access denied, you have no cookies."
 		})
