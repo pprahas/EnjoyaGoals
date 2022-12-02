@@ -7,10 +7,31 @@ const Notif = (props) => {
 	try {
 		const { notifList } = props;
 		const [list, setList] = useState(notifList);
+		const [autoDelIndex, setAutoDelIndex] = useState(0);
 
 		useEffect(() => {
 			setList(notifList);
 		}, [notifList, list]);
+
+		useEffect(() => {
+			const interval = setInterval(() => {
+				if (notifList.length && list.length && autoDeleteCheck(list[autoDelIndex])) {
+					deleteToast(list[autoDelIndex].id);
+				}
+			}, 10000);
+			return () => {
+				clearInterval(interval);
+			}
+		}, [notifList, list]);
+
+		const autoDeleteCheck = (notifToCheck) => {
+			if (notifToCheck.type === "info") {
+				return true;
+			}
+
+			setAutoDelIndex(autoDelIndex + 1);
+			return false;
+		}
 
 		const deleteToast = (id) => {
 			const listItemIndex = list.findIndex((e) => e.id === id);

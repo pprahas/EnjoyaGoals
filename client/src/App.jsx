@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Notif from "../components/Notifications/Notif";
 
 function App() {
+  // const [notifs, setNotifs] = useState([{type: "info", title: "Information", desc: "Doing this to test the createNotif function"}]);
   const [notifs, setNotifs] = useState([]);
   const loggedIn = window.localStorage.getItem("isLoggedIn");
   console.log(loggedIn, "login");

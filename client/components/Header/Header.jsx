@@ -246,6 +246,7 @@ const Header = (props) => {
   //Calendar backend request
   const submitCal = async (e) => {
     e.preventDefault();
+    //props.createNotif("warning", "Aaaa scary warning", "This is a test from header");
     setCalIsShown(true);
     setRoomId(window.localStorage.getItem("currentRoom"));
     console.log(roomId);

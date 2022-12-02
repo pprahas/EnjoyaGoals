@@ -38,6 +38,7 @@ const Homepage = (props) => {
   };
 
   const submitTeam = async (e) => {
+    // props.createNotif("info", "Information", "This is a test from homepage");
     setShowAll(true);
     let list_2 = [];
     e.preventDefault();
@@ -50,7 +51,6 @@ const Homepage = (props) => {
         // console.log("frontend sends:", res.data);
         list_2 = res.data;
         setteamList(list_2);
-        //console.log(`notifs = ${notifs}`);
         // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
         // console.log("its here", teamList);
       })
