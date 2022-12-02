@@ -45,7 +45,6 @@ const TextInput = (props) => {
     }
   };
 
-
   const submitTask = async (e) => {
     let user_object = window.localStorage.getItem("user_data");
     user_object = JSON.parse(user_object);
@@ -74,14 +73,14 @@ const TextInput = (props) => {
       */
       if (selectedFile != null) {
         axios
-        .post("http://localhost:8080/task/pending_tasks/test_upload", {
-          task_id: props.id,
-          fileData: selectedFile.fileData,
-          fileName: selectedFile.fileName,
-        })
-        .then((res) => {
-          console.log("testing", res);
-        });
+          .post("http://localhost:8080/task/pending_tasks/test_upload", {
+            task_id: props.id,
+            fileData: selectedFile.fileData,
+            fileName: selectedFile.fileName,
+          })
+          .then((res) => {
+            console.log("testing", res);
+          });
       }
       axios
         .post("http://localhost:8080/task/pending_tasks/submit", {
@@ -93,17 +92,26 @@ const TextInput = (props) => {
         .then((res) => {
           if (res.data.msg === "put more words pls") {
             console.log("Feedback should be 7 or more characters long.");
-            props.createNotif("warning", "Error!", "Feedback should be 7 or more characters long.")
+            props.createNotif(
+              "warning",
+              "Error!",
+              "Feedback should be 7 or more characters long."
+            );
             return;
           }
           console.log("worked", res);
-          props.createNotif("success", "Success!", "Task submitted successfully.")
+
+          console.log("trying to update the progress bar 2");
+          props.createNotif(
+            "success",
+            "Success!",
+            "Task submitted successfully."
+          );
         })
         .catch((err) => {
           // setMessage(err.response.data.message);
           console.log("error", err);
         });
-
     } else {
       //alert("You have not attached a file to the task.")
       setShow(true);
@@ -152,9 +160,7 @@ const TextInput = (props) => {
       <div className="modal" onClick={props.onClose}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-body">
-            <div className="ml-2 text-gray-500">
-              Feedback:
-            </div>
+            <div className="ml-2 text-gray-500">Feedback:</div>
             <textarea
               id="about"
               name="about"
@@ -166,11 +172,12 @@ const TextInput = (props) => {
             />
           </div>
 
-
-          <input type="file" name="file" onChange={fileHandler}
-          //File handler button
+          <input
+            type="file"
+            name="file"
+            onChange={fileHandler}
+            //File handler button
           />
-
 
           <div className="modal-footer">
             <button
@@ -190,8 +197,9 @@ const TextInput = (props) => {
               roomId={window.localStorage.getItem("currentRoom")}
               id={props.id}
               feedback={feedback}
-              completedBy={uid} 
-              createNotif={props.createNotif}/>
+              completedBy={uid}
+              createNotif={props.createNotif}
+            />
 
             <button
               className="button"
