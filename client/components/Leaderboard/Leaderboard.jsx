@@ -50,23 +50,31 @@ const Sidebar = () => {
   const refresh = async (e) => {
     window.location.reload();
   };
-  useEffect(() => {
-    const getUsers = async () => {
-      //e.preventDefault();
-      axios
-        .post("http://localhost:8080/user/getRoomUsers", {
-          id: roomId,
-        })
-        .then((res) => {
-          // console.log("userobjs", res);
-          setUsers(res.data);
-        })
-        .catch((err) => {
-          console.log("error", err);
-        });
-    };
 
-    getUsers();
+  const getUsers = async () => {
+    //e.preventDefault();
+    axios
+      .post("http://localhost:8080/user/getRoomUsers", {
+        id: roomId,
+      })
+      .then((res) => {
+        // console.log("userobjs", res);
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      getUsers();
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+    // getUsers();
     // }, [users]);
   });
 
