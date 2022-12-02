@@ -4,11 +4,12 @@ const User = require("../models/UserModel");
 const Room = require("../models/RoomModel");
 const convertID = require("../helpers/ConvertIDs");
 const Image = require("../models/ImageModel");
+const cookieHandler = require("../helpers/CookieHandler");
 
 router.use(express.json());
 
 // route for updating a field of an existing user
-router.post("/update", async (req, res) => {
+router.post("/update", cookieHandler.checkCookie2, async (req, res) => {
   // this request should contain:
   // "id":        the `_id` of the user,
   // "fieldName": the name of the field to be changed,
@@ -59,7 +60,7 @@ router.post("/update", async (req, res) => {
 });
 
 // route for updating a field of an existing user *THAT DIRECTLY RETURNS USER OBJECT RATHER THAN A MESSAGE
-router.post("/updateOM", async (req, res) => {
+router.post("/updateOM", cookieHandler.checkCookie2, async (req, res) => {
   // this request should contain:
   // "id":        the `_id` of the user,
   // "fieldName": the name of the field to be changed,
@@ -126,7 +127,7 @@ router.post("/updateOM", async (req, res) => {
   }
 });
 
-router.post("/getRoomUsers", async (req, res) => {
+router.post("/getRoomUsers", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const roomToGet = await Room.findById(req.body.id);
     let userNames = [];
@@ -202,7 +203,7 @@ router.post("/getRoomUsers", async (req, res) => {
 });
 
 
-router.post("/pic_upload", async (req, res) => {
+router.post("/pic_upload", cookieHandler.checkCookie2, async (req, res) => {
   let user_id;
   let file;
   let fileName;
@@ -233,7 +234,7 @@ router.post("/pic_upload", async (req, res) => {
     return res.status(400).json(error);
   }
 });
-router.post("/set_color", async (req, res) => {
+router.post("/set_color", cookieHandler.checkCookie2, async (req, res) => {
   let user_id;
   let color;
   try {
@@ -250,7 +251,7 @@ router.post("/set_color", async (req, res) => {
   }
 });
 
-router.post("/get_profile_data", async (req, res) => {
+router.post("/get_profile_data", cookieHandler.checkCookie2, async (req, res) => {
   try {
 
     let all_data = []
@@ -288,7 +289,7 @@ router.post("/get_profile_data", async (req, res) => {
   }
 });
 
-router.post("/get", async (req, res) => {
+router.post("/get", cookieHandler.checkCookie2, async (req, res) => {
   try {
     let name = req.body.name;
     const user = await User.find({username: name});

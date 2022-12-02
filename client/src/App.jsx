@@ -12,6 +12,9 @@ import ResetPassword from "../pages/ResetPassword";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Notif from "../components/Notifications/Notif";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   // const [notifs, setNotifs] = useState([{type: "info", title: "Information", desc: "Doing this to test the createNotif function"}]);

@@ -4,11 +4,12 @@ const Room = require("../models/RoomModel");
 const User = require("../models/UserModel");
 const Task = require("../models/TaskModel");
 const bcrypt = require("bcrypt");
+const cookieHandler = require("../helpers/CookieHandler");
 
 const mongoose = require("mongoose");
 
 //setting about me
-router.post("/create/about_me", async (req, res) => {
+router.post("/create/about_me", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const data = req.body;
 
@@ -28,7 +29,7 @@ router.post("/create/about_me", async (req, res) => {
 });
 
 //getting about me
-router.post("/get/about_me", async (req, res) => {
+router.post("/get/about_me", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const data = req.body;
 
@@ -54,7 +55,7 @@ router.post("/get/about_me", async (req, res) => {
 });
 
 //change password after user is logged in
-router.post("/change_password", async (req, res) => {
+router.post("/change_password", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const { userId, newPassword } = req.body;
 
@@ -70,7 +71,7 @@ router.post("/change_password", async (req, res) => {
 });
 
 
-router.post("/first_name", async (req, res) => {
+router.post("/first_name", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const data = req.body;
 
@@ -90,7 +91,7 @@ router.post("/first_name", async (req, res) => {
   }
 });
 
-router.post("/last_name", async (req, res) => {
+router.post("/last_name", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const data = req.body;
 
@@ -110,7 +111,7 @@ router.post("/last_name", async (req, res) => {
   }
 });
 
-router.post("/username", async (req, res) => {
+router.post("/username", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const data = req.body;
 

@@ -5,11 +5,12 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Post = require("../models/PostModel");
 const Comment = require("../models/CommentModel");
+const cookieHandler = require("../helpers/CookieHandler");
 
 router.use(express.json());
 
 //creating a post
-router.post("/create/post", async (req, res) => {
+router.post("/create/post", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const { firstName, lastName, title, content, roomId, userId } = req.body;
 
@@ -46,7 +47,7 @@ router.post("/create/post", async (req, res) => {
 });
 
 //getting posts for a particular room
-router.post("/get/post", async (req, res) => {
+router.post("/get/post", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const { roomId } = req.body;
 
@@ -67,7 +68,7 @@ router.post("/get/post", async (req, res) => {
 });
 
 //creating a comment
-router.post("/create/comment", async (req, res) => {
+router.post("/create/comment", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const { firstName, lastName, content, postId } = req.body;
 
@@ -104,7 +105,7 @@ router.post("/create/comment", async (req, res) => {
 });
 
 //getting comments for a particular post of a particular room
-router.post("/get/comment", async (req, res) => {
+router.post("/get/comment", cookieHandler.checkCookie2, async (req, res) => {
   try {
     const { postId } = req.body;
 
