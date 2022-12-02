@@ -13,6 +13,11 @@ const MainPost = (props) => {
   };
 
   const submitComment = (e) => {
+    commentContent = commentContent.trim();
+    if (commentContent === "") {
+      props.createNotif("warning", "Error!", "Comments must be 1 or more characters long");
+      return;
+    }
     axios
       .post("http://localhost:8080/post/create/comment", {
         firstName: user_object.firstName,
@@ -37,6 +42,7 @@ const MainPost = (props) => {
   }, []);
 
   const getComments = async () => {
+
     axios
       .post("http://localhost:8080/post/get/comment", {
         postId: props.PID,
