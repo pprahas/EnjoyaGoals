@@ -16,7 +16,7 @@ const UnacceptedInformation = (props) => {
     props.onClose;
 
     const roomId = window.localStorage.getItem("currentRoom");
-
+ 
     axios
       .post("http://localhost:8080/task/team_tasks/assign", {
         room_id: roomId,
@@ -24,11 +24,7 @@ const UnacceptedInformation = (props) => {
         assignedUser: username,
       })
       .then((res) => {
-        // console.log("printing task data", res.data[0]);
-        // console.log("frontend sends:", res.data);
-        // window.localStorage.setItem("team_tasks", JSON.stringify(list_2));
-        // console.log("its here", teamList);
-        alert("Task added to Pending!");
+        props.createNotif("success", "Success!", "Task added to Pending.")
         console.log("worked", res);
       })
       .catch((err) => {
@@ -65,7 +61,7 @@ const UnacceptedInformation = (props) => {
               Back
             </button>
           </div>
-          <div className="info overflow-y-auto">
+          <div className="bg-white info overflow-y-auto">
             <p>Description: {props.desc} </p>
             <p>Difficulty: {props.difficulty}</p>
             <p>Deadline: {props.date}</p>

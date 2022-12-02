@@ -5,7 +5,7 @@ import { FaFire } from "react-icons/fa";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const [showCreateRoom, setShowCreateRoom] = useState(false);
   const [showJoinRoom, setShowJoinRoom] = useState(false);
   let user_object = window.localStorage.getItem("user_data");
@@ -14,7 +14,7 @@ const Sidebar = () => {
   // for profile jsx related stuff
   window.localStorage.setItem("other_user_data", JSON.stringify(user_object));
   let userRooms = user_object.rooms;
-  let eachRoom=[];
+  let eachRoom = [];
   for (let i = 0; i < userRooms.length; i++) {
     let room = userRooms[i];
     const posts = room.posts;
@@ -31,7 +31,7 @@ const Sidebar = () => {
         <SideBarIcon icon={<FaFire size="60" />} text={roomName} />
       </button>
     );
-  };
+  }
   /*
   const eachRoom = userRooms.map((d) => {
     const roomName = Object.values(d)[1];
@@ -58,6 +58,7 @@ const Sidebar = () => {
         <CreateRoom
           onClose={() => setShowCreateRoom(false)}
           show={showCreateRoom}
+          createNotif={props.createNotif}
         ></CreateRoom>
       </div>
 
@@ -69,6 +70,7 @@ const Sidebar = () => {
         <JoinRoom
           onClose={() => setShowJoinRoom(false)}
           show={showJoinRoom}
+          createNotif={props.createNotif}
         ></JoinRoom>
       </div>
 

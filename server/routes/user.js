@@ -207,7 +207,7 @@ router.post("/pic_upload", async (req, res) => {
   let file;
   let fileName;
   try {
-    console.log(req.body);
+    //console.log(req.body);
     user_id = req.body.user_id;
     fileName = req.body.fileName;
     file = req.body.fileData;

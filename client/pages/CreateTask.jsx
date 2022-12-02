@@ -17,17 +17,6 @@ export default function Homepage() {
     const user_object = window.localStorage.getItem("user_data");
     const user_id = user_object._id;
     const completed = false;
-
-    // console.log(
-    //   user_id,
-    //   task_name,
-    //   task_description,
-    //   task_difficulty,
-    //   task_deadline,
-    //   points,
-    //   completed,
-    //   assigned_user
-    // );
     axios
       .post("http://localhost:8080/task/create", {
         creatorId: user_id,
@@ -41,11 +30,8 @@ export default function Homepage() {
       })
       .then((res) => {
         console.log("Posting data", res);
-        // navigate("/login");
       })
       .catch((err) => {
-        // console.log(err);
-        // setMessage(err.response.data.msg);
         console.log(err.response.data.msg);
       });
   };
@@ -54,11 +40,6 @@ export default function Homepage() {
     <div className="content-center">
       <Header />
       <h1 className="text-center text-8xl text-red-400	">Create Task</h1>;
-      {/* <h1 className="text-center text-8xl text-red-400	">Homepage</h1>; */}
-      {/* <a href="/forgot_password" className="content-center text-8xl bg-red-400">
-        Create Task
-      </a> */}
-      {/* <button className="text-center text-8xl text-red-400	">Homepage</button>; */}
       <Sidebar />
       <Leaderboard />
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

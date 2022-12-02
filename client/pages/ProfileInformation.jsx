@@ -18,7 +18,7 @@ import Modal from "../components/Modal";
 import axios from "axios";
 import { unstable_HistoryRouter } from "react-router-dom";
 
-export default function Example() {
+export default function Example(props) {
   let user_object = window.localStorage.getItem("user_data");
   let roomId = window.localStorage.getItem("currentRoom");
   user_object = JSON.parse(user_object);
@@ -41,6 +41,8 @@ export default function Example() {
 
   var buttonHandle = () => {
     window.localStorage.setItem("Color", inputValue);
+    props.createNotif("info", "Profile color was changed.", "Don't forget to save your changes!");
+
   };
 
   const [show, setShow] = useState(false);
@@ -58,6 +60,8 @@ export default function Example() {
 
         //change this to mongodb later
         window.localStorage.setItem("ProfilePic", e.target.result);
+        props.createNotif("info", "Profile picture was changed.", "Don't forget to save your changes!");
+
       };
       reader.readAsDataURL(file);
     }
@@ -71,6 +75,8 @@ export default function Example() {
         //change this to mongodb later
         window.localStorage.setItem("banner", reader2.result);
         setBanner(window.localStorage.getItem("banner"));
+        props.createNotif("info", "Profile banner was changed.", "Don't forget to save your changes!");
+
       };
       reader2.readAsDataURL(file);
     }
@@ -85,8 +91,7 @@ export default function Example() {
     let pfp = window.localStorage.getItem("ProfilePic");
     let banner = window.localStorage.getItem("banner");
     let color = window.localStorage.getItem("Color");
-
-    if(pfp !== null){
+    if (pfp !== null) {
       let name = "pfp";
       axios
         .post("http://localhost:8080/user/pic_upload", {
@@ -95,15 +100,16 @@ export default function Example() {
           fileName: name,
         })
         .then((res) => {
-          console.log("testing", res);
+          //props.createNotif("success", "Success!", "Something went wrong.");
+
+          //console.log("testing", res);
         })
         .catch((err) => {
-          // setMessage(err.response.data.message);
+          props.createNotif("warning", "Error!", "Profile Picture changed successfully.");
           console.log("error", err);
         });
-
     }
-    if(banner !== null){
+    if (banner !== null) {
       let name = "banner";
       axios
         .post("http://localhost:8080/user/pic_upload", {
@@ -112,29 +118,32 @@ export default function Example() {
           fileName: name,
         })
         .then((res) => {
-          console.log("testing", res);
+          //props.createNotif("success", "Success!", "Banner changed successfully.");
+          //console.log("testing", res);
         })
         .catch((err) => {
-          // setMessage(err.response.data.message);
+          props.createNotif("warning", "Error!", "Something went wrong.");
           console.log("error", err);
         });
     }
-    if(color !== null){
+    if (color !== null) {
       axios
         .post("http://localhost:8080/user/set_color", {
           user_id: UID,
           color: color,
         })
         .then((res) => {
-          console.log("testing", res);
+          //props.createNotif("success", "Success!", "Color changed successfully.");
         })
         .catch((err) => {
-          // setMessage(err.response.data.message);
           console.log("error", err);
+          props.createNotif("warning", "Error!", "Something went wrong.");
         });
     }
-    alert("Profile updated!");
-  }
+    props.createNotif("success", "Success!", "Profile changed successfully.");
+//    alert("Profile updated!");
+
+  };
 
   const [aboutMe, setAboutMe] = useState("");
   const submitAboutMe = async (e) => {
@@ -148,10 +157,10 @@ export default function Example() {
         aboutMe,
       })
       .then((res) => {
-        alert("About Me information has been changed.");
+        props.createNotif("success", "Success!", "About Me has been changed.");
       })
       .catch((err) => {
-        alert("About Me information has not been changed.");
+        props.createNotif("warning", "Error!", "About Me has not been changed.");
       });
   };
 
@@ -182,10 +191,20 @@ export default function Example() {
         firstName,
       })
       .then((res) => {
-        alert("First name has been changed.");
+        // alert("First name has been changed.");
+        props.createNotif(
+          "success",
+          "Success!",
+          "First name has been changed."
+        );
       })
       .catch((err) => {
-        alert("First name has not been changed.");
+        props.createNotif(
+          "warning",
+          "Error!",
+          "First name was not changed."
+        );
+        // alert("First name has not been changed.");
       });
   };
 
@@ -200,10 +219,10 @@ export default function Example() {
         lastName,
       })
       .then((res) => {
-        alert("Last name has been changed.");
+        props.createNotif("success", "Success!", "Last name has been changed.");
       })
       .catch((err) => {
-        alert("Last name has not been changed.");
+        alert("Last name was not been changed.");
       });
   };
 
@@ -218,10 +237,10 @@ export default function Example() {
         newPassword,
       })
       .then((res) => {
-        alert("Password has been changed.");
+        props.createNotif("success", "Success!", "Password has been changed.");
       })
       .catch((err) => {
-        alert("Password has not been changed.");
+        props.createNotif("warning", "Error!", "Password was not been changed.");
       });
   };
   return (
@@ -252,7 +271,7 @@ export default function Example() {
                         >
                           First name
                         </label>
-                        <button onClick={submitFirstName}>Change</button>
+                        <button className="ml-2 text-sm border border-gray-300 rounded-md px-1 hover:bg-gray-50  text-gray-600" onClick={submitFirstName}>Change</button>
                       </div>
 
                       <input
@@ -275,7 +294,7 @@ export default function Example() {
                         >
                           Last name
                         </label>
-                        <button onClick={submitLastName}>Change</button>
+                        <button className="ml-2 text-sm border border-gray-300 rounded-md px-1 hover:bg-gray-50  text-gray-600" onClick={submitLastName}>Change</button>
                       </div>
 
                       <input
@@ -302,14 +321,14 @@ export default function Example() {
                         {/* <button onClick={submitUsername}>Change</button> */}
                       </div>
 
-                      <input
-                        type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder={user_object.username}
-                      />
+                      <div
+                        //type="text"
+                        //name="email-address"
+                        //id="email-address"
+                        //autoComplete="email"
+                        className="mt-1 p-2 text-gray-900 block w-full rounded-md border-gray-300 border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                       // placeholder={user_object.username}
+                      >{user_object.username}</div>
                     </div>
                     <div className="col-span-3 sm:col-span-2">
                       <div className="flex">
@@ -321,14 +340,14 @@ export default function Example() {
                         </label>
                       </div>
 
-                      <input
-                        type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder={user_object.email}
-                      />
+                      <div
+                        //type="text"
+                        //name="email-address"
+                        //id="email-address"
+                        //autoComplete="email"
+                        className="mt-1 p-2 text-gray-900 block w-full rounded-md border-gray-300 border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                       // placeholder={user_object.username}
+                      >{user_object.email}</div>
                     </div>
                     <div className="col-span-3 sm:col-span-2">
                       <div className="flex">
@@ -339,7 +358,7 @@ export default function Example() {
                         >
                           Password
                         </label>
-                        <button onClick={submitNewPassword}>Change</button>
+                        <button className="ml-2 text-sm border border-gray-300 rounded-md px-1 hover:bg-gray-50  text-gray-600" onClick={submitNewPassword}>Change</button>
                       </div>
 
                       <input
@@ -363,7 +382,7 @@ export default function Example() {
                       >
                         About Me
                       </label>
-                      <button onClick={submitAboutMe}>Change</button>
+                      <button className="ml-2 text-sm border border-gray-300 rounded-md px-1 hover:bg-gray-50  text-gray-600" onClick={submitAboutMe}>Change</button>
                     </div>
 
                     <div className="mt-1">
@@ -433,37 +452,15 @@ export default function Example() {
                     />
                   </div>
 
-                  {/** 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Photo
-                    </label>
-                    <div className="mt-1 flex items-center">
-                      <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-                        <svg
-                          className="h-full w-full text-gray-300"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                      </span>
-                      <button
-                        type="button"
-                        className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      >
-                        Change
-                      </button>
-                    </div>
-                  </div>
-                  */}
-                  <div >
                     <label className="block text-sm font-medium text-gray-700">
                       Banner
                     </label>
-                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6" 
-                    //set bg
-                    style = {{backgroundImage: "url('" + banner + "')"}}>
+                    <div
+                      className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
+                      //set bg
+                      style={{ backgroundImage: "url('" + banner + "')" }}
+                    >
                       <div className="space-y-1 text-center">
                         <svg
                           className="mx-auto h-12 w-12 text-gray-400"
