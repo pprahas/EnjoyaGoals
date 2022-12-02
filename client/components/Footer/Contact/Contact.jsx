@@ -30,9 +30,9 @@ const Contact = () => {
           <br></br>
           Ryan Chang: <a href="https://github.com/nayr-gnahc"><u>Github</u></a>
           <br></br>
-          Nabi Nabiyev: <a href="https://github.com/mikewazovski"><u>Github</u></a> <a href="https://www.linkedin.com/in/nabi-nabiyev-0b0b0b0b0"><u>LinkedIn</u></a>
+          Nabi Nabiyev: <a href="https://github.com/mikewazovski"><u>Github</u></a> <a href="https://www.linkedin.com/in/nabi-nabiyev-646736132"><u>LinkedIn</u></a>
           <br></br>
-          Nick Norton: <a href="https://github.com/NickNort"><u>Github</u></a> <a href="https://www.linkedin.com/in/nick-norton-0b0b0b0b0"><u>LinkedIn</u></a>
+          Nick Norton: <a href="https://github.com/NickNort"><u>Github</u></a> <a href="https://www.linkedin.com/in/nicknort/"><u>LinkedIn</u></a>
           <br></br>
 
         </p>
