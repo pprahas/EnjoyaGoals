@@ -20,7 +20,7 @@ function generateToken(id, username) {
       username,
     },
       `${process.env.JWT_PRIVATE_KEY}`,
-      { expiresIn: "15m" }
+      { expiresIn: "45m" }
     );
 
     return token;
