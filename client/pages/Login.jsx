@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login(props) {
   const navigate = useNavigate();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -18,14 +18,17 @@ export default function Login() {
       .post("http://localhost:8080/login", {
         email,
         password,
-        credentials: 'include',
+        credentials: "include",
       })
       .then((res) => {
-        setMessage(res.data.message);
+        // setMessage(res.data.message);
         //        console.log(res.data);
         window.localStorage.setItem("user_data", JSON.stringify(res.data));
         // using this for profile page rendering
-        window.localStorage.setItem("other_user_data", JSON.stringify(res.data));
+        window.localStorage.setItem(
+          "other_user_data",
+          JSON.stringify(res.data)
+        );
         let user_object = window.localStorage.getItem("user_data");
         user_object = JSON.parse(user_object);
         //        console.log("My name is " + user_object.firstName);
@@ -43,7 +46,8 @@ export default function Login() {
       })
       .catch((err) => {
         console.log(err);
-        setMessage(err);
+        props.createNotif("warning", "Error!", "Wrong password.");
+        // setMessage(err);
       });
   };
 
