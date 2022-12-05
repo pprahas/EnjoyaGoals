@@ -27,7 +27,7 @@ const CreateRoom = (props) => {
         users: users,
       })
       .then((res) => {
-        props.createNotif("success", "Success!", "Room created.");
+        props.createNotif("success", "Success!", `Room created. Room code is ${res.data.id}`);
         console.log("Posting data", res);
       })
       .catch((err) => {

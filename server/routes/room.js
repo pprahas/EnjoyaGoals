@@ -23,9 +23,10 @@ router.post("/create", cookieHandler.checkCookie2, async (req, res) => {
       room.password = await bcrypt.hash(req.body.password, 10);
     }
 
+    const roomID = new mongoose.Types.ObjectId();
     const dbRoom = new Room(
       {
-        _id: new mongoose.Types.ObjectId(), // not part of request
+        _id: roomID, // not part of request
         name: room.name, // required; String
         password: room.password, // optional; String
         owner: room.owner, // required; String
@@ -42,7 +43,7 @@ router.post("/create", cookieHandler.checkCookie2, async (req, res) => {
 
     await dbRoom.save();
 
-    return res.status(200).json({ msg: "Room created successfully." });
+    return res.status(200).json({ msg: "Room created successfully.", id: roomID });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Room creation failed." });
