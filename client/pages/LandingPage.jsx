@@ -148,7 +148,7 @@ export default function LandingPage() {
               backgroundPosition: "50%",
               backgroundImage:
                 'url("https://mdbcdn.b-cdn.net/img/new/slides/146.webp")',
-              height: 500,
+              height: 700,
             }}
           >
             <div
