@@ -201,50 +201,54 @@ router.post("/task_count", cookieHandler.checkCookie2, async (req, res) => {
   }
 });
 
-router.post("/team_tasks/assign", cookieHandler.checkCookie2, async (req, res) => {
-  const body = req.body;
-  const room_id = body.room_id;
-  const task_id = body.task_id;
-  
-  try {
-    const task = await Task.findById(task_id);
-    const room = await Room.findById(room_id);
-    const assignedUser = body.assignedUser;
+router.post(
+  "/team_tasks/assign",
+  cookieHandler.checkCookie2,
+  async (req, res) => {
+    const body = req.body;
+    const room_id = body.room_id;
+    const task_id = body.task_id;
 
-    // let remove_id = [task_id];
-    // rooms.updateOne(
-    //   { _id: room_id },
-    //   {
-    //     $pull: {
-    //       teamTasks: {
-    //         _id: { $in: remove_id },
-    //       },
-    //     },
-    //   }
-    // );
-    // room.updateOne({
-    //   $pull: {
-    //     teamTasks: {
-    //       _id: { $in: remove_id },
-    //     },
-    //   },
-    // });
+    try {
+      const task = await Task.findById(task_id);
+      const room = await Room.findById(room_id);
+      const assignedUser = body.assignedUser;
 
-    task.status = "pending";
-    task.assignedUser = assignedUser;
+      // let remove_id = [task_id];
+      // rooms.updateOne(
+      //   { _id: room_id },
+      //   {
+      //     $pull: {
+      //       teamTasks: {
+      //         _id: { $in: remove_id },
+      //       },
+      //     },
+      //   }
+      // );
+      // room.updateOne({
+      //   $pull: {
+      //     teamTasks: {
+      //       _id: { $in: remove_id },
+      //     },
+      //   },
+      // });
 
-    room.voteRemoveUserFromPending.set(task_id, task.name + "!@#$" + "0");
-    // await room.save();
-    await task.save();
-    room.assignedTasks.push(task);
-    await room.save();
+      task.status = "pending";
+      task.assignedUser = assignedUser;
 
-    return res.status(200).json({ msg: "worked" });
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);
+      room.voteRemoveUserFromPending.set(task_id, task.name + "!@#$" + "0");
+      // await room.save();
+      await task.save();
+      room.assignedTasks.push(task);
+      await room.save();
+
+      return res.status(200).json({ msg: "worked" });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json(error);
+    }
   }
-});
+);
 
 router.post("/pending_tasks", cookieHandler.checkCookie2, async (req, res) => {
   const body = req.body;
@@ -270,41 +274,49 @@ router.post("/pending_tasks", cookieHandler.checkCookie2, async (req, res) => {
   }
 });
 
-router.post("/pending_tasks/upload_null", cookieHandler.checkCookie2, async (req, res) => {
-  try {
-    let task_id = req.body.id;
-    const task = await Task.findById(task_id);
-    task.file = null;
-    await task.save();
-  } catch (error) {
-    return res.status(400).json(error);
+router.post(
+  "/pending_tasks/upload_null",
+  cookieHandler.checkCookie2,
+  async (req, res) => {
+    try {
+      let task_id = req.body.id;
+      const task = await Task.findById(task_id);
+      task.file = null;
+      await task.save();
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   }
-});
+);
 
-router.post("/pending_tasks/test_upload", cookieHandler.checkCookie2, async (req, res) => {
-  let task_id;
-  let file;
-  let fileName;
-  try {
-    task_id = req.body.task_id;
-    fileName = req.body.fileName;
-    file = req.body.fileData;
-    let binData = new Buffer(file.split(",")[1], "base64");
-    let filetype = file.split(",")[0] + ",";
-    let img = new Buffer(binData, "base64");
-    let res = await Image.create({
-      name: fileName,
-      image: img,
-      filetype: filetype,
-      task_id: task_id,
-    });
-    const task = await Task.findById(task_id);
-    task.file = res._id;
-    await task.save();
-  } catch (error) {
-    return res.status(400).json(error);
+router.post(
+  "/pending_tasks/test_upload",
+  cookieHandler.checkCookie2,
+  async (req, res) => {
+    let task_id;
+    let file;
+    let fileName;
+    try {
+      task_id = req.body.task_id;
+      fileName = req.body.fileName;
+      file = req.body.fileData;
+      let binData = new Buffer(file.split(",")[1], "base64");
+      let filetype = file.split(",")[0] + ",";
+      let img = new Buffer(binData, "base64");
+      let res = await Image.create({
+        name: fileName,
+        image: img,
+        filetype: filetype,
+        task_id: task_id,
+      });
+      const task = await Task.findById(task_id);
+      task.file = res._id;
+      await task.save();
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   }
-});
+);
 
 router.post("/get_file", cookieHandler.checkCookie2, async (req, res) => {
   try {
@@ -326,197 +338,215 @@ router.post("/get_file", cookieHandler.checkCookie2, async (req, res) => {
   }
 });
 
-router.post("/pending_tasks/upload", cookieHandler.checkCookie2, async (req, res) => {
-  let task_id;
-  let file;
+router.post(
+  "/pending_tasks/upload",
+  cookieHandler.checkCookie2,
+  async (req, res) => {
+    let task_id;
+    let file;
 
-  let form = new multiparty.Form();
-  var promise = new Promise(function (resolve, reject) {
-    let all_data = [];
-    form.parse(req, function (err, fields, field) {
-      task_id = fields.task_id[0];
-      file = field["file"][0];
+    let form = new multiparty.Form();
+    var promise = new Promise(function (resolve, reject) {
+      let all_data = [];
+      form.parse(req, function (err, fields, field) {
+        task_id = fields.task_id[0];
+        file = field["file"][0];
 
-      console.log("task id is", task_id);
-      console.log("file is", file);
-      all_data.push(task_id);
-      all_data.push(file);
-      resolve(all_data);
+        console.log("task id is", task_id);
+        console.log("file is", file);
+        all_data.push(task_id);
+        all_data.push(file);
+        resolve(all_data);
+      });
     });
-  });
-  let final_task_id;
-  let final_file;
-  promise.then(async function (data) {
-    console.log("all data is", data);
-    final_task_id = data[0];
-    final_file = data[1];
+    let final_task_id;
+    let final_file;
+    promise.then(async function (data) {
+      console.log("all data is", data);
+      final_task_id = data[0];
+      final_file = data[1];
+      console.log("final task id is", final_task_id);
+      console.log("final file is", JSON.stringify(final_file));
+
+      const task = await Task.findById(task_id);
+      task.file = JSON.stringify(final_file);
+      // task.file = final_file;
+      await task.save();
+      console.log("task is", task);
+    });
+
     console.log("final task id is", final_task_id);
-    console.log("final file is", JSON.stringify(final_file));
-
-    const task = await Task.findById(task_id);
-    task.file = JSON.stringify(final_file);
-    // task.file = final_file;
-    await task.save();
-    console.log("task is", task);
-  });
-
-  console.log("final task id is", final_task_id);
-  // this is probs all you need to do
-  // task.file = file;
-  // await task.save();
-
-  //
-  // task.filename = file;
-
-  // await task.save();
-  // res.status(200).json({ msg: "worked" });
-
-  // var data = JSON.parse(req.data);
-  // var body = data.data;
-
-  // const body = req.body;
-  // const room_id = body.room_id;
-  // const task_id = body.task_id;
-  // const file = body.file;
-  // const task_id = body.task_id;
-  try {
-    // const task = await Task.findById(task_id);
-    // console.log("file is", data);
+    // this is probs all you need to do
     // task.file = file;
-    // console.log(file);
-    // var fs = require("fs");
-    // fs.readFile(file, "utf8", (err, data) => {
-    //   if (err) {
-    //     console.error(err);
-    //   }
-    // });
+    // await task.save();
 
-    // var fs = require("fs");
-    // fs.readFile(file, "utf8", (err, data) => {
-    //   if (err) {
-    //     console.log(err);
-    //   }
-    //   console.log(data);
-    // });
-    // task.insert({ file: data });
+    //
+    // task.filename = file;
 
     // await task.save();
-    return res.status(200).json({ msg: "worked" });
-    // return res.status(200).json(data);
-  } catch (error) {
-    return res.status(400).json(error);
+    // res.status(200).json({ msg: "worked" });
+
+    // var data = JSON.parse(req.data);
+    // var body = data.data;
+
+    // const body = req.body;
+    // const room_id = body.room_id;
+    // const task_id = body.task_id;
+    // const file = body.file;
+    // const task_id = body.task_id;
+    try {
+      // const task = await Task.findById(task_id);
+      // console.log("file is", data);
+      // task.file = file;
+      // console.log(file);
+      // var fs = require("fs");
+      // fs.readFile(file, "utf8", (err, data) => {
+      //   if (err) {
+      //     console.error(err);
+      //   }
+      // });
+
+      // var fs = require("fs");
+      // fs.readFile(file, "utf8", (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //   }
+      //   console.log(data);
+      // });
+      // task.insert({ file: data });
+
+      // await task.save();
+      return res.status(200).json({ msg: "worked" });
+      // return res.status(200).json(data);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   }
-});
+);
 
-router.post("/pending_tasks/submit", cookieHandler.checkCookie2, async (req, res) => {
-  const body = req.body;
-  const room_id = body.room_id;
-  const task_id = body.task_id;
+router.post(
+  "/pending_tasks/submit",
+  cookieHandler.checkCookie2,
+  async (req, res) => {
+    const body = req.body;
+    const room_id = body.room_id;
+    const task_id = body.task_id;
 
-  const completed_by = body.completedBy;
+    const completed_by = body.completedBy;
 
-  const feedback = body.feedback;
+    const feedback = body.feedback;
 
-  try {
-    const task = await Task.findById(task_id);
-    const room = await Room.findById(room_id);
-    const user = await User.findById(completed_by);
+    try {
+      const task = await Task.findById(task_id);
+      const room = await Room.findById(room_id);
+      const user = await User.findById(completed_by);
 
-    if (feedback.length < 8) {
-      return res.status(200).json({ msg: "put more words pls" });
+      if (feedback.length < 8) {
+        return res.status(200).json({ msg: "put more words pls" });
+      }
+
+      task.status = "complete";
+      task.feedback = feedback;
+
+      let ts = Date.now();
+
+      let date_ob = new Date(ts);
+      let date = date_ob.getDate();
+      let month = date_ob.getMonth() + 1;
+      let year = date_ob.getFullYear();
+
+      let now_time = year + "-" + month + "-" + date;
+
+      const today = new Date();
+
+      if (task.deadline < today) {
+        task.status = "missed";
+      }
+
+      task.completedTime = now_time;
+
+      task.completedBy = completed_by;
+
+      await task.save();
+      // room.updateOne({ _id: room_id }, { $pull: { assignedTasks: task_id } });
+
+      room.assignedTasks.pull(task_id);
+      room.completedTasks.push(task);
+
+      room.voteRemoveTaskFromCompleted.set(task_id, task.name + "!@#$" + "0");
+
+      room.voteRemoveUserFromPending.delete(task_id);
+
+      // give points to User
+      // user = User
+      // task = Task
+      // room = Room
+      var points = task.points;
+      if (user.pointsEarned.has(room._id.toString())) {
+        points += user.pointsEarned.get(room._id.toString());
+      }
+      user.pointsEarned.set(room._id.toString(), points);
+
+      await user.save();
+
+      // const findRes = await Task.pendfindByIdAndDelete(taskToDelete.id);
+      await room.save();
+      return res.status(200).json({ msg: "worked" });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json(error);
     }
-
-    task.status = "complete";
-    task.feedback = feedback;
-
-    let ts = Date.now();
-
-    let date_ob = new Date(ts);
-    let date = date_ob.getDate();
-    let month = date_ob.getMonth() + 1;
-    let year = date_ob.getFullYear();
-
-    let now_time = year + "-" + month + "-" + date;
-
-    const today = new Date();
-
-    if (task.deadline < today) {
-      task.status = "missed";
-    }
-
-    task.completedTime = now_time;
-
-    task.completedBy = completed_by;
-
-    await task.save();
-    // room.updateOne({ _id: room_id }, { $pull: { assignedTasks: task_id } });
-
-    room.assignedTasks.pull(task_id);
-    room.completedTasks.push(task);
-
-    room.voteRemoveTaskFromCompleted.set(task_id, task.name + "!@#$" + "0");
-
-    // give points to User
-    // user = User
-    // task = Task
-    // room = Room
-    var points = task.points;
-    if (user.pointsEarned.has(room._id.toString())) {
-      points += user.pointsEarned.get(room._id.toString());
-    }
-    user.pointsEarned.set(room._id.toString(), points);
-
-    await user.save();
-
-    // const findRes = await Task.pendfindByIdAndDelete(taskToDelete.id);
-    await room.save();
-    return res.status(200).json({ msg: "worked" });
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);
   }
-});
+);
 
-router.post("/completed_tasks", cookieHandler.checkCookie2, async (req, res) => {
-  const body = req.body;
-  let completed_tasks = [];
-  try {
-    const room_id = body.id;
-    const room = await Room.findById(room_id);
-    let completed_tasks_id = room.completedTasks;
-    for (let i = 0; i < completed_tasks_id.length; i++) {
-      const task = await Task.findById(completed_tasks_id[i]);
-      completed_tasks.push(task);
-    }
-    return res.status(200).json(completed_tasks);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);
-  }
-});
-
-router.post("/completed_tasks_personal", cookieHandler.checkCookie2, async (req, res) => {
-  const body = req.body;
-  let completed_tasks = [];
-  let userID = req.body.UID;
-  try {
-    const room_id = body.id;
-    const room = await Room.findById(room_id);
-    let completed_tasks_id = room.completedTasks;
-
-    for (let i = 0; i < completed_tasks_id.length; i++) {
-      const task = await Task.findById(completed_tasks_id[i]);
-      //console.log(task.completedBy)
-      if (task.completedBy === userID) {
+router.post(
+  "/completed_tasks",
+  cookieHandler.checkCookie2,
+  async (req, res) => {
+    const body = req.body;
+    let completed_tasks = [];
+    try {
+      const room_id = body.id;
+      const room = await Room.findById(room_id);
+      let completed_tasks_id = room.completedTasks;
+      for (let i = 0; i < completed_tasks_id.length; i++) {
+        const task = await Task.findById(completed_tasks_id[i]);
         completed_tasks.push(task);
       }
+      return res.status(200).json(completed_tasks);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json(error);
     }
-
-    return res.status(200).json(completed_tasks);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);
   }
-});
+);
+
+router.post(
+  "/completed_tasks_personal",
+  cookieHandler.checkCookie2,
+  async (req, res) => {
+    const body = req.body;
+    let completed_tasks = [];
+    let userID = req.body.UID;
+    try {
+      const room_id = body.id;
+      const room = await Room.findById(room_id);
+      let completed_tasks_id = room.completedTasks;
+
+      for (let i = 0; i < completed_tasks_id.length; i++) {
+        const task = await Task.findById(completed_tasks_id[i]);
+        //console.log(task.completedBy)
+        if (task.completedBy === userID) {
+          completed_tasks.push(task);
+        }
+      }
+
+      return res.status(200).json(completed_tasks);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json(error);
+    }
+  }
+);
 
 module.exports = router;
