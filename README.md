@@ -5,9 +5,13 @@ EnjoyaGoals is a full-stack web application that uniquely merges goal achievemen
 # Key Features
 
 - Dynamic Goals and Challenges: EnjoyaGoals provides a range of gamified challenges for users, supporting both individual and team goals. This fosters a sense of camaraderie and accomplishment, making goal pursuit engaging and collective.
+  
 - Interactive Progress Tracking: The platform provides an intuitive way to track personal and team progress, enabling users to visualize their journey and stay motivated.
+  
 - Collaborative Workspace: EnjoyaGoals provides a collaborative space where users can brainstorm, plan, and work together to achieve objectives.
+  
 - Enhanced Motivation and Recognition: EnjoyaGoals amplifies motivation through personalized rewards, showcases achievements in user profiles, and offers leaderboards and competitions, fostering engagement and recognition.
+  
 - Notification System: Stay informed about completed challenges, progress updates, and team activities through the platform's notification system.
 
 # Technologies and Deployment Stack
