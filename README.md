@@ -16,4 +16,4 @@ EnjoyaGoals is built with React, Node, and Express for the frontend and backend.
 
 # Scrum Documents
 
-https://drive.google.com/drive/folders/1OPSHUq3--X4MZ6anIYAXtQvp590UgvaJ
+For those interested in diving deeper into the development process and project management of EnjoyaGoals, you can access our Scrum documents in the [`scrum_documents`](/scrum_documents/) folder of this repository.
