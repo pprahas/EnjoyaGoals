@@ -2,6 +2,8 @@
 
 EnjoyaGoals is a full-stack web application that uniquely merges goal achievement and gamified collaboration. Users engage in dynamic challenges, fostering motivation and accomplishment individually and within teams. This innovative blend of social interaction and task engagement enhances both personal and collective achievements.
 
+![image](https://raw.githubusercontent.com/pprahas/EnjoyaGoals/main/screenshot.png)
+
 # Key Features
 
 - Dynamic Goals and Challenges: EnjoyaGoals provides a range of gamified challenges for users, supporting both individual and team goals. This fosters a sense of camaraderie and accomplishment, making goal pursuit engaging and collective.
