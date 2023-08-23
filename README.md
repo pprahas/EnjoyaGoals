@@ -27,7 +27,7 @@ EnjoyaGoals is a full-stack web application that uniquely merges goal achievemen
 - MongoDB manages data storage.
   
 - Azure provides cloud infrastructure support.
-- 
+
 # Scrum Documents
 
 For those interested in diving deeper into the development process and project management of EnjoyaGoals, you can access our Scrum documents in the [`scrum_documents`](/scrum_documents/) folder of this repository.
