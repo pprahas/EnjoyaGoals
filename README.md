@@ -18,8 +18,16 @@ EnjoyaGoals is a full-stack web application that uniquely merges goal achievemen
 
 # Technologies and Deployment Stack
 
-EnjoyaGoals is built with React, Node, and Express for the frontend and backend. Redux manages state for a seamless user experience. Docker and Kubernetes handle deployment, ensuring efficiency and scalability. MongoDB manages data storage, while Azure provides cloud infrastructure support.
-
+- Built with React, Node, and Express for frontend and backend.
+  
+- State management handled by Redux for a seamless user experience.
+  
+- Docker and Kubernetes manage deployment for efficiency and scalability.
+  
+- MongoDB manages data storage.
+  
+- Azure provides cloud infrastructure support.
+- 
 # Scrum Documents
 
 For those interested in diving deeper into the development process and project management of EnjoyaGoals, you can access our Scrum documents in the [`scrum_documents`](/scrum_documents/) folder of this repository.
