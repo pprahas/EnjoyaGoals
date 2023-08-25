@@ -10,8 +10,8 @@ EnjoyaGoals is a full-stack web application that uniquely merges goal achievemen
   
 - Interactive Progress Tracking: The platform provides an intuitive way to track personal and team progress, enabling users to visualize their journey and stay motivated.
   
-- Collaborative Workspace: EnjoyaGoals provides a collaborative space where users can brainstorm, plan, and work together to achieve objectives.
-  
+- Voting System Feature: EnjoyaGoals provides a dedicated voting system feature that empowers users to propose ideas, prioritize options, and collectively make decisions within the collaborative workspace
+
 - Enhanced Motivation and Recognition: EnjoyaGoals amplifies motivation through personalized rewards, showcases achievements in user profiles, and offers leaderboards and competitions, fostering engagement and recognition.
   
 - Notification System: Stay informed about completed challenges, progress updates, and team activities through the platform's notification system.
